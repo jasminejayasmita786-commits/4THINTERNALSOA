@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAD2 — Complete Study System</title>
+<style>
+  :root {
+    --bg: #fafaf8; --bg2: #f1efea; --bg3: #e8e5de;
+    --text: #1a1a18; --text2: #4a4a46; --text3: #72726c;
+    --blue: #185fa5; --blue-bg: #e6f1fb; --blue-border: #b5d4f4;
+    --green: #3b6d11; --green-bg: #eaf3de; --green-border: #c0dd97;
+    --amber: #854f0b; --amber-bg: #faeeda; --amber-border: #fac775;
+    --red: #a32d2d; --red-bg: #fcebeb; --red-border: #f7c1c1;
+    --purple: #534ab7; --purple-bg: #eeedfe; --purple-border: #afa9ec;
+    --teal: #0f6e56; --teal-bg: #e1f5ee; --teal-border: #9fe1cb;
+    --coral: #993c1d; --coral-bg: #faece7; --coral-border: #f5c4b3;
+    --border: #d3d1c7;
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg); color: var(--text); font-size: 15px;
+    line-height: 1.7; padding: 0;
+  }
+  .cover {
+    background: linear-gradient(135deg, #185fa5 0%, #0f6e56 100%);
+    color: #fff; padding: 48px 32px; text-align: center;
+  }
+  .cover h1 { font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+  .cover p { font-size: 14px; opacity: 0.85; }
+  .toc { background: var(--bg2); padding: 24px 32px; border-bottom: 1px solid var(--border); }
+  .toc h2 { font-size: 14px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
+  .toc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+  .toc a {
+    display: block; padding: 8px 12px; background: #fff;
+    border: 1px solid var(--border); border-radius: 8px;
+    font-size: 13px; text-decoration: none; color: var(--blue);
+    font-weight: 500; transition: background 0.15s;
+  }
+  .toc a:hover { background: var(--blue-bg); }
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+  .topic-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 20px 24px; border-radius: var(--radius);
+    margin-bottom: 24px; margin-top: 40px;
+  }
+  .topic-header .num {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 700; flex-shrink: 0;
+  }
+  .topic-header h2 { font-size: 20px; font-weight: 600; }
+  .topic-header p { font-size: 13px; margin-top: 2px; opacity: 0.85; }
+  .t-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
+  .t-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+  .t-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); }
+  .t-teal { background: var(--teal-bg); color: var(--teal); border: 1px solid var(--teal-border); }
+  .section { margin-bottom: 28px; }
+  .section-label {
+    font-size: 12px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; margin-bottom: 10px; display: flex;
+    align-items: center; gap: 6px;
+  }
+  .section-label .icon { font-size: 15px; }
+  .card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px 20px;
+    margin-bottom: 12px;
+  }
+  .card h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .card p, .card li { font-size: 14px; color: var(--text2); line-height: 1.7; }
+  .card ul, .card ol { padding-left: 20px; }
+  .card li { margin-bottom: 4px; }
+  .highlight { background: var(--amber-bg); border-left: 3px solid var(--amber-border); padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 10px 0; font-size: 14px; }
+  .highlight strong { color: var(--amber); }
+  .tip { background: var(--blue-bg); border-left: 3px solid var(--blue-border); padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 10px 0; font-size: 14px; }
+  .tip strong { color: var(--blue); }
+  .warn { background: var(--red-bg); border-left: 3px solid var(--red-border); padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 10px 0; font-size: 14px; }
+  .warn strong { color: var(--red); }
+  code, .code { font-family: 'Courier New', monospace; font-size: 13px; background: var(--bg2); padding: 2px 6px; border-radius: 4px; }
+  pre { background: #1a1a18; color: #e8e5de; padding: 16px 18px; border-radius: var(--radius); font-size: 13px; overflow-x: auto; margin: 10px 0; line-height: 1.6; }
+  pre .c { color: #72726c; } pre .kw { color: #9fe1cb; } pre .str { color: #fac775; } pre .num { color: #f09595; } pre .cm { color: #888780; font-style: italic; }
+  .formula-box {
+    background: var(--purple-bg); border: 1px solid var(--purple-border);
+    border-radius: var(--radius); padding: 16px 20px; margin: 10px 0;
+  }
+  .formula-box .f-title { font-size: 13px; font-weight: 600; color: var(--purple); margin-bottom: 8px; }
+  .formula-box .f-line { font-family: 'Courier New', monospace; font-size: 14px; color: var(--text); margin: 4px 0; }
+  .formula-box .f-note { font-size: 12px; color: var(--text3); margin-top: 6px; }
+  .table-wrap { overflow-x: auto; margin: 10px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--bg2); padding: 10px 12px; text-align: left; font-weight: 600; border: 1px solid var(--border); }
+  td { padding: 9px 12px; border: 1px solid var(--border); color: var(--text2); }
+  tr:nth-child(even) td { background: var(--bg); }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; margin: 2px; }
+  .tag-blue { background: var(--blue-bg); color: var(--blue); }
+  .tag-green { background: var(--green-bg); color: var(--green); }
+  .tag-amber { background: var(--amber-bg); color: var(--amber); }
+  .tag-red { background: var(--red-bg); color: var(--red); }
+  .tag-purple { background: var(--purple-bg); color: var(--purple); }
+  .steps { counter-reset: step; }
+  .steps .step {
+    position: relative; padding-left: 36px; margin-bottom: 14px;
+  }
+  .steps .step::before {
+    counter-increment: step; content: counter(step);
+    position: absolute; left: 0; top: 2px;
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--blue); color: #fff;
+    font-size: 12px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .steps .step p { font-size: 14px; color: var(--text2); }
+  .steps .step strong { color: var(--text); font-size: 14px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .qs-box { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+  .qs-box h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .qs-box p { font-size: 13px; color: var(--text2); }
+  .quick-rev {
+    background: #1a1a18; color: #e8e5de; border-radius: var(--radius);
+    padding: 20px 22px; margin: 10px 0; font-size: 13px; line-height: 1.8;
+  }
+  .quick-rev .rv { color: #9fe1cb; font-weight: 600; }
+  .quick-rev .rv2 { color: #fac775; }
+  .youtube-card {
+    background: var(--red-bg); border: 1px solid var(--red-border);
+    border-radius: var(--radius); padding: 14px 18px; margin: 8px 0;
+  }
+  .youtube-card .yt-title { font-size: 14px; font-weight: 600; color: var(--red); margin-bottom: 4px; }
+  .youtube-card .yt-why { font-size: 13px; color: var(--text2); }
+  .practice-level {
+    border-radius: var(--radius); padding: 14px 18px; margin: 8px 0;
+  }
+  .pl-basic { background: var(--green-bg); border: 1px solid var(--green-border); }
+  .pl-medium { background: var(--amber-bg); border: 1px solid var(--amber-border); }
+  .pl-hard { background: var(--red-bg); border: 1px solid var(--red-border); }
+  .pl-title { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .pl-basic .pl-title { color: var(--green); }
+  .pl-medium .pl-title { color: var(--amber); }
+  .pl-hard .pl-title { color: var(--red); }
+  .pl-list { font-size: 13px; color: var(--text2); padding-left: 18px; }
+  .pl-list li { margin-bottom: 3px; }
+  .divider { height: 1px; background: var(--border); margin: 32px 0; }
+  .solved-ex { background: var(--teal-bg); border: 1px solid var(--teal-border); border-radius: var(--radius); padding: 16px 18px; margin: 10px 0; }
+  .solved-ex h4 { font-size: 14px; font-weight: 600; color: var(--teal); margin-bottom: 8px; }
+  .solved-ex p, .solved-ex li { font-size: 13px; color: var(--text2); line-height: 1.7; }
+  .solved-ex ol { padding-left: 20px; }
+  @media (max-width: 600px) { .grid2 { grid-template-columns: 1fr; } .container { padding: 20px 14px; } }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>Algorithm Analysis and Design — 2</h1>
+  <p>CSE 2632 · B.Tech 4th Semester · ITER, SOA University · Complete Study System</p>
+  <p style="margin-top:8px;font-size:13px;">Topics: Binary Trees · Java Collections · Hashing · Network Flow</p>
+</div>
+
+<div class="toc">
+  <h2>Quick Navigation</h2>
+  <div class="toc-grid">
+    <a href="#topic1">🌳 Binary Trees &amp; Traversal</a>
+    <a href="#topic2">☕ Java Collections</a>
+    <a href="#topic3">🗂 Hashing</a>
+    <a href="#topic4">🌊 Network Flow / Max Flow</a>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ==================== TOPIC 1: BINARY TREES ==================== -->
+<div id="topic1">
+  <div class="topic-header t-blue">
+    <div class="num" style="background:var(--blue);color:#fff;">1</div>
+    <div>
+      <h2>Binary Trees &amp; Tree Traversal</h2>
+      <p>Experiment 01 — Representing a tree in memory and performing traversals</p>
+    </div>
+  </div>
+
+  <!-- BEGINNER -->
+  <div class="section">
+    <div class="section-label" style="color:var(--blue)"><span class="icon">🧠</span> Beginner Explanation (Zero → Clear Basics)</div>
+    <div class="card">
+      <h3>What is a Tree?</h3>
+      <p>Imagine a family tree. You have one grandparent at the top (root), they have children, and each child can have more children. That's exactly a tree in computer science — a hierarchical structure where each element (node) has zero or more children.</p>
+      <div class="tip"><strong>Key intuition:</strong> A tree is like a company org chart. The CEO is the root. Managers are internal nodes. Employees with no reports are leaf nodes.</div>
+    </div>
+    <div class="card">
+      <h3>What is a Binary Tree?</h3>
+      <p>A tree where every node has <strong>at most 2 children</strong> — called left child and right child. Binary = base 2 = max 2 branches per node.</p>
+      <p style="margin-top:8px;">For array T = [1,2,3,4,5,6,7,8,9,10], the binary tree is built level by level:</p>
+      <div class="highlight">
+        <strong>Rule:</strong> For element at index <code>i</code>:<br>
+        Left child → index <code>2i</code> &nbsp;&nbsp;|&nbsp;&nbsp; Right child → index <code>2i+1</code> &nbsp;&nbsp;|&nbsp;&nbsp; Parent → index <code>i/2</code>
+      </div>
+      <pre>T = [_, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  (1-indexed)
+
+               1
+             /   \
+           2       3
+          / \     / \
+         4   5   6   7
+        /\  /
+       8  9 10
+
+Root=1, Left(1)=2, Right(1)=3
+Left(2)=4, Right(2)=5, Left(3)=6, Right(3)=7 ...</pre>
+      <div class="warn"><strong>Common mistake:</strong> The assignment diagram shows root=6 — this is because the array is 0-indexed and the middle element (index 5 → value 6) is chosen as root. Build the tree carefully based on the exact indexing rule your professor uses.</div>
+    </div>
+    <div class="card">
+      <h3>Node Structure in Memory (Java)</h3>
+      <pre><span class="kw">class</span> Node {
+    <span class="kw">int</span> data;
+    Node left, right;
+    Node(<span class="kw">int</span> data) {
+        <span class="kw">this</span>.data = data;
+        left = right = <span class="kw">null</span>;
+    }
+}</pre>
+      <p>Each node stores: <strong>data value</strong> + <strong>reference to left child</strong> + <strong>reference to right child</strong>.</p>
+    </div>
+  </div>
+
+  <!-- CONCEPT BUILDING -->
+  <div class="section">
+    <div class="section-label" style="color:var(--blue)"><span class="icon">📚</span> Concept Building — The 3 Traversals</div>
+    <div class="card">
+      <h3>Memory trick for all 3 traversals</h3>
+      <p>All traversals visit Left subtree before Right subtree. The only difference is <em>when</em> you visit the current (parent) node:</p>
+      <div class="table-wrap"><table>
+        <tr><th>Traversal</th><th>Order</th><th>Memory Trick</th><th>Output on given tree</th></tr>
+        <tr><td><strong>Pre-Order</strong></td><td>Root → Left → Right</td><td>Root is <em>pre</em>(first)</td><td>1,2,4,8,9,5,10,3,6,7</td></tr>
+        <tr><td><strong>In-Order</strong></td><td>Left → Root → Right</td><td>Root is <em>in</em> the middle</td><td>8,4,9,2,10,5,1,6,3,7</td></tr>
+        <tr><td><strong>Post-Order</strong></td><td>Left → Right → Root</td><td>Root is <em>post</em>(last)</td><td>8,9,4,10,5,2,6,7,3,1</td></tr>
+      </table></div>
+      <div class="tip"><strong>Pro tip:</strong> In-order traversal of a BST always gives sorted output!</div>
+    </div>
+    <div class="card">
+      <h3>Complete Java Implementation</h3>
+      <pre><span class="kw">class</span> BinaryTree {
+    Node root;
+
+    <span class="cm">// Build tree from array (1-indexed)</span>
+    <span class="kw">void</span> insert(<span class="kw">int</span>[] arr) {
+        Node[] nodes = <span class="kw">new</span> Node[arr.length + <span class="num">1</span>];
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i &lt;= arr.length; i++)
+            nodes[i] = <span class="kw">new</span> Node(arr[i-<span class="num">1</span>]);
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i * <span class="num">2</span> &lt;= arr.length; i++) {
+            nodes[i].left  = nodes[i * <span class="num">2</span>];
+            <span class="kw">if</span> (i * <span class="num">2</span> + <span class="num">1</span> &lt;= arr.length)
+                nodes[i].right = nodes[i * <span class="num">2</span> + <span class="num">1</span>];
+        }
+        root = nodes[<span class="num">1</span>];
+    }
+
+    <span class="cm">// Pre-Order: Root → Left → Right</span>
+    <span class="kw">void</span> preOrder(Node node) {
+        <span class="kw">if</span> (node == <span class="kw">null</span>) <span class="kw">return</span>;
+        System.out.print(node.data + <span class="str">" "</span>);
+        preOrder(node.left);
+        preOrder(node.right);
+    }
+
+    <span class="cm">// In-Order: Left → Root → Right</span>
+    <span class="kw">void</span> inOrder(Node node) {
+        <span class="kw">if</span> (node == <span class="kw">null</span>) <span class="kw">return</span>;
+        inOrder(node.left);
+        System.out.print(node.data + <span class="str">" "</span>);
+        inOrder(node.right);
+    }
+
+    <span class="cm">// Post-Order: Left → Right → Root</span>
+    <span class="kw">void</span> postOrder(Node node) {
+        <span class="kw">if</span> (node == <span class="kw">null</span>) <span class="kw">return</span>;
+        postOrder(node.left);
+        postOrder(node.right);
+        System.out.print(node.data + <span class="str">" "</span>);
+    }
+
+    <span class="cm">// Nth element in Pre-Order</span>
+    <span class="kw">int</span> count = <span class="num">0</span>;
+    <span class="kw">int</span> nthPreOrder(Node node, <span class="kw">int</span> n) {
+        <span class="kw">if</span> (node == <span class="kw">null</span>) <span class="kw">return</span> -<span class="num">1</span>;
+        count++;
+        <span class="kw">if</span> (count == n) <span class="kw">return</span> node.data;
+        <span class="kw">int</span> left = nthPreOrder(node.left, n);
+        <span class="kw">if</span> (left != -<span class="num">1</span>) <span class="kw">return</span> left;
+        <span class="kw">return</span> nthPreOrder(node.right, n);
+    }
+}</pre>
+    </div>
+  </div>
+
+  <!-- EXAM NOTES -->
+  <div class="section">
+    <div class="section-label" style="color:var(--blue)"><span class="icon">🎯</span> Exam-Oriented Notes</div>
+    <div class="card">
+      <h3>Key Definitions</h3>
+      <ul>
+        <li><strong>Root:</strong> Topmost node with no parent</li>
+        <li><strong>Leaf node:</strong> Node with no children</li>
+        <li><strong>Height of tree:</strong> Number of edges on longest path from root to leaf</li>
+        <li><strong>Depth of node:</strong> Number of edges from root to that node</li>
+        <li><strong>Complete Binary Tree:</strong> All levels filled except possibly last, filled left to right</li>
+        <li><strong>Full Binary Tree:</strong> Every node has 0 or 2 children</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Quick Traversal Reference for T=[1,2,3,4,5,6,7,8,9,10]</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Traversal</th><th>Output Sequence</th></tr>
+        <tr><td>Pre-Order</td><td><code>1 2 4 8 9 5 10 3 6 7</code></td></tr>
+        <tr><td>In-Order</td><td><code>8 4 9 2 10 5 1 6 3 7</code></td></tr>
+        <tr><td>Post-Order</td><td><code>8 9 4 10 5 2 6 7 3 1</code></td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- FORMULAS -->
+  <div class="section">
+    <div class="section-label" style="color:var(--blue)"><span class="icon">📌</span> Formula Sheet</div>
+    <div class="formula-box">
+      <div class="f-title">Tree Index Formulas (1-indexed array)</div>
+      <div class="f-line">Left child of node i  = 2i</div>
+      <div class="f-line">Right child of node i = 2i + 1</div>
+      <div class="f-line">Parent of node i      = floor(i / 2)</div>
+      <div class="f-line">Max nodes at level L  = 2^L  (root is level 0)</div>
+      <div class="f-line">Max total nodes (h levels) = 2^(h+1) - 1</div>
+      <div class="f-note">Time complexity of all traversals = O(n) | Space = O(h) where h = height</div>
+    </div>
+  </div>
+
+  <!-- PRACTICE -->
+  <div class="section">
+    <div class="section-label" style="color:var(--blue)"><span class="icon">📝</span> Practice Strategy</div>
+    <div class="practice-level pl-basic">
+      <div class="pl-title">Basic (5 problems)</div>
+      <ul class="pl-list">
+        <li>Draw binary tree for given array</li>
+        <li>Write pre/in/post-order for small trees (5–7 nodes)</li>
+        <li>Count nodes and leaves given tree structure</li>
+      </ul>
+    </div>
+    <div class="practice-level pl-medium">
+      <div class="pl-title">Medium (5 problems)</div>
+      <ul class="pl-list">
+        <li>Find Nth element in each traversal order</li>
+        <li>Reconstruct tree from pre-order + in-order sequences</li>
+        <li>Height and depth calculations</li>
+      </ul>
+    </div>
+    <div class="practice-level pl-hard">
+      <div class="pl-title">Exam-level (3 problems)</div>
+      <ul class="pl-list">
+        <li>Given traversal outputs, identify tree structure</li>
+        <li>Iterative traversal using explicit stack</li>
+        <li>Level-order (BFS) traversal using Queue</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SOLVED EXAMPLE -->
+  <div class="section">
+    <div class="section-label" style="color:var(--blue)"><span class="icon">❗</span> Solved Example</div>
+    <div class="solved-ex">
+      <h4>Q: Find 5th element in Pre-Order traversal of T=[1,2,3,4,5,6,7,8,9,10]</h4>
+      <ol>
+        <li>Build tree: Root=1, Left=2, Right=3, ...</li>
+        <li>Pre-Order visits: 1(1st), 2(2nd), 4(3rd), 8(4th), <strong>9(5th)</strong></li>
+        <li>Answer: The 5th element in Pre-Order is <strong>9</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- QUICK REVISION -->
+  <div class="section">
+    <div class="section-label" style="color:var(--blue)"><span class="icon">⚡</span> Quick Revision Sheet</div>
+    <div class="quick-rev">
+      <span class="rv">Binary Tree</span> = each node ≤ 2 children (left, right)<br>
+      <span class="rv">Pre-Order</span>  = Root → Left → Right &nbsp;|&nbsp; <span class="rv2">Root FIRST</span><br>
+      <span class="rv">In-Order</span>   = Left → Root → Right &nbsp;|&nbsp; <span class="rv2">Root MIDDLE</span><br>
+      <span class="rv">Post-Order</span> = Left → Right → Root &nbsp;|&nbsp; <span class="rv2">Root LAST</span><br>
+      <span class="rv">Index</span>: left child=2i, right=2i+1, parent=i/2 (1-indexed)<br>
+      <span class="rv">Time</span>: All traversals O(n) &nbsp;|&nbsp; <span class="rv">Space</span>: O(height)<br>
+      <span class="rv">Nth element</span>: Traverse fully, use counter variable
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== TOPIC 2: JAVA COLLECTIONS ==================== -->
+<div id="topic2">
+  <div class="topic-header t-green">
+    <div class="num" style="background:var(--green);color:#fff;">2</div>
+    <div>
+      <h2>Java Collections Framework</h2>
+      <p>Experiment 02 — ArrayList, LinkedList, Stack, Queue, PriorityQueue</p>
+    </div>
+  </div>
+
+  <!-- BEGINNER -->
+  <div class="section">
+    <div class="section-label" style="color:var(--green)"><span class="icon">🧠</span> Beginner Explanation</div>
+    <div class="card">
+      <h3>What is the Java Collections Framework?</h3>
+      <p>Imagine you need to store a list of student names. You could use an array — but arrays have fixed size! The Java Collections Framework (JCF) gives you <strong>ready-made, resizable data structures</strong> that you can use directly without implementing them yourself.</p>
+      <div class="tip"><strong>Analogy:</strong> Arrays are like fixed-size boxes. Collections are like magic bags that grow/shrink as needed.</div>
+    </div>
+    <div class="card">
+      <h3>The 5 Main Collections (from your experiments)</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Collection</th><th>Real-life analogy</th><th>Key feature</th></tr>
+        <tr><td><strong>ArrayList</strong></td><td>A resizable notebook</td><td>Fast random access by index</td></tr>
+        <tr><td><strong>LinkedList</strong></td><td>A chain of beads</td><td>Fast insert/delete at ends</td></tr>
+        <tr><td><strong>Stack</strong></td><td>Stack of plates (LIFO)</td><td>Last In, First Out</td></tr>
+        <tr><td><strong>Queue (ArrayDeque)</strong></td><td>Bank queue (FIFO)</td><td>First In, First Out</td></tr>
+        <tr><td><strong>PriorityQueue</strong></td><td>Hospital triage</td><td>Lowest value served first</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- CONCEPT BUILDING -->
+  <div class="section">
+    <div class="section-label" style="color:var(--green)"><span class="icon">📚</span> Concept Building — Each Collection</div>
+    <div class="card">
+      <h3>1. ArrayList</h3>
+      <p>Backed by a dynamic array. Grows automatically. Use when you need <strong>index-based access</strong>.</p>
+      <pre><span class="kw">import</span> java.util.ArrayList;
+ArrayList&lt;Integer&gt; al = <span class="kw">new</span> ArrayList&lt;&gt;();
+al.add(<span class="num">1</span>);          <span class="cm">// adds to end</span>
+al.add(<span class="num">0</span>, <span class="num">5</span>);       <span class="cm">// adds 5 at index 0</span>
+al.get(<span class="num">1</span>);          <span class="cm">// gets element at index 1</span>
+al.remove(<span class="num">0</span>);       <span class="cm">// removes element at index 0</span>
+al.size();          <span class="cm">// returns count</span>
+al.isEmpty();       <span class="cm">// true/false</span>
+al.removeAll(al);   <span class="cm">// clears everything</span></pre>
+      <div class="highlight"><strong>Time:</strong> get/set O(1), add/remove O(n) in worst case</div>
+    </div>
+    <div class="card">
+      <h3>2. LinkedList</h3>
+      <p>Doubly linked list. Each node knows its previous and next. Best for frequent insertions/deletions at front or back.</p>
+      <pre><span class="kw">import</span> java.util.LinkedList;
+LinkedList&lt;Integer&gt; ll = <span class="kw">new</span> LinkedList&lt;&gt;();
+ll.addFirst(<span class="num">2</span>);  ll.addLast(<span class="num">10</span>);
+ll.addFirst(<span class="num">1</span>);  ll.addLast(<span class="num">11</span>);
+<span class="cm">// List: [1, 2, 10, 11]</span>
+ll.removeFirst();  ll.removeLast();
+<span class="cm">// List: [2, 10]</span></pre>
+    </div>
+    <div class="card">
+      <h3>3. Stack — LIFO (Last In, First Out)</h3>
+      <p>Think: stack of plates. Last plate placed is first plate removed.</p>
+      <pre><span class="kw">import</span> java.util.Stack;
+Stack&lt;Integer&gt; stack = <span class="kw">new</span> Stack&lt;&gt;();
+stack.push(<span class="num">1</span>); stack.push(<span class="num">2</span>); stack.push(<span class="num">3</span>);
+stack.pop();   <span class="cm">// removes 3 (top) → returns 3</span>
+stack.peek();  <span class="cm">// looks at 2 (new top) → returns 2</span>
+stack.isEmpty(); <span class="cm">// false</span></pre>
+      <div class="highlight"><strong>Use cases:</strong> undo/redo, browser history, balanced brackets problem, function call stack</div>
+    </div>
+    <div class="card">
+      <h3>4. Queue — FIFO (First In, First Out)</h3>
+      <p>Think: bank queue. First person in line is first served.</p>
+      <pre><span class="kw">import</span> java.util.ArrayDeque;
+ArrayDeque&lt;Integer&gt; que = <span class="kw">new</span> ArrayDeque&lt;&gt;();
+que.add(<span class="num">1</span>); que.add(<span class="num">2</span>); que.add(<span class="num">3</span>);
+que.peek();    <span class="cm">// looks at 1 (front) → 1</span>
+que.remove();  <span class="cm">// removes 1 (front) → 1</span>
+que.isEmpty(); <span class="cm">// false (still has 2,3)</span></pre>
+    </div>
+    <div class="card">
+      <h3>5. PriorityQueue — Min Heap by default</h3>
+      <p>Elements are dequeued in <strong>ascending order</strong> regardless of insertion order. Internally maintains a heap.</p>
+      <pre><span class="kw">import</span> java.util.PriorityQueue;
+PriorityQueue&lt;Integer&gt; pq = <span class="kw">new</span> PriorityQueue&lt;&gt;();
+<span class="kw">int</span>[] arr = {<span class="num">1</span>,<span class="num">2</span>,<span class="num">10</span>,<span class="num">8</span>,<span class="num">7</span>,<span class="num">3</span>,<span class="num">4</span>,<span class="num">6</span>,<span class="num">5</span>,<span class="num">9</span>};
+<span class="kw">for</span> (<span class="kw">int</span> i : arr) pq.add(i);
+<span class="cm">// Heap structure: [1, 2, 3, 5, 7, 10, 4, 8, 6, 9]</span>
+<span class="cm">// Remove order: 1 2 3 4 5 6 7 8 9 10 (sorted!)</span></pre>
+      <div class="warn"><strong>Key insight:</strong> Printing PQ directly shows heap structure (not sorted). But removing elements one by one gives sorted order!</div>
+    </div>
+  </div>
+
+  <!-- EXAM NOTES -->
+  <div class="section">
+    <div class="section-label" style="color:var(--green)"><span class="icon">🎯</span> Exam-Oriented Notes</div>
+    <div class="card">
+      <h3>Method Comparison Table</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Operation</th><th>ArrayList</th><th>LinkedList</th><th>Stack</th><th>Queue</th><th>PriorityQueue</th></tr>
+        <tr><td>Add</td><td>add()</td><td>addFirst/Last()</td><td>push()</td><td>add()</td><td>add()</td></tr>
+        <tr><td>Remove</td><td>remove()</td><td>removeFirst/Last()</td><td>pop()</td><td>remove()</td><td>remove()</td></tr>
+        <tr><td>Peek</td><td>get(i)</td><td>getFirst/Last()</td><td>peek()</td><td>peek()</td><td>peek()</td></tr>
+        <tr><td>Order</td><td>Insertion</td><td>Insertion</td><td>LIFO</td><td>FIFO</td><td>Min first</td></tr>
+        <tr><td>Time (add)</td><td>O(1)*</td><td>O(1)</td><td>O(1)</td><td>O(1)</td><td>O(log n)</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- FORMULAS -->
+  <div class="section">
+    <div class="section-label" style="color:var(--green)"><span class="icon">📌</span> Key Points Sheet</div>
+    <div class="formula-box">
+      <div class="f-title">Time Complexities</div>
+      <div class="f-line">ArrayList: get O(1), add at end O(1)*, add at middle O(n)</div>
+      <div class="f-line">LinkedList: addFirst/Last O(1), get O(n)</div>
+      <div class="f-line">Stack push/pop: O(1)</div>
+      <div class="f-line">Queue add/remove: O(1)</div>
+      <div class="f-line">PriorityQueue add/remove: O(log n)</div>
+      <div class="f-note">* Amortized O(1) — occasional resizing takes O(n)</div>
+    </div>
+  </div>
+
+  <!-- QUICK REVISION -->
+  <div class="section">
+    <div class="section-label" style="color:var(--green)"><span class="icon">⚡</span> Quick Revision Sheet</div>
+    <div class="quick-rev">
+      <span class="rv">ArrayList</span>  = dynamic array, O(1) index access, use .add() .remove() .get()<br>
+      <span class="rv">LinkedList</span> = doubly linked, O(1) front/back ops, use addFirst/Last, removeFirst/Last<br>
+      <span class="rv">Stack</span>      = LIFO. push() add, pop() remove, peek() view top<br>
+      <span class="rv">Queue</span>      = FIFO. add() enqueue, remove() dequeue, peek() front<br>
+      <span class="rv">PriorityQueue</span> = min-heap, always removes MINIMUM first<br>
+      <span class="rv2">PQ printed ≠ sorted</span> — heap structure shown, not sorted order<br>
+      <span class="rv">isEmpty()</span> and <span class="rv">size()</span> work on all collections
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== TOPIC 3: HASHING ==================== -->
+<div id="topic3">
+  <div class="topic-header t-purple">
+    <div class="num" style="background:var(--purple);color:#fff;">3</div>
+    <div>
+      <h2>Hashing</h2>
+      <p>Experiment 03 — Hash tables, collision resolution, Java HashSet &amp; HashMap</p>
+    </div>
+  </div>
+
+  <!-- BEGINNER -->
+  <div class="section">
+    <div class="section-label" style="color:var(--purple)"><span class="icon">🧠</span> Beginner Explanation</div>
+    <div class="card">
+      <h3>What is Hashing?</h3>
+      <p>Imagine a library with 1000 shelves. Instead of searching shelf by shelf to find a book, you have a <strong>magic formula</strong> that tells you exactly which shelf to look at. That's hashing!</p>
+      <p style="margin-top:8px;">A <strong>hash function</strong> takes a key and converts it to an index (slot) in a hash table. Ideal case: O(1) search, insert, delete.</p>
+      <div class="tip"><strong>Division method (most common):</strong> h(k) = k mod m, where m = table size</div>
+    </div>
+    <div class="card">
+      <h3>What is a Collision?</h3>
+      <p>When two different keys produce the same hash index, it's called a <strong>collision</strong>.</p>
+      <p>Example: h(23) = 23 mod 10 = 3, h(13) = 13 mod 10 = 3. Both map to slot 3 — COLLISION!</p>
+      <div class="warn"><strong>Collisions are unavoidable!</strong> (Pigeonhole principle). We must handle them properly.</div>
+    </div>
+  </div>
+
+  <!-- CONCEPT BUILDING -->
+  <div class="section">
+    <div class="section-label" style="color:var(--purple)"><span class="icon">📚</span> Concept Building — Collision Resolution</div>
+    <div class="card">
+      <h3>Numbers: [23, 4, 57, 82, 95, 13, 113, 224, 72, 18] | Table size m=10</h3>
+      <p>Hash function: <code>h(k) = k mod 10</code></p>
+      <div class="table-wrap"><table>
+        <tr><th>Key</th><th>h(k)=k mod 10</th><th>Slot</th><th>Collision?</th></tr>
+        <tr><td>23</td><td>3</td><td>3</td><td>No</td></tr>
+        <tr><td>4</td><td>4</td><td>4</td><td>No</td></tr>
+        <tr><td>57</td><td>7</td><td>7</td><td>No</td></tr>
+        <tr><td>82</td><td>2</td><td>2</td><td>No</td></tr>
+        <tr><td>95</td><td>5</td><td>5</td><td>No</td></tr>
+        <tr><td>13</td><td>3</td><td>—</td><td><strong>YES (23 already at 3)</strong></td></tr>
+        <tr><td>113</td><td>3</td><td>—</td><td><strong>YES</strong></td></tr>
+        <tr><td>224</td><td>4</td><td>—</td><td><strong>YES (4 already at 4)</strong></td></tr>
+        <tr><td>72</td><td>2</td><td>—</td><td><strong>YES (82 already at 2)</strong></td></tr>
+        <tr><td>18</td><td>8</td><td>8</td><td>No</td></tr>
+      </table></div>
+      <p style="margin-top:8px;font-size:13px;color:var(--text3)">Total collisions = 4</p>
+    </div>
+
+    <div class="card">
+      <h3>Method 1: Linear Probing</h3>
+      <p>If slot h(k) is occupied, try h(k)+1, h(k)+2, ... (wrap around using mod)</p>
+      <p><strong>Formula:</strong> <code>h(k, i) = (h(k) + i) mod m</code>, where i = probe number</p>
+      <pre>Insert 13: h(13)=3 taken, try 4 taken, try 5 taken, try 6 → slot 6
+Insert 113: h(113)=3 taken, 4 taken, 5 taken, 6 taken, try 7 taken, try 8 → slot 8... etc.</pre>
+      <div class="warn"><strong>Problem with Linear Probing: Primary Clustering</strong> — elements cluster together, making future insertions slow.</div>
+    </div>
+
+    <div class="card">
+      <h3>Method 2: Quadratic Probing</h3>
+      <p>If slot h(k) is occupied, try h(k)+1², h(k)+2², h(k)+3²...</p>
+      <p><strong>Formula:</strong> <code>h(k, i) = (h(k) + i²) mod m</code></p>
+      <pre>Insert 13: h(13)=3 taken, try (3+1)=4 taken, try (3+4)=7 taken, try (3+9)=12 mod 10=2 taken,
+           try (3+16)=19 mod 10=9 → slot 9 ✓</pre>
+      <div class="tip"><strong>Better than linear probing</strong> — reduces primary clustering but still has secondary clustering.</div>
+    </div>
+
+    <div class="card">
+      <h3>Method 3: Separate Chaining</h3>
+      <p>Each slot holds a linked list. All elements with same hash are stored in that list.</p>
+      <pre>Slot 2: 82 → 72 → null
+Slot 3: 23 → 13 → 113 → null
+Slot 4: 4 → 224 → null
+Slot 5: 95 → null
+Slot 7: 57 → null
+Slot 8: 18 → null</pre>
+      <div class="tip"><strong>Best method for high load factors!</strong> No table overflow possible. Used in Java's HashMap internally.</div>
+    </div>
+
+    <div class="card">
+      <h3>Java HashSet and HashMap</h3>
+      <pre><span class="cm">// HashSet — stores unique elements, no duplicates</span>
+HashSet&lt;String&gt; hs = <span class="kw">new</span> HashSet&lt;&gt;();
+hs.add(<span class="str">"India"</span>); hs.add(<span class="str">"USA"</span>); hs.add(<span class="str">"Brazil"</span>);
+hs.contains(<span class="str">"USA"</span>); <span class="cm">// true</span>
+hs.remove(<span class="str">"USA"</span>);
+
+<span class="cm">// HashMap — stores key-value pairs</span>
+HashMap&lt;String, Integer&gt; hm = <span class="kw">new</span> HashMap&lt;&gt;();
+hm.put(<span class="str">"Mason"</span>, <span class="num">55</span>); hm.put(<span class="str">"Jacob"</span>, <span class="num">77</span>);
+hm.get(<span class="str">"Mason"</span>);         <span class="cm">// 55</span>
+hm.containsKey(<span class="str">"Emma"</span>); <span class="cm">// true/false</span>
+hm.keySet();            <span class="cm">// set of all keys</span></pre>
+    </div>
+
+    <div class="card">
+      <h3>Q8: Anagram Detection using HashMap</h3>
+      <pre><span class="kw">boolean</span> isAnagram(String s1, String s2) {
+    <span class="kw">if</span> (s1.length() != s2.length()) <span class="kw">return false</span>;
+    HashMap&lt;Character, Integer&gt; map = <span class="kw">new</span> HashMap&lt;&gt;();
+    <span class="kw">for</span> (<span class="kw">char</span> c : s1.toCharArray())
+        map.put(c, map.getOrDefault(c, <span class="num">0</span>) + <span class="num">1</span>);
+    <span class="kw">for</span> (<span class="kw">char</span> c : s2.toCharArray()) {
+        <span class="kw">if</span> (!map.containsKey(c)) <span class="kw">return false</span>;
+        map.put(c, map.get(c) - <span class="num">1</span>);
+        <span class="kw">if</span> (map.get(c) == <span class="num">0</span>) map.remove(c);
+    }
+    <span class="kw">return</span> map.isEmpty();
+}</pre>
+    </div>
+  </div>
+
+  <!-- FORMULAS -->
+  <div class="section">
+    <div class="section-label" style="color:var(--purple)"><span class="icon">📌</span> Formula Sheet</div>
+    <div class="formula-box">
+      <div class="f-title">Hashing Formulas</div>
+      <div class="f-line">Division method:    h(k) = k mod m</div>
+      <div class="f-line">Linear Probing:     h(k,i) = (h(k) + i) mod m</div>
+      <div class="f-line">Quadratic Probing:  h(k,i) = (h(k) + i²) mod m</div>
+      <div class="f-line">Load Factor:        α = n/m  (n=elements, m=table size)</div>
+      <div class="f-line">Avg search (chaining): O(1 + α)</div>
+      <div class="f-line">Avg search (open addressing): O(1/(1-α))</div>
+      <div class="f-note">Choose m as a prime number for better distribution</div>
+    </div>
+  </div>
+
+  <!-- QUICK REVISION -->
+  <div class="section">
+    <div class="section-label" style="color:var(--purple)"><span class="icon">⚡</span> Quick Revision Sheet</div>
+    <div class="quick-rev">
+      <span class="rv">Hash function</span> = maps key → index. Division: h(k) = k mod m<br>
+      <span class="rv">Collision</span> = two keys → same slot<br>
+      <span class="rv">Linear Probing</span> = try next slot (+1 each time). Problem: clustering<br>
+      <span class="rv">Quadratic Probing</span> = try +1², +2², +3²... Less clustering<br>
+      <span class="rv">Separate Chaining</span> = linked list at each slot. Best for high load<br>
+      <span class="rv">HashSet</span> = unique values, O(1) add/contains/remove<br>
+      <span class="rv">HashMap</span> = key→value pairs. put(), get(), containsKey()<br>
+      <span class="rv2">Load factor α = n/m</span>. Keep α &lt; 0.75 for good performance (Java's default)
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== TOPIC 4: NETWORK FLOW ==================== -->
+<div id="topic4">
+  <div class="topic-header t-teal">
+    <div class="num" style="background:var(--teal);color:#fff;">4</div>
+    <div>
+      <h2>Network Flow — Maximum Flow Problem</h2>
+      <p>Assignment — Ford-Fulkerson, Augmenting Paths, Min-Cut, Bipartite Matching</p>
+    </div>
+  </div>
+
+  <!-- BEGINNER -->
+  <div class="section">
+    <div class="section-label" style="color:var(--teal)"><span class="icon">🧠</span> Beginner Explanation</div>
+    <div class="card">
+      <h3>What is the Maximum Flow Problem?</h3>
+      <p>Imagine a city's water pipe network. Water flows from a reservoir (source s) to homes (sink t). Each pipe has a maximum capacity. The question: <strong>What is the maximum amount of water that can flow from s to t simultaneously?</strong></p>
+      <div class="tip">
+        <strong>Key terms:</strong><br>
+        <strong>Source (s)</strong> = where flow originates<br>
+        <strong>Sink (t)</strong> = where flow is consumed<br>
+        <strong>Capacity c(u,v)</strong> = max flow allowed on edge (u,v)<br>
+        <strong>Flow f(u,v)</strong> = actual flow on edge (must be ≤ capacity)<br>
+        <strong>Augmenting path</strong> = path from s to t with available (residual) capacity
+      </div>
+    </div>
+    <div class="card">
+      <h3>Ford-Fulkerson Algorithm — The Big Idea</h3>
+      <ol style="padding-left:20px;font-size:14px;line-height:1.9;">
+        <li>Start with zero flow on all edges</li>
+        <li>Find any path from s to t where more flow can be pushed (augmenting path)</li>
+        <li>Find the bottleneck = minimum residual capacity along that path</li>
+        <li>Add that much flow to the path</li>
+        <li>Update the residual graph (forward edges decrease, backward edges increase)</li>
+        <li>Repeat until no augmenting path exists</li>
+        <li>The total flow pushed = Maximum Flow</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- CONCEPT BUILDING -->
+  <div class="section">
+    <div class="section-label" style="color:var(--teal)"><span class="icon">📚</span> Concept Building</div>
+    <div class="card">
+      <h3>Residual Graph</h3>
+      <p>For every edge (u,v) with capacity c and flow f:</p>
+      <div class="formula-box">
+        <div class="f-title">Residual Capacity</div>
+        <div class="f-line">Forward edge residual:  c_f(u,v) = c(u,v) - f(u,v)</div>
+        <div class="f-line">Backward edge residual: c_f(v,u) = f(u,v)</div>
+        <div class="f-note">Backward edges let us "undo" flow — crucial for finding optimal solution!</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Max-Flow Min-Cut Theorem</h3>
+      <p>This is the most important theorem in network flow:</p>
+      <div class="highlight">
+        <strong>Theorem:</strong> Maximum flow from s to t = Minimum cut capacity of any s-t cut.<br>
+        An s-t cut partitions vertices into two sets S (containing s) and T (containing t). Cut capacity = sum of capacities of edges going from S to T.
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Solved Example from Assignment — Max Flow Calculation</h3>
+      <p>Network: V={s,a,b,c,d,t}, capacities: c(s,a)=8, c(s,c)=4, c(s,d)=7, c(a,b)=2, c(a,c)=3, c(b,t)=4, c(c,t)=5, c(c,d)=2, c(d,t)=9</p>
+      <div class="solved-ex">
+        <h4>Step-by-step Ford-Fulkerson:</h4>
+        <ol>
+          <li><strong>Path 1:</strong> s→a→b→t, bottleneck = min(8,2,4) = <strong>2</strong>, flow = 2</li>
+          <li><strong>Path 2:</strong> s→a→c→t, bottleneck = min(6,3,5) = <strong>3</strong>, flow = 3 (total=5)</li>
+          <li><strong>Path 3:</strong> s→c→t, bottleneck = min(4,2) = <strong>2</strong>, flow = 2 (total=7)</li>
+          <li><strong>Path 4:</strong> s→c→d→t, bottleneck = min(2,2,9) = <strong>2</strong>, flow = 2 (total=9)</li>
+          <li><strong>Path 5:</strong> s→d→t, bottleneck = min(7,7) = <strong>7</strong>, flow = 7 (total=16)</li>
+          <li>No more augmenting paths → <strong>Max Flow = 16</strong></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Bipartite Matching using Max Flow</h3>
+      <p>From Q3 in your assignment (Hackathon problem):</p>
+      <ol style="padding-left:20px;font-size:14px;line-height:1.9;">
+        <li>Create bipartite graph G=(U∪V, E) where U=participants, V=projects</li>
+        <li>Add edge (u,v) if participant u has all skills for project v</li>
+        <li>Add super-source s connected to all participants (capacity 1)</li>
+        <li>Add super-sink t connected from all projects (capacity 1)</li>
+        <li>Run Ford-Fulkerson on this network</li>
+        <li><strong>Maximum flow = Maximum bipartite matching</strong></li>
+      </ol>
+      <div class="highlight"><strong>Key insight:</strong> Capacity 1 ensures each participant/project matched at most once.</div>
+    </div>
+
+    <div class="card">
+      <h3>Important Theorems from Your Assignment Notes</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Statement</th><th>True/False</th><th>Reason</th></tr>
+        <tr><td>If every edge capacity divisible by k, max flow divisible by k</td><td><strong>TRUE</strong></td><td>Divide capacities by k → get network with integer max flow f'. Original max flow = k·f'</td></tr>
+        <tr><td>If every edge capacity divisible by k, max flow divisible by any constant c</td><td><strong>FALSE</strong></td><td>Counterexample: k=2, max flow=2, c=3. 2 not divisible by 3.</td></tr>
+        <tr><td>Increasing edge (u,v) by 10 increases max flow by at most 10</td><td><strong>TRUE</strong></td><td>Extra capacity on one edge can increase flow by at most that amount</td></tr>
+        <tr><td>Decreasing edge (u,v) by 10 decreases max flow by at most 10</td><td><strong>TRUE</strong></td><td>Flow through that edge can decrease by at most 10</td></tr>
+      </table></div>
+    </div>
+
+    <div class="card">
+      <h3>Bipartite Matching Proof (Q7 from Assignment)</h3>
+      <p>Given bipartite graph G(V=L∪R, E) and its flow network G' (capacity 1 on all edges):</p>
+      <div class="steps">
+        <div class="step"><strong>Claim:</strong> |f| = |M| = Minimum Cut</div>
+        <div class="step">For each matched edge (u,v)∈M, route 1 unit of flow s→u→v→t. So |f| = |M|.</div>
+        <div class="step">Since all capacities = 1, flow is integer-valued. Flow on edge (u,v) = 1 → include in matching. So |M| = |f|.</div>
+        <div class="step">By Max-Flow Min-Cut theorem: Max flow = Min cut. Therefore |f| = |M| = Min Cut. ✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXAM NOTES -->
+  <div class="section">
+    <div class="section-label" style="color:var(--teal)"><span class="icon">🎯</span> Exam-Oriented Notes</div>
+    <div class="card">
+      <h3>Flow Conservation Laws</h3>
+      <ul>
+        <li>For each node v (not s or t): <code>Σ incoming flow = Σ outgoing flow</code></li>
+        <li>For all edges: <code>0 ≤ f(u,v) ≤ c(u,v)</code></li>
+        <li>Total flow = flow out of source = flow into sink</li>
+        <li>Skew symmetry: <code>f(u,v) = -f(v,u)</code></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Finding Minimum Cut</h3>
+      <ol style="padding-left:20px;font-size:14px;line-height:1.9;">
+        <li>Run Ford-Fulkerson to get max flow</li>
+        <li>In residual graph, find all vertices reachable from s</li>
+        <li>Set S = {reachable vertices}, T = {non-reachable}</li>
+        <li>Min cut = all edges from S to T in original graph</li>
+        <li>Min cut capacity = max flow value</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Max Flow on a Tree (from Assignment Q2)</h3>
+      <pre>MaxFlow(node):
+    if node is a leaf: return ∞ (leaf = sink)
+    total_flow = 0
+    for each child v of node:
+        flow_v = min(capacity(node→v), MaxFlow(v))
+        total_flow += flow_v
+    return total_flow</pre>
+      <p style="font-size:13px;color:var(--text3);">Root = source, all leaves = sinks. Each edge routes as much as capacity allows.</p>
+    </div>
+  </div>
+
+  <!-- FORMULAS -->
+  <div class="section">
+    <div class="section-label" style="color:var(--teal)"><span class="icon">📌</span> Formula Sheet</div>
+    <div class="formula-box">
+      <div class="f-title">Network Flow Formulas</div>
+      <div class="f-line">Flow feasibility:      0 ≤ f(u,v) ≤ c(u,v)</div>
+      <div class="f-line">Flow conservation:     Σ_v f(u,v) = 0 for all u ≠ s,t</div>
+      <div class="f-line">Residual forward:      c_f(u,v) = c(u,v) - f(u,v)</div>
+      <div class="f-line">Residual backward:     c_f(v,u) = f(u,v)</div>
+      <div class="f-line">Max-Flow Min-Cut:      max_flow = min_cut_capacity</div>
+      <div class="f-line">Ford-Fulkerson O(E·|f*|) where f* = max flow value</div>
+      <div class="f-line">BFS-based (Edmonds-Karp): O(V·E²)</div>
+      <div class="f-line">Unique min-cut check:  O(V·E·maxflow)</div>
+    </div>
+  </div>
+
+  <!-- PRACTICE -->
+  <div class="section">
+    <div class="section-label" style="color:var(--teal)"><span class="icon">📝</span> Practice Strategy</div>
+    <div class="practice-level pl-basic">
+      <div class="pl-title">Basic (5 problems)</div>
+      <ul class="pl-list">
+        <li>Calculate max flow for small 4–5 node networks manually</li>
+        <li>Find residual graph after one augmenting path</li>
+        <li>Identify all augmenting paths in a given network</li>
+      </ul>
+    </div>
+    <div class="practice-level pl-medium">
+      <div class="pl-title">Medium (5 problems)</div>
+      <ul class="pl-list">
+        <li>Full Ford-Fulkerson execution with residual graphs at each step</li>
+        <li>Find all s-t cuts and identify minimum cut</li>
+        <li>Model bipartite matching as flow problem</li>
+      </ul>
+    </div>
+    <div class="practice-level pl-hard">
+      <div class="pl-title">Exam-level (4 problems)</div>
+      <ul class="pl-list">
+        <li>Prove correctness of max-flow min-cut theorem for specific graphs</li>
+        <li>Logistics network problems (like Q6 in assignment)</li>
+        <li>Divisibility theorems (True/False proofs with counterexamples)</li>
+        <li>Design algorithm for unique minimum cut detection</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- YOUTUBE -->
+  <div class="section">
+    <div class="section-label" style="color:var(--teal)"><span class="icon">📺</span> YouTube Learning Plan</div>
+    <div class="youtube-card">
+      <div class="yt-title">Abdul Bari — "Ford Fulkerson Algorithm" (Hindi/English)</div>
+      <div class="yt-why">Best step-by-step visual explanation of Ford-Fulkerson. He draws each iteration clearly. Start here if you know nothing.</div>
+    </div>
+    <div class="youtube-card">
+      <div class="yt-title">William Fiset — "Max Flow Ford Fulkerson" (YouTube playlist)</div>
+      <div class="yt-why">Excellent series covering residual graphs, augmenting paths, and code implementation. Very clear diagrams.</div>
+    </div>
+    <div class="youtube-card">
+      <div class="yt-title">MIT OpenCourseWare — "Network Flow" (6.006)</div>
+      <div class="yt-why">Rigorous theoretical treatment. Watch after basics are clear for deeper understanding needed in exams.</div>
+    </div>
+    <div class="youtube-card" style="border-color:var(--blue-border);background:var(--blue-bg);">
+      <div class="yt-title" style="color:var(--blue)">Abdul Bari — "Binary Trees" and "Tree Traversal" (YouTube)</div>
+      <div class="yt-why">For binary trees and traversals. He explains recursion visually — very helpful for beginners.</div>
+    </div>
+    <div class="youtube-card" style="border-color:var(--green-border);background:var(--green-bg);">
+      <div class="yt-title" style="color:var(--green)">Kunal Kushwaha — "Java Collections Framework" (YouTube)</div>
+      <div class="yt-why">Full Java Collections course from basics. Covers ArrayList, LinkedList, Stack, Queue, HashMap, HashSet with code demos.</div>
+    </div>
+  </div>
+
+  <!-- QUICK REVISION -->
+  <div class="section">
+    <div class="section-label" style="color:var(--teal)"><span class="icon">⚡</span> Quick Revision Sheet</div>
+    <div class="quick-rev">
+      <span class="rv">Max Flow</span> = maximum flow from source s to sink t<br>
+      <span class="rv">Ford-Fulkerson</span>: find augmenting path → push bottleneck flow → repeat<br>
+      <span class="rv">Bottleneck</span> = min residual capacity along augmenting path<br>
+      <span class="rv">Residual graph</span>: forward = remaining capacity, backward = current flow<br>
+      <span class="rv">Min-Cut</span> = partition (S,T) with min total capacity edges S→T<br>
+      <span class="rv2">Max-Flow = Min-Cut</span> (most important theorem!)<br>
+      <span class="rv">Bipartite matching</span>: model as flow (capacity 1), run FF → matching = flow<br>
+      <span class="rv">Logistics Q6</span>: Max throughput = 225 tons/day. Critical route = D→T
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== STUDY STRATEGY ==================== -->
+<div id="strategy">
+  <div class="topic-header" style="background:var(--bg2);border:1px solid var(--border);">
+    <div class="num" style="background:var(--text);color:#fff;font-size:16px;">🚀</div>
+    <div>
+      <h2>Topper Study Strategy</h2>
+      <p>How to study all 4 topics efficiently and score top marks</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="grid2">
+      <div class="qs-box">
+        <h4>Time Estimate</h4>
+        <p>Binary Trees: 3–4 hours<br>Java Collections: 3–4 hours<br>Hashing: 4–5 hours<br>Network Flow: 6–8 hours<br><strong>Total: ~18–20 hours</strong></p>
+      </div>
+      <div class="qs-box">
+        <h4>Recommended Order</h4>
+        <p>Day 1: Binary Trees (practice traversals by hand)<br>Day 2: Java Collections (run each experiment)<br>Day 3–4: Hashing (solve collision problems)<br>Day 5–6: Network Flow (most complex, needs practice)</p>
+      </div>
+      <div class="qs-box">
+        <h4>Retention Strategy</h4>
+        <p>1. Read concept<br>2. Solve 1 example by hand<br>3. Code it (no copying!)<br>4. Redo without notes after 24h<br>5. Teach someone or explain aloud</p>
+      </div>
+      <div class="qs-box">
+        <h4>Before Exam</h4>
+        <p>Day before: Review all Quick Revision sheets<br>Morning: Redo 1 traversal + 1 hash problem + 1 flow problem<br>Focus: Theorems and their proofs get full marks</p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <h3>Most Important Exam Topics (Ranked by Marks Potential)</h3>
+      <ol style="padding-left:20px;font-size:14px;line-height:1.9;">
+        <li><strong>Network Flow:</strong> Ford-Fulkerson execution, Min-Cut, Max-Flow Min-Cut theorem proof, Bipartite matching modeling — typically 20–25 marks</li>
+        <li><strong>Tree Traversals:</strong> Pre/In/Post-order with correct output — easy full marks questions</li>
+        <li><strong>Hashing:</strong> Show collision + resolve using all 3 methods step-by-step</li>
+        <li><strong>Java Collections:</strong> Know the correct method names and output for each collection</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div style="background:var(--bg2);border-top:1px solid var(--border);padding:16px 24px;text-align:center;margin-top:40px;">
+  <p style="font-size:13px;color:var(--text3);">AAD-2 Complete Study System · CSE 2632 · ITER, SOA University · 2025–2026
+  </p>
+  <p style="margin: 0.5rem 0;">
+        BUILT BY <strong>JASMINE JAYASMITA</strong>
+    </p>
+
+    <div style="margin-top: 0.8rem; font-size: 0.9rem;">
+        <a href="https://www.linkedin.com/in/jasminejayasmitasoa" target="_blank" style="color:var(--accent); text-decoration:none; margin:0 10px;">LinkedIn</a>
+        <span style="color:var(--border);">|</span>
+        <a href="https://www.instagram.com/jassharchive/" target="_blank" style="color:var(--accent); text-decoration:none; margin:0 10px;">Instagram</a>
+    </div>
+  <p style="font-size:12px;color:var(--text3);margin-top:4px;">All 4 experiments + assignment covered · Good luck! 🎯</p>
+</div>
+
+</div>
+</body>
+</html>

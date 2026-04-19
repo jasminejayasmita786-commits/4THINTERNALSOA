@@ -1,0 +1,2508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAD2 Complete Study System — Rank #1 Notes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --card2: #1a1a26;
+    --border: #2a2a3a;
+    --accent1: #7c6aff;
+    --accent2: #ff6a9b;
+    --accent3: #6affca;
+    --accent4: #ffca6a;
+    --accent5: #6ab8ff;
+    --text: #e8e8f0;
+    --muted: #8888aa;
+    --glow1: rgba(124,106,255,0.15);
+    --glow2: rgba(255,106,155,0.12);
+    --glow3: rgba(106,255,202,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 20%, var(--glow1), transparent),
+      radial-gradient(ellipse 50% 50% at 80% 80%, var(--glow2), transparent),
+      radial-gradient(ellipse 40% 60% at 60% 10%, var(--glow3), transparent);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 60px 0 40px;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    color: white;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    padding: 6px 20px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 20px rgba(124,106,255,0.4); }
+    50% { box-shadow: 0 0 40px rgba(124,106,255,0.8); }
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #fff 0%, var(--accent1) 40%, var(--accent2) 70%, var(--accent3) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto 32px;
+  }
+
+  .hero-tags {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+
+  .tag {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-family: 'Space Mono', monospace;
+    color: var(--muted);
+    transition: all 0.3s;
+  }
+  .tag:hover { border-color: var(--accent1); color: var(--accent1); }
+
+  /* NAV */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+  }
+
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid transparent;
+  }
+
+  .toc-item:hover {
+    background: var(--card);
+    border-color: var(--border);
+    color: var(--text);
+  }
+
+  .toc-item .icon {
+    font-size: 18px;
+    min-width: 24px;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 60px;
+    animation: fadeIn 0.6s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    min-width: 32px;
+  }
+
+  .section-emoji {
+    font-size: 28px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .section-pill {
+    margin-left: auto;
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    color: white;
+    font-size: 10px;
+    font-family: 'Space Mono', monospace;
+    padding: 4px 12px;
+    border-radius: 100px;
+    letter-spacing: 1px;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .card:hover::before { opacity: 1; }
+  .card:hover { border-color: rgba(124,106,255,0.3); transform: translateY(-2px); }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--text);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-title span { color: var(--accent1); }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  /* HIGHLIGHT BOXES */
+  .box {
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    font-size: 14px;
+    border-left: 3px solid;
+  }
+
+  .box-info { background: rgba(106,184,255,0.08); border-color: var(--accent5); }
+  .box-warn { background: rgba(255,202,106,0.08); border-color: var(--accent4); }
+  .box-success { background: rgba(106,255,202,0.08); border-color: var(--accent3); }
+  .box-danger { background: rgba(255,106,155,0.08); border-color: var(--accent2); }
+  .box-purple { background: rgba(124,106,255,0.08); border-color: var(--accent1); }
+
+  .box-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  /* CODE */
+  .code {
+    background: #0d0d1a;
+    border: 1px solid #2a2a4a;
+    border-radius: 12px;
+    padding: 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: #c8c8ff;
+    overflow-x: auto;
+    margin: 12px 0;
+    position: relative;
+  }
+
+  .code .kw { color: var(--accent2); }
+  .code .fn { color: var(--accent3); }
+  .code .cm { color: var(--muted); font-style: italic; }
+  .code .num { color: var(--accent4); }
+  .code .str { color: var(--accent5); }
+
+  /* FORMULA BOX */
+  .formula {
+    background: linear-gradient(135deg, rgba(124,106,255,0.1), rgba(255,106,155,0.05));
+    border: 1px solid rgba(124,106,255,0.3);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 10px 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    text-align: center;
+    color: var(--accent3);
+    letter-spacing: 0.5px;
+  }
+
+  /* STEPS */
+  .steps { padding: 0; list-style: none; }
+
+  .steps li {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+
+  .steps li:last-child { border-bottom: none; }
+
+  .step-num {
+    min-width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  /* BULLET LISTS */
+  .bullet-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .bullet-list li {
+    padding: 8px 0;
+    padding-left: 20px;
+    position: relative;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .bullet-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent1);
+    font-size: 12px;
+    top: 10px;
+  }
+
+  /* KEYWORDS */
+  .kw-chip {
+    display: inline-block;
+    background: rgba(124,106,255,0.15);
+    border: 1px solid rgba(124,106,255,0.3);
+    color: var(--accent1);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 6px;
+    margin: 3px;
+  }
+
+  .kw-chip.green {
+    background: rgba(106,255,202,0.1);
+    border-color: rgba(106,255,202,0.3);
+    color: var(--accent3);
+  }
+
+  .kw-chip.orange {
+    background: rgba(255,202,106,0.1);
+    border-color: rgba(255,202,106,0.3);
+    color: var(--accent4);
+  }
+
+  .kw-chip.pink {
+    background: rgba(255,106,155,0.1);
+    border-color: rgba(255,106,155,0.3);
+    color: var(--accent2);
+  }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  th {
+    background: var(--card2);
+    color: var(--accent1);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 2px solid var(--accent1);
+  }
+
+  td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+  }
+
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* QUIZ / Q-CARDS */
+  .q-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    margin: 12px 0;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .q-card:hover { border-color: var(--accent3); }
+
+  .q-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--accent4);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .q-text {
+    font-weight: 600;
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .q-ans {
+    display: none;
+    background: rgba(106,255,202,0.07);
+    border: 1px solid rgba(106,255,202,0.2);
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 13.5px;
+    color: var(--accent3);
+    margin-top: 10px;
+    line-height: 1.8;
+  }
+
+  .q-card.open .q-ans { display: block; }
+  .q-toggle { font-size: 11px; color: var(--muted); font-family: 'Space Mono', monospace; }
+
+  /* REVISION STRIP */
+  .rev-strip {
+    background: linear-gradient(135deg, rgba(124,106,255,0.12), rgba(255,106,155,0.08), rgba(106,255,202,0.06));
+    border: 1px solid rgba(124,106,255,0.25);
+    border-radius: 20px;
+    padding: 32px;
+    margin: 16px 0;
+  }
+
+  .rev-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .rev-item {
+    background: rgba(0,0,0,0.3);
+    border-radius: 10px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+  }
+
+  .rev-key {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--accent1);
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+
+  .rev-val {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* PROGRESS */
+  .progress-bar-wrap {
+    background: var(--border);
+    border-radius: 100px;
+    height: 6px;
+    margin: 8px 0;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, var(--accent1), var(--accent3));
+    transition: width 1s ease;
+  }
+
+  /* YOUTUBE CARDS */
+  .yt-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin: 10px 0;
+    transition: all 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .yt-card:hover { border-color: #ff4444; transform: translateX(4px); }
+
+  .yt-icon {
+    min-width: 44px;
+    height: 44px;
+    background: #ff0000;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .yt-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; color: var(--text); }
+  .yt-desc { font-size: 12px; color: var(--muted); }
+  .yt-tag {
+    display: inline-block;
+    background: rgba(255,0,0,0.1);
+    border: 1px solid rgba(255,0,0,0.25);
+    color: #ff6666;
+    font-size: 10px;
+    font-family: 'Space Mono', monospace;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-top: 6px;
+  }
+
+  /* TOPPER STRATEGY */
+  .strat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  .strat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .strat-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .strat-card.s1::after { background: var(--accent1); }
+  .strat-card.s2::after { background: var(--accent2); }
+  .strat-card.s3::after { background: var(--accent3); }
+  .strat-card.s4::after { background: var(--accent4); }
+
+  .strat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+
+  .strat-icon { font-size: 28px; margin-bottom: 12px; }
+  .strat-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; margin-bottom: 8px; }
+  .strat-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 40px 0;
+  }
+
+  /* HIGHLIGHT */
+  mark {
+    background: rgba(124,106,255,0.25);
+    color: var(--accent1);
+    border-radius: 4px;
+    padding: 1px 5px;
+  }
+
+  mark.y { background: rgba(255,202,106,0.2); color: var(--accent4); }
+  mark.g { background: rgba(106,255,202,0.15); color: var(--accent3); }
+  mark.r { background: rgba(255,106,155,0.15); color: var(--accent2); }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 48px 0 32px;
+    color: var(--muted);
+    font-size: 13px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  footer .heart { color: var(--accent2); }
+
+  /* RESPONSIVE */
+  @media(max-width: 640px) {
+    .toc { grid-template-columns: 1fr 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 36px; }
+    .strat-grid { grid-template-columns: 1fr; }
+    .rev-row { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* SCROLL ANIMATION */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+  }
+
+  .scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* BREADCRUMB */
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 48px;
+    padding: 12px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    width: fit-content;
+  }
+
+  .breadcrumb span { color: var(--accent1); }
+
+  /* SOLVED EXAMPLE */
+  .solved {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 14px 0;
+  }
+
+  .solved-q {
+    background: rgba(124,106,255,0.1);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  .solved-q-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--accent1);
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .solved-ans {
+    padding: 16px 20px;
+    font-size: 13.5px;
+    line-height: 1.8;
+  }
+
+  .solved-step {
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .solved-step:last-child { border-bottom: none; }
+
+  .step-arrow {
+    color: var(--accent3);
+    font-family: 'Space Mono', monospace;
+    min-width: 24px;
+    padding-top: 1px;
+  }
+
+  /* EXAM PILLS */
+  .exam-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .exam-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .dot-green { background: var(--accent3); }
+  .dot-yellow { background: var(--accent4); }
+  .dot-red { background: var(--accent2); }
+  .dot-blue { background: var(--accent5); }
+
+  /* STICKY TOPIC NAV */
+  .topic-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,15,0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0;
+    margin-bottom: 40px;
+  }
+
+  .topic-nav-inner {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 0 20px;
+    scrollbar-width: none;
+  }
+
+  .topic-nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav-btn {
+    white-space: nowrap;
+    padding: 7px 16px;
+    border-radius: 100px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .nav-btn:hover, .nav-btn.active {
+    background: var(--accent1);
+    border-color: var(--accent1);
+    color: white;
+  }
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<div class="topic-nav">
+  <div class="topic-nav-inner">
+    <button class="nav-btn active" onclick="scrollTo('s0')">🏠 Home</button>
+    <button class="nav-btn" onclick="scrollTo('s1')">🧠 Basics</button>
+    <button class="nav-btn" onclick="scrollTo('s2')">📚 Concepts</button>
+    <button class="nav-btn" onclick="scrollTo('s3')">🎯 Exam Notes</button>
+    <button class="nav-btn" onclick="scrollTo('s4')">📌 Formulas</button>
+    <button class="nav-btn" onclick="scrollTo('s5')">📺 YouTube</button>
+    <button class="nav-btn" onclick="scrollTo('s6')">📝 Practice</button>
+    <button class="nav-btn" onclick="scrollTo('s7')">❗ PYQs</button>
+    <button class="nav-btn" onclick="scrollTo('s8')">⚡ Revision</button>
+    <button class="nav-btn" onclick="scrollTo('s9')">🚀 Strategy</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero" id="s0">
+    <div class="hero-badge">📖 Rank #1 Study System</div>
+    <h1>Algorithm Design 2<br>Complete Study System</h1>
+    <p class="hero-sub">CSE4131 · 4th Semester B.Tech CSE/CSIT · SOA University<br>
+    From <strong>Zero to Exam-Ready</strong> — structured like a topper's notebook</p>
+    <div class="hero-tags">
+      <span class="tag">Network Flow</span>
+      <span class="tag">P vs NP</span>
+      <span class="tag">NP-Complete</span>
+      <span class="tag">Approximation Algorithms</span>
+      <span class="tag">Local Search</span>
+      <span class="tag">Randomization</span>
+      <span class="tag">Hashing</span>
+      <span class="tag">PSPACE</span>
+    </div>
+
+    <div class="exam-meta" style="justify-content:center">
+      <div class="exam-pill"><div class="dot dot-green"></div> Full Marks: 60</div>
+      <div class="exam-pill"><div class="dot dot-yellow"></div> Time: 3 Hours</div>
+      <div class="exam-pill"><div class="dot dot-blue"></div> 10 Questions × 6 Marks</div>
+      <div class="exam-pill"><div class="dot dot-red"></div> All Questions Compulsory</div>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc scroll-reveal">
+    <a class="toc-item" href="#s1"><span class="icon">🧠</span> Beginner Explanation</a>
+    <a class="toc-item" href="#s2"><span class="icon">📚</span> Concept Building</a>
+    <a class="toc-item" href="#s3"><span class="icon">🎯</span> Exam-Oriented Notes</a>
+    <a class="toc-item" href="#s4"><span class="icon">📌</span> Formulas & Key Points</a>
+    <a class="toc-item" href="#s5"><span class="icon">📺</span> YouTube Learning Plan</a>
+    <a class="toc-item" href="#s6"><span class="icon">📝</span> Practice Strategy</a>
+    <a class="toc-item" href="#s7"><span class="icon">❗</span> Important Questions</a>
+    <a class="toc-item" href="#s8"><span class="icon">⚡</span> Quick Revision Sheet</a>
+    <a class="toc-item" href="#s9"><span class="icon">🚀</span> Topper Strategy</a>
+  </div>
+
+  <!-- ==============================
+       SECTION 1: BEGINNER
+       ============================== -->
+  <div class="section scroll-reveal" id="s1">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <span class="section-emoji">🧠</span>
+      <h2 class="section-title">Beginner Explanation — Zero to Clear Basics</h2>
+      <span class="section-pill">START HERE</span>
+    </div>
+
+    <div class="box box-info">
+      <span class="box-label">💡 How to read this section</span>
+      Forget everything. We start from scratch. Every concept is explained like you're a 10-year-old who loves puzzles. No jargon without explanation.
+    </div>
+
+    <!-- TOPIC 1: Network Flow -->
+    <div class="card">
+      <div class="card-title">🌊 <span>Topic 1:</span> Network Flow — What is it?</div>
+      <p>Imagine a <strong>water pipe network</strong>. Water flows from a source (like a reservoir) to a sink (like your house). Each pipe has a <strong>capacity</strong> — a maximum amount of water it can carry. The question is: <mark>how much water can reach your house?</mark></p>
+
+      <div class="box box-success">
+        <span class="box-label">REAL LIFE EXAMPLE</span>
+        <strong>Internet Traffic:</strong> Data packets flow from server (source) → your computer (sink). Each wire has a bandwidth limit (capacity). Network flow finds the maximum data transfer rate.
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <p style="font-weight:600; color:var(--accent1); margin-bottom:8px;">Key Terms (Plain English):</p>
+          <ul class="bullet-list">
+            <li><strong>Source (s)</strong> — Where things start flowing FROM</li>
+            <li><strong>Sink (t)</strong> — Where things flow TO (destination)</li>
+            <li><strong>Capacity c(u,v)</strong> — Max flow allowed on edge u→v</li>
+            <li><strong>Flow f(u,v)</strong> — Actual flow on edge (must be ≤ capacity)</li>
+            <li><strong>Residual Graph</strong> — Shows remaining capacity after some flow</li>
+            <li><strong>Augmenting Path</strong> — A path from s to t where we can push more flow</li>
+            <li><strong>Max Flow</strong> — The maximum total flow from s to t</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-weight:600; color:var(--accent2); margin-bottom:8px;">3 Rules of Flow:</p>
+          <div class="box box-danger">
+            <span class="box-label">RULE 1 — CAPACITY</span>
+            Flow on edge ≤ Capacity of edge<br>
+            <code style="color:var(--accent3)">0 ≤ f(u,v) ≤ c(u,v)</code>
+          </div>
+          <div class="box box-warn">
+            <span class="box-label">RULE 2 — CONSERVATION</span>
+            At every node (except s and t): flow in = flow out (no "piling up")
+          </div>
+          <div class="box box-purple">
+            <span class="box-label">RULE 3 — SKEW SYMMETRY</span>
+            f(u,v) = −f(v,u) (flow from A to B is opposite of B to A)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOPIC 2: P vs NP -->
+    <div class="card">
+      <div class="card-title">🤔 <span>Topic 2:</span> P vs NP — The Biggest Mystery in CS</div>
+      <p>Imagine two types of puzzles:</p>
+
+      <div class="grid-2">
+        <div class="box box-success">
+          <span class="box-label">CLASS P — "EASY TO SOLVE"</span>
+          <strong>P = Polynomial Time</strong><br>
+          Problems we can <em>solve quickly</em> (in polynomial time = n², n³, etc.)<br><br>
+          <strong>Real Example:</strong> Sorting a list of numbers. For n numbers, it takes roughly n×log(n) steps. Fast! ✅
+        </div>
+        <div class="box box-warn">
+          <span class="box-label">CLASS NP — "EASY TO VERIFY"</span>
+          <strong>NP = Non-deterministic Polynomial</strong><br>
+          Problems where if someone gives you the answer, you can <em>check it quickly</em>, but finding it might take forever.<br><br>
+          <strong>Real Example:</strong> Sudoku. Hard to solve, but easy to check if solution is correct. ✅
+        </div>
+      </div>
+
+      <div class="box box-info">
+        <span class="box-label">THE BIG QUESTION (Worth $1,000,000!)</span>
+        Does <strong>P = NP</strong>? Nobody knows. If yes, every problem easy to check is also easy to solve. Most believe <strong>P ≠ NP</strong>.
+      </div>
+
+      <div class="box box-danger">
+        <span class="box-label">NP-COMPLETE — THE HARDEST IN NP</span>
+        A problem is NP-Complete if:<br>
+        1. It is in NP (answers can be verified quickly)<br>
+        2. Every other NP problem can be reduced to it (it's "as hard as any NP problem")
+      </div>
+
+      <div class="box box-purple">
+        <span class="box-label">NP-HARD — EVEN HARDER</span>
+        At least as hard as NP-Complete, but may not even be in NP (you can't even verify quickly).
+      </div>
+    </div>
+
+    <!-- TOPIC 3: Approximation Algorithms -->
+    <div class="card">
+      <div class="card-title">🎯 <span>Topic 3:</span> Approximation Algorithms — Close Enough!</div>
+      <p>Since NP-Complete problems are too hard to solve exactly, we accept a "good enough" answer. That's an <strong>Approximation Algorithm</strong>.</p>
+
+      <div class="box box-success">
+        <span class="box-label">ANALOGY</span>
+        You need to travel to 10 cities cheaply (Travelling Salesman Problem — NP-Hard). Finding the PERFECT route is too hard. An approximation says: "Here's a route that costs at most TWICE the best possible." That's a <strong>2-approximation</strong>.
+      </div>
+
+      <p style="margin-top:12px;"><strong>Approximation Ratio (ρ):</strong> If optimal = OPT and our answer = C, then <code>ρ = C/OPT</code>. Lower is better. ρ=1 means perfect. ρ=2 means at most 2× the optimal cost.</p>
+    </div>
+
+    <!-- TOPIC 4: Local Search -->
+    <div class="card">
+      <div class="card-title">🔍 <span>Topic 4:</span> Local Search — Improve Step by Step</div>
+      <p>Start with any solution. Look at "nearby" solutions. If a neighbor is better, move there. Repeat until no improvement is possible.</p>
+
+      <div class="box box-warn">
+        <span class="box-label">ANALOGY</span>
+        You're hiking and want the highest peak. Local search = always walk uphill. Problem: you might get stuck on a small hill (local optimum), not the highest mountain (global optimum).
+      </div>
+
+      <p style="margin-top:10px;"><strong>Key idea:</strong> Local search finds <mark class="y">local optima</mark>, not guaranteed <mark class="g">global optima</mark>.</p>
+    </div>
+
+    <!-- TOPIC 5: Randomization -->
+    <div class="card">
+      <div class="card-title">🎲 <span>Topic 5:</span> Randomization — Use Luck to Your Advantage</div>
+      <p>Sometimes adding randomness makes algorithms <strong>faster</strong> or <strong>simpler</strong> on average, even if the worst case is bad.</p>
+
+      <div class="grid-2">
+        <div class="box box-success">
+          <span class="box-label">EXAMPLE — RANDOMIZED QUICKSORT</span>
+          Pick a random pivot instead of always first element. Avoids worst-case O(n²). Expected time: O(n log n).
+        </div>
+        <div class="box box-info">
+          <span class="box-label">EXAMPLE — RANDOMIZED SELECT</span>
+          Find the k-th largest element using random splitters. Works in O(n) expected time.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end section 1 -->
+
+  <hr class="divider">
+
+  <!-- ==============================
+       SECTION 2: CONCEPT BUILDING
+       ============================== -->
+  <div class="section scroll-reveal" id="s2">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <span class="section-emoji">📚</span>
+      <h2 class="section-title">Concept Building — Step by Step</h2>
+      <span class="section-pill">INTERMEDIATE</span>
+    </div>
+
+    <!-- Ford-Fulkerson -->
+    <div class="card">
+      <div class="card-title">🌊 Ford-Fulkerson Algorithm (Max Flow)</div>
+
+      <ul class="steps">
+        <li>
+          <div class="step-num">1</div>
+          <div>
+            <strong>Initialize:</strong> Set f(u,v) = 0 for all edges. The residual graph initially = original graph.
+          </div>
+        </li>
+        <li>
+          <div class="step-num">2</div>
+          <div>
+            <strong>Find Augmenting Path:</strong> Use BFS/DFS to find any path from source (s) to sink (t) in the <em>residual graph</em>.
+          </div>
+        </li>
+        <li>
+          <div class="step-num">3</div>
+          <div>
+            <strong>Find Bottleneck:</strong> The bottleneck = minimum residual capacity along the path. This is how much extra flow we can push.
+          </div>
+        </li>
+        <li>
+          <div class="step-num">4</div>
+          <div>
+            <strong>Update:</strong> Add flow along the path. Update residual capacities: forward edges decrease, backward edges increase.
+          </div>
+        </li>
+        <li>
+          <div class="step-num">5</div>
+          <div>
+            <strong>Repeat</strong> until no augmenting path exists.
+          </div>
+        </li>
+      </ul>
+
+      <div class="formula">Max Flow = Sum of flows out of source s</div>
+
+      <div class="box box-danger">
+        <span class="box-label">⚠️ COMMON MISTAKE</span>
+        Students forget to add <strong>backward edges</strong> in the residual graph. A backward edge from v→u with capacity f(u,v) allows us to "cancel" previous flow decisions!
+      </div>
+
+      <div class="box box-info">
+        <span class="box-label">MAX FLOW = MIN CUT THEOREM (KEY THEOREM!)</span>
+        The maximum flow from s to t equals the minimum cut capacity between s and t.<br>
+        <strong>Cut:</strong> A partition of nodes into sets S (containing s) and T (containing t). Cut capacity = sum of capacities of edges crossing from S to T.
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>Algorithm</th><th>Time Complexity</th><th>Method</th></tr>
+          <tr><td>Ford-Fulkerson</td><td>O(E × max_flow)</td><td>DFS for augmenting paths</td></tr>
+          <tr><td>Edmonds-Karp</td><td>O(V × E²)</td><td>BFS for augmenting paths</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Complexity Classes -->
+    <div class="card">
+      <div class="card-title">🏗️ Complexity Classes — The Full Map</div>
+
+      <div class="table-wrap">
+        <table>
+          <tr><th>Class</th><th>Definition</th><th>Example Problems</th><th>Key Property</th></tr>
+          <tr>
+            <td><span class="kw-chip green">P</span></td>
+            <td>Solved in polynomial time by deterministic TM</td>
+            <td>Sorting, Shortest Path, Max Flow, MST</td>
+            <td>Easy to SOLVE</td>
+          </tr>
+          <tr>
+            <td><span class="kw-chip">NP</span></td>
+            <td>Verified in poly time by deterministic TM</td>
+            <td>Hamiltonian Cycle, Subset Sum, Clique</td>
+            <td>Easy to VERIFY</td>
+          </tr>
+          <tr>
+            <td><span class="kw-chip orange">NP-Complete</span></td>
+            <td>In NP AND every NP problem reduces to it</td>
+            <td>SAT, 3-SAT, Vertex Cover, TSP (decision)</td>
+            <td>Hardest in NP</td>
+          </tr>
+          <tr>
+            <td><span class="kw-chip pink">NP-Hard</span></td>
+            <td>At least as hard as NPC, not necessarily in NP</td>
+            <td>TSP (optimization), Halting Problem</td>
+            <td>May be unverifiable</td>
+          </tr>
+          <tr>
+            <td><span class="kw-chip">PSPACE</span></td>
+            <td>Solved using polynomial SPACE</td>
+            <td>Q-SAT, Planning Problems</td>
+            <td>P ⊆ NP ⊆ PSPACE</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="box box-purple">
+        <span class="box-label">RELATIONSHIP HIERARCHY</span>
+        <strong>P ⊆ NP ⊆ NP-Complete ⊆ NP-Hard ⊆ PSPACE</strong><br>
+        Think of it as concentric circles. P is inside NP, which is inside PSPACE.
+      </div>
+
+      <div class="box box-info">
+        <span class="box-label">HOW TO PROVE NP-COMPLETE</span>
+        Step 1: Show the problem is in NP (give a polynomial-time verifier)<br>
+        Step 2: Reduce a known NPC problem to your problem in polynomial time
+      </div>
+    </div>
+
+    <!-- SAT & Reductions -->
+    <div class="card">
+      <div class="card-title">⚡ SAT, 3-SAT, CNF — Circuit Satisfiability</div>
+
+      <div class="grid-2">
+        <div>
+          <p style="font-weight:600; color:var(--accent1); margin-bottom:8px;">Key Definitions:</p>
+          <ul class="bullet-list">
+            <li><strong>Literal:</strong> A variable (x) or its negation (¬x)</li>
+            <li><strong>Clause:</strong> OR of literals: (x₁ ∨ ¬x₂ ∨ x₃)</li>
+            <li><strong>CNF:</strong> AND of clauses: (clause1) ∧ (clause2) ∧ ...</li>
+            <li><strong>SAT:</strong> Is there an assignment making CNF = TRUE?</li>
+            <li><strong>3-SAT:</strong> SAT where each clause has exactly 3 literals</li>
+            <li><strong>Certificate:</strong> An assignment that satisfies the formula</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-weight:600; color:var(--accent2); margin-bottom:8px;">Important Reductions:</p>
+          <ul class="bullet-list">
+            <li>SAT → 3-SAT → Independent Set</li>
+            <li>3-SAT → Vertex Cover</li>
+            <li>3-SAT → Clique</li>
+            <li>Independent Set → Vertex Cover (complement)</li>
+            <li>Vertex Cover → Set Cover</li>
+          </ul>
+          <div class="box box-warn" style="margin-top:8px">
+            <span class="box-label">KEY FACT</span>
+            Vertex Cover of size k ⟺ Independent Set of size n-k
+          </div>
+        </div>
+      </div>
+
+      <div class="code">
+<span class="cm">// 3-SAT → Independent Set Reduction</span>
+<span class="kw">Given:</span> 3-SAT formula with k clauses
+<span class="kw">Build graph:</span>
+  - For each clause (a ∨ b ∨ c), create 3 nodes: a, b, c
+  - Connect all 3 nodes within each clause (triangle)
+  - Connect node x in clause i to ¬x in clause j (conflict edges)
+
+<span class="kw">Claim:</span> 3-SAT is satisfiable ⟺ Graph has Independent Set of size k
+      </div>
+    </div>
+
+    <!-- Approximation Algorithms -->
+    <div class="card">
+      <div class="card-title">🎯 Approximation Algorithms — Detailed</div>
+
+      <div class="grid-2">
+        <div>
+          <div class="box box-success">
+            <span class="box-label">VERTEX COVER APPROX (2-approx)</span>
+            <strong>Algorithm:</strong><br>
+            While there are uncovered edges:<br>
+            &nbsp;&nbsp;Pick any uncovered edge (u,v)<br>
+            &nbsp;&nbsp;Add BOTH u and v to cover<br>
+            &nbsp;&nbsp;Remove all edges incident to u or v<br><br>
+            <strong>Ratio:</strong> Always ≤ 2 × OPT<br>
+            <strong>Why:</strong> We pick 2 nodes per edge, OPT needs at least 1
+          </div>
+        </div>
+        <div>
+          <div class="box box-info">
+            <span class="box-label">WEIGHTED VERTEX COVER (Pricing Method)</span>
+            Each edge has a "price" p(e).<br>
+            A node is <em>tight</em> when Σp(e) = weight(v).<br>
+            Raise prices until some node becomes tight.<br>
+            Add all tight nodes to cover.<br><br>
+            <strong>Fairness Lemma:</strong> For any vertex cover S, Σp(e) ≤ w(S)<br>
+            <strong>Ratio:</strong> 2-approximation
+          </div>
+        </div>
+      </div>
+
+      <div class="box box-warn">
+        <span class="box-label">GREEDY SET COVER</span>
+        <strong>Algorithm:</strong> While uncovered elements remain: pick the set S that covers the most uncovered elements per unit cost (w/|S∩R|).<br>
+        <strong>Approximation Ratio:</strong> H(max set size) = 1 + 1/2 + 1/3 + ... (harmonic number)
+      </div>
+    </div>
+
+    <!-- Local Search & Hopfield -->
+    <div class="card">
+      <div class="card-title">🔍 Local Search — Hopfield Networks & State Flipping</div>
+
+      <div class="grid-2">
+        <div>
+          <p style="font-weight:600; color:var(--accent3); margin-bottom:8px;">Hopfield Neural Networks:</p>
+          <ul class="bullet-list">
+            <li>Graph G = (V_s, E_w) with vertex states ±1</li>
+            <li>Edge weights can be positive or negative</li>
+            <li><strong>Good edge:</strong> w(u,v) × s(u) × s(v) &lt; 0</li>
+            <li><strong>Bad edge:</strong> w(u,v) × s(u) × s(v) &gt; 0</li>
+            <li>Goal: maximize good edges (stable configuration)</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-weight:600; color:var(--accent2); margin-bottom:8px;">State-Flipping Algorithm:</p>
+          <ul class="steps">
+            <li><div class="step-num">1</div><div>Start with any configuration</div></li>
+            <li><div class="step-num">2</div><div>Find an "unsatisfied" node (bad edges outweigh good)</div></li>
+            <li><div class="step-num">3</div><div>Flip that node's state</div></li>
+            <li><div class="step-num">4</div><div>Repeat until stable (no unsatisfied nodes)</div></li>
+          </ul>
+          <div class="formula">Terminates in ≤ Σ|w(e)| iterations</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Randomized Algorithms -->
+    <div class="card">
+      <div class="card-title">🎲 Randomization — Select & Hashing</div>
+
+      <div class="grid-2">
+        <div>
+          <p style="font-weight:600; color:var(--accent1); margin-bottom:8px;">Randomized Select (k-th largest):</p>
+          <div class="code">
+<span class="fn">Select</span>(S, k):
+  Pick splitter a_i ∈ S uniformly at random
+  S⁻ = elements &lt; a_i
+  S⁺ = elements &gt; a_i
+
+  <span class="kw">if</span> |S⁻| = k-1: <span class="kw">return</span> a_i (found!)
+  <span class="kw">else if</span> |S⁻| ≥ k:
+    <span class="kw">return</span> Select(S⁻, k)
+  <span class="kw">else</span>: <span class="cm">// |S⁻| = t &lt; k-1</span>
+    <span class="kw">return</span> Select(S⁺, k-t-1)
+          </div>
+          <div class="formula">Expected Time: O(n)</div>
+        </div>
+        <div>
+          <p style="font-weight:600; color:var(--accent2); margin-bottom:8px;">Universal Hashing:</p>
+          <ul class="bullet-list">
+            <li><strong>Goal:</strong> Minimize collisions in hash table</li>
+            <li>Hash family H is <strong>universal</strong> if for x≠y: Pr[h(x)=h(y)] ≤ 1/m</li>
+            <li><strong>Construction:</strong> h_a(x) = (Σaᵢxᵢ) mod p</li>
+            <li>where p is prime, aᵢ ∈ {0,...,p-1}</li>
+          </ul>
+          <div class="box box-info" style="margin-top:8px">
+            <span class="box-label">CHAINING</span>
+            Hash table with chaining: each slot is a linked list. Expected lookup: O(1+n/m) where n=keys, m=slots
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end section 2 -->
+
+  <hr class="divider">
+
+  <!-- ==============================
+       SECTION 3: EXAM NOTES
+       ============================== -->
+  <div class="section scroll-reveal" id="s3">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <span class="section-emoji">🎯</span>
+      <h2 class="section-title">Exam-Oriented Notes — Topper Style</h2>
+      <span class="section-pill">MOST IMPORTANT</span>
+    </div>
+
+    <div class="grid-2">
+
+      <!-- CO1 Notes -->
+      <div class="card">
+        <div class="card-title">CO1: <span>Network Flow</span></div>
+        <ul class="bullet-list">
+          <li><mark>Max-Flow Min-Cut Theorem:</mark> Max flow = Min cut capacity</li>
+          <li>Ford-Fulkerson uses DFS; Edmonds-Karp uses BFS</li>
+          <li>Residual graph: forward edge c(u,v)-f(u,v), back edge f(u,v)</li>
+          <li>Augmenting path: path in residual graph from s to t</li>
+          <li>Max edges in residual graph = 2|E| (each edge can give forward + backward)</li>
+          <li>Source has no incoming edges; Sink has no outgoing edges</li>
+          <li>Flow conservation: at intermediate nodes, Σin = Σout</li>
+        </ul>
+      </div>
+
+      <!-- CO2 Notes -->
+      <div class="card">
+        <div class="card-title">CO2: <span>P, NP, NPC, PSPACE</span></div>
+        <ul class="bullet-list">
+          <li><mark>P:</mark> Decidable in O(nᵏ) time</li>
+          <li><mark>NP:</mark> Certificate verifiable in O(nᵏ) time</li>
+          <li><mark>NPC:</mark> In NP + NP-Hard (every NP problem reduces to it)</li>
+          <li><mark>NP-Hard:</mark> At least as hard as NPC; may not be in NP</li>
+          <li><mark>PSPACE:</mark> Decidable using O(nᵏ) space (P ⊆ NP ⊆ PSPACE)</li>
+          <li>Q-SAT (Quantified Boolean Formula) is PSPACE-Complete</li>
+          <li>Polynomial reduction: A ≤ₚ B means "A is no harder than B"</li>
+          <li>If Y ≤ₚ X and Y is NP-Hard, then X is NP-Hard</li>
+        </ul>
+      </div>
+
+      <!-- CO3 Notes -->
+      <div class="card">
+        <div class="card-title">CO3: <span>Approximation Algorithms</span></div>
+        <ul class="bullet-list">
+          <li><mark>Vertex Cover 2-approx:</mark> Pick both endpoints of any edge</li>
+          <li><mark>Weighted VC pricing:</mark> Raise prices until node is tight, add tight nodes</li>
+          <li>Fairness Lemma: Σ_{e∈S} p(e) ≤ w(S) for any vertex cover S</li>
+          <li>Result: Algorithm gives ≤ 2×OPT (2-approximation)</li>
+          <li><mark>Greedy Set Cover:</mark> Pick set maximizing coverage per unit cost</li>
+          <li>Set Cover ratio: H(d) where d = max set size, H = harmonic number</li>
+          <li>Load Balancing Greedy: Makespan ≤ 2×OPT*</li>
+        </ul>
+      </div>
+
+      <!-- CO4 Notes -->
+      <div class="card">
+        <div class="card-title">CO4: <span>Local Search</span></div>
+        <ul class="bullet-list">
+          <li>Hopfield network: nodes ∈ {-1, +1}, edges have weights</li>
+          <li>Good edge: w(u,v)·s(u)·s(v) &lt; 0</li>
+          <li>Node is unsatisfied if Σ bad edges &gt; good edges for it</li>
+          <li>State-flipping: flip unsatisfied node's state</li>
+          <li>Terminates: number of good edges strictly increases each flip</li>
+          <li>Bound: ≤ Σ|w(e)| iterations</li>
+          <li>Gradient descent local search: move to better neighbor; may get stuck</li>
+        </ul>
+      </div>
+
+      <!-- CO5 Notes -->
+      <div class="card">
+        <div class="card-title">CO5: <span>Randomization</span></div>
+        <ul class="bullet-list">
+          <li>Randomized Select: O(n) expected time for k-th order statistic</li>
+          <li>Good splitter: at least ¼ elements on each side → O(n) guaranteed</li>
+          <li>If always off-center: T(n) = T(3n/4) + n → O(n) still</li>
+          <li>Universal hashing: H is universal if Pr[h(x)=h(y)] ≤ 1/m for x≠y</li>
+          <li>Hash function: h_a(x) = (Σaᵢxᵢ) mod p, p prime</li>
+          <li>Chaining: Expected O(1+n/m) per lookup</li>
+          <li>Hash table with 9 slots: h(x) = x mod 9</li>
+        </ul>
+      </div>
+
+      <!-- CO6 Notes -->
+      <div class="card">
+        <div class="card-title">CO6: <span>Algorithm Design Approach</span></div>
+        <ul class="bullet-list">
+          <li>5-step algorithm design checklist from exam Q1(b):</li>
+          <li>Step 1: Do you understand the problem clearly?</li>
+          <li>Step 2: Is there a simple algorithm/heuristic?</li>
+          <li>Step 3: Is it in the catalog (CSE3131/CSE4131)?</li>
+          <li>Step 4: Special cases you know how to solve?</li>
+          <li>Step 5: Which algorithm paradigm applies?</li>
+          <li>NPC Proof = (NP membership) + (NP-Hard via reduction)</li>
+          <li>Certificate = witness that verifies a YES answer in poly time</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Special Important: Movie Scheduling NPC Proof -->
+    <div class="card" style="border-color: rgba(255,106,155,0.3)">
+      <div class="card-title">🎬 <span>Movie Scheduling Problem</span> — NPC Proof (High PYQ Chance!)</div>
+      <p style="margin-bottom:12px">This appeared in the actual June 2023 end-sem exam (Q10)!</p>
+
+      <div class="grid-2">
+        <div>
+          <div class="box box-danger">
+            <span class="box-label">PROBLEM STATEMENT</span>
+            n movie projects. Each has start day and end day. You want maximum set of non-overlapping movies. Decide: Is there a set of size ≥ k?<br><br>
+            <strong>Optimization version:</strong> Max non-overlapping intervals
+          </div>
+        </div>
+        <div>
+          <div class="box box-warn">
+            <span class="box-label">DECISION PROBLEM</span>
+            Given I (intervals) and k: Is there a subset of ≥ k mutually non-overlapping intervals?<br><br>
+            This is equivalent to <strong>Independent Set on Interval Graphs</strong>.
+          </div>
+        </div>
+      </div>
+
+      <div class="box box-purple">
+        <span class="box-label">NPC PROOF SKETCH (via Independent Set reduction)</span>
+        1. Membership in NP: Given a set S of intervals, verify non-overlap in O(k log k) time. ✓<br>
+        2. NP-Hard: Reduce from Independent Set (known NPC).<br>
+        &nbsp;&nbsp;&nbsp;• For each vertex v, create an interval<br>
+        &nbsp;&nbsp;&nbsp;• For each edge (u,v), make intervals of u and v overlap<br>
+        &nbsp;&nbsp;&nbsp;• Independent set of size k ⟺ k non-overlapping intervals
+      </div>
+    </div>
+
+  </div><!-- end section 3 -->
+
+  <hr class="divider">
+
+  <!-- ==============================
+       SECTION 4: FORMULAS
+       ============================== -->
+  <div class="section scroll-reveal" id="s4">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <span class="section-emoji">📌</span>
+      <h2 class="section-title">Formulas & Key Points Sheet</h2>
+      <span class="section-pill">MEMORIZE</span>
+    </div>
+
+    <div class="rev-strip">
+      <p style="font-family:'Syne',sans-serif; font-weight:700; font-size:18px; margin-bottom:20px; color:var(--accent3)">⚡ All Critical Formulas in One Place</p>
+
+      <div class="rev-row">
+        <div class="rev-item">
+          <div class="rev-key">MAX FLOW IDENTITY</div>
+          <div class="rev-val">|f*| = capacity of Min-Cut</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-key">RESIDUAL CAPACITY</div>
+          <div class="rev-val">c_f(u,v) = c(u,v) - f(u,v)</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-key">FLOW CONSERVATION</div>
+          <div class="rev-val">Σf(u,v) = 0 for all v ≠ s,t</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-key">APPROXIMATION RATIO</div>
+          <div class="rev-val">ρ = C/OPT ≥ 1</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-key">VERTEX COVER APPROX</div>
+          <div class="rev-val">w(S) ≤ 2 × w(OPT)</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-key">FAIRNESS LEMMA</div>
+          <div class="rev-val">Σ_{e∈S} p(e) ≤ w(S)</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-key">SET COVER RATIO</div>
+          <div class="rev-val">H(d) = 1 + ½ + ⅓ + ... + 1/d</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-key">STATE FLIPPING BOUND</div>
+          <div class="rev-val">≤ Σ|w(e)| iterations</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-key">RANDOMIZED SELECT</div>
+          <div class="rev-val">Expected: O(n)</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-key">UNIVERSAL HASH</div>
+          <div class="rev-val">Pr[h(x)=h(y)] ≤ 1/m</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-key">HASH FUNCTION</div>
+          <div class="rev-val">h_a(x) = (Σaᵢxᵢ) mod p</div>
+        </div>
+        <div class="rev-item">
+          <div class="rev-key">LOAD BALANCING</div>
+          <div class="rev-val">Makespan T ≤ 2T*</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <tr><th>Formula/Theorem</th><th>When to Use</th><th>Key Condition</th></tr>
+        <tr>
+          <td>Max-Flow = Min-Cut</td>
+          <td>Find max flow by finding min cut (easier sometimes)</td>
+          <td>Always true for valid flow networks</td>
+        </tr>
+        <tr>
+          <td>VC + IS = n</td>
+          <td>Vertex cover of size k ↔ Independent set of size n-k</td>
+          <td>Complement relationship in same graph</td>
+        </tr>
+        <tr>
+          <td>3-SAT ≤ₚ Ind.Set</td>
+          <td>Proving Independent Set is NPC</td>
+          <td>k clauses → need IS of size k</td>
+        </tr>
+        <tr>
+          <td>E(T) = O(n)</td>
+          <td>Expected time of Randomized Select</td>
+          <td>Random pivot selection</td>
+        </tr>
+        <tr>
+          <td>Good Splitter prob = ½</td>
+          <td>Randomized Select analysis</td>
+          <td>Splitter leaving ¼ elements on each side</td>
+        </tr>
+        <tr>
+          <td>T(n) ≤ T(3n/4) + cn</td>
+          <td>Worst case with "good enough" splitter</td>
+          <td>At least quarter on each side</td>
+        </tr>
+        <tr>
+          <td>Σ p(e) ≤ w(S)</td>
+          <td>Fairness Lemma — lower bounds OPT for pricing method</td>
+          <td>For any vertex cover S, any prices p satisfying fairness</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Problem Class Matching (from PYQ) -->
+    <div class="card" style="border-color: rgba(255,202,106,0.3)">
+      <div class="card-title">🔗 <span>Problem Class Matching</span> — Direct PYQ Pattern</div>
+      <p style="margin-bottom:12px; color:var(--muted)">This exact type appeared in May 2024 exam: "Give a suitable match between Set A and Set B"</p>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Problem</th><th>Class</th><th>Why?</th></tr>
+          <tr><td>Flow Network (Max Flow)</td><td><span class="kw-chip green">P</span></td><td>Solvable in poly time (Edmonds-Karp)</td></tr>
+          <tr><td>Vertex Cover (Decision)</td><td><span class="kw-chip">NP-Complete</span></td><td>NP + NP-Hard proven</td></tr>
+          <tr><td>Vertex Cover (Optimization)</td><td><span class="kw-chip pink">NP-Hard</span></td><td>Harder than decision version</td></tr>
+          <tr><td>TSP (Decision)</td><td><span class="kw-chip">NP-Complete</span></td><td>Classic NPC problem</td></tr>
+          <tr><td>Planning Problem (STRIPS)</td><td><span class="kw-chip orange">PSPACE</span></td><td>Requires exponential space states</td></tr>
+          <tr><td>Halting Problem</td><td><span class="kw-chip pink">NP-Hard</span></td><td>Undecidable, not even in NP</td></tr>
+          <tr><td>MST</td><td><span class="kw-chip green">P</span></td><td>Kruskal/Prim are poly time</td></tr>
+          <tr><td>Q-SAT</td><td><span class="kw-chip orange">PSPACE-Complete</span></td><td>Canonical PSPACE-Complete problem</td></tr>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- end section 4 -->
+
+  <hr class="divider">
+
+  <!-- ==============================
+       SECTION 5: YOUTUBE
+       ============================== -->
+  <div class="section scroll-reveal" id="s5">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <span class="section-emoji">📺</span>
+      <h2 class="section-title">YouTube Learning Plan</h2>
+      <span class="section-pill">WATCH ORDER</span>
+    </div>
+
+    <div class="box box-warn">
+      <span class="box-label">⚠️ SINCE YOU MENTION YOU'RE WEAK IN AAD1 + DSA</span>
+      Start with the DSA + AAD1 refresh videos before jumping to AAD2 content. The order below is carefully planned for you.
+    </div>
+
+    <p style="font-weight:600; color:var(--accent1); margin: 16px 0 10px">🔁 Phase 0: Quick DSA Refresh (1-2 days)</p>
+
+    <div class="yt-card">
+      <div class="yt-icon">▶</div>
+      <div>
+        <div class="yt-title">Abdul Bari — Algorithm Design & Analysis Full Course</div>
+        <div class="yt-desc">Channel: Abdul Bari. Covers time complexity, greedy, DP, graph algorithms from scratch. Best Indian educator for algorithms. Extremely clear explanations with examples.</div>
+        <span class="yt-tag">BEGINNER-FRIENDLY</span>
+        <span class="yt-tag">HINDI+ENGLISH</span>
+      </div>
+    </div>
+
+    <div class="yt-card">
+      <div class="yt-icon">▶</div>
+      <div>
+        <div class="yt-title">Striver (TakeUForward) — Graph Series</div>
+        <div class="yt-desc">Best for BFS, DFS, shortest paths, and graph foundations needed for Max Flow. Very structured, with code and visual explanations.</div>
+        <span class="yt-tag">GRAPH FOUNDATION</span>
+      </div>
+    </div>
+
+    <p style="font-weight:600; color:var(--accent2); margin: 20px 0 10px">🌊 Phase 1: Network Flow (CO1)</p>
+
+    <div class="yt-card">
+      <div class="yt-icon">▶</div>
+      <div>
+        <div class="yt-title">William Fiset — Max Flow/Min Cut Algorithms</div>
+        <div class="yt-desc">Search: "William Fiset Max Flow". Best animated explanation of Ford-Fulkerson, Edmonds-Karp, Residual Graph. Covers everything in AAD2 CO1 perfectly with visual flow diagrams.</div>
+        <span class="yt-tag">VISUAL ANIMATIONS</span>
+        <span class="yt-tag">MOST RECOMMENDED</span>
+      </div>
+    </div>
+
+    <div class="yt-card">
+      <div class="yt-icon">▶</div>
+      <div>
+        <div class="yt-title">MIT OCW 6.046J — Network Flow Lecture</div>
+        <div class="yt-desc">Search: "MIT 6.046 Network Flow". Rigorous mathematical treatment. Watch AFTER William Fiset for exam-level understanding and proofs.</div>
+        <span class="yt-tag">EXAM DEPTH</span>
+        <span class="yt-tag">PROOFS</span>
+      </div>
+    </div>
+
+    <p style="font-weight:600; color:var(--accent3); margin: 20px 0 10px">🤔 Phase 2: P vs NP & Complexity (CO2)</p>
+
+    <div class="yt-card">
+      <div class="yt-icon">▶</div>
+      <div>
+        <div class="yt-title">Reducibility, NP-Completeness — MIT OpenCourseWare</div>
+        <div class="yt-desc">Search: "MIT 6.006 NP Completeness" or "MIT OCW NP Hard". Prof. Erik Demaine explains P, NP, NPC with crystal clarity. Perfect exam prep for CO2.</div>
+        <span class="yt-tag">UNIVERSITY LEVEL</span>
+      </div>
+    </div>
+
+    <div class="yt-card">
+      <div class="yt-icon">▶</div>
+      <div>
+        <div class="yt-title">P vs NP — Easy Explanation by Reducible</div>
+        <div class="yt-desc">Search: "Reducible P vs NP". Beautiful animated video explaining the intuition behind P, NP, NP-Complete in 20 minutes. Watch this FIRST before deep dives.</div>
+        <span class="yt-tag">INTUITION FIRST</span>
+        <span class="yt-tag">ANIMATED</span>
+      </div>
+    </div>
+
+    <p style="font-weight:600; color:var(--accent4); margin: 20px 0 10px">🎯 Phase 3: Approximation + Randomization (CO3, CO4, CO5)</p>
+
+    <div class="yt-card">
+      <div class="yt-icon">▶</div>
+      <div>
+        <div class="yt-title">Tim Roughgarden — Algorithms Illuminated (Stanford)</div>
+        <div class="yt-desc">Search: "Tim Roughgarden Algorithms Stanford". Covers greedy algorithms, approximation, randomized algorithms at the perfect depth for your exam. Free on YouTube.</div>
+        <span class="yt-tag">STANFORD LEVEL</span>
+        <span class="yt-tag">APPROXIMATION</span>
+      </div>
+    </div>
+
+    <div class="yt-card">
+      <div class="yt-icon">▶</div>
+      <div>
+        <div class="yt-title">Neso Academy — Design and Analysis of Algorithms</div>
+        <div class="yt-desc">Search: "Neso Academy DAA". Very structured for Indian university exams. Covers NP-Completeness, Approximation algorithms exactly as per your syllabus.</div>
+        <span class="yt-tag">EXAM ORIENTED</span>
+        <span class="yt-tag">HINDI AVAILABLE</span>
+      </div>
+    </div>
+
+  </div><!-- end section 5 -->
+
+  <hr class="divider">
+
+  <!-- ==============================
+       SECTION 6: PRACTICE STRATEGY
+       ============================== -->
+  <div class="section scroll-reveal" id="s6">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <span class="section-emoji">📝</span>
+      <h2 class="section-title">Practice Strategy</h2>
+      <span class="section-pill">STUDY PLAN</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🟢 <span>Level 1:</span> Basic (5-7 days)</div>
+        <ul class="bullet-list">
+          <li>Practice drawing flow graphs for given capacities</li>
+          <li>Run Ford-Fulkerson manually on small graphs (4-6 nodes)</li>
+          <li>Verify if a given flow satisfies all 3 conditions</li>
+          <li>Find residual graph given a flow</li>
+          <li>Classify problems: P / NP / NPC (10 problems)</li>
+          <li>Check if a given assignment satisfies a CNF formula</li>
+          <li>Build hash tables with chaining (5 examples)</li>
+        </ul>
+        <div style="margin-top:12px">
+          <div style="font-size:12px; color:var(--muted); margin-bottom:4px">Target Completion</div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:30%"></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🟡 <span>Level 2:</span> Medium (5-7 days)</div>
+        <ul class="bullet-list">
+          <li>Run Weighted Vertex Cover pricing method (3-4 problems)</li>
+          <li>Apply Greedy Set Cover to given instances</li>
+          <li>Prove or disprove NP membership (write certificates)</li>
+          <li>Do 3-SAT → Independent Set reduction (2-3 examples)</li>
+          <li>Trace state-flipping on Hopfield networks</li>
+          <li>Run Randomized Select on array {7,4,2,10,9,3...}</li>
+          <li>Compute hash values using given hash function</li>
+        </ul>
+        <div style="margin-top:12px">
+          <div style="font-size:12px; color:var(--muted); margin-bottom:4px">Target Completion</div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:60%"></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔴 <span>Level 3:</span> Exam/PYQ Level (3-4 days)</div>
+        <ul class="bullet-list">
+          <li>Solve ALL PYQs from June 2023 end-sem paper</li>
+          <li>Solve ALL PYQs from May 2024 end-sem paper</li>
+          <li>Practice NPC proofs from scratch (Vertex Cover, Set Cover, Independent Set)</li>
+          <li>Prove approximation ratio = 2 for Vertex Cover</li>
+          <li>Prove fairness lemma for weighted vertex cover</li>
+          <li>Compare approximation vs optimal for given examples</li>
+          <li>Design algorithm and analyze for real-world problems (Q10 type)</li>
+        </ul>
+        <div style="margin-top:12px">
+          <div style="font-size:12px; color:var(--muted); margin-bottom:4px">Target Completion</div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:90%"></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📅 <span>Week-by-Week</span> Study Plan</div>
+        <ul class="steps">
+          <li>
+            <div class="step-num">W1</div>
+            <div><strong>Network Flow (CO1)</strong><br>Ford-Fulkerson, Residual Graph, Max-Flow Min-Cut theorem. Solve 10 flow problems.</div>
+          </li>
+          <li>
+            <div class="step-num">W2</div>
+            <div><strong>P/NP/NPC (CO2)</strong><br>Classifications, SAT, 3-SAT, reductions. Prove 3 problems NP-Complete.</div>
+          </li>
+          <li>
+            <div class="step-num">W3</div>
+            <div><strong>Approximation + Local Search (CO3, CO4)</strong><br>Vertex Cover, Set Cover, Hopfield. Trace 5 algorithms manually.</div>
+          </li>
+          <li>
+            <div class="step-num">W4</div>
+            <div><strong>Randomization + Hashing (CO5)</strong><br>Select algorithm, universal hashing. Solve all PYQs on this topic.</div>
+          </li>
+          <li>
+            <div class="step-num">W5</div>
+            <div><strong>Full Revision + PYQs</strong><br>Complete 2023 and 2024 papers under timed conditions.</div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div><!-- end section 6 -->
+
+  <hr class="divider">
+
+  <!-- ==============================
+       SECTION 7: IMPORTANT QUESTIONS
+       ============================== -->
+  <div class="section scroll-reveal" id="s7">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <span class="section-emoji">❗</span>
+      <h2 class="section-title">Important Questions + Solved Examples</h2>
+      <span class="section-pill">PYQ BANK</span>
+    </div>
+
+    <div class="box box-danger">
+      <span class="box-label">🔥 MOST LIKELY TO COME — Based on PYQ Pattern Analysis</span>
+      Q1: Max Flow (finding flow + residual graph) | Q2: P/NP classification + CNF | Q3: 3-SAT & Independent Set | Q5: Vertex Cover approximation | Q6: Set Cover greedy | Q7: Hopfield network | Q8: Randomized Select | Q9: Hashing | Q10: Real-world algorithm design
+    </div>
+
+    <!-- SOLVED EXAMPLE 1 -->
+    <div class="solved">
+      <div class="solved-q">
+        <span class="solved-q-num">EXAMPLE 01 — PYQ June 2023</span>
+        Is there a subset of {23, 59, 17, 47, 14, 40, 22, 8} that sums to 100? What about 130?
+      </div>
+      <div class="solved-ans">
+        <div class="solved-step">
+          <div class="step-arrow">→</div>
+          <div><strong>For sum = 100:</strong> Try: 59 + 23 + 17 + ... Let's check: 59 + 23 = 82. 82 + 17 = 99. 82 + 14 = 96. Try 40 + 23 + 17 + 14 + ... = 40+23+17+14 = 94. Try: 59+17+14+8 = 98. Try 40+22+17+14+8 = 101. Try 59+23+8+... = 90. <mark class="g">47+40+13? No. Try 59+17+14+8=98. Try 40+23+22+15? No. 47+22+17+14=100 ✓ YES!</mark></div>
+        </div>
+        <div class="solved-step">
+          <div class="step-arrow">→</div>
+          <div><strong>For sum = 130:</strong> 59+47+22+... = 128. 59+47+22+8=136 no. 59+47+17+8=131 no. 59+47+17=123. 59+47+17+8=131. 59+40+17+14=130 ✓ <mark class="g">YES! 59+40+17+14=130</mark></div>
+        </div>
+        <div class="solved-step">
+          <div class="step-arrow">💡</div>
+          <div><strong>Note:</strong> This is the Subset Sum problem — it's NP-Complete! For the exam, just show a valid subset or exhaustive check.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOLVED EXAMPLE 2 -->
+    <div class="solved">
+      <div class="solved-q">
+        <span class="solved-q-num">EXAMPLE 02 — PYQ May 2024</span>
+        Draw the flow graph for G(V,E) where c(A,B)=8, c(B,C)=10, c(C,G)=16, c(A,D)=11, c(D,E)=9, c(E,G)=12, c(B,F)=7, c(F,C)=13, c(D,F)=8, c(F,E)=9. Identify source and sink.
+      </div>
+      <div class="solved-ans">
+        <div class="solved-step">
+          <div class="step-arrow">→</div>
+          <div><strong>Source Identification:</strong> A node with only outgoing edges = <mark class="g">A is the SOURCE</mark> (A→B=8, A→D=11, no incoming edges to A)</div>
+        </div>
+        <div class="solved-step">
+          <div class="step-arrow">→</div>
+          <div><strong>Sink Identification:</strong> A node with only incoming edges = <mark class="g">G is the SINK</mark> (C→G=16, E→G=12, no outgoing edges from G)</div>
+        </div>
+        <div class="solved-step">
+          <div class="step-arrow">→</div>
+          <div><strong>Finding Max Flow (augmenting paths):</strong><br>
+          Path 1: A→B→C→G: bottleneck = min(8,10,16) = 8. Flow = 8<br>
+          Path 2: A→D→E→G: bottleneck = min(11,9,12) = 9. Flow = 9<br>
+          Path 3: A→D→F→C→G: bottleneck = min(2,8,13,8) = 2. Flow = 2<br>
+          Path 4: A→B→F→E→G: bottleneck = min(0,7,9,3) = ... check residuals<br>
+          <mark>Total Max Flow = 23</mark></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOLVED EXAMPLE 3 -->
+    <div class="solved">
+      <div class="solved-q">
+        <span class="solved-q-num">EXAMPLE 03 — CO2: NPC Proof</span>
+        Show that Set Cover Decision Problem is in NPC.
+      </div>
+      <div class="solved-ans">
+        <div class="solved-step">
+          <div class="step-arrow">1️⃣</div>
+          <div><strong>Step 1: Show Set Cover ∈ NP</strong><br>
+          Certificate: A collection of sets S₁, S₂,...,Sₖ<br>
+          Verifier: Check (1) |collection| ≤ k, (2) union = U. Both checkable in O(|U| × k) = polynomial time. ✓</div>
+        </div>
+        <div class="solved-step">
+          <div class="step-arrow">2️⃣</div>
+          <div><strong>Step 2: Show Set Cover is NP-Hard (Vertex Cover ≤ₚ Set Cover)</strong><br>
+          Given: Graph G=(V,E), integer k. Does G have a vertex cover of size ≤k?<br>
+          Reduction: Universe U = E (all edges). For each vertex v, create set Sᵥ = {edges incident to v}. k stays same.<br>
+          Then: G has vertex cover of size k ⟺ there exists k sets in {Sᵥ} covering all edges.<br>
+          Reduction is poly time. ✓ So Set Cover is NP-Hard. ✓<br>
+          Therefore: <mark class="g">Set Cover is NP-Complete ✓</mark></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOLVED EXAMPLE 4 -->
+    <div class="solved">
+      <div class="solved-q">
+        <span class="solved-q-num">EXAMPLE 04 — CO3: Weighted Vertex Cover</span>
+        Apply pricing method on graph with vertices having costs 6, 5, 7, 5 (as in May 2024 PYQ).
+      </div>
+      <div class="solved-ans">
+        <div class="solved-step">
+          <div class="step-arrow">→</div>
+          <div><strong>Setup:</strong> Vertices a(6), b(5), c(7), d(5). Edges: (a,b)=0.7, (b,c)=5, (b,d)=∞, etc. Set all p(e)=0 initially.</div>
+        </div>
+        <div class="solved-step">
+          <div class="step-arrow">→</div>
+          <div><strong>Algorithm:</strong> While there exists an edge (i,j) where neither i nor j is tight:<br>
+          - Select such edge (i,j)<br>
+          - Increase p(i,j) until i or j becomes tight (Σ prices on incident edges = vertex cost)<br>
+          - A node is tight when it has "used up" its budget</div>
+        </div>
+        <div class="solved-step">
+          <div class="step-arrow">→</div>
+          <div><strong>Result:</strong> S = set of all tight nodes = Vertex Cover<br>
+          <strong>Quality guarantee:</strong> w(S) = Σ_{v∈S} weight(v) ≤ 2 × Σ p(e) ≤ 2 × OPT<br>
+          <mark class="g">This is a 2-approximation algorithm</mark></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOLVED EXAMPLE 5 -->
+    <div class="solved">
+      <div class="solved-q">
+        <span class="solved-q-num">EXAMPLE 05 — CO5: Randomized Select</span>
+        Find the median of {7, 4, 2, 10, 9, 3, 6, 13, 5, 11, 8, 1, 12} (from PYQ)
+      </div>
+      <div class="solved-ans">
+        <div class="solved-step">
+          <div class="step-arrow">→</div>
+          <div><strong>Array has 13 elements. Median = 7th largest = k=7</strong><br>
+          Splitter = leftmost element = 7<br>
+          S⁻ = {4,2,3,6,5,1} (elements &lt; 7), |S⁻|=6<br>
+          S⁺ = {10,9,13,11,8,12} (elements &gt; 7), |S⁺|=6</div>
+        </div>
+        <div class="solved-step">
+          <div class="step-arrow">→</div>
+          <div><strong>|S⁻| = 6 = k-1 = 7-1 = 6</strong><br>
+          <mark class="g">Return splitter a_i = 7. The 7th largest (median) is 7! ✓</mark></div>
+        </div>
+        <div class="solved-step">
+          <div class="step-arrow">💡</div>
+          <div><strong>Verification:</strong> Sorted: {1,2,3,4,5,6,7,8,9,10,11,12,13}. Middle element (7th) = 7. ✓</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOLVED EXAMPLE 6 -->
+    <div class="solved">
+      <div class="solved-q">
+        <span class="solved-q-num">EXAMPLE 06 — CO5: Hashing</span>
+        Insert keys {5,28,19,15,20,33,12,17,10} into hash table with 9 slots using h(x) = x mod 9
+      </div>
+      <div class="solved-ans">
+        <div class="solved-step">
+          <div class="step-arrow">→</div>
+          <div>
+            5 mod 9 = <strong>5</strong> → slot 5<br>
+            28 mod 9 = <strong>1</strong> → slot 1<br>
+            19 mod 9 = <strong>1</strong> → slot 1 (collision! chain)<br>
+            15 mod 9 = <strong>6</strong> → slot 6<br>
+            20 mod 9 = <strong>2</strong> → slot 2<br>
+            33 mod 9 = <strong>6</strong> → slot 6 (collision! chain)<br>
+            12 mod 9 = <strong>3</strong> → slot 3<br>
+            17 mod 9 = <strong>8</strong> → slot 8<br>
+            10 mod 9 = <strong>1</strong> → slot 1 (collision! chain)
+          </div>
+        </div>
+        <div class="solved-step">
+          <div class="step-arrow">→</div>
+          <div><strong>Final Table:</strong><br>
+          Slot 0: empty | Slot 1: 28→19→10 | Slot 2: 20 | Slot 3: 12<br>
+          Slot 4: empty | Slot 5: 5 | Slot 6: 15→33 | Slot 7: empty | Slot 8: 17</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOLVED EXAMPLE 7: Universal Hashing -->
+    <div class="solved">
+      <div class="solved-q">
+        <span class="solved-q-num">EXAMPLE 07 — CO5: Universal Hash Verification</span>
+        Given U={a,b,c,d,e,f}, m=2, h₁(x), h₂(x) as in PYQ. Is H={h₁,h₂} a universal family?
+      </div>
+      <div class="solved-ans">
+        <div class="solved-step">
+          <div class="step-arrow">→</div>
+          <div><strong>H is universal if:</strong> For every x≠y in U, at most |H|/m = 2/2 = 1 hash function in H maps x and y to the same slot.</div>
+        </div>
+        <div class="solved-step">
+          <div class="step-arrow">→</div>
+          <div><strong>Check all pairs:</strong> For each pair (x,y), count how many of {h₁,h₂} give h(x)=h(y).<br>
+          From the given table: check each pair manually.<br>
+          If every pair has at most 1 collision among {h₁,h₂}: <mark class="g">YES, universal</mark><br>
+          If any pair has 2 collisions: <mark class="r">NO, not universal</mark></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Q-Cards -->
+    <p style="font-family:'Syne',sans-serif; font-weight:700; font-size:18px; margin:24px 0 12px; color:var(--accent4)">🃏 Quick Q&A Cards (Click to Reveal Answer)</p>
+
+    <div class="q-card" onclick="this.classList.toggle('open')">
+      <div class="q-label">QUESTION</div>
+      <div class="q-text">What is the difference between tractable and intractable problems?</div>
+      <div class="q-toggle">Click to reveal ▼</div>
+      <div class="q-ans">
+        <strong>Tractable:</strong> Problems solvable in polynomial time O(nᵏ) — class P. Example: Sorting, MST, Max Flow.<br><br>
+        <strong>Intractable:</strong> Problems believed to require super-polynomial (exponential) time in worst case. Class NP (when P≠NP). No known poly-time algorithm. Example: TSP, Vertex Cover, 3-SAT.<br><br>
+        <strong>Key insight:</strong> Tractability is about <em>worst-case</em> polynomial-time solvability. NP problems can be <em>verified</em> polynomially but not necessarily solved.
+      </div>
+    </div>
+
+    <div class="q-card" onclick="this.classList.toggle('open')">
+      <div class="q-label">QUESTION</div>
+      <div class="q-text">What is a "certificate" in the context of NP problems?</div>
+      <div class="q-toggle">Click to reveal ▼</div>
+      <div class="q-ans">
+        A certificate (also called witness) is a proposed solution that can be <strong>verified in polynomial time</strong>.<br><br>
+        Example for 3-SAT: Certificate = specific truth assignment to variables. We can check if it satisfies all clauses in O(n) time.<br><br>
+        <strong>Significance of polynomial-time certifier:</strong> It defines the class NP. If a problem has a poly-time certifier, it's in NP. The certifier doesn't need to FIND the solution — just VERIFY it.
+      </div>
+    </div>
+
+    <div class="q-card" onclick="this.classList.toggle('open')">
+      <div class="q-label">QUESTION</div>
+      <div class="q-text">Why does Randomized Select run in O(n) expected time?</div>
+      <div class="q-toggle">Click to reveal ▼</div>
+      <div class="q-ans">
+        <strong>Key argument:</strong> A "good splitter" is one that puts at least n/4 elements on each side.<br><br>
+        Probability of picking a good splitter = 1/2 (any element in middle 50% is good).<br><br>
+        Expected number of trials to get a good splitter = 2 (geometric distribution).<br><br>
+        With a good splitter, problem size reduces to ≤ 3n/4.<br><br>
+        Recurrence: T(n) ≤ T(3n/4) + cn (with high probability)<br>
+        Solving: T(n) = O(n) ✓
+      </div>
+    </div>
+
+    <div class="q-card" onclick="this.classList.toggle('open')">
+      <div class="q-label">QUESTION</div>
+      <div class="q-text">Can gradient descent local search always guarantee a global optimum?</div>
+      <div class="q-toggle">Click to reveal ▼</div>
+      <div class="q-ans">
+        <strong>NO!</strong> Gradient descent / local search cannot guarantee global optimum.<br><br>
+        <strong>Why?</strong> It can get stuck in <em>local optima</em> — solutions that are better than all neighbors but not the best overall.<br><br>
+        <strong>Analogy:</strong> Climbing the highest hill starting from a valley — you might reach a small hill first and get "stuck" thinking you're at the top.<br><br>
+        <strong>Solutions:</strong> Simulated Annealing (accept worse solutions with some probability), Random Restarts (start from multiple initial solutions), Genetic Algorithms.
+      </div>
+    </div>
+
+    <div class="q-card" onclick="this.classList.toggle('open')">
+      <div class="q-label">QUESTION</div>
+      <div class="q-text">What is PSPACE and why is Q-SAT in PSPACE?</div>
+      <div class="q-toggle">Click to reveal ▼</div>
+      <div class="q-ans">
+        <strong>PSPACE:</strong> Class of decision problems solvable by a deterministic Turing Machine using polynomial SPACE (but possibly exponential time).<br><br>
+        <strong>P ⊆ NP ⊆ PSPACE</strong> (SPACE is more powerful than TIME in terms of computability).<br><br>
+        <strong>Q-SAT (Quantified Boolean Formula):</strong> Is ∃x₁∀x₂∃x₃... φ(x₁,x₂,...,xₙ) TRUE?<br><br>
+        Q-SAT is in PSPACE because: we can evaluate the formula by trying all 2ⁿ assignments one at a time, reusing the same polynomial space. The key insight: we don't need to STORE all assignments simultaneously — just evaluate one at a time.
+      </div>
+    </div>
+
+  </div><!-- end section 7 -->
+
+  <hr class="divider">
+
+  <!-- ==============================
+       SECTION 8: QUICK REVISION
+       ============================== -->
+  <div class="section scroll-reveal" id="s8">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <span class="section-emoji">⚡</span>
+      <h2 class="section-title">Quick Revision Sheet — Last Day Study</h2>
+      <span class="section-pill">READ THE NIGHT BEFORE</span>
+    </div>
+
+    <div class="rev-strip">
+      <p style="font-family:'Syne',sans-serif; font-weight:800; font-size:22px; margin-bottom:20px; color:var(--accent4)">⚡ AAD2 ULTRA-CONDENSED REVISION</p>
+
+      <div class="rev-row">
+
+        <div class="rev-item" style="border-color: rgba(106,184,255,0.3)">
+          <div class="rev-key" style="color:var(--accent5)">🌊 MAX FLOW</div>
+          <div class="rev-val" style="font-size:12px">
+            • Max Flow = Min Cut<br>
+            • Residual: c_f = c - f (fwd) + f (back)<br>
+            • F-F: DFS, O(E×maxflow)<br>
+            • E-K: BFS, O(VE²)<br>
+            • Augment until no path s→t in residual<br>
+            • Max residual edges = 2|E|
+          </div>
+        </div>
+
+        <div class="rev-item" style="border-color: rgba(124,106,255,0.3)">
+          <div class="rev-key" style="color:var(--accent1)">🤔 P vs NP</div>
+          <div class="rev-val" style="font-size:12px">
+            • P: solve poly time<br>
+            • NP: verify poly time<br>
+            • NPC: NP + NP-Hard<br>
+            • NP-Hard: ≥ hardest in NP<br>
+            • PSPACE: poly space<br>
+            • P ⊆ NP ⊆ PSPACE<br>
+            • Q-SAT is PSPACE-Complete
+          </div>
+        </div>
+
+        <div class="rev-item" style="border-color: rgba(106,255,202,0.3)">
+          <div class="rev-key" style="color:var(--accent3)">🔗 REDUCTIONS</div>
+          <div class="rev-val" style="font-size:12px">
+            • SAT → 3-SAT → Ind.Set<br>
+            • 3-SAT → Vertex Cover<br>
+            • VC + IS = n (complements)<br>
+            • Vertex Cover → Set Cover<br>
+            • NPC proof = NP + NP-Hard
+          </div>
+        </div>
+
+        <div class="rev-item" style="border-color: rgba(255,106,155,0.3)">
+          <div class="rev-key" style="color:var(--accent2)">🎯 APPROXIMATION</div>
+          <div class="rev-val" style="font-size:12px">
+            • VC greedy: pick both endpoints → 2-approx<br>
+            • Weighted VC: pricing method → 2-approx<br>
+            • Fairness: Σp(e) ≤ w(S)<br>
+            • Set Cover greedy: min cost per element → H(d)<br>
+            • Load Balance: ≤ 2×OPT*
+          </div>
+        </div>
+
+        <div class="rev-item" style="border-color: rgba(255,202,106,0.3)">
+          <div class="rev-key" style="color:var(--accent4)">🔍 LOCAL SEARCH</div>
+          <div class="rev-val" style="font-size:12px">
+            • Hopfield: nodes ±1, edges with weights<br>
+            • Good edge: w·s_u·s_v &lt; 0<br>
+            • State flip unsatisfied nodes<br>
+            • Terminates: ≤ Σ|w(e)| steps<br>
+            • Local ≠ Global optima
+          </div>
+        </div>
+
+        <div class="rev-item" style="border-color: rgba(106,184,255,0.3)">
+          <div class="rev-key" style="color:var(--accent5)">🎲 RANDOMIZATION</div>
+          <div class="rev-val" style="font-size:12px">
+            • Select(S,k): random pivot → O(n) expected<br>
+            • Good splitter: ≥ n/4 each side, prob 1/2<br>
+            • Universal hash: Pr[collision] ≤ 1/m<br>
+            • h_a(x) = (Σa_i·x_i) mod p<br>
+            • Chaining: O(1+n/m) expected lookup
+          </div>
+        </div>
+
+        <div class="rev-item" style="border-color: rgba(124,106,255,0.3)">
+          <div class="rev-key" style="color:var(--accent1)">📋 PROBLEM MATCH</div>
+          <div class="rev-val" style="font-size:12px">
+            • Max Flow → P<br>
+            • MST, Sorting → P<br>
+            • 3-SAT, VC(decision) → NPC<br>
+            • TSP(decision) → NPC<br>
+            • Halting → NP-Hard<br>
+            • Planning → PSPACE<br>
+            • Q-SAT → PSPACE-Complete
+          </div>
+        </div>
+
+        <div class="rev-item" style="border-color: rgba(255,106,155,0.3)">
+          <div class="rev-key" style="color:var(--accent2)">🔢 KEY NUMBERS</div>
+          <div class="rev-val" style="font-size:12px">
+            • VC approx ratio = 2<br>
+            • Weighted VC ratio = 2<br>
+            • Set Cover ratio = H(d)<br>
+            • Select expected time = O(n)<br>
+            • Hopfield bound = Σ|w(e)|<br>
+            • E-K complexity = O(VE²)
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MUST-KNOW THEOREMS -->
+    <div class="card" style="border-color: rgba(255,202,106,0.3)">
+      <div class="card-title">📜 <span>Must-Know Theorems</span> — Memorize These!</div>
+      <div class="grid-2">
+        <div>
+          <div class="box box-warn">
+            <span class="box-label">MAX-FLOW MIN-CUT THEOREM</span>
+            In any flow network, the maximum value of flow from s to t equals the minimum capacity among all s-t cuts.
+          </div>
+          <div class="box box-info">
+            <span class="box-label">FAIRNESS LEMMA</span>
+            For any vertex cover S and any nonnegative fair prices p_e, we have Σ_{e∈S} p_e ≤ w(S).
+          </div>
+        </div>
+        <div>
+          <div class="box box-success">
+            <span class="box-label">COOK-LEVIN THEOREM</span>
+            SAT is NP-Complete. This is the FIRST NPC problem ever proven. All other NPC proofs reduce from SAT.
+          </div>
+          <div class="box box-purple">
+            <span class="box-label">HOPFIELD CONVERGENCE</span>
+            State-flipping algorithm on a Hopfield network always converges to a stable configuration in at most Σ|w_e| iterations.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end section 8 -->
+
+  <hr class="divider">
+
+  <!-- ==============================
+       SECTION 9: TOPPER STRATEGY
+       ============================== -->
+  <div class="section scroll-reveal" id="s9">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <span class="section-emoji">🚀</span>
+      <h2 class="section-title">Topper Strategy — How to Score High</h2>
+      <span class="section-pill">GAME PLAN</span>
+    </div>
+
+    <div class="box box-success" style="margin-bottom:24px">
+      <span class="box-label">🏆 TOPPER MINDSET</span>
+      <strong>Paper Analysis:</strong> 10 questions × 6 marks = 60 total. Each question has 3 sub-parts (a,b,c) × 2 marks each. You need ~42/60 for a good grade. Focus on CO1, CO2, CO5 first (highest repeat in PYQs).
+    </div>
+
+    <div class="strat-grid">
+
+      <div class="strat-card s1">
+        <div class="strat-icon">🎯</div>
+        <div class="strat-title">High-Priority Topics</div>
+        <div class="strat-text">
+          Based on PYQ analysis:<br><br>
+          <strong>#1 Max Flow</strong> (Q1 every year, 6 marks)<br>
+          <strong>#2 NP-Completeness + SAT</strong> (Q2-Q4, 12 marks)<br>
+          <strong>#3 Vertex Cover Approximation</strong> (Q5, 6 marks)<br>
+          <strong>#4 Randomized Select + Hashing</strong> (Q8-Q9, 12 marks)<br>
+          <strong>#5 Real-world design Q</strong> (Q10, 6 marks)
+        </div>
+      </div>
+
+      <div class="strat-card s2">
+        <div class="strat-icon">✍️</div>
+        <div class="strat-title">What to Write in Exam</div>
+        <div class="strat-text">
+          <strong>For proofs (NPC):</strong><br>
+          ① State: "To show X is NPC, we show X ∈ NP and X is NP-Hard."<br>
+          ② NP membership: give certificate + verifier<br>
+          ③ NP-Hard: show known NPC ≤ₚ X<br><br>
+          <strong>For algorithms:</strong><br>
+          ① State algorithm clearly (pseudocode)<br>
+          ② Trace on given example<br>
+          ③ State time complexity
+        </div>
+      </div>
+
+      <div class="strat-card s3">
+        <div class="strat-icon">📅</div>
+        <div class="strat-title">Last 3 Days Plan</div>
+        <div class="strat-text">
+          <strong>Day 1 (48h before):</strong><br>
+          Read all formulas + theorems. Do 2023 paper mentally.<br><br>
+          <strong>Day 2 (24h before):</strong><br>
+          Do 2024 paper fully written. Check answers. Fix mistakes.<br><br>
+          <strong>Day 3 (exam day morning):</strong><br>
+          Read only the Quick Revision Sheet (Section 8). Don't learn anything new.
+        </div>
+      </div>
+
+      <div class="strat-card s4">
+        <div class="strat-icon">⚠️</div>
+        <div class="strat-title">Common Mistakes to Avoid</div>
+        <div class="strat-text">
+          ❌ Forgetting backward edges in residual graph<br>
+          ❌ Confusing NP-Hard with NP-Complete<br>
+          ❌ Not showing certificate for NP membership<br>
+          ❌ Wrong approximation ratio calculation<br>
+          ❌ Not explaining WHY gradient descent fails<br>
+          ❌ Mixing up good/bad edges in Hopfield<br>
+          ❌ Using h(x) = x mod 9 wrong (should be mod slots)
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Expected Q Table -->
+    <div class="card" style="margin-top:20px; border-color: rgba(124,106,255,0.3)">
+      <div class="card-title">🔮 <span>Most Likely Questions 2025</span> — Prediction Based on PYQ Pattern</div>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Q No.</th><th>Most Likely Topic</th><th>Marks</th><th>Confidence</th></tr>
+          <tr>
+            <td>Q1</td>
+            <td>Max Flow — Draw graph, find max flow, find min cut</td>
+            <td>6</td>
+            <td><span class="kw-chip green">🔥 HIGH (appears every year)</span></td>
+          </tr>
+          <tr>
+            <td>Q2</td>
+            <td>P/NP relation + CNF circuit conversion + class Q</td>
+            <td>6</td>
+            <td><span class="kw-chip green">🔥 HIGH</span></td>
+          </tr>
+          <tr>
+            <td>Q3</td>
+            <td>3-SAT → Independent Set reduction + maximal IS</td>
+            <td>6</td>
+            <td><span class="kw-chip green">🔥 HIGH</span></td>
+          </tr>
+          <tr>
+            <td>Q4</td>
+            <td>PSPACE definition + Q-SAT + polynomial-time certifier</td>
+            <td>6</td>
+            <td><span class="kw-chip orange">MEDIUM</span></td>
+          </tr>
+          <tr>
+            <td>Q5</td>
+            <td>Weighted Vertex Cover (pricing method) with example</td>
+            <td>6</td>
+            <td><span class="kw-chip green">🔥 HIGH</span></td>
+          </tr>
+          <tr>
+            <td>Q6</td>
+            <td>Greedy Set Cover on given instance + compare with OPT</td>
+            <td>6</td>
+            <td><span class="kw-chip green">HIGH</span></td>
+          </tr>
+          <tr>
+            <td>Q7</td>
+            <td>Hopfield Network — good/bad edges + state flipping</td>
+            <td>6</td>
+            <td><span class="kw-chip green">HIGH</span></td>
+          </tr>
+          <tr>
+            <td>Q8</td>
+            <td>Randomized Select with given array + off-center analysis</td>
+            <td>6</td>
+            <td><span class="kw-chip green">🔥 HIGH</span></td>
+          </tr>
+          <tr>
+            <td>Q9</td>
+            <td>Hash table insertion + universal hashing check</td>
+            <td>6</td>
+            <td><span class="kw-chip green">🔥 HIGH</span></td>
+          </tr>
+          <tr>
+            <td>Q10</td>
+            <td>Real-world problem formulation + algorithm design paradigm</td>
+            <td>6</td>
+            <td><span class="kw-chip orange">MEDIUM (can be any topic)</span></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- KEYWORDS BANK -->
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">🏷️ <span>Keyword Bank</span> — Use These in Answers</div>
+      <p style="color:var(--muted); font-size:13px; margin-bottom:12px">Include these terms in your exam answers for full marks. Examiners look for keywords!</p>
+
+      <p style="font-size:12px; color:var(--accent1); font-family:'Space Mono',monospace; margin-bottom:8px">NETWORK FLOW KEYWORDS</p>
+      <div>
+        <span class="kw-chip">augmenting path</span>
+        <span class="kw-chip">residual graph</span>
+        <span class="kw-chip">bottleneck capacity</span>
+        <span class="kw-chip">flow conservation</span>
+        <span class="kw-chip">min-cut</span>
+        <span class="kw-chip">source & sink</span>
+        <span class="kw-chip">skew symmetry</span>
+        <span class="kw-chip">saturated edge</span>
+      </div>
+
+      <p style="font-size:12px; color:var(--accent2); font-family:'Space Mono',monospace; margin-bottom:8px; margin-top:12px">COMPLEXITY KEYWORDS</p>
+      <div>
+        <span class="kw-chip pink">polynomial reduction</span>
+        <span class="kw-chip pink">certificate</span>
+        <span class="kw-chip pink">verifier</span>
+        <span class="kw-chip pink">decidable</span>
+        <span class="kw-chip pink">NP-Hard witness</span>
+        <span class="kw-chip pink">Cook-Levin theorem</span>
+        <span class="kw-chip pink">PSPACE-complete</span>
+      </div>
+
+      <p style="font-size:12px; color:var(--accent3); font-family:'Space Mono',monospace; margin-bottom:8px; margin-top:12px">APPROXIMATION KEYWORDS</p>
+      <div>
+        <span class="kw-chip green">approximation ratio</span>
+        <span class="kw-chip green">tight node</span>
+        <span class="kw-chip green">pricing method</span>
+        <span class="kw-chip green">fairness lemma</span>
+        <span class="kw-chip green">harmonic number</span>
+        <span class="kw-chip green">2-approximation</span>
+        <span class="kw-chip green">optimal cost OPT</span>
+      </div>
+
+      <p style="font-size:12px; color:var(--accent4); font-family:'Space Mono',monospace; margin-bottom:8px; margin-top:12px">RANDOMIZATION KEYWORDS</p>
+      <div>
+        <span class="kw-chip orange">expected time</span>
+        <span class="kw-chip orange">good splitter</span>
+        <span class="kw-chip orange">universal hash family</span>
+        <span class="kw-chip orange">chaining</span>
+        <span class="kw-chip orange">collision probability</span>
+        <span class="kw-chip orange">expected O(n)</span>
+      </div>
+    </div>
+
+  </div><!-- end section 9 -->
+
+  <hr class="divider">
+
+  <!-- BONUS: Other 4th Sem Subjects Quick Notes -->
+  <div class="section scroll-reveal">
+    <div class="section-header">
+      <span class="section-num">10</span>
+      <span class="section-emoji">📎</span>
+      <h2 class="section-title">Other 4th Sem Subjects — Quick Reference</h2>
+      <span class="section-pill">BONUS</span>
+    </div>
+
+    <div class="grid-2">
+
+      <div class="card">
+        <div class="card-title">🔢 <span>Applied Linear Algebra (MTH 3003)</span></div>
+        <ul class="bullet-list">
+          <li><strong>LU Factorization:</strong> A = L·U, L=lower triangular, U=upper triangular</li>
+          <li><strong>LDU:</strong> A = L·D·U where D is diagonal</li>
+          <li><strong>4 Fundamental Subspaces:</strong> Column space, Null space, Row space, Left null space</li>
+          <li><strong>Rank + Nullity = n</strong> (number of columns)</li>
+          <li><strong>Eigenvalue:</strong> Av = λv, find λ from det(A-λI)=0</li>
+          <li><strong>SVD:</strong> A = UΣV^T</li>
+          <li><strong>Pseudo-inverse:</strong> A⁺ = VΣ⁺U^T</li>
+          <li><strong>Projection onto column space:</strong> P = A(A^TA)⁻¹A^T</li>
+          <li><strong>Least Squares:</strong> A^TAx = A^Tb (normal equations)</li>
+          <li><strong>Hermitian Matrix:</strong> A = A^H (conjugate transpose = self)</li>
+          <li><strong>Condition Number:</strong> κ(A) = ||A||·||A⁻¹|| = σ_max/σ_min</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💻 <span>Computer Organization & Architecture (EET2211)</span></div>
+        <ul class="bullet-list">
+          <li><strong>Von Neumann Architecture:</strong> Stored program concept, CPU, Memory, I/O</li>
+          <li><strong>CISC vs RISC:</strong> CISC=complex instructions, RISC=simple, fast</li>
+          <li><strong>Cache Mapping:</strong> Direct, Set-Associative, Fully Associative</li>
+          <li><strong>Hamming Code:</strong> Error detection & correction; syndrome tells error position</li>
+          <li><strong>RAID levels:</strong> 0=striping, 1=mirroring, 4/5/6=parity</li>
+          <li><strong>Little's Law:</strong> L = λW (queue length = arrival rate × wait time)</li>
+          <li><strong>Booth's Algorithm:</strong> Signed multiplication in 2's complement</li>
+          <li><strong>ARM Addressing modes:</strong> Immediate, Register, Indirect, Indexed, Pre/Post-increment</li>
+          <li><strong>8255A:</strong> Programmable Peripheral Interface, ports A/B/C, control word</li>
+          <li><strong>MIPS:</strong> Millions of Instructions Per Second = (instruction count)/(time×10⁶)</li>
+          <li><strong>IoT generations:</strong> Wired, Wireless, Mobile, Pervasive</li>
+          <li><strong>Interrupt processing:</strong> ISR, priority, daisy chaining</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">☕ <span>CS Workshop 2 / Java (CSE3141)</span></div>
+        <ul class="bullet-list">
+          <li><strong>OOP concepts:</strong> Class, Object, Inheritance, Polymorphism, Encapsulation</li>
+          <li><strong>Exception handling:</strong> try-catch-finally, custom exceptions</li>
+          <li><strong>Data Structures in Java:</strong> LinkedList, Stack, Queue, BST, Graph</li>
+          <li><strong>Graph traversal:</strong> BFS (Queue-based), DFS (Stack/Recursive)</li>
+          <li><strong>Josephus Problem:</strong> Use circular queue; eliminate every k-th person</li>
+          <li><strong>Min-Heap:</strong> Parent ≤ children; heapify, insert, extract-min operations</li>
+          <li><strong>Lambda functions:</strong> (params) -> expression; used with Comparator</li>
+          <li><strong>Thread:</strong> Extends Thread or implements Runnable; synchronized keyword</li>
+          <li><strong>Spring IoC:</strong> Beans defined in XML, Spring creates and injects objects</li>
+          <li><strong>Prim's Algorithm:</strong> MST; start node, add minimum weight edge each time</li>
+          <li><strong>Multithreading:</strong> synchronized methods prevent race conditions</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📊 <span>Macroeconomics (HSS2021)</span></div>
+        <ul class="bullet-list">
+          <li><strong>Absolute Advantage:</strong> More output per input than other country</li>
+          <li><strong>Comparative Advantage:</strong> Lower opportunity cost (basis of trade)</li>
+          <li><strong>CPI:</strong> (Cost of basket this year / Cost in base year) × 100</li>
+          <li><strong>Inflation Rate:</strong> (CPI₂ - CPI₁) / CPI₁ × 100%</li>
+          <li><strong>GDP Deflator:</strong> (Nominal GDP / Real GDP) × 100</li>
+          <li><strong>National Savings:</strong> Private Savings + Public Savings = Y - C - G</li>
+          <li><strong>Money Multiplier:</strong> 1/reserve ratio; ΔM = multiplier × ΔReserves</li>
+          <li><strong>Unemployment rate:</strong> (Unemployed / Labor Force) × 100</li>
+          <li><strong>Labor Force Participation:</strong> (Labor Force / Adult Population) × 100</li>
+          <li><strong>Loanable Funds:</strong> Supply = National Savings, Demand = Investment</li>
+          <li><strong>NDP = GDP - Depreciation</strong>; <strong>NNP = NDP + (Inflow - Outflow)</strong></li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Made with <span class="heart">♥</span> for 4th Semester CSE/CSIT Students — SOA University</p>
+    <p style="margin-top:8px; color:var(--border)">CSE4131 · Algorithm Design-2 · Complete Study System</p>
+    <p style="margin: 0.5rem 0;">
+        BUILT BY <strong>JASMINE JAYASMITA</strong>
+    </p>
+
+    <div style="margin-top: 0.8rem; font-size: 0.9rem;">
+        <a href="https://www.linkedin.com/in/jasminejayasmitasoa" target="_blank" style="color:var(--accent); text-decoration:none; margin:0 10px;">LinkedIn</a>
+        <span style="color:var(--border);">|</span>
+        <a href="https://www.instagram.com/jassharchive/" target="_blank" style="color:var(--accent); text-decoration:none; margin:0 10px;">Instagram</a>
+    </div>
+    <p style="margin-top:8px">Study Smart. Revise Often. Ace the Exam. 🎓</p>
+  </footer>
+
+</div><!-- end container -->
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+  // Smooth scroll
+  function scrollTo(id) {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Nav button active state
+  const navBtns = document.querySelectorAll('.nav-btn');
+  navBtns.forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      navBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Progress bars animate on scroll
+  const progressObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bar = entry.target.querySelector('.progress-bar');
+        if (bar) {
+          const target = bar.style.width;
+          bar.style.width = '0%';
+          setTimeout(() => { bar.style.width = target; }, 200);
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.card').forEach(card => progressObserver.observe(card));
+
+  // Q-card toggle hint
+  document.querySelectorAll('.q-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const toggle = card.querySelector('.q-toggle');
+      if (card.classList.contains('open')) {
+        toggle.textContent = 'Click to hide ▲';
+      } else {
+        toggle.textContent = 'Click to reveal ▼';
+      }
+    });
+  });
+
+  // Active nav on scroll
+  window.addEventListener('scroll', () => {
+    const sections = ['s0','s1','s2','s3','s4','s5','s6','s7','s8','s9'];
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 100) {
+        current = id;
+      }
+    });
+    navBtns.forEach((btn, i) => {
+      btn.classList.toggle('active', i === sections.indexOf(current));
+    });
+  });
+</script>
+
+</body>
+</html>

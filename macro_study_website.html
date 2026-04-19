@@ -1,0 +1,1995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MacroMaster — HSS2024 Study Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --bg2: #111118;
+  --bg3: #18181f;
+  --card: #1c1c26;
+  --border: #2a2a3a;
+  --accent: #7c6af7;
+  --accent2: #f7c26a;
+  --accent3: #6af7c2;
+  --accent4: #f76a9a;
+  --text: #e8e8f0;
+  --text2: #9898b0;
+  --text3: #6868808;
+  --formula-bg: #1a1a2e;
+  --formula-border: #7c6af7;
+  --exam-bg: #1a2e1a;
+  --exam-border: #6af7c2;
+  --warn-bg: #2e1a1a;
+  --warn-border: #f76a9a;
+  --tip-bg: #2e2a1a;
+  --tip-border: #f7c26a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* NAVBAR */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(10,10,15,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 1.5rem;
+}
+.nav-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  height: 56px;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--accent);
+  white-space: nowrap;
+  margin-right: 1.5rem;
+  flex-shrink: 0;
+}
+.nav-logo span { color: var(--accent2); }
+nav a {
+  text-decoration: none;
+  color: var(--text2);
+  font-size: 0.78rem;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 0.35rem 0.7rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+nav a:hover { color: var(--text); background: var(--bg3); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: 
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,106,247,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(106,247,194,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 20% 70%, rgba(247,194,106,0.08) 0%, transparent 50%);
+}
+.hero-content { position: relative; z-index: 1; max-width: 760px; }
+.hero-tag {
+  display: inline-block;
+  background: rgba(124,106,247,0.15);
+  border: 1px solid rgba(124,106,247,0.4);
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 1rem;
+  border-radius: 100px;
+  margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.2rem;
+  letter-spacing: -0.02em;
+}
+.hero h1 span { color: var(--accent); }
+.hero p { font-size: 1.05rem; color: var(--text2); max-width: 520px; margin: 0 auto 2.5rem; }
+.hero-stats {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.stat-pill {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 0.5rem 1.2rem;
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+.stat-pill strong { color: var(--accent2); }
+
+/* SECTION WRAPPERS */
+section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 1.5rem;
+}
+.section-head {
+  margin-bottom: 2.5rem;
+}
+.section-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.section-head h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+.section-head p { color: var(--text2); margin-top: 0.5rem; font-size: 0.95rem; }
+
+/* DIVIDER */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* CARDS */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.card:hover { border-color: rgba(124,106,247,0.4); }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.2rem; }
+
+/* FORMULA BOXES */
+.formula-box {
+  background: var(--formula-bg);
+  border: 1px solid var(--formula-border);
+  border-radius: 12px;
+  padding: 1.2rem 1.5rem;
+  margin: 1rem 0;
+  position: relative;
+}
+.formula-box::before {
+  content: 'FORMULA';
+  position: absolute;
+  top: -0.55rem; left: 1rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  background: var(--formula-border);
+  color: #fff;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+.formula {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* EXAM TRICK */
+.exam-trick {
+  background: var(--exam-bg);
+  border-left: 3px solid var(--accent3);
+  border-radius: 0 10px 10px 0;
+  padding: 1rem 1.2rem;
+  margin: 1rem 0;
+}
+.exam-trick-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent3);
+  margin-bottom: 0.4rem;
+}
+
+/* WARN BOX */
+.warn-box {
+  background: var(--warn-bg);
+  border-left: 3px solid var(--accent4);
+  border-radius: 0 10px 10px 0;
+  padding: 1rem 1.2rem;
+  margin: 1rem 0;
+}
+.warn-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent4);
+  margin-bottom: 0.4rem;
+}
+
+/* TIP BOX */
+.tip-box {
+  background: var(--tip-bg);
+  border-left: 3px solid var(--accent2);
+  border-radius: 0 10px 10px 0;
+  padding: 1rem 1.2rem;
+  margin: 1rem 0;
+}
+.tip-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 0.4rem;
+}
+
+/* GRAPH CONTAINER */
+.graph-container {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.2rem 0;
+  text-align: center;
+}
+.graph-container svg {
+  max-width: 100%;
+}
+
+/* COLLAPSIBLE */
+.collapsible {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin: 0.8rem 0;
+  overflow: hidden;
+}
+.collapsible-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.3rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+.collapsible-header:hover { background: var(--bg3); }
+.collapsible-header h4 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.collapsible-arrow {
+  color: var(--accent);
+  font-size: 1.1rem;
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+.collapsible-body {
+  padding: 0 1.3rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s;
+}
+.collapsible.open .collapsible-body {
+  max-height: 3000px;
+  padding: 0 1.3rem 1.3rem;
+}
+.collapsible.open .collapsible-arrow { transform: rotate(180deg); }
+
+/* Q-CARDS */
+.q-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+.q-card-header {
+  padding: 1rem 1.3rem;
+  cursor: pointer;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  transition: background 0.2s;
+}
+.q-card-header:hover { background: rgba(124,106,247,0.05); }
+.q-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(124,106,247,0.12);
+  border: 1px solid rgba(124,106,247,0.25);
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+.q-text { font-size: 0.92rem; line-height: 1.6; flex: 1; }
+.q-toggle { color: var(--accent2); font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+.q-answer {
+  padding: 0 1.3rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s;
+  border-top: 0px solid var(--border);
+  background: rgba(10,10,15,0.5);
+}
+.q-card.open .q-answer {
+  max-height: 5000px;
+  padding: 1.2rem 1.3rem;
+  border-top-width: 1px;
+}
+.q-card.open .q-toggle { transform: rotate(180deg); }
+.q-toggle { transition: transform 0.3s; }
+.difficulty-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 100px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.easy { background: rgba(106,247,194,0.1); color: var(--accent3); border: 1px solid rgba(106,247,194,0.25); }
+.medium { background: rgba(247,194,106,0.1); color: var(--accent2); border: 1px solid rgba(247,194,106,0.25); }
+.hard { background: rgba(247,106,154,0.1); color: var(--accent4); border: 1px solid rgba(247,106,154,0.25); }
+
+/* TABLE */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin: 1rem 0;
+}
+.data-table th {
+  background: rgba(124,106,247,0.12);
+  color: var(--accent);
+  font-weight: 600;
+  padding: 0.7rem 0.9rem;
+  text-align: left;
+  border: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+}
+.data-table td {
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--border);
+  vertical-align: top;
+}
+.data-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+/* STEP LIST */
+.steps { counter-reset: step; list-style: none; margin: 1rem 0; }
+.steps li {
+  counter-increment: step;
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+  align-items: flex-start;
+}
+.steps li::before {
+  content: counter(step);
+  background: var(--accent);
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* CONCEPT TABS */
+.topic-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.topic-tab {
+  padding: 0.45rem 1rem;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--bg3);
+  color: var(--text2);
+  transition: all 0.2s;
+}
+.topic-tab.active, .topic-tab:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.topic-content { display: none; }
+.topic-content.active { display: block; }
+
+/* HIGHLIGHT */
+.hl { color: var(--accent2); font-weight: 600; }
+.hl2 { color: var(--accent3); font-weight: 600; }
+.hl3 { color: var(--accent4); font-weight: 600; }
+.hl4 { color: var(--accent); font-weight: 600; }
+
+/* VS GRID */
+.vs-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 1rem;
+  align-items: start;
+  margin: 1rem 0;
+}
+.vs-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--accent4);
+  padding-top: 1rem;
+}
+.vs-item {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+}
+.vs-item h5 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  color: var(--accent);
+}
+
+/* MNEMONIC */
+.mnemonic-card {
+  background: linear-gradient(135deg, rgba(124,106,247,0.1), rgba(106,247,194,0.05));
+  border: 1px solid rgba(124,106,247,0.3);
+  border-radius: 14px;
+  padding: 1.3rem;
+  margin: 0.8rem 0;
+}
+.mnemonic-word {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+.mnemonic-expand span {
+  display: block;
+  font-size: 0.85rem;
+  margin: 0.15rem 0;
+}
+.mnemonic-expand .letter { color: var(--accent2); font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+
+/* EXPECTED Q BADGE */
+.eq-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 100px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-right: 0.5rem;
+}
+.likely { background: rgba(247,194,106,0.15); color: var(--accent2); border: 1px solid rgba(247,194,106,0.3); }
+.very-likely { background: rgba(247,106,154,0.15); color: var(--accent4); border: 1px solid rgba(247,106,154,0.3); }
+
+/* QUICK REVISION GRID */
+.qr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
+.qr-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.1rem;
+  border-top: 2px solid var(--accent);
+}
+.qr-card h5 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+.qr-card ul { list-style: none; }
+.qr-card ul li { font-size: 0.8rem; color: var(--text2); padding: 0.2rem 0; padding-left: 1rem; position: relative; }
+.qr-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent2); }
+
+/* SCROLL TOP */
+.scroll-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 44px; height: 44px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(124,106,247,0.4);
+}
+.scroll-top.show { display: flex; }
+
+/* PROGRESS BAR */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent3));
+  z-index: 9999;
+  transition: width 0.1s;
+}
+
+/* responsive */
+@media (max-width: 640px) {
+  .vs-grid { grid-template-columns: 1fr; }
+  .vs-center { display: none; }
+  section { padding: 3.5rem 1rem; }
+}
+
+/* SECTION DIVIDER VISUAL */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+p { margin-bottom: 0.6rem; }
+ul { padding-left: 1.2rem; }
+ul li { margin-bottom: 0.3rem; }
+h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin: 1.2rem 0 0.5rem; color: var(--accent2); }
+h4 { font-weight: 600; margin: 0.8rem 0 0.4rem; }
+strong { color: var(--text); }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">Macro<span>Master</span></div>
+    <a href="#concepts">📘 Concepts</a>
+    <a href="#graphs">📊 Graphs</a>
+    <a href="#formulas">🧮 Formulas</a>
+    <a href="#pyqs">🎯 PYQs</a>
+    <a href="#qbank">📝 Q-Bank</a>
+    <a href="#expected">⚡ Expected</a>
+    <a href="#tricks">🪄 Tricks</a>
+    <a href="#confusion">⚠️ Confusion</a>
+    <a href="#quickrev">✅ Quick Rev</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">HSS2024 · Introduction to Macroeconomics · 4th Sem</div>
+    <h1>Crack Your<br><span>Macro Exam</span><br>With Clarity</h1>
+    <p>Concept → Graph → Formula → Question. Every topic explained like you're confused but smart — because you are.</p>
+    <div class="hero-stats">
+      <div class="stat-pill"><strong>4</strong> Core Topics</div>
+      <div class="stat-pill"><strong>8+</strong> Key Graphs</div>
+      <div class="stat-pill"><strong>12+</strong> Formulas</div>
+      <div class="stat-pill"><strong>40+</strong> Practice Qs</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 1: CONCEPT BUILDER
+═══════════════════════════════════════════════════ -->
+<section id="concepts">
+  <div class="section-head">
+    <div class="section-tag">📘 Section 1</div>
+    <h2>Concept Builder</h2>
+    <p>Plain-language explanations. Read before anything else.</p>
+  </div>
+
+  <div class="topic-tabs">
+    <div class="topic-tab active" onclick="showTopic('trade')">Ch.3 Trade & PPF</div>
+    <div class="topic-tab" onclick="showTopic('cpi')">Ch.24 CPI & Cost of Living</div>
+    <div class="topic-tab" onclick="showTopic('gdp')">Ch.22 GDP & Income</div>
+    <div class="topic-tab" onclick="showTopic('growth')">Ch.25 Growth & Saving</div>
+  </div>
+
+  <!-- TOPIC: TRADE -->
+  <div class="topic-content active" id="topic-trade">
+    <div class="card-grid">
+      <div class="card">
+        <h3>🌍 Why Do Countries Trade?</h3>
+        <p>Imagine you're great at math but terrible at English. Your friend is great at English but ok at math. You both benefit if you specialize and help each other — that's trade.</p>
+        <p>Even if one country is better at <em>everything</em>, trade still makes sense. Why? Because of <span class="hl">opportunity cost</span>.</p>
+        <div class="exam-trick">
+          <div class="exam-trick-label">🔑 Key Insight</div>
+          Trade is based on <strong>comparative advantage</strong>, NOT absolute advantage. Even if Country A is better at producing everything, it should still specialize in what it does with the <em>lowest opportunity cost</em>.
+        </div>
+      </div>
+      <div class="card">
+        <h3>📦 Absolute Advantage</h3>
+        <p>A country has absolute advantage when it can produce <span class="hl">MORE output with the same input</span> (or same output with less input) compared to another country.</p>
+        <div class="formula-box">
+          <div class="formula">Compare: Output per hour (or hours per unit)</div>
+          <div style="margin-top:0.5rem; font-size:0.85rem; color:var(--text2);">Higher output per hour = Absolute Advantage<br>Fewer hours per unit = Absolute Advantage</div>
+        </div>
+        <p><strong>Example:</strong> India takes 40 hrs/motorcycle, Japan takes 60 hrs/motorcycle → India has absolute advantage in motorcycles.</p>
+      </div>
+      <div class="card">
+        <h3>⚖️ Comparative Advantage</h3>
+        <p>A country has comparative advantage when its <span class="hl">opportunity cost</span> of producing a good is <strong>lower</strong> than the other country's.</p>
+        <div class="formula-box">
+          <div class="formula">OC of Good A = Units of B given up to produce 1 unit of A</div>
+        </div>
+        <p>Even if Japan is worse at both goods, it has comparative advantage in whichever good it gives up LESS to produce.</p>
+        <div class="exam-trick">
+          <div class="exam-trick-label">📌 Exam Rule</div>
+          Each country has comparative advantage in <strong>exactly one good each</strong>. They can't both have CA in the same good.
+        </div>
+      </div>
+      <div class="card">
+        <h3>📈 What is PPF?</h3>
+        <p><span class="hl">Production Possibilities Frontier</span> = a line showing all combinations of two goods a country can produce using all its resources efficiently.</p>
+        <p><strong>Points ON the line</strong> = efficient. <strong>Inside</strong> = inefficient (resources wasted). <strong>Outside</strong> = impossible (currently).</p>
+        <p>For simple 2-good models with constant opportunity cost → PPF is a <strong>straight line</strong>.</p>
+        <div class="tip-box">
+          <div class="tip-label">💡 Real Life</div>
+          A country can't produce unlimited of everything. If India produces more cars, it must produce fewer phones — that's the PPF tradeoff.
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:1.2rem;">
+      <h3>🔁 How to Find Opportunity Cost (Step-by-Step)</h3>
+      <p><strong>Given:</strong> India: 10 labour hrs to produce 1 kg Rice, 25 labour hrs for 1 m Cloth | Total: 16000 Lhr</p>
+      <ol class="steps">
+        <li>Max Rice India = 16000/10 = <span class="hl">1600 kg</span> | Max Cloth = 16000/25 = <span class="hl">640 m</span></li>
+        <li>OC of 1 kg Rice = 640/1600 = <span class="hl">0.4 m Cloth</span> (how much cloth is given up per kg rice)</li>
+        <li>OC of 1 m Cloth = 1600/640 = <span class="hl">2.5 kg Rice</span></li>
+        <li>Do the same for China. Lower OC = Comparative Advantage in that good.</li>
+        <li>Conclusion: Whoever has lower OC for a good should <strong>specialize and export</strong> that good.</li>
+      </ol>
+      <div class="exam-trick">
+        <div class="exam-trick-label">⚡ Exam Shortcut</div>
+        OC of Good A = (Max of B) ÷ (Max of A). This is the slope of the PPF. Smaller slope = lower OC = comparative advantage in A.
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC: CPI -->
+  <div class="topic-content" id="topic-cpi">
+    <div class="card-grid">
+      <div class="card">
+        <h3>🛒 What is CPI?</h3>
+        <p>CPI = Consumer Price Index. It measures how the <span class="hl">cost of living</span> changes over time for an average consumer.</p>
+        <p>Think of it as: "How expensive is the same grocery basket compared to last year?"</p>
+        <div class="tip-box">
+          <div class="tip-label">💡 Simple Analogy</div>
+          You buy the same items every month — milk, bread, bus pass. CPI tracks if that fixed bundle is getting more expensive.
+        </div>
+      </div>
+      <div class="card">
+        <h3>📋 5 Steps to Calculate CPI</h3>
+        <ol class="steps">
+          <li><strong>Fix the Basket</strong> — Identify what items consumers buy and in what quantities</li>
+          <li><strong>Find Prices</strong> — Collect prices of each item for each year</li>
+          <li><strong>Compute Basket Cost</strong> — Cost = Σ(Price × Quantity) for each year</li>
+          <li><strong>Designate Base Year</strong> — Usually given; CPI of base year = 100</li>
+          <li><strong>Compute CPI</strong> — CPI = (Cost in current year ÷ Cost in base year) × 100</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>📉 Problems with CPI</h3>
+        <p>CPI <span class="hl3">overestimates</span> the true cost of living due to 3 biases:</p>
+        <ol class="steps">
+          <li><strong>Substitution Bias</strong> — When price of beef rises, people buy chicken. CPI ignores this substitution (assumes fixed basket).</li>
+          <li><strong>Introduction of New Goods</strong> — New products (smartphones) aren't in old basket; their falling prices aren't captured.</li>
+          <li><strong>Unmeasured Quality Changes</strong> — A car today is safer/better than 1990, but CPI may show it as "more expensive" ignoring quality gain.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>💵 Nominal vs Real Interest Rate</h3>
+        <p><span class="hl">Nominal Interest Rate</span> = The rate the bank tells you. Does NOT account for inflation.</p>
+        <p><span class="hl2">Real Interest Rate</span> = What you actually earn in purchasing power.</p>
+        <div class="formula-box">
+          <div class="formula">Real Interest Rate = Nominal Rate − Inflation Rate</div>
+        </div>
+        <div class="formula-box">
+          <div class="formula">Nominal Rate = (Final Amt − Initial Amt) / Initial Amt × 100</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1.2rem;">
+      <h3>📏 Equivalent Current Salary / Adjusting for Inflation</h3>
+      <p>When someone earned a salary in a past year and you want to find its value in today's money:</p>
+      <div class="formula-box">
+        <div class="formula">Equivalent Current Salary = Old Salary × (CPI<sub>current</sub> ÷ CPI<sub>old</sub>)</div>
+      </div>
+      <p><strong>Example:</strong> Uncle earned ₹25,000 in 1980. CPI 1980 = 82, CPI 2025 = 246.<br>
+      Equivalent 2025 salary = 25000 × (246/82) = 25000 × 3 = <span class="hl">₹75,000</span></p>
+      <div class="exam-trick">
+        <div class="exam-trick-label">📌 In Exam — If They Ask</div>
+        "What is the 2025 equivalent of ₹X earned in year Y?" → Use the formula above. This is CO2 topic.
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC: GDP -->
+  <div class="topic-content" id="topic-gdp">
+    <div class="card-grid">
+      <div class="card">
+        <h3>🏦 What is GDP?</h3>
+        <p><span class="hl">Gross Domestic Product</span> = Total market value of all <strong>final</strong> goods and services produced <strong>within a country's borders</strong> in a given time period.</p>
+        <p>Key words: <span class="hl2">final</span> (not intermediate), <span class="hl2">within borders</span> (not by citizens abroad), <span class="hl2">in a year</span>.</p>
+        <div class="tip-box">
+          <div class="tip-label">💡 Think of it as</div>
+          GDP = The total score of a country's economic output in one year. Higher = richer economy.
+        </div>
+      </div>
+      <div class="card">
+        <h3>📊 GDP Components (Expenditure Approach)</h3>
+        <div class="formula-box">
+          <div class="formula">Y = C + I + G + NX</div>
+        </div>
+        <ul>
+          <li><span class="hl">C</span> = Consumption (households buying goods/services)</li>
+          <li><span class="hl">I</span> = Investment (firms buying capital + housing + inventory)</li>
+          <li><span class="hl">G</span> = Government Purchases (NOT transfers like pensions)</li>
+          <li><span class="hl">NX</span> = Net Exports = Exports − Imports</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📈 Nominal vs Real GDP</h3>
+        <p><span class="hl">Nominal GDP</span> = Output valued at <strong>current year prices</strong>. Rises even if production doesn't (due to inflation).</p>
+        <p><span class="hl2">Real GDP</span> = Output valued at <strong>base year prices</strong>. Shows TRUE change in production.</p>
+        <div class="formula-box">
+          <div class="formula">Nominal GDP = Σ (Current Price × Current Quantity)</div>
+          <div class="formula" style="margin-top:0.4rem">Real GDP = Σ (Base Year Price × Current Quantity)</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🔢 GDP Deflator</h3>
+        <p>GDP Deflator measures the <span class="hl">overall price level</span> relative to base year. Unlike CPI, it covers ALL domestically produced goods.</p>
+        <div class="formula-box">
+          <div class="formula">GDP Deflator = (Nominal GDP ÷ Real GDP) × 100</div>
+        </div>
+        <p>GDP Deflator of base year = 100 always. Above 100 = inflation; below 100 = deflation.</p>
+        <div class="exam-trick">
+          <div class="exam-trick-label">📌 CPI vs GDP Deflator — Key Diff</div>
+          CPI: fixed basket, includes imports, tracks consumer goods only<br>
+          GDP Deflator: all domestic production, changes with output mix
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1.2rem;">
+      <h3>🔗 Value Added Approach</h3>
+      <p>To avoid <span class="hl3">double counting</span>, GDP only counts <strong>value added at each stage</strong>.</p>
+      <p><strong>Example:</strong> Farmer sells wheat to Miller for ₹80,000 → Miller sells flour to Baker for ₹1,00,000 → Baker sells bread for ₹1,50,000 to consumers.</p>
+      <table class="data-table">
+        <thead><tr><th>Stage</th><th>Sale Price</th><th>Input Cost</th><th>Value Added</th></tr></thead>
+        <tbody>
+          <tr><td>Farmer (wheat)</td><td>₹80,000</td><td>₹0</td><td>₹80,000</td></tr>
+          <tr><td>Miller (flour)</td><td>₹1,00,000</td><td>₹80,000</td><td>₹20,000</td></tr>
+          <tr><td>Baker (bread)</td><td>₹1,50,000</td><td>₹1,00,000</td><td>₹50,000</td></tr>
+          <tr><td><strong>GDP</strong></td><td></td><td></td><td><strong>₹1,50,000</strong></td></tr>
+        </tbody>
+      </table>
+      <p>Notice: GDP = Final price = Sum of value added = ₹1,50,000. Three methods, same answer!</p>
+    </div>
+  </div>
+
+  <!-- TOPIC: GROWTH & SAVING -->
+  <div class="topic-content" id="topic-growth">
+    <div class="card-grid">
+      <div class="card">
+        <h3>💰 Saving & Investment Identity</h3>
+        <p>In a closed economy (no trade), all savings must equal investment. Why? Because every dollar saved = dollar available for borrowing = dollar invested.</p>
+        <div class="formula-box">
+          <div class="formula">Y = C + I + G (closed economy)</div>
+          <div class="formula" style="margin-top:0.4rem">National Saving (S) = Y − C − G = I</div>
+          <div class="formula" style="margin-top:0.4rem">Private Saving = Y − T − C</div>
+          <div class="formula" style="margin-top:0.4rem">Public Saving = T − G</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>📊 GDP Per Capita</h3>
+        <p>GDP per capita = GDP ÷ Population. It measures <span class="hl">average income per person</span> — a better indicator of standard of living than total GDP.</p>
+        <div class="tip-box">
+          <div class="tip-label">💡 Example</div>
+          India's GDP > Singapore's GDP (India is bigger). But Singapore's GDP per capita >> India's (more income per person). Higher living standard in Singapore!
+        </div>
+        <div class="exam-trick">
+          <div class="exam-trick-label">📌 In Exam</div>
+          "Higher GDP = Higher living standard?" → NOT necessarily. Check GDP per capita and also non-monetary factors (healthcare, leisure, etc.)
+        </div>
+      </div>
+      <div class="card">
+        <h3>🌱 Sources of Economic Growth</h3>
+        <ul>
+          <li><span class="hl">Physical Capital</span> — Tools, machines, buildings</li>
+          <li><span class="hl">Human Capital</span> — Education, skills, training</li>
+          <li><span class="hl">Natural Resources</span> — Land, minerals, oil</li>
+          <li><span class="hl">Technological Knowledge</span> — Know-how, R&D</li>
+        </ul>
+        <div class="warn-box">
+          <div class="warn-label">⚠️ Key Concept</div>
+          "Capital accumulation is not a free lunch" — Diminishing returns mean each additional unit of capital adds less and less growth. Sustained growth requires technology.
+        </div>
+      </div>
+      <div class="card">
+        <h3>🤝 Trade = Technology</h3>
+        <p>Trade allows countries to consume <strong>beyond their PPF</strong>, just like technology expands the PPF. Both increase productivity without new resources.</p>
+        <p>If India specializes in rice and China in cloth, both can consume MORE of both goods than if they each tried to produce everything — same as if technology improved.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 2: GRAPH MASTERY
+═══════════════════════════════════════════════════ -->
+<section id="graphs">
+  <div class="section-head">
+    <div class="section-tag">📊 Section 2</div>
+    <h2>Graph Mastery</h2>
+    <p>Every graph you'll ever need — axes, shape, shifts, exam tricks, common mistakes.</p>
+  </div>
+
+  <!-- GRAPH 1: PPF (Straight Line) -->
+  <div class="card" style="margin-bottom:1.5rem;">
+    <h3>Graph 1 — Production Possibilities Frontier (PPF)</h3>
+    <p><strong>When to draw:</strong> Any question with "construct PPF", "production combination", absolute/comparative advantage.</p>
+
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem; align-items:start;">
+      <div>
+        <h4>📐 How to Draw (Step-by-Step)</h4>
+        <ol class="steps">
+          <li><strong>Find Max of Good A:</strong> Total resources ÷ resources needed per unit of A</li>
+          <li><strong>Find Max of Good B:</strong> Total resources ÷ resources needed per unit of B</li>
+          <li><strong>Plot endpoints:</strong> (Max A, 0) on x-axis and (0, Max B) on y-axis</li>
+          <li><strong>Connect with straight line</strong> (constant OC = straight line PPF)</li>
+          <li><strong>Mark production point</strong> if they produce both goods (use % allocation)</li>
+        </ol>
+        <div class="formula-box">
+          <div class="formula">Slope of PPF = −(Max of Y-axis good) ÷ (Max of X-axis good)</div>
+          <div style="font-size:0.82rem; color:var(--text2); margin-top:0.4rem">Slope magnitude = OC of x-axis good in terms of y-axis good</div>
+        </div>
+        <div class="warn-box">
+          <div class="warn-label">⚠️ Common Mistake</div>
+          Don't plot "production hours" on the axes — plot the <strong>quantity of goods</strong>! Axes = Goods produced, not resources.
+        </div>
+        <div class="exam-trick">
+          <div class="exam-trick-label">📌 70% Allocation Example</div>
+          Austria: Max 40 cakes or 80 candles. 2000 hrs total.<br>
+          70% to cakes → 1400 hrs → 1400/50 = 28 cakes<br>
+          30% to candles → 600 hrs → 600/25 = 24 candles<br>
+          Plot point (28, 24) on the PPF.
+        </div>
+      </div>
+      <div>
+        <div class="graph-container">
+          <svg viewBox="0 0 340 300" style="width:100%; max-width:340px;">
+            <!-- Axes -->
+            <line x1="50" y1="260" x2="310" y2="260" stroke="#555" stroke-width="1.5"/>
+            <line x1="50" y1="260" x2="50" y2="20" stroke="#555" stroke-width="1.5"/>
+            <!-- Arrows -->
+            <polygon points="310,256 318,260 310,264" fill="#555"/>
+            <polygon points="46,20 50,12 54,20" fill="#555"/>
+            <!-- PPF Line -->
+            <line x1="50" y1="40" x2="290" y2="260" stroke="#7c6af7" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Production Point -->
+            <circle cx="178" cy="152" r="6" fill="#f7c26a" stroke="#fff" stroke-width="1.5"/>
+            <!-- Axis Labels -->
+            <text x="300" y="275" font-size="12" fill="#9898b0" font-family="DM Sans">Cakes (X)</text>
+            <text x="10" y="35" font-size="12" fill="#9898b0" font-family="DM Sans" writing-mode="tb">Candles (Y)</text>
+            <!-- Max Points -->
+            <text x="280" y="278" font-size="11" fill="#7c6af7" font-family="JetBrains Mono">40</text>
+            <text x="22" y="44" font-size="11" fill="#7c6af7" font-family="JetBrains Mono">80</text>
+            <!-- Production point label -->
+            <text x="185" y="148" font-size="10" fill="#f7c26a" font-family="DM Sans">Production Point</text>
+            <text x="185" y="162" font-size="10" fill="#f7c26a" font-family="JetBrains Mono">(28, 24)</text>
+            <!-- Dashed lines to point -->
+            <line x1="50" y1="152" x2="178" y2="152" stroke="#f7c26a" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+            <line x1="178" y1="260" x2="178" y2="152" stroke="#f7c26a" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+            <!-- Region labels -->
+            <text x="100" y="170" font-size="9" fill="#6af7c2" font-family="DM Sans">Inefficient</text>
+            <text x="200" y="120" font-size="9" fill="#f76a9a" font-family="DM Sans">Impossible</text>
+            <!-- Title -->
+            <text x="130" y="14" font-size="12" fill="#e8e8f0" font-family="Syne" font-weight="700">PPF — Straight Line</text>
+          </svg>
+        </div>
+        <p style="font-size:0.82rem; color:var(--text2); margin-top:0.5rem;">Straight line PPF = Constant opportunity cost. The slope of the line represents the opportunity cost of the x-axis good.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRAPH 2: Two PPFs (Comparative Advantage) -->
+  <div class="card" style="margin-bottom:1.5rem;">
+    <h3>Graph 2 — Two PPFs on One Graph (Comparative Advantage)</h3>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem; align-items:start;">
+      <div>
+        <p>When comparing two countries (e.g., India vs Japan), draw both PPFs on the same axes. The one with the <span class="hl">less steep slope</span> for a good has comparative advantage in that good.</p>
+        <h4>How to Read:</h4>
+        <ul>
+          <li>If India's PPF is <strong>flatter</strong> for x-axis good → India has CA in x-good</li>
+          <li>If Japan's PPF is <strong>steeper</strong> → Japan has CA in y-good</li>
+          <li>The outer PPF (higher intercepts) = Absolute advantage in that good</li>
+        </ul>
+        <div class="exam-trick">
+          <div class="exam-trick-label">📌 Exam Read</div>
+          "Steeper slope of PPF = Higher OC = Comparative DISadvantage in that good". Always check BOTH intercepts to determine absolute advantage.
+        </div>
+      </div>
+      <div class="graph-container">
+        <svg viewBox="0 0 320 280" style="width:100%; max-width:320px;">
+          <line x1="40" y1="250" x2="300" y2="250" stroke="#555" stroke-width="1.5"/>
+          <line x1="40" y1="250" x2="40" y2="20" stroke="#555" stroke-width="1.5"/>
+          <polygon points="300,246 308,250 300,254" fill="#555"/>
+          <polygon points="36,20 40,12 44,20" fill="#555"/>
+          <!-- Country A PPF (flatter, higher x-intercept) -->
+          <line x1="40" y1="60" x2="270" y2="250" stroke="#7c6af7" stroke-width="2.5"/>
+          <!-- Country B PPF (steeper, higher y-intercept) -->
+          <line x1="40" y1="30" x2="190" y2="250" stroke="#6af7c2" stroke-width="2.5"/>
+          <!-- Labels -->
+          <text x="260" y="240" font-size="10" fill="#7c6af7" font-family="DM Sans">Country A</text>
+          <text x="170" y="240" font-size="10" fill="#6af7c2" font-family="DM Sans">Country B</text>
+          <text x="280" y="265" font-size="10" fill="#9898b0">Good X</text>
+          <text x="5" y="35" font-size="10" fill="#9898b0">Good</text>
+          <text x="8" y="47" font-size="10" fill="#9898b0">Y</text>
+          <!-- A has CA in X (flatter), B has CA in Y (steeper in X means lower OC in Y) -->
+          <text x="90" y="160" font-size="9" fill="#f7c26a" font-family="DM Sans">A: CA in X</text>
+          <text x="60" y="80" font-size="9" fill="#f7c26a" font-family="DM Sans">B: CA in Y</text>
+          <text x="80" y="12" font-size="12" fill="#e8e8f0" font-family="Syne" font-weight="700">Two PPFs Compared</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRAPH 3: Farmer & Rancher PPF (from notes) -->
+  <div class="card" style="margin-bottom:1.5rem;">
+    <h3>Graph 3 — Farmer vs Rancher PPF (Classic Textbook Example)</h3>
+    <p>From your notes: Farmer takes 60 min/oz meat, 15 min/oz potato. Rancher takes 20 min/oz meat, 10 min/oz potato. Both work 8 hrs/day.</p>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.2rem;">
+      <div>
+        <h4>Farmer's PPF:</h4>
+        <p>8 hrs = 480 min. Max meat = 480/60 = <span class="hl">8 oz</span>. Max potato = 480/15 = <span class="hl">32 oz</span>.</p>
+        <div class="graph-container">
+          <svg viewBox="0 0 280 220" style="width:100%;">
+            <line x1="40" y1="195" x2="255" y2="195" stroke="#555" stroke-width="1.5"/>
+            <line x1="40" y1="195" x2="40" y2="20" stroke="#555" stroke-width="1.5"/>
+            <line x1="40" y1="30" x2="240" y2="195" stroke="#7c6af7" stroke-width="2.5"/>
+            <circle cx="104" cy="130" r="5" fill="#f7c26a"/>
+            <!-- Before trade production point (half time each) -->
+            <text x="108" y="127" font-size="8" fill="#f7c26a">4oz, 16oz</text>
+            <text x="232" y="208" font-size="10" fill="#9898b0">32</text>
+            <text x="20" y="34" font-size="10" fill="#9898b0">8</text>
+            <text x="230" y="213" font-size="9" fill="#9898b0">Potato</text>
+            <text x="5" y="110" font-size="9" fill="#9898b0">Meat</text>
+            <text x="70" y="14" font-size="11" fill="#e8e8f0" font-family="Syne" font-weight="700">Farmer PPF</text>
+          </svg>
+        </div>
+        <p style="font-size:0.82rem; color:var(--text2);">OC of meat = 4 potatoes/oz meat. OC of potato = 1/4 oz meat.</p>
+      </div>
+      <div>
+        <h4>Rancher's PPF:</h4>
+        <p>8 hrs = 480 min. Max meat = 480/20 = <span class="hl">24 oz</span>. Max potato = 480/10 = <span class="hl">48 oz</span>.</p>
+        <div class="graph-container">
+          <svg viewBox="0 0 280 220" style="width:100%;">
+            <line x1="40" y1="195" x2="255" y2="195" stroke="#555" stroke-width="1.5"/>
+            <line x1="40" y1="195" x2="40" y2="20" stroke="#555" stroke-width="1.5"/>
+            <line x1="40" y1="20" x2="240" y2="195" stroke="#6af7c2" stroke-width="2.5"/>
+            <circle cx="140" cy="107" r="5" fill="#f7c26a"/>
+            <text x="144" y="104" font-size="8" fill="#f7c26a">12oz, 24oz</text>
+            <text x="232" y="208" font-size="10" fill="#9898b0">48</text>
+            <text x="20" y="24" font-size="10" fill="#9898b0">24</text>
+            <text x="230" y="213" font-size="9" fill="#9898b0">Potato</text>
+            <text x="5" y="110" font-size="9" fill="#9898b0">Meat</text>
+            <text x="65" y="14" font-size="11" fill="#e8e8f0" font-family="Syne" font-weight="700">Rancher PPF</text>
+          </svg>
+        </div>
+        <p style="font-size:0.82rem; color:var(--text2);">OC of meat = 2 potatoes/oz meat. OC of potato = 1/2 oz meat.</p>
+      </div>
+    </div>
+    <div class="tip-box" style="margin-top:1rem;">
+      <div class="tip-label">📌 Conclusion from Notes</div>
+      Rancher has absolute advantage in BOTH (produces more of both). Farmer has CA in potatoes (OC = 1/4 < Rancher's 1/2). Rancher has CA in meat (OC = 2 < Farmer's 4). → Farmer specializes in potatoes, Rancher in meat. Both gain!
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 3: FORMULA ZONE
+═══════════════════════════════════════════════════ -->
+<section id="formulas">
+  <div class="section-head">
+    <div class="section-tag">🧮 Section 3</div>
+    <h2>Formula Zone</h2>
+    <p>Every formula with: what it means, when to use, when NOT to use, and solved examples.</p>
+  </div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <h4>📐 PPF & Opportunity Cost Formulas</h4>
+      <span class="collapsible-arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="formula-box">
+        <div class="formula">Max Output of Good A = Total Resources ÷ Resources per unit of A</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula">OC of Good A = Max Output B ÷ Max Output A</div>
+        <div style="font-size:0.82rem; color:var(--text2); margin-top:0.4rem;">= Units of B sacrificed to produce 1 more unit of A</div>
+      </div>
+      <p><strong>When to use:</strong> Any question asking to find comparative advantage, construct PPF, or determine basis of trade.</p>
+      <p><strong>When NOT to use:</strong> Don't use this for CPI or GDP questions!</p>
+      <h4>✅ Solved Example — Quiz Q2 (from image):</h4>
+      <p>India: 40 hrs/motorcycle, 80 hrs/car | Japan: 60 hrs/motorcycle, 30 hrs/car</p>
+      <table class="data-table">
+        <thead><tr><th>Country</th><th>OC of Motorcycle</th><th>OC of Car</th></tr></thead>
+        <tbody>
+          <tr><td>India</td><td>80/40 = 2 cars</td><td>40/80 = 0.5 motorcycles</td></tr>
+          <tr><td>Japan</td><td>30/60 = 0.5 cars</td><td>60/30 = 2 motorcycles</td></tr>
+        </tbody>
+      </table>
+      <p>India has CA in Cars (OC=0.5 < Japan's 2). Japan has CA in Motorcycles (OC=0.5 < India's 2).</p>
+      <p>Absolute Advantage: India in Motorcycles (40 < 60 hrs). Japan in Cars (30 < 80 hrs).</p>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <h4>📊 CPI Formulas</h4>
+      <span class="collapsible-arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="formula-box">
+        <div class="formula">Basket Cost (Year X) = Σ [Price(X) × Quantity(Base Year)]</div>
+        <div style="font-size:0.82rem; color:var(--text2); margin-top:0.4rem;">Quantity is ALWAYS the base year quantity (fixed basket)</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula">CPI = (Basket Cost in Current Year ÷ Basket Cost in Base Year) × 100</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula">Inflation Rate (Year 2) = [(CPI Year 2 − CPI Year 1) ÷ CPI Year 1] × 100</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula">Equivalent Current Value = Old Value × (CPI_current ÷ CPI_old)</div>
+      </div>
+      <div class="warn-box">
+        <div class="warn-label">⚠️ Critical Rule</div>
+        When computing basket cost in ALL years, use the BASE YEAR QUANTITY. Do not use the current year quantity. This is the most common exam mistake!
+      </div>
+      <h4>✅ Solved Example — Quiz 2 Q1:</h4>
+      <p>Sagar earned ₹70,000/month in 1990. CPI 1990 = 45, CPI 2026 = 270.</p>
+      <p>Equivalent salary in 2026 = 70,000 × (270 ÷ 45) = 70,000 × 6 = <span class="hl">₹4,20,000/month</span></p>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <h4>🏦 GDP Formulas</h4>
+      <span class="collapsible-arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="formula-box">
+        <div class="formula">Nominal GDP = Σ (Current Year Price × Current Year Quantity)</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula">Real GDP = Σ (Base Year Price × Current Year Quantity)</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula">GDP Deflator = (Nominal GDP ÷ Real GDP) × 100</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula">GDP Inflation Rate = [(Deflator Year 2 − Deflator Year 1) ÷ Deflator Year 1] × 100</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula">GDP per Capita = GDP ÷ Total Population</div>
+      </div>
+      <div class="exam-trick">
+        <div class="exam-trick-label">⚡ Quick Rule</div>
+        Nominal GDP Year 2024 with 2023 base year → use 2023 prices × 2024 quantities for Real GDP.
+        GDP Deflator of base year = (NGDP_base ÷ RGDP_base) × 100 = 100 always.
+      </div>
+      <h4>✅ Solved Example — Assignment 2 Q1 (Partial):</h4>
+      <p>2022 is base year. For year 2020: Milk 100 liters @ ₹40 current, ₹45 base price.</p>
+      <p>Nominal GDP 2020 = (100×40) + (200×50) + (300×100) = 4000+10000+30000 = <span class="hl">₹44,000</span></p>
+      <p>Real GDP 2020 = (100×45) + (200×50) + (300×150) = 4500+10000+45000 = <span class="hl">₹59,500</span></p>
+      <p>GDP Deflator 2020 = (44000÷59500) × 100 = <span class="hl">73.9</span> (Price level was lower than base year)</p>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <h4>💵 Interest Rate Formulas</h4>
+      <span class="collapsible-arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="formula-box">
+        <div class="formula">Nominal Interest Rate = [(Final Amt − Initial Amt) ÷ Initial Amt] × 100</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula">Real Interest Rate = Nominal Interest Rate − Inflation Rate</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula">Inflation Rate = [(CPI_2 − CPI_1) ÷ CPI_1] × 100</div>
+      </div>
+      <h4>✅ Solved Example — Assignment 1 Q5:</h4>
+      <p>Deposit ₹2000 in 2024. In 2025, it becomes ₹2200. CPI: 200 → 220.</p>
+      <ul>
+        <li>Nominal Rate = (2200−2000)/2000 × 100 = <span class="hl">10%</span></li>
+        <li>Inflation Rate = (220−200)/200 × 100 = <span class="hl">10%</span></li>
+        <li>Real Rate = 10% − 10% = <span class="hl">0%</span> (purchasing power didn't change!)</li>
+      </ul>
+      <h4>✅ Solved Example — Assignment 1 Q6:</h4>
+      <p>Lend ₹100, get ₹130. CPI increased by 20%.</p>
+      <ul>
+        <li>Nominal Rate = (130−100)/100 × 100 = <span class="hl">30%</span></li>
+        <li>Inflation Rate = <span class="hl">20%</span> (given)</li>
+        <li>Real Rate = 30% − 20% = <span class="hl">10%</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <h4>💰 Saving & Investment Formulas</h4>
+      <span class="collapsible-arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="formula-box">
+        <div class="formula">Disposable Income = Y − T (Income minus Taxes)</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula">Private Saving = Y − T − C</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula">Public Saving = T − G (Positive = surplus, Negative = deficit)</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula">National Saving = Private Saving + Public Saving = Y − C − G</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula">Investment = National Saving (Closed Economy)</div>
+      </div>
+      <h4>✅ Solved Example — Assignment 2 Q2:</h4>
+      <p>GDP = $2,00,000 | C = $1,00,000 | G = $40,000 | Budget Surplus = $10,000 → T = G + Surplus = $50,000</p>
+      <ul>
+        <li>Disposable Income = 2,00,000 − 50,000 = <span class="hl">$1,50,000</span></li>
+        <li>Private Saving = 1,50,000 − 1,00,000 = <span class="hl">$50,000</span></li>
+        <li>Public Saving = 50,000 − 40,000 = <span class="hl">$10,000</span> (surplus)</li>
+        <li>National Saving = 50,000 + 10,000 = <span class="hl">$60,000</span></li>
+        <li>Investment = <span class="hl">$60,000</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 4: PYQs WITH DEEP SOLUTIONS
+═══════════════════════════════════════════════════ -->
+<section id="pyqs">
+  <div class="section-head">
+    <div class="section-tag">🎯 Section 4</div>
+    <h2>PYQs with Deep Solutions</h2>
+    <p>From your quizzes and assignments — step-by-step, formula-tagged solutions.</p>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">QUIZ 1 · Q1</span>
+      <span class="q-text">Austria can produce max 40 cakes or 80 candles per hour. Total resources = 2000 labour hours. Before trade, allocates 70% to cakes, 30% to candles. Construct PPF and identify production combination.</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Concept Used:</strong> PPF Construction, Resource Allocation</p>
+      <ol class="steps">
+        <li><strong>Find hourly rates:</strong> 40 cakes/hr means 1 cake takes 1/40 hr = 2000×40 = 80,000 cakes max... Wait — reread. Max 40 cakes OR 80 candles per hour means: 1 cake takes 1/40 hr, 1 candle takes 1/80 hr.</li>
+        <li><strong>Max output with 2000 hrs:</strong> Max Cakes = 2000 × 40 = <span class="hl">80,000 cakes</span> | Max Candles = 2000 × 80 = <span class="hl">160,000 candles</span></li>
+        <li><strong>PPF endpoints:</strong> (80,000 cakes, 0) and (0, 160,000 candles). Draw straight line.</li>
+        <li><strong>70% allocation:</strong> 70% of 2000 hrs = 1400 hrs for cakes → 1400 × 40 = 56,000 cakes | 30% = 600 hrs for candles → 600 × 80 = 48,000 candles</li>
+        <li><strong>Production point:</strong> Mark (56,000, 48,000) on the PPF line.</li>
+      </ol>
+      <div class="exam-trick">
+        <div class="exam-trick-label">📌 PPF Slope Check</div>
+        OC of 1 cake = 80,000/80,000... Actually OC = Max candles/Max cakes = 160,000/80,000 = 2 candles per cake. The PPF is downward sloping with slope = -2.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">QUIZ 1 · Q2</span>
+      <span class="q-text">India: 40 hrs/motorcycle, 80 hrs/car. Japan: 60 hrs/motorcycle, 30 hrs/car. Which country has absolute advantage in motorcycles and cars?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Concept Used:</strong> Absolute Advantage — Lower hours per unit = Absolute Advantage</p>
+      <table class="data-table">
+        <thead><tr><th>Country</th><th>Motorcycle (hrs)</th><th>Car (hrs)</th></tr></thead>
+        <tbody>
+          <tr><td>India</td><td>40</td><td>80</td></tr>
+          <tr><td>Japan</td><td>60</td><td>30</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Absolute Advantage:</strong></p>
+      <ul>
+        <li>Motorcycles: India takes 40 hrs vs Japan's 60 hrs → <span class="hl2">India has AA in motorcycles</span></li>
+        <li>Cars: Japan takes 30 hrs vs India's 80 hrs → <span class="hl2">Japan has AA in cars</span></li>
+      </ul>
+      <p><strong>Bonus — Comparative Advantage:</strong></p>
+      <table class="data-table">
+        <thead><tr><th>Country</th><th>OC of Motorcycle</th><th>OC of Car</th></tr></thead>
+        <tbody>
+          <tr><td>India</td><td>80/40 = 2 cars</td><td>40/80 = 0.5 motorcycles</td></tr>
+          <tr><td>Japan</td><td>30/60 = 0.5 cars</td><td>60/30 = 2 motorcycles</td></tr>
+        </tbody>
+      </table>
+      <p>India: CA in Cars (OC 0.5 &lt; Japan's 2). Japan: CA in Motorcycles (OC 0.5 &lt; India's 2).</p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">QUIZ 2 · Q1</span>
+      <span class="q-text">Sagar received ₹70,000/month salary in 1990. How much in 2026 if CPI 1990 = 45 and CPI 2026 = 270?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Concept Used:</strong> Adjusting Wages for Inflation using CPI</p>
+      <p><strong>Formula:</strong></p>
+      <div class="formula-box">
+        <div class="formula">2026 Salary = 1990 Salary × (CPI_2026 ÷ CPI_1990)</div>
+      </div>
+      <p><strong>Solution:</strong><br>
+      2026 Salary = 70,000 × (270 ÷ 45) = 70,000 × 6 = <span class="hl">₹4,20,000 per month</span></p>
+      <div class="tip-box">
+        <div class="tip-label">💡 Interpretation</div>
+        This means ₹4,20,000 in 2026 has the SAME purchasing power as ₹70,000 in 1990. Prices are 6× higher, so you need 6× more money to maintain the same standard of living.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">QUIZ 2 · Q2</span>
+      <span class="q-text">GDP Deflator = 110 in 2024, base year 2023. Nominal GDP 2023 = $10,000, 2024 = $11,000. Analyse real GDP change.</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Concept Used:</strong> Real GDP using GDP Deflator</p>
+      <div class="formula-box">
+        <div class="formula">Real GDP = (Nominal GDP ÷ GDP Deflator) × 100</div>
+      </div>
+      <p><strong>2023 (Base Year):</strong> Real GDP = (10,000 ÷ 100) × 100 = <span class="hl">$10,000</span></p>
+      <p><strong>2024:</strong> Real GDP = (11,000 ÷ 110) × 100 = <span class="hl">$10,000</span></p>
+      <p><strong>Analysis:</strong> Although Nominal GDP rose from $10,000 to $11,000, Real GDP stayed at $10,000. This means ALL the increase was due to <span class="hl3">price rise (inflation)</span>, NOT actual increase in production. The economy didn't really grow in real terms!</p>
+      <div class="exam-trick">
+        <div class="exam-trick-label">📌 Key Takeaway</div>
+        When Real GDP doesn't change but Nominal GDP rises → economy is experiencing inflation with no real growth.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">ASSIGN 1 · Q4</span>
+      <span class="q-text">CPI calculation for Orange, Pizza, Wheat for years 2015-2017. Base basket: 40 kg Orange, 80 Pizza, 30 kg Wheat (2015 quantities).</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Concept Used:</strong> CPI Construction (5 Steps)</p>
+      <p><strong>Step 1 — Fix Basket:</strong> 40 kg Orange, 80 Pizza, 30 kg Wheat (given 2015 base quantities)</p>
+      <p><strong>Step 2 & 3 — Find Prices & Compute Basket Cost:</strong></p>
+      <table class="data-table">
+        <thead><tr><th>Item</th><th>Qty (Fixed)</th><th>Price 2015</th><th>Cost 2015</th><th>Price 2016</th><th>Cost 2016</th><th>Price 2017</th><th>Cost 2017</th></tr></thead>
+        <tbody>
+          <tr><td>Orange</td><td>40 kg</td><td>₹70</td><td>₹2800</td><td>₹80</td><td>₹3200</td><td>₹60</td><td>₹2400</td></tr>
+          <tr><td>Pizza</td><td>80 no</td><td>₹25</td><td>₹2000</td><td>₹30</td><td>₹2400</td><td>₹35</td><td>₹2800</td></tr>
+          <tr><td>Wheat</td><td>30 kg</td><td>₹40</td><td>₹1200</td><td>₹42</td><td>₹1260</td><td>₹50</td><td>₹1500</td></tr>
+          <tr><td><strong>Total</strong></td><td></td><td></td><td><strong>₹6000</strong></td><td></td><td><strong>₹6860</strong></td><td></td><td><strong>₹6700</strong></td></tr>
+        </tbody>
+      </table>
+      <p><strong>Step 4 — Base Year = 2015.</strong></p>
+      <p><strong>Step 5 — CPI:</strong></p>
+      <ul>
+        <li>CPI 2015 = (6000/6000) × 100 = <span class="hl">100</span></li>
+        <li>CPI 2016 = (6860/6000) × 100 = <span class="hl">114.33</span></li>
+        <li>CPI 2017 = (6700/6000) × 100 = <span class="hl">111.67</span></li>
+      </ul>
+      <p><strong>Inflation Rates:</strong></p>
+      <ul>
+        <li>2015-16: (114.33−100)/100 × 100 = <span class="hl">14.33%</span></li>
+        <li>2016-17: (111.67−114.33)/114.33 × 100 = <span class="hl">−2.33%</span> (deflation!)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 5: QUESTION BANK
+═══════════════════════════════════════════════════ -->
+<section id="qbank">
+  <div class="section-head">
+    <div class="section-tag">📝 Section 5</div>
+    <h2>Question Bank</h2>
+    <p>Easy → Medium → Hard. Click to reveal answers.</p>
+  </div>
+
+  <h3 style="color:var(--accent3);">🟢 Easy Questions</h3>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">E-01</span>
+      <span class="q-text">If CPI in 2024 is 150 and inflation rate is 8% between 2024 and 2025, what is the CPI in 2025?</span>
+      <span class="difficulty-badge easy">Easy</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p>Inflation Rate = [(CPI_2025 − CPI_2024) ÷ CPI_2024] × 100</p>
+      <p>8 = [(CPI_2025 − 150) ÷ 150] × 100</p>
+      <p>CPI_2025 = 150 + (8 × 150/100) = 150 + 12 = <span class="hl">CPI 2025 = 162</span></p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">E-02</span>
+      <span class="q-text">In 1980, your uncle earned ₹25,000. CPI 1980 = 82, CPI 2025 = 246. What is the 2025 equivalent salary?</span>
+      <span class="difficulty-badge easy">Easy</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p>Equivalent salary = 25,000 × (246/82) = 25,000 × 3 = <span class="hl">₹75,000</span></p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">E-03</span>
+      <span class="q-text">Country A can produce 200 tons of rice or 100 m cloth. Country B can produce 150 tons of rice or 150 m cloth. Which has absolute advantage in rice?</span>
+      <span class="difficulty-badge easy">Easy</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p>Absolute advantage in rice: Compare max rice output. Country A (200) > Country B (150) → <span class="hl">Country A has AA in rice</span>. Country B has AA in cloth (150 > 100).</p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">E-04</span>
+      <span class="q-text">What are the 4 components of GDP? Give one real example of each.</span>
+      <span class="difficulty-badge easy">Easy</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <ul>
+        <li><span class="hl">C (Consumption)</span> — Family buys a washing machine for personal use</li>
+        <li><span class="hl">I (Investment)</span> — Firm buys new machinery; family buys a new house</li>
+        <li><span class="hl">G (Government Purchases)</span> — State govt buys a helicopter from HAL</li>
+        <li><span class="hl">NX (Net Exports)</span> — American tourist spends ₹3 lakh in Goa (export for India, counted in GDP)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="color:var(--accent2); margin-top:2rem;">🟡 Medium Questions</h3>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">M-01</span>
+      <span class="q-text">India: 10 Lhr/kg Rice, 25 Lhr/m Cloth. China: 20 Lhr/kg Rice, 25 Lhr/m Cloth. Resources = 16,000 Lhr each. Determine basis of trade.</span>
+      <span class="difficulty-badge medium">Medium</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Step 1 — Max outputs:</strong></p>
+      <table class="data-table">
+        <thead><tr><th>Country</th><th>Max Rice</th><th>Max Cloth</th></tr></thead>
+        <tbody>
+          <tr><td>India</td><td>16000/10 = 1600 kg</td><td>16000/25 = 640 m</td></tr>
+          <tr><td>China</td><td>16000/20 = 800 kg</td><td>16000/25 = 640 m</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Absolute Advantage:</strong> India in Rice (1600 > 800). Neither has AA in Cloth (both 640).</p>
+      <p><strong>Opportunity Costs:</strong></p>
+      <table class="data-table">
+        <thead><tr><th>Country</th><th>OC of Rice</th><th>OC of Cloth</th></tr></thead>
+        <tbody>
+          <tr><td>India</td><td>640/1600 = 0.4 m cloth</td><td>1600/640 = 2.5 kg rice</td></tr>
+          <tr><td>China</td><td>640/800 = 0.8 m cloth</td><td>800/640 = 1.25 kg rice</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Comparative Advantage:</strong> India in Rice (OC 0.4 &lt; China's 0.8). China in Cloth (OC 1.25 &lt; India's 2.5).</p>
+      <p><strong>Basis of Trade:</strong> <span class="hl">Comparative Advantage</span>. India should specialize in Rice, China in Cloth. Trade benefits both!</p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">M-02</span>
+      <span class="q-text">An American tourist spends ₹3,00,000 on hotels, food and travel in Goa in 2025. How does this affect India's 2025 GDP?</span>
+      <span class="difficulty-badge medium">Medium</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>GDP Component Affected:</strong> Net Exports (NX) — specifically, <span class="hl">Exports</span>.</p>
+      <p><strong>Reasoning:</strong> When a foreigner buys Indian services, it's counted as India's export. This increases NX, and since Y = C + I + G + NX, India's GDP <span class="hl2">increases by ₹3,00,000</span>.</p>
+      <div class="tip-box">
+        <div class="tip-label">💡 Think of It This Way</div>
+        Foreigners spending in India = India "exporting" its services. Money flows INTO India = positive for GDP.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">M-03</span>
+      <span class="q-text">Rohit: 100 kg wheat or 20 shoes/day. Ramesh: 120 kg wheat or 40 shoes/day. Each has 10 days. Both allocate half time to each. Find PPF and production points.</span>
+      <span class="difficulty-badge medium">Medium</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Rohit's PPF:</strong> Max wheat (10 days) = 100×10 = 1000 kg | Max shoes = 20×10 = 200 pairs</p>
+      <p><strong>Ramesh's PPF:</strong> Max wheat = 120×10 = 1200 kg | Max shoes = 40×10 = 400 pairs</p>
+      <p><strong>Before Trade (half time each):</strong></p>
+      <ul>
+        <li>Rohit: 5 days wheat = 500 kg + 5 days shoes = 100 pairs → consumes (500 kg, 100 pairs)</li>
+        <li>Ramesh: 5 days wheat = 600 kg + 5 days shoes = 200 pairs → consumes (600 kg, 200 pairs)</li>
+      </ul>
+      <p><strong>OC Analysis:</strong></p>
+      <table class="data-table">
+        <thead><tr><th>Person</th><th>OC of Wheat</th><th>OC of Shoes</th></tr></thead>
+        <tbody>
+          <tr><td>Rohit</td><td>200/1000 = 0.2 shoes</td><td>1000/200 = 5 kg wheat</td></tr>
+          <tr><td>Ramesh</td><td>400/1200 = 0.33 shoes</td><td>1200/400 = 3 kg wheat</td></tr>
+        </tbody>
+      </table>
+      <p>Rohit: CA in Wheat (OC 0.2 &lt; Ramesh's 0.33). Ramesh: CA in Shoes (OC 3 &lt; Rohit's 5).</p>
+    </div>
+  </div>
+
+  <h3 style="color:var(--accent4); margin-top:2rem;">🔴 Hard Questions</h3>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">H-01</span>
+      <span class="q-text">"A country can enjoy absolute advantage and comparative advantage in both goods." Do you agree? Analyse.</span>
+      <span class="difficulty-badge hard">Hard</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>ABSOLUTE Advantage in both — YES possible:</strong> If Country A is more efficient than B at producing both goods (fewer hours/unit for both), A has absolute advantage in both.</p>
+      <p><strong>COMPARATIVE Advantage in both — IMPOSSIBLE:</strong> Each country must have CA in exactly one good. This is a mathematical certainty.</p>
+      <p><strong>Proof by contradiction:</strong> If OC of good X in Country A &lt; OC in Country B, then the reciprocal (OC of Y in A) must be > OC of Y in B. You can't have lower OC in both goods simultaneously.</p>
+      <p><strong>Conclusion:</strong> A country CAN have absolute advantage in both goods, but CANNOT have comparative advantage in both goods. Trade is based on comparative advantage — even if one country is better at everything, both countries still gain by specializing.</p>
+      <div class="exam-trick">
+        <div class="exam-trick-label">📌 Example Answer</div>
+        "I partially agree. Absolute advantage in both goods is possible (e.g., if Country A uses fewer labour hours for both goods). However, comparative advantage in both goods is mathematically impossible, as opportunity costs are reciprocal by nature."
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">H-02</span>
+      <span class="q-text">"GDP is a good measure of economic well-being, but not a perfect one." Analyse.</span>
+      <span class="difficulty-badge hard">Hard</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Why GDP IS a good measure:</strong></p>
+      <ul>
+        <li>Strong correlation: High GDP per capita countries tend to have better healthcare, education, nutrition</li>
+        <li>Reflects productive capacity and living standards generally</li>
+        <li>Countries with higher GDP can afford better public services</li>
+      </ul>
+      <p><strong>Why GDP is NOT perfect (limitations):</strong></p>
+      <ul>
+        <li><span class="hl3">Doesn't capture inequality</span> — GDP may be high but concentrated among few (e.g., oil-rich nations with poor populations)</li>
+        <li><span class="hl3">Leisure is excluded</span> — A country working 80 hrs/week vs 40 hrs/week may have same GDP but very different well-being</li>
+        <li><span class="hl3">Environmental degradation</span> — Pollution-causing industries add to GDP but reduce quality of life</li>
+        <li><span class="hl3">Non-market activities</span> — Home cooking, voluntary work not counted</li>
+        <li><span class="hl3">Underground economy</span> — Informal sector excluded</li>
+        <li><span class="hl3">Quality of life indices</span> — Health, safety, freedom not measured</li>
+      </ul>
+      <p><strong>Conclusion:</strong> GDP is a useful first approximation but should be supplemented with Human Development Index (HDI), Gini Coefficient, etc. for complete picture of well-being.</p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">H-03</span>
+      <span class="q-text">Identify GDP component affected: (a) Family buys washing machine made in India (b) Mr. Mohan buys new house ₹90 lakh (c) Mr. Mohanty lives in own house (market rent ₹15,000/month) (d) Govt. Odisha buys helicopter from HAL (e) LG sells 500 TVs from 2024 inventory in 2025.</span>
+      <span class="difficulty-badge hard">Hard</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <table class="data-table">
+        <thead><tr><th>Transaction</th><th>Component</th><th>Impact on GDP</th></tr></thead>
+        <tbody>
+          <tr><td>(a) Family buys washing machine made in India</td><td>Consumption (C)</td><td>+₹30,000 to 2025 GDP</td></tr>
+          <tr><td>(b) Mr. Mohan buys new house ₹90 lakh</td><td>Investment (I) — Residential</td><td>+₹90 lakh to 2025 GDP</td></tr>
+          <tr><td>(c) Mohanty lives in own house (imputed rent)</td><td>Consumption (C) — Imputed</td><td>+₹1,80,000/year imputed rent counted</td></tr>
+          <tr><td>(d) Govt buys helicopter from HAL</td><td>Government Purchase (G)</td><td>+₹30.5 crore to 2025 GDP</td></tr>
+          <tr><td>(e) LG sells TVs from 2024 inventory</td><td>I decreases (inventory depletion)</td><td>TVs produced in 2024, counted then. 2025 inventory drop = -I. Net GDP effect = 0 for 2025.</td></tr>
+        </tbody>
+      </table>
+      <div class="exam-trick">
+        <div class="exam-trick-label">📌 Inventory Rule</div>
+        If goods produced in 2024 but sold in 2025: Counted in 2024 GDP as inventory investment. When sold in 2025, it's C+ but I− → NET zero effect on 2025 GDP.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 6: EXPECTED QUESTIONS
+═══════════════════════════════════════════════════ -->
+<section id="expected">
+  <div class="section-head">
+    <div class="section-tag">⚡ Section 6</div>
+    <h2>Expected Questions</h2>
+    <p>High-probability questions based on assignment patterns and CO coverage.</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="eq-badge very-likely">🔥 Very Likely</div><strong>CO1 — Trade</strong>
+      <p style="margin-top:0.7rem; font-size:0.9rem;">Construct PPF for two countries → Calculate OC → Identify who has AA and CA → State basis of trade. (Numerical format)</p>
+      <div class="tip-box" style="margin-top:0.7rem;">
+        <div class="tip-label">Prep this</div>
+        Practice the India-China rice/cloth type problem. Know how to draw BOTH PPFs on the same graph.
+      </div>
+    </div>
+    <div class="card">
+      <div class="eq-badge very-likely">🔥 Very Likely</div><strong>CO2 — Full CPI Problem</strong>
+      <p style="margin-top:0.7rem; font-size:0.9rem;">Given a table with 3 goods, prices over 3 years, fixed basket → Compute CPI for all years → Inflation rate between consecutive years.</p>
+      <div class="tip-box" style="margin-top:0.7rem;">
+        <div class="tip-label">Prep this</div>
+        Memorize the 5-step CPI method. The basket quantity NEVER changes — use only base year quantities throughout.
+      </div>
+    </div>
+    <div class="card">
+      <div class="eq-badge very-likely">🔥 Very Likely</div><strong>CO3 — NGDP + RGDP + Deflator</strong>
+      <p style="margin-top:0.7rem; font-size:0.9rem;">Table with 3 goods, 3 years, quantities and prices → Compute Nominal GDP, Real GDP, GDP Deflator, inflation rate for each year.</p>
+      <div class="tip-box" style="margin-top:0.7rem;">
+        <div class="tip-label">Prep this</div>
+        Assignment 2 Q1 is your template. Practice until this is automatic.
+      </div>
+    </div>
+    <div class="card">
+      <div class="eq-badge likely">📌 Likely</div><strong>CO3 — Saving & Investment</strong>
+      <p style="margin-top:0.7rem; font-size:0.9rem;">Given GDP, C, G, budget surplus/deficit → Find T, disposable income, private saving, public saving, national saving, and investment.</p>
+      <div class="tip-box" style="margin-top:0.7rem;">
+        <div class="tip-label">Prep this</div>
+        Assignment 2 Q2 type. Identify T = G + Surplus (or G − Deficit). Then use formulas.
+      </div>
+    </div>
+    <div class="card">
+      <div class="eq-badge likely">📌 Likely</div><strong>CO2 — Interest Rate</strong>
+      <p style="margin-top:0.7rem; font-size:0.9rem;">Given deposit amounts and CPI values → compute nominal rate, inflation rate, real interest rate.</p>
+    </div>
+    <div class="card">
+      <div class="eq-badge likely">📌 Likely</div><strong>Analytical — GDP Limitations</strong>
+      <p style="margin-top:0.7rem; font-size:0.9rem;">"Is GDP a good measure of well-being?" or "Compare GDP per capita across countries to assess living standard."</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 7: MEMORY TRICKS
+═══════════════════════════════════════════════════ -->
+<section id="tricks">
+  <div class="section-head">
+    <div class="section-tag">🪄 Section 7</div>
+    <h2>Memory Tricks & Shortcuts</h2>
+    <p>Mnemonics, tricks, and shortcuts that stick.</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="mnemonic-card">
+      <div class="mnemonic-word">C-I-G-NX</div>
+      <p style="font-size:0.85rem; color:var(--text2); margin-bottom:0.5rem;">GDP Components — Say it as "Sig-Nex"</p>
+      <div class="mnemonic-expand">
+        <span><span class="letter">C</span> — Consumption (households)</span>
+        <span><span class="letter">I</span> — Investment (firms + housing)</span>
+        <span><span class="letter">G</span> — Government Purchases</span>
+        <span><span class="letter">NX</span> — Net eXports (X − M)</span>
+      </div>
+    </div>
+
+    <div class="mnemonic-card">
+      <div class="mnemonic-word">5-STEP CPI</div>
+      <p style="font-size:0.85rem; color:var(--text2); margin-bottom:0.5rem;">Remember: "Fix Prices Compute Base Inflate"</p>
+      <div class="mnemonic-expand">
+        <span><span class="letter">F</span> — Fix the basket</span>
+        <span><span class="letter">P</span> — Find the Prices</span>
+        <span><span class="letter">C</span> — Compute basket's cost</span>
+        <span><span class="letter">B</span> — Base year designated</span>
+        <span><span class="letter">I</span> — Inflation rate computed</span>
+      </div>
+    </div>
+
+    <div class="mnemonic-card">
+      <div class="mnemonic-word">SIN-QUA</div>
+      <p style="font-size:0.85rem; color:var(--text2); margin-bottom:0.5rem;">CPI Problems — "Sine-Quality"</p>
+      <div class="mnemonic-expand">
+        <span><span class="letter">S</span> — Substitution bias</span>
+        <span><span class="letter">I</span> — Introduction of new goods</span>
+        <span><span class="letter">N</span> — Nothing (no quality adjustment)</span>
+        <span><span class="letter">= QUA</span>lity changes unmeasured</span>
+      </div>
+    </div>
+
+    <div class="mnemonic-card">
+      <div class="mnemonic-word">OC RULE</div>
+      <p style="font-size:0.85rem; color:var(--text2); margin-bottom:0.5rem;">Finding Comparative Advantage</p>
+      <div class="mnemonic-expand">
+        <span><span class="letter">Lower OC</span> → Comparative Advantage</span>
+        <span><span class="letter">Specialize</span> in what you do cheapest</span>
+        <span><span class="letter">Export</span> your CA good</span>
+        <span><span class="letter">Import</span> the other country's CA good</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:1.5rem;">
+    <h3>⚡ Quick Calculation Tricks</h3>
+    <div class="card-grid">
+      <div>
+        <h4>PPF Intercepts in 2 seconds:</h4>
+        <p>Max of Good A = Total Resources ÷ Cost per unit of A<br>
+        <span class="hl">Shortcut:</span> If given "produces 40/hr with 2000 hrs" → 40 × 2000 = 80,000 units max.</p>
+      </div>
+      <div>
+        <h4>CPI to salary adjustment:</h4>
+        <p>New salary = Old salary × (New CPI ÷ Old CPI)<br>
+        <span class="hl">Shortcut:</span> Find the ratio first (e.g., 270/45 = 6), then multiply.</p>
+      </div>
+      <div>
+        <h4>Real vs Nominal GDP quick check:</h4>
+        <p>If prices rose but Real GDP same → inflation with no growth.<br>
+        If Real GDP rose → genuine economic growth.<br>
+        <span class="hl">Deflator = 100 always for base year.</span></p>
+      </div>
+      <div>
+        <h4>Saving shortcut:</h4>
+        <p>If Surplus given → T = G + Surplus<br>
+        If Deficit given → T = G − Deficit<br>
+        <span class="hl">Investment = National Saving (always, in closed economy)</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 8: CONFUSION BREAKER
+═══════════════════════════════════════════════════ -->
+<section id="confusion">
+  <div class="section-head">
+    <div class="section-tag">⚠️ Section 8</div>
+    <h2>Confusion Breaker</h2>
+    <p>The questions you were afraid to ask. Answered clearly.</p>
+  </div>
+
+  <div class="vs-grid" style="margin-bottom:1.5rem;">
+    <div class="vs-item">
+      <h5>🔵 Absolute Advantage</h5>
+      <p style="font-size:0.85rem;">Compare RAW OUTPUT or RAW INPUT. Who produces more? Who uses fewer hours? Just compare the numbers directly.</p>
+      <p style="font-size:0.82rem; color:var(--text2); margin-top:0.5rem;">Formula: Higher output per unit resource = AA (or fewer resources per unit output)</p>
+    </div>
+    <div class="vs-center">VS</div>
+    <div class="vs-item">
+      <h5>🟣 Comparative Advantage</h5>
+      <p style="font-size:0.85rem;">Compare OPPORTUNITY COST. Who gives up less? Requires calculation of OC for EACH good in EACH country.</p>
+      <p style="font-size:0.82rem; color:var(--text2); margin-top:0.5rem;">Formula: OC of A = Max B ÷ Max A. Lower OC = CA in that good.</p>
+    </div>
+  </div>
+
+  <div class="vs-grid" style="margin-bottom:1.5rem;">
+    <div class="vs-item">
+      <h5>🔵 CPI</h5>
+      <p style="font-size:0.85rem;"><strong>Fixed basket</strong> of goods (base year quantities stay same). Measures cost of living for CONSUMERS. Includes <strong>imports</strong>. Used for wage adjustments, salary comparisons.</p>
+    </div>
+    <div class="vs-center">VS</div>
+    <div class="vs-item">
+      <h5>🟣 GDP Deflator</h5>
+      <p style="font-size:0.85rem;"><strong>Changing basket</strong> (uses current production). Measures prices of ALL <strong>domestically produced</strong> goods. Excludes imports. Used to find Real GDP from Nominal.</p>
+    </div>
+  </div>
+
+  <div class="vs-grid" style="margin-bottom:1.5rem;">
+    <div class="vs-item">
+      <h5>🔵 Nominal GDP</h5>
+      <p style="font-size:0.85rem;">Uses <strong>current year prices</strong>. Goes up even if production is flat (just prices rose). Does NOT reflect real growth.</p>
+    </div>
+    <div class="vs-center">VS</div>
+    <div class="vs-item">
+      <h5>🟣 Real GDP</h5>
+      <p style="font-size:0.85rem;">Uses <strong>base year prices</strong>. Shows TRUE change in economic output. If Real GDP rises, economy actually grew.</p>
+    </div>
+  </div>
+
+  <div class="vs-grid">
+    <div class="vs-item">
+      <h5>🔵 Private Saving</h5>
+      <p style="font-size:0.85rem;">= Y − T − C. What households save after paying taxes and consuming. Can be positive or negative (dissaving).</p>
+    </div>
+    <div class="vs-center">VS</div>
+    <div class="vs-item">
+      <h5>🟣 Public Saving</h5>
+      <p style="font-size:0.85rem;">= T − G. What government saves from tax revenue after spending. Positive = surplus. Negative = deficit.</p>
+    </div>
+  </div>
+
+  <div class="warn-box" style="margin-top:1.5rem;">
+    <div class="warn-label">⚠️ Biggest Exam Traps</div>
+    <ul style="margin-top:0.3rem;">
+      <li><strong>CPI basket quantity</strong> → ALWAYS use base year quantities, even when calculating other years' basket costs!</li>
+      <li><strong>GDP Deflator of base year</strong> → Always = 100. If you get a different answer, you've made an error.</li>
+      <li><strong>Comparative advantage</strong> → A country CANNOT have CA in BOTH goods. If your answer shows this, recalculate.</li>
+      <li><strong>Government transfers</strong> (pensions, subsidies) → NOT part of G in GDP. Only actual government purchases count.</li>
+      <li><strong>Intermediate goods</strong> → NOT counted in GDP directly (to avoid double counting). Use value-added method.</li>
+      <li><strong>Second-hand sales</strong> → NOT part of GDP. Only NEW production counts.</li>
+      <li><strong>LG sells 2024 inventory in 2025</strong> → Counted in 2024 GDP, not 2025. Net effect on 2025 GDP = 0.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 9: QUICK REVISION
+═══════════════════════════════════════════════════ -->
+<section id="quickrev">
+  <div class="section-head">
+    <div class="section-tag">✅ Section 9</div>
+    <h2>Quick Revision Notes</h2>
+    <p>Read the night before. Ultra-compact exam summaries.</p>
+  </div>
+
+  <div class="qr-grid">
+    <div class="qr-card">
+      <h5>📦 PPF & Trade</h5>
+      <ul>
+        <li>PPF = straight line (constant OC)</li>
+        <li>OC of A = Max B ÷ Max A</li>
+        <li>Lower OC = Comparative Advantage</li>
+        <li>AA: more output, less resource</li>
+        <li>Both gain from CA-based trade</li>
+        <li>Specialization → consume beyond PPF</li>
+      </ul>
+    </div>
+    <div class="qr-card" style="border-top-color:var(--accent2);">
+      <h5>🛒 CPI</h5>
+      <ul>
+        <li>5 steps: Fix basket → Prices → Cost → Base → Inflate</li>
+        <li>CPI = (Current Cost ÷ Base Cost) × 100</li>
+        <li>Base year CPI = 100</li>
+        <li>Fixed basket = base year quantities</li>
+        <li>3 biases: Substitution, New goods, Quality</li>
+        <li>Salary adj = Old × (CPI_new ÷ CPI_old)</li>
+      </ul>
+    </div>
+    <div class="qr-card" style="border-top-color:var(--accent3);">
+      <h5>🏦 GDP</h5>
+      <ul>
+        <li>Y = C + I + G + NX</li>
+        <li>Nominal = Current prices × Current qty</li>
+        <li>Real = Base prices × Current qty</li>
+        <li>Deflator = (Nominal ÷ Real) × 100</li>
+        <li>Base year: Nominal = Real; Deflator = 100</li>
+        <li>Final goods only (no intermediate)</li>
+      </ul>
+    </div>
+    <div class="qr-card" style="border-top-color:var(--accent4);">
+      <h5>💵 Interest Rates</h5>
+      <ul>
+        <li>Nominal = (Final−Initial)/Initial × 100</li>
+        <li>Real = Nominal − Inflation</li>
+        <li>Inflation = [(CPI2−CPI1)/CPI1] × 100</li>
+        <li>Real rate shows true purchasing power gain</li>
+      </ul>
+    </div>
+    <div class="qr-card">
+      <h5>💰 Saving & Investment</h5>
+      <ul>
+        <li>Private Saving = Y − T − C</li>
+        <li>Public Saving = T − G</li>
+        <li>National Saving = Y − C − G</li>
+        <li>Investment = National Saving (closed)</li>
+        <li>Surplus → T > G → Public saving positive</li>
+        <li>Deficit → T < G → Public saving negative</li>
+      </ul>
+    </div>
+    <div class="qr-card" style="border-top-color:var(--accent2);">
+      <h5>📊 GDP Components</h5>
+      <ul>
+        <li>C: households buying final goods</li>
+        <li>I: firms, residential housing, inventory</li>
+        <li>G: government purchases (not transfers)</li>
+        <li>NX = Exports − Imports</li>
+        <li>Foreign spending in India = Export = +GDP</li>
+        <li>Own house = imputed rent = +C</li>
+      </ul>
+    </div>
+    <div class="qr-card" style="border-top-color:var(--accent3);">
+      <h5>⚠️ GDP Limitations</h5>
+      <ul>
+        <li>Ignores inequality distribution</li>
+        <li>Doesn't count leisure time</li>
+        <li>Environmental costs excluded</li>
+        <li>Informal economy excluded</li>
+        <li>Non-market activity not counted</li>
+        <li>Use HDI for fuller picture</li>
+      </ul>
+    </div>
+    <div class="qr-card" style="border-top-color:var(--accent4);">
+      <h5>🌱 Economic Growth</h5>
+      <ul>
+        <li>Sources: Physical K, Human K, Natural R, Tech</li>
+        <li>Trade = Technology effect on PPF</li>
+        <li>Capital accumulation: diminishing returns</li>
+        <li>GDP per capita = better living standard proxy</li>
+        <li>High GDP ≠ always high living standard</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:2rem; border-color:rgba(124,106,247,0.4);">
+    <h3>🎯 Last-Minute Exam Checklist</h3>
+    <div class="card-grid">
+      <div>
+        <h4>Before answering any question:</h4>
+        <ol class="steps">
+          <li>Identify which CO/topic it belongs to</li>
+          <li>Is it asking for AA or CA?</li>
+          <li>Is it CPI or GDP deflator?</li>
+          <li>Is it Nominal or Real GDP?</li>
+          <li>What formula is needed?</li>
+        </ol>
+      </div>
+      <div>
+        <h4>For graph questions:</h4>
+        <ol class="steps">
+          <li>Label both axes clearly with goods/variables</li>
+          <li>Calculate both intercepts first</li>
+          <li>Draw straight line PPF (for constant OC)</li>
+          <li>Mark production/consumption points with coordinates</li>
+          <li>State your conclusion in words</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:var(--bg2); border-top:1px solid var(--border); text-align:center; padding:2rem; color:var(--text2); font-size:0.82rem;">
+  <p style="font-family:'Syne',sans-serif; font-weight:700; color:var(--accent); margin-bottom:0.3rem; font-size:1rem;">MacroMaster</p>
+  <p>HSS2024 · Introduction to Macroeconomics · B.Tech 4th Sem · ITER, SOA University</p>
+ <p style="margin: 0.5rem 0;">
+        BUILT BY <strong>JASMINE JAYASMITA</strong>
+    </p>
+
+    <div style="margin-top: 0.8rem; font-size: 0.9rem;">
+        <a href="https://www.linkedin.com/in/jasminejayasmitasoa" target="_blank" style="color:var(--accent); text-decoration:none; margin:0 10px;">LinkedIn</a>
+        <span style="color:var(--border);">|</span>
+        <a href="https://www.instagram.com/jassharchive/" target="_blank" style="color:var(--accent); text-decoration:none; margin:0 10px;">Instagram</a>
+    </div>
+  <p style="margin-top:0.3rem; color:#555;">Concept → Graph → Formula → Question. You've got this. 💪</p>
+</footer>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// Progress bar
+window.addEventListener('scroll', () => {
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  document.getElementById('progressBar').style.width = scrolled + '%';
+  
+  const scrollBtn = document.getElementById('scrollTop');
+  if (winScroll > 300) scrollBtn.classList.add('show');
+  else scrollBtn.classList.remove('show');
+});
+
+// Collapsible sections
+function toggleCollapse(header) {
+  const parent = header.parentElement;
+  parent.classList.toggle('open');
+}
+
+// Q cards
+function toggleQ(header) {
+  const card = header.parentElement;
+  card.classList.toggle('open');
+}
+
+// Topic tabs
+function showTopic(id) {
+  document.querySelectorAll('.topic-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.topic-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('topic-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// Auto open first collapsible
+document.querySelector('.collapsible').classList.add('open');
+</script>
+</body>
+</html>

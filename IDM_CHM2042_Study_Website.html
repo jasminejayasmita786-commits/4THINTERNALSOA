@@ -1,0 +1,3141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IDM CHM2042 — Study Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0e17;
+    --surface: #1a1829;
+    --surface2: #231f35;
+    --accent: #e8c547;
+    --accent2: #ff6b6b;
+    --accent3: #4ecdc4;
+    --accent4: #a78bfa;
+    --text: #fffffe;
+    --text-muted: #a7a5b5;
+    --border: rgba(255,255,255,0.08);
+    --card: #1e1c2e;
+    --glow: 0 0 30px rgba(232,197,71,0.15);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events:none; z-index:0; opacity:0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:100;
+    background: rgba(15,14,23,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items:center; gap:1rem;
+    height: 60px; overflow-x:auto;
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--accent);
+    white-space:nowrap;
+    margin-right:1.5rem;
+    letter-spacing: 0.02em;
+  }
+  nav a {
+    color: var(--text-muted);
+    text-decoration:none;
+    font-size:0.8rem;
+    font-weight:500;
+    white-space:nowrap;
+    padding: 0.35rem 0.75rem;
+    border-radius:6px;
+    transition: all 0.2s;
+    letter-spacing:0.02em;
+  }
+  nav a:hover { color:var(--accent); background:rgba(232,197,71,0.08); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    text-align:center;
+    padding: 6rem 2rem 4rem;
+    position:relative;
+    background: radial-gradient(ellipse at 50% 30%, rgba(167,139,250,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 80%, rgba(78,205,196,0.08) 0%, transparent 50%);
+  }
+  .hero-tag {
+    display:inline-block;
+    background: rgba(232,197,71,0.12);
+    border: 1px solid rgba(232,197,71,0.3);
+    color: var(--accent);
+    font-size:0.75rem;
+    font-weight:600;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    padding:0.4rem 1rem;
+    border-radius:99px;
+    margin-bottom:1.5rem;
+  }
+  .hero h1 {
+    font-family:'Playfair Display', serif;
+    font-size:clamp(2.5rem,7vw,5.5rem);
+    font-weight:900;
+    line-height:1.05;
+    margin-bottom:1rem;
+    background: linear-gradient(135deg, #fffffe 0%, var(--accent) 60%, var(--accent4) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .hero p {
+    color:var(--text-muted);
+    font-size:1.05rem;
+    max-width:560px;
+    line-height:1.7;
+    margin-bottom:2.5rem;
+  }
+  .hero-stats {
+    display:flex; gap:2.5rem; flex-wrap:wrap; justify-content:center;
+  }
+  .stat {
+    text-align:center;
+  }
+  .stat-num {
+    font-family:'Playfair Display',serif;
+    font-size:2rem;
+    font-weight:700;
+    color:var(--accent);
+  }
+  .stat-label { font-size:0.75rem; color:var(--text-muted); letter-spacing:0.06em; text-transform:uppercase; }
+
+  /* ── SECTION LAYOUT ── */
+  .container { max-width:1100px; margin:0 auto; padding:0 1.5rem; }
+  section { padding:5rem 0; position:relative; }
+  .section-header { margin-bottom:3rem; }
+  .section-tag {
+    display:inline-block;
+    font-size:0.7rem; font-weight:700; letter-spacing:0.15em;
+    text-transform:uppercase;
+    padding:0.3rem 0.8rem; border-radius:4px;
+    margin-bottom:0.75rem;
+  }
+  .tag-blue { background:rgba(78,205,196,0.15); color:var(--accent3); }
+  .tag-yellow { background:rgba(232,197,71,0.15); color:var(--accent); }
+  .tag-red { background:rgba(255,107,107,0.15); color:var(--accent2); }
+  .tag-purple { background:rgba(167,139,250,0.15); color:var(--accent4); }
+  .tag-green { background:rgba(74,222,128,0.15); color:#4ade80; }
+
+  .section-header h2 {
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.8rem,4vw,2.8rem);
+    font-weight:700;
+    line-height:1.15;
+  }
+
+  /* ── DIVIDER ── */
+  .divider { height:1px; background:var(--border); margin:0; }
+
+  /* ── CARDS ── */
+  .grid-2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.25rem; }
+  .grid-3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1rem; }
+
+  .card {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:1.5rem;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    position:relative; overflow:hidden;
+  }
+  .card::before {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(135deg, rgba(255,255,255,0.02), transparent);
+    pointer-events:none;
+  }
+  .card:hover {
+    transform:translateY(-3px);
+    border-color:rgba(232,197,71,0.25);
+    box-shadow:var(--glow);
+  }
+  .card-icon { font-size:1.6rem; margin-bottom:0.75rem; }
+  .card h3 {
+    font-size:1rem; font-weight:600;
+    margin-bottom:0.5rem; color:var(--text);
+  }
+  .card p { font-size:0.875rem; color:var(--text-muted); line-height:1.65; }
+
+  .card-accent-yellow { border-left:3px solid var(--accent); }
+  .card-accent-teal { border-left:3px solid var(--accent3); }
+  .card-accent-red { border-left:3px solid var(--accent2); }
+  .card-accent-purple { border-left:3px solid var(--accent4); }
+  .card-accent-green { border-left:3px solid #4ade80; }
+
+  /* ── CONCEPT BOXES ── */
+  .concept-block {
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:2rem;
+    margin-bottom:1.5rem;
+  }
+  .concept-block h3 {
+    font-family:'Playfair Display',serif;
+    font-size:1.3rem;
+    margin-bottom:1rem;
+    color:var(--accent);
+    display:flex; align-items:center; gap:0.5rem;
+  }
+  .concept-block p, .concept-block li {
+    color:var(--text-muted);
+    line-height:1.75;
+    font-size:0.9rem;
+  }
+  .concept-block ul, .concept-block ol {
+    padding-left:1.5rem;
+    margin-top:0.5rem;
+  }
+  .concept-block li { margin-bottom:0.4rem; }
+
+  /* ── HIGHLIGHT BOXES ── */
+  .tip-box {
+    background:rgba(232,197,71,0.07);
+    border:1px solid rgba(232,197,71,0.2);
+    border-radius:10px;
+    padding:1rem 1.25rem;
+    margin:1rem 0;
+    font-size:0.875rem;
+    color:#e8c547cc;
+  }
+  .tip-box strong { color:var(--accent); }
+  .warn-box {
+    background:rgba(255,107,107,0.07);
+    border:1px solid rgba(255,107,107,0.2);
+    border-radius:10px;
+    padding:1rem 1.25rem;
+    margin:1rem 0;
+    font-size:0.875rem;
+    color:#ff6b6bcc;
+  }
+  .warn-box strong { color:var(--accent2); }
+  .info-box {
+    background:rgba(78,205,196,0.07);
+    border:1px solid rgba(78,205,196,0.2);
+    border-radius:10px;
+    padding:1rem 1.25rem;
+    margin:1rem 0;
+    font-size:0.875rem;
+    color:#4ecdc4cc;
+  }
+  .info-box strong { color:var(--accent3); }
+
+  /* ── SHORT NOTES CHIPS ── */
+  .chips { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.75rem; }
+  .chip {
+    background:rgba(167,139,250,0.12);
+    border:1px solid rgba(167,139,250,0.2);
+    color:var(--accent4);
+    font-size:0.75rem; font-weight:500;
+    padding:0.3rem 0.75rem;
+    border-radius:99px;
+  }
+
+  /* ── DEFINITION TABLE ── */
+  .def-table { width:100%; border-collapse:collapse; margin-top:1rem; }
+  .def-table th {
+    text-align:left;
+    font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--accent); font-weight:600;
+    padding:0.75rem 1rem;
+    border-bottom:1px solid var(--border);
+  }
+  .def-table td {
+    padding:0.85rem 1rem;
+    font-size:0.875rem;
+    border-bottom:1px solid rgba(255,255,255,0.04);
+    vertical-align:top;
+  }
+  .def-table tr:hover td { background:rgba(255,255,255,0.02); }
+  .def-table td:first-child { color:var(--accent3); font-weight:600; width:200px; }
+  .def-table td:last-child { color:var(--text-muted); line-height:1.6; }
+
+  /* ── Q&A ACCORDION ── */
+  .qa-card {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    margin-bottom:1rem;
+    overflow:hidden;
+    transition:border-color 0.2s;
+  }
+  .qa-card:hover { border-color:rgba(232,197,71,0.2); }
+  .qa-question {
+    padding:1.25rem 1.5rem;
+    cursor:pointer;
+    display:flex; align-items:flex-start; justify-content:space-between; gap:1rem;
+    user-select:none;
+  }
+  .qa-question-text {
+    font-size:0.925rem; font-weight:500;
+    line-height:1.55;
+    flex:1;
+  }
+  .qa-badge {
+    font-size:0.65rem; font-weight:700; letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:0.2rem 0.6rem; border-radius:4px;
+    white-space:nowrap; flex-shrink:0; margin-top:2px;
+  }
+  .badge-pyq { background:rgba(255,107,107,0.15); color:var(--accent2); }
+  .badge-exp { background:rgba(232,197,71,0.15); color:var(--accent); }
+  .badge-prac { background:rgba(78,205,196,0.15); color:var(--accent3); }
+  .badge-hard { background:rgba(167,139,250,0.15); color:var(--accent4); }
+
+  .qa-arrow {
+    font-size:0.75rem; color:var(--text-muted);
+    transition:transform 0.3s; flex-shrink:0; margin-top:4px;
+  }
+  .qa-card.open .qa-arrow { transform:rotate(180deg); }
+  .qa-answer {
+    display:none;
+    padding:0 1.5rem 1.5rem;
+    border-top:1px solid var(--border);
+    padding-top:1.25rem;
+  }
+  .qa-card.open .qa-answer { display:block; }
+  .qa-answer p, .qa-answer li {
+    font-size:0.875rem; color:var(--text-muted); line-height:1.75;
+  }
+  .qa-answer ul, .qa-answer ol { padding-left:1.5rem; margin:0.5rem 0; }
+  .qa-answer li { margin-bottom:0.35rem; }
+  .qa-answer strong { color:var(--text); }
+  .qa-answer .mark-label {
+    font-size:0.7rem; color:var(--text-muted);
+    margin-bottom:0.75rem; display:block;
+  }
+
+  /* ── MNEMONIC CARD ── */
+  .mnemonic-card {
+    background: linear-gradient(135deg, rgba(167,139,250,0.1), rgba(78,205,196,0.05));
+    border:1px solid rgba(167,139,250,0.2);
+    border-radius:14px;
+    padding:1.5rem;
+    margin-bottom:1.25rem;
+  }
+  .mnemonic-word {
+    font-family:'JetBrains Mono',monospace;
+    font-size:1.4rem;
+    font-weight:600;
+    color:var(--accent4);
+    letter-spacing:0.1em;
+    margin-bottom:0.75rem;
+  }
+  .mnemonic-expand {
+    display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.75rem;
+  }
+  .mne-letter {
+    background:rgba(167,139,250,0.15);
+    border-radius:6px;
+    padding:0.3rem 0.6rem;
+    font-size:0.85rem;
+  }
+  .mne-letter strong { color:var(--accent4); }
+  .mnemonic-tip { font-size:0.85rem; color:var(--text-muted); font-style:italic; }
+
+  /* ── DIAGRAM ── */
+  .diagram-box {
+    background:var(--surface2);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:2rem;
+    text-align:center;
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.8rem;
+    color:var(--text-muted);
+    overflow-x:auto;
+  }
+  .diagram-box .d-title {
+    font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:1.5rem; font-family:'DM Sans',sans-serif;
+  }
+  .cycle-row { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:0.5rem; margin:0.5rem 0; }
+  .cycle-node {
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:0.5rem 1rem;
+    font-size:0.8rem;
+    color:var(--text);
+    font-family:'DM Sans',sans-serif;
+  }
+  .cycle-node.highlight { border-color:var(--accent); color:var(--accent); }
+  .cycle-arrow { color:var(--accent); font-size:1rem; }
+
+  /* ── QUICK REVISION ── */
+  .rev-item {
+    display:flex; align-items:flex-start; gap:1rem;
+    padding:1rem;
+    background:var(--surface);
+    border-radius:10px;
+    margin-bottom:0.75rem;
+    border:1px solid var(--border);
+    transition:border-color 0.2s;
+  }
+  .rev-item:hover { border-color:rgba(74,222,128,0.3); }
+  .rev-check {
+    width:22px; height:22px; border-radius:6px;
+    border:2px solid rgba(74,222,128,0.4);
+    background:rgba(74,222,128,0.05);
+    cursor:pointer; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.7rem; color:#4ade80;
+    transition:all 0.2s;
+    margin-top:1px;
+  }
+  .rev-check.checked { background:#4ade80; border-color:#4ade80; color:#0f0e17; }
+  .rev-text { font-size:0.875rem; color:var(--text-muted); line-height:1.6; }
+  .rev-text strong { color:var(--text); }
+
+  /* ── COMPARISON TABLE ── */
+  .cmp-table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+  .cmp-table th {
+    background:var(--surface2);
+    padding:0.75rem 1rem;
+    text-align:left;
+    font-size:0.75rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--accent);
+    border-bottom:1px solid var(--border);
+  }
+  .cmp-table td {
+    padding:0.75rem 1rem;
+    border-bottom:1px solid rgba(255,255,255,0.04);
+    color:var(--text-muted);
+    vertical-align:top; line-height:1.55;
+  }
+  .cmp-table tr:hover td { background:rgba(255,255,255,0.02); }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar-wrap { background:var(--surface2); border-radius:99px; height:6px; margin-top:0.5rem; }
+  .progress-bar { height:6px; border-radius:99px; background:linear-gradient(90deg,var(--accent3),var(--accent)); }
+
+  /* ── BADGE IMPORTANCE ── */
+  .imp-high { color:var(--accent2); font-weight:700; font-size:0.75rem; }
+  .imp-med { color:var(--accent); font-weight:700; font-size:0.75rem; }
+
+  /* ── SCROLL TOP ── */
+  #scrollTop {
+    position:fixed; bottom:2rem; right:2rem; z-index:200;
+    background:var(--accent); color:var(--bg);
+    border:none; border-radius:50%;
+    width:44px; height:44px;
+    font-size:1.1rem; cursor:pointer;
+    box-shadow:0 4px 20px rgba(232,197,71,0.3);
+    transition:all 0.2s; display:none;
+    align-items:center; justify-content:center;
+  }
+  #scrollTop:hover { transform:scale(1.1); }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:640px) {
+    nav { padding:0 1rem; gap:0.5rem; }
+    section { padding:3.5rem 0; }
+    .hero { padding:5rem 1.5rem 3rem; }
+    .concept-block { padding:1.25rem; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(20px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  .hero > * { animation:fadeUp 0.6s ease both; }
+  .hero > *:nth-child(1) { animation-delay:0.1s; }
+  .hero > *:nth-child(2) { animation-delay:0.2s; }
+  .hero > *:nth-child(3) { animation-delay:0.3s; }
+  .hero > *:nth-child(4) { animation-delay:0.4s; }
+  .hero > *:nth-child(5) { animation-delay:0.5s; }
+
+  /* WAVE BANDS */
+  .wave-band {
+    display:inline-flex; align-items:center; gap:0.4rem;
+    background:var(--surface2); border:1px solid var(--border);
+    border-radius:8px; padding:0.5rem 0.9rem; margin:0.25rem;
+    font-size:0.82rem;
+  }
+  .dot { width:8px;height:8px;border-radius:50%;flex-shrink:0; }
+  .dot-r { background:var(--accent2); }
+  .dot-g { background:#4ade80; }
+  .dot-b { background:var(--accent3); }
+  .dot-y { background:var(--accent); }
+
+  /* FILTER BUTTONS */
+  .filter-row { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1.5rem; }
+  .filter-btn {
+    background:var(--surface2); border:1px solid var(--border);
+    color:var(--text-muted); font-size:0.8rem; font-weight:500;
+    padding:0.4rem 1rem; border-radius:99px; cursor:pointer;
+    transition:all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background:rgba(232,197,71,0.12); border-color:rgba(232,197,71,0.3); color:var(--accent);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-brand">📚 IDM CHM2042</span>
+  <a href="#concepts">Concepts</a>
+  <a href="#shortnotes">Short Notes</a>
+  <a href="#definitions">Definitions</a>
+  <a href="#pyqs">PYQs</a>
+  <a href="#qbank">Question Bank</a>
+  <a href="#expected">Expected Qs</a>
+  <a href="#authority">Authority & Delegation</a>
+  <a href="#mnemonics">Mnemonics</a>
+  <a href="#diagrams">Diagrams</a>
+  <a href="#review-qs">Review Q&A</a>
+  <a href="#revision">Quick Revision</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <span class="hero-tag">B.Tech 4th Sem · SOA University · ITER</span>
+  <h1>Introduction to<br>Disaster Management</h1>
+  <p>Your complete exam-prep hub for CHM2042 — concepts, PYQs, mnemonics, and quick revision, all in one place.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">45+</div><div class="stat-label">Review Qs Solved</div></div>
+    <div class="stat"><div class="stat-num">20+</div><div class="stat-label">PYQs Solved</div></div>
+    <div class="stat"><div class="stat-num">9</div><div class="stat-label">Chapters Covered</div></div>
+    <div class="stat"><div class="stat-num">30+</div><div class="stat-label">Mnemonics</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════ CONCEPTS ═══════════════════════════════ -->
+<section id="concepts">
+<div class="container">
+  <div class="section-header">
+    <span class="section-tag tag-blue">📘 Theory</span>
+    <h2>Core Concepts Explained</h2>
+  </div>
+
+  <!-- 1. Disaster Definition -->
+  <div class="concept-block">
+    <h3>🌍 What is a Disaster?</h3>
+    <p><strong>WHO Definition:</strong> An occurrence that causes significant damage, ecological disruption, loss of human life, or deterioration of health services on a scale that necessitates an extraordinary response from external sources.</p>
+    <p style="margin-top:0.5rem"><strong>American Red Cross:</strong> An event (natural or man-made) causing human suffering and needs that victims cannot alleviate without assistance.</p>
+    <div class="tip-box"><strong>💡 Exam Tip:</strong> Always write BOTH definitions — WHO and Red Cross. Examiners love this. Mention the scale factor — it's what distinguishes disaster from a regular emergency.</div>
+    <div class="grid-2" style="margin-top:1.25rem">
+      <div class="card card-accent-teal">
+        <div class="card-icon">🌪️</div>
+        <h3>Natural Disasters</h3>
+        <p>Caused by natural processes. Categories: <strong>Meteorological</strong> (floods, cyclones, blizzards), <strong>Topographical</strong> (earthquakes, landslides, volcanic eruptions), <strong>Environmental</strong> (global warming, ozone depletion, ENSO).</p>
+      </div>
+      <div class="card card-accent-red">
+        <div class="card-icon">🏭</div>
+        <h3>Man-Made / Anthropogenic</h3>
+        <p>Caused by human actions. Types: <strong>Technological</strong> (transport failure, fire), <strong>Industrial</strong> (chemical/radioactive spills), <strong>Warfare</strong> (terrorism, civil unrest).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. IDM Cycle -->
+  <div class="concept-block">
+    <h3>🔄 Integrated Disaster Management (IDM)</h3>
+    <p>IDM is a <strong>comprehensive, holistic, and continuous</strong> approach covering all phases of the disaster cycle. Actions in one phase significantly affect outcomes in others.</p>
+    <div style="margin-top:1rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:0.75rem">
+      <div class="card card-accent-purple">
+        <div class="card-icon">🛡️</div>
+        <h3>Mitigation</h3>
+        <p>Reduce disaster effects BEFORE they occur. Building codes, zoning, vulnerability analyses, public education.</p>
+      </div>
+      <div class="card card-accent-yellow">
+        <div class="card-icon">🎯</div>
+        <h3>Preparedness</h3>
+        <p>Activities PRIOR to disaster. Preparedness plans, emergency exercises, training, warning systems.</p>
+      </div>
+      <div class="card card-accent-red">
+        <div class="card-icon">🚨</div>
+        <h3>Response</h3>
+        <p>Activities DURING disaster. Warning systems, emergency operations, search & rescue, food/water/medicine.</p>
+      </div>
+      <div class="card card-accent-teal">
+        <div class="card-icon">🏗️</div>
+        <h3>Recovery</h3>
+        <p>Activities AFTER disaster. Temporary housing, claims processing, grants, medical care, reconstruction.</p>
+      </div>
+    </div>
+    <div class="tip-box" style="margin-top:1rem"><strong>⚠️ Exam Favourite:</strong> "Explain integrated disaster management with a schematic diagram." Draw the 4-phase cycle diagram — Mitigation → Preparedness → Response → Recovery → back to Mitigation.</div>
+  </div>
+
+  <!-- 3. Hazard, Risk, Vulnerability -->
+  <div class="concept-block">
+    <h3>⚠️ Hazard, Risk, Vulnerability & Capacity</h3>
+    <table class="def-table">
+      <tr><th>Term</th><th>Meaning</th></tr>
+      <tr><td>Hazard</td><td>A potentially dangerous phenomenon or event (e.g., earthquake, flood) that can cause loss of life or property damage.</td></tr>
+      <tr><td>Vulnerability</td><td>The degree to which a population, community or system is unable to withstand the adverse effects of a hazard.</td></tr>
+      <tr><td>Risk</td><td><strong>Risk = Hazard × Vulnerability / Capacity.</strong> The probability of harmful consequences from a hazard event.</td></tr>
+      <tr><td>Capacity</td><td>The resources, skills and strengths available to reduce disaster risk or impact.</td></tr>
+    </table>
+    <div class="info-box"><strong>📐 Formula to Remember:</strong> Risk = Hazard × Vulnerability / Capacity. Higher vulnerability + lower capacity = higher risk.</div>
+    <div class="tip-box"><strong>💡 Exam Tip:</strong> "Discuss the relationship between vulnerability and hazard risk" — write the formula, then explain each component with an example (e.g., coastal community: hazard=cyclone, vulnerability=poor housing, capacity=early warning systems).</div>
+  </div>
+
+  <!-- 4. SWOT Analysis -->
+  <div class="concept-block">
+    <h3>📊 SWOT Analysis in Disaster Management</h3>
+    <p>SWOT = <strong>S</strong>trengths, <strong>W</strong>eaknesses, <strong>O</strong>pportunities, <strong>T</strong>hreats. It is used to evaluate an organization's capability to manage disasters effectively.</p>
+    <div class="grid-2" style="margin-top:1rem">
+      <div class="card card-accent-teal"><h3>✅ Strengths</h3><p>Internal positive factors. E.g., trained personnel, early warning systems, community awareness programs.</p></div>
+      <div class="card card-accent-red"><h3>❌ Weaknesses</h3><p>Internal negative factors. E.g., inadequate resources, poor infrastructure, lack of coordination.</p></div>
+      <div class="card card-accent-yellow"><h3>🌟 Opportunities</h3><p>External positive factors. E.g., NGO support, technology advancements, international aid frameworks.</p></div>
+      <div class="card card-accent-purple"><h3>⚡ Threats</h3><p>External negative factors. E.g., increasing frequency of disasters, climate change, rapid urbanization.</p></div>
+    </div>
+    <div class="tip-box" style="margin-top:1rem"><strong>💡 How SWOT helps:</strong> Identifies what resources you have (S), gaps to fill (W), what external help is available (O), and external dangers to prepare for (T). It gives a 360° view for disaster planning.</div>
+  </div>
+
+  <!-- 5. Disaster Management Policy -->
+  <div class="concept-block">
+    <h3>📜 Disaster Management Policy</h3>
+    <p>A policy provides <strong>guidance and direction</strong> for decisions and actions to achieve specific outcomes. Key aims:</p>
+    <ul style="margin-top:0.75rem; color:var(--text-muted); font-size:0.9rem; padding-left:1.5rem; line-height:1.8">
+      <li><strong>Guidance & Prioritization:</strong> Setting priorities for managing disaster situations</li>
+      <li><strong>Community-Based Management:</strong> Promoting local-level execution</li>
+      <li><strong>Capacity Development:</strong> Enhancing capabilities of all stakeholders</li>
+      <li><strong>Inter-Agency Cooperation:</strong> Collaboration at national, regional, and international levels</li>
+      <li><strong>Integration with Development:</strong> Incorporating disaster management into development planning</li>
+      <li><strong>Disaster-Resilient Reconstruction:</strong> Building structures that can withstand future disasters</li>
+      <li><strong>Time-Bound Actions:</strong> Ensuring prompt response, relief, rehabilitation, and reconstruction</li>
+    </ul>
+  </div>
+
+  <!-- 6. MBO -->
+  <div class="concept-block">
+    <h3>🎯 Management by Objectives (MBO)</h3>
+    <p>Introduced by <strong>Peter Drucker in 1954</strong>. MBO is a planning approach where specific organizational objectives are set <em>collaboratively</em> with clear accountability.</p>
+    <p style="margin-top:0.5rem">In disaster management, MBO ensures:</p>
+    <ul style="margin-top:0.5rem; color:var(--text-muted); font-size:0.9rem; padding-left:1.5rem; line-height:1.8">
+      <li><strong>Clarity of Goals:</strong> Clear, accountable objectives fostering commitment</li>
+      <li><strong>Synergy:</strong> Alignment between overall DM objectives and individual roles — "disaster management is everyone's business"</li>
+      <li><strong>Timeliness:</strong> Objectives achieved within defined operational periods</li>
+    </ul>
+    <p style="margin-top:0.75rem; font-size:0.9rem; color:var(--text-muted)"><strong>MBO Guidelines:</strong> Set clear objectives → Plan action → Perform tasks → Periodic review → Evaluate performance → Reset for next cycle.</p>
+    <div class="tip-box"><strong>💡 Key Fact:</strong> Peter Drucker, 1954 — always mention this in the answer!</div>
+  </div>
+
+  <!-- 8a. Authority Delegation Decentralization -->
+  <div class="concept-block" id="authority">
+    <h3>⚖️ Authority, Delegation and Decentralisation</h3>
+    <p><strong>Authority:</strong> The word 'authority' is used to mean <em>power vested formally on an individual by a state</em>. It gives the right to command, decide, and act.</p>
+    <p style="margin-top:0.5rem"><strong>Delegation:</strong> Delegation is the transfer of authority and responsibility to a person or position to carry out definite activities. It is the process of empowering a subordinate to make decisions on behalf of the authority. It saves response time but is a temporary arrangement.</p>
+    <div class="tip-box" style="margin-top:0.75rem"><strong>💡 Why Delegation matters in DM:</strong> At times of disasters, all jobs cannot be carried out by a single individual, so tasks are allocated to subordinates. It also helps in enhancing skills and motivating subordinates.</div>
+    <div class="grid-2" style="margin-top:1rem">
+      <div class="card card-accent-yellow">
+        <div class="card-icon">📤</div>
+        <h3>Delegation</h3>
+        <p>Transfer of authority &amp; responsibility to a subordinate. <strong>Temporary</strong> arrangement. Reduces response time. Enhances subordinate skills and motivation. E.g., a District Collector delegates flood relief coordination to BDO.</p>
+      </div>
+      <div class="card card-accent-teal">
+        <div class="card-icon">🌐</div>
+        <h3>Decentralisation</h3>
+        <p>Reallocation of duties and decision-making power <em>away</em> from core authority to ground-level personnel. Essential in disasters — anyone on ground level should have power to take decisions immediately without waiting for core authority.</p>
+      </div>
+    </div>
+    <div class="info-box" style="margin-top:1rem"><strong>🎯 Essence of Management:</strong> These are the essence of management and very vital from a disaster management perspective. Decentralisation ensures decisions are fast; delegation ensures tasks are completed efficiently.</div>
+  </div>
+
+
+    <h3>🧑‍💼 Leadership & Management Skills</h3>
+    <div class="grid-2">
+      <div class="card card-accent-yellow">
+        <h3>👑 Leadership Skills</h3>
+        <p>Ensuring the <strong>right person is at the right place and right time</strong> during chaotic situations. Leaders take initiative, influence people, organize support, and motivate during pre/post-disaster phases.</p>
+      </div>
+      <div class="card card-accent-teal">
+        <h3>🧠 Conceptual Skills</h3>
+        <p>Gauging disaster reasons, understanding affected populations, <strong>visualizing situations</strong>, identifying root causes, and solving complex problems.</p>
+      </div>
+      <div class="card card-accent-purple">
+        <h3>🤝 Human Relations Skills</h3>
+        <p>Managing affected communities, <strong>providing emotional support</strong>, understanding needs, communicating, motivating, and developing team spirit.</p>
+      </div>
+      <div class="card card-accent-red">
+        <h3>⚙️ Managerial Skills</h3>
+        <p>Managing available resources efficiently, <strong>coordinating, controlling situations</strong>, making quick decisions, and implementing them effectively.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Cyclone -->
+  <div class="concept-block">
+    <h3>🌀 Cyclone — Definition, Types & Formation</h3>
+    <p>A cyclone is an <strong>intense atmospheric whirl</strong> with very strong winds circulating around a low-pressure center (eye). Derived from Greek <em>Cyclos</em> = "coils of a snake".</p>
+    <p style="margin-top:0.5rem; color:var(--text-muted); font-size:0.9rem">Wind circulation: <strong>Anti-clockwise</strong> in Northern Hemisphere, <strong>Clockwise</strong> in Southern Hemisphere.</p>
+    <div class="grid-3" style="margin-top:1rem">
+      <div class="card card-accent-teal"><h3>🌊 Tropical Cyclones</h3><p>Form over warm ocean near equator. Called <strong>Hurricanes</strong> (Atlantic/NE Pacific), <strong>Typhoons</strong> (NW Pacific), <strong>Cyclones</strong> (Indian Ocean/S Pacific).</p></div>
+      <div class="card card-accent-purple"><h3>❄️ Polar Cyclones</h3><p>Occur in Greenland, Siberia, Antarctica. Usually stronger in winter months.</p></div>
+      <div class="card card-accent-yellow"><h3>⚡ Mesocyclones</h3><p>Form when part of a thunderstorm starts to spin, potentially leading to a tornado. "Meso" = middle.</p></div>
+    </div>
+    <p style="margin-top:1.25rem; font-weight:600; font-size:0.9rem">Mechanism of Cyclone Formation (7 Steps):</p>
+    <ol style="margin-top:0.5rem; color:var(--text-muted); font-size:0.875rem; padding-left:1.5rem; line-height:1.8">
+      <li>Warm moist air over ocean rises → creates low pressure below</li>
+      <li>Cooler air from surroundings flows into low-pressure zone</li>
+      <li>New air becomes warm/moist, rises → cycle continues</li>
+      <li>As warm air rises and cools → water vapour forms clouds</li>
+      <li>System of clouds and wind grows fed by ocean heat & evaporation</li>
+      <li>As storm rotates faster → eye forms at centre</li>
+      <li>Becomes Tropical Storm at 63 km/h; Tropical Cyclone at 119 km/h</li>
+    </ol>
+    <div class="warn-box"><strong>⚠️ Common Mistake:</strong> Students confuse Rayleigh wave with cyclone terms. Rayleigh wave belongs to EARTHQUAKES, not cyclones!</div>
+  </div>
+
+  <!-- 9. Earthquake -->
+  <div class="concept-block">
+    <h3>🌍 Earthquake — Types & Seismic Waves</h3>
+    <p>Shaking of Earth's surface from a <strong>sudden release of energy in the lithosphere</strong>, creating seismic waves.</p>
+    <div class="grid-2" style="margin-top:0.75rem">
+      <div>
+        <p style="font-weight:600; font-size:0.9rem; margin-bottom:0.5rem">Key Terms:</p>
+        <ul style="color:var(--text-muted);font-size:0.875rem;padding-left:1.2rem;line-height:1.8">
+          <li><strong>Focus/Hypocenter:</strong> Point on fault where rupture occurs</li>
+          <li><strong>Epicenter:</strong> Point on surface directly above focus</li>
+          <li><strong>Fault Line:</strong> Break/fracture where plates move</li>
+          <li><strong>Seismology:</strong> Scientific study of earthquakes</li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-weight:600; font-size:0.9rem; margin-bottom:0.5rem">4 Types of Earthquakes:</p>
+        <ul style="color:var(--text-muted);font-size:0.875rem;padding-left:1.2rem;line-height:1.8">
+          <li><strong>Tectonic</strong> — most common & disastrous</li>
+          <li><strong>Volcanic</strong> — near volcanic activity</li>
+          <li><strong>Collapse</strong> — mines/underground caverns</li>
+          <li><strong>Explosion</strong> — nuclear/chemical detonations</li>
+        </ul>
+      </div>
+    </div>
+    <p style="font-weight:600; font-size:0.9rem; margin-top:1.25rem; margin-bottom:0.75rem">Seismic Waves Comparison:</p>
+    <div style="overflow-x:auto">
+    <table class="cmp-table">
+      <tr><th>Feature</th><th>P-Wave (Primary)</th><th>S-Wave (Secondary)</th><th>Rayleigh Wave</th><th>Love Wave</th></tr>
+      <tr><td>Type</td><td>Body wave</td><td>Body wave</td><td>Surface wave</td><td>Surface wave</td></tr>
+      <tr><td>Wave nature</td><td>Longitudinal</td><td>Transverse</td><td>Elliptical/circular</td><td>Horizontal shear</td></tr>
+      <tr><td>Medium</td><td>Solid + Liquid</td><td>Solid only</td><td>Solid surface</td><td>Solid surface</td></tr>
+      <tr><td>Speed</td><td>Fastest (arrives 1st)</td><td>Slower than P</td><td>Slowest</td><td>Faster than Rayleigh</td></tr>
+      <tr><td>Damage</td><td>Low</td><td>Moderate</td><td>High</td><td>High (horizontal shift)</td></tr>
+    </table>
+    </div>
+    <div class="tip-box" style="margin-top:1rem"><strong>💡 PYQ Alert:</strong> "Differentiate between Rayleigh wave and Love wave" — key difference: Rayleigh = circular/elliptical ground motion (like ocean waves). Love = horizontal shifting parallel to surface. Both are SURFACE waves and most damaging.</div>
+  </div>
+
+  <!-- 10. Landslide -->
+  <div class="concept-block">
+    <h3>⛰️ Landslide — Definition & Causes</h3>
+    <p>A landslide is the <strong>mass movement of rock, debris, or earth down a slope</strong> due to gravity. Triggered by natural or human-induced factors.</p>
+    <p style="font-weight:600; font-size:0.9rem; margin-top:0.75rem">Major Causes:</p>
+    <div class="grid-2" style="margin-top:0.5rem">
+      <ul style="color:var(--text-muted);font-size:0.875rem;padding-left:1.2rem;line-height:1.8">
+        <li>Heavy/prolonged rainfall</li>
+        <li>Earthquakes causing slope failure</li>
+        <li>Volcanic eruptions</li>
+        <li>Snowmelt on steep slopes</li>
+      </ul>
+      <ul style="color:var(--text-muted);font-size:0.875rem;padding-left:1.2rem;line-height:1.8">
+        <li>Deforestation and vegetation removal</li>
+        <li>Mining and excavation activities</li>
+        <li>Urbanization on unstable slopes</li>
+        <li>Weakening of slope soil/rock structure</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 11. Floods -->
+  <div class="concept-block">
+    <h3>💧 Floods — Causes & Management</h3>
+    <p>A flood is an <strong>overflow of water where the flow rate exceeds channel capacity</strong>, breaks levees, or accumulates on saturated ground.</p>
+    <p style="font-weight:600;font-size:0.9rem;margin-top:0.75rem">Major Causes of Floods:</p>
+    <ul style="color:var(--text-muted);font-size:0.875rem;padding-left:1.5rem;line-height:1.8;margin-top:0.25rem">
+      <li>Heavy precipitation (primary cause)</li>
+      <li>Bank erosion and silting (reduces channel capacity)</li>
+      <li>Landslides blocking rivers</li>
+      <li>Poor drainage systems</li>
+      <li>Tidal/backwater effects (coastal regions)</li>
+      <li>Snowmelt and glacial outbursts</li>
+      <li>Encroachment in flood plains</li>
+    </ul>
+    <p style="font-weight:600;font-size:0.9rem;margin-top:0.75rem">Structural vs Non-Structural Flood Management:</p>
+    <div class="grid-2" style="margin-top:0.5rem">
+      <div class="card card-accent-teal"><h3>🏗️ Structural</h3><p>Dams & reservoirs (e.g., Hirakud Dam on Mahanadi), channel improvement, embankments, river diversion, anti-erosion works, inter-basin transfer.</p></div>
+      <div class="card card-accent-purple"><h3>📋 Non-Structural</h3><p>Flood forecasting & warning, flood plain zoning, flood proofing structures, flood insurance, relief & rehabilitation.</p></div>
+    </div>
+    <div class="info-box" style="margin-top:1rem"><strong>India Stats:</strong> Total flood-prone area = 40 million hectares (~12% of India's area). Most affected: UP, Bihar, Assam, West Bengal, <strong>Odisha</strong>.</div>
+  </div>
+
+  <!-- 12. Nuclear -->
+  <div class="concept-block">
+    <h3>☢️ Nuclear Fission vs Fusion & Chernobyl</h3>
+    <div style="overflow-x:auto">
+    <table class="cmp-table">
+      <tr><th>Feature</th><th>Nuclear Fission</th><th>Nuclear Fusion</th></tr>
+      <tr><td>Definition</td><td>Splitting of heavy nucleus (U-235, Pu-239) into smaller nuclei</td><td>Joining of light nuclei (H-2, H-3) into heavier nucleus</td></tr>
+      <tr><td>Energy</td><td>Releases large energy</td><td>Releases even MORE energy</td></tr>
+      <tr><td>Byproducts</td><td>Radioactive waste (long-lived)</td><td>Helium (relatively safe)</td></tr>
+      <tr><td>Control</td><td>Controllable (nuclear reactors)</td><td>Very difficult to control (research stage)</td></tr>
+      <tr><td>Example</td><td>Nuclear power plants, atomic bombs</td><td>Stars (sun), hydrogen bomb</td></tr>
+      <tr><td>Principle</td><td>E=mc² — mass converts to energy</td><td>E=mc² — mass defect → energy</td></tr>
+    </table>
+    </div>
+    <p style="font-weight:600;font-size:0.9rem;margin-top:1.25rem">Chernobyl Accident (1986) — Major Reasons:</p>
+    <ul style="color:var(--text-muted);font-size:0.875rem;padding-left:1.5rem;line-height:1.8;margin-top:0.25rem">
+      <li>Safety test conducted at <strong>low power level</strong> (unstable operating zone)</li>
+      <li>Reactor design flaws — positive void coefficient (steam increased reactivity)</li>
+      <li>Operators <strong>disabled safety systems</strong> during the test</li>
+      <li>Sudden power surge led to steam explosion → graphite fire</li>
+      <li>No containment structure to limit radiation release</li>
+    </ul>
+    <p style="font-weight:600;font-size:0.9rem;margin-top:0.75rem">Consequences:</p>
+    <ul style="color:var(--text-muted);font-size:0.875rem;padding-left:1.5rem;line-height:1.8;margin-top:0.25rem">
+      <li>Massive release of radioactive particles across Europe</li>
+      <li>30 km exclusion zone created (Chernobyl Exclusion Zone)</li>
+      <li>Thousands of deaths from acute radiation syndrome and cancer</li>
+      <li>350,000+ people evacuated; long-term health effects still studied</li>
+      <li>Led to global nuclear safety reforms and IAEA protocol revisions</li>
+    </ul>
+  </div>
+
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════ SHORT NOTES ═══════════════════════════════ -->
+<section id="shortnotes">
+<div class="container">
+  <div class="section-header">
+    <span class="section-tag tag-yellow">🧠 Smart Notes</span>
+    <h2>Exam-Ready Short Notes</h2>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-accent-yellow">
+      <div class="card-icon">🌍</div>
+      <h3>Disaster Classification (Quick)</h3>
+      <div class="chips">
+        <span class="chip">Natural</span><span class="chip">Man-Made</span>
+        <span class="chip">Meteorological</span><span class="chip">Topographical</span>
+        <span class="chip">Environmental</span><span class="chip">Technological</span>
+        <span class="chip">Industrial</span><span class="chip">Warfare</span>
+      </div>
+      <p style="margin-top:0.75rem">Natural → 3 categories. Man-made → 3 categories. <strong>Always classify with examples in exams.</strong></p>
+    </div>
+
+    <div class="card card-accent-teal">
+      <div class="card-icon">🔄</div>
+      <h3>IDM 4-Phase Cycle</h3>
+      <p><strong>M-P-R-R:</strong> Mitigation → Preparedness → Response → Recovery. Each phase feeds into the next. Mitigation = BEFORE. Response = DURING. Recovery = AFTER.</p>
+    </div>
+
+    <div class="card card-accent-purple">
+      <div class="card-icon">📐</div>
+      <h3>Risk Formula</h3>
+      <p style="font-size:1.1rem; font-family:'JetBrains Mono',monospace; color:var(--accent); margin:0.5rem 0">Risk = H × V / C</p>
+      <p>H=Hazard, V=Vulnerability, C=Capacity. Reducing V or increasing C both reduce Risk.</p>
+    </div>
+
+    <div class="card card-accent-red">
+      <div class="card-icon">🌀</div>
+      <h3>Cyclone Eye Facts</h3>
+      <p>Eye = calm centre with VERY LOW pressure. Higher pressure air flows DOWN in the eye. Wind: Anti-clockwise (NH), Clockwise (SH). 5 categories based on wind gusts.</p>
+    </div>
+
+    <div class="card card-accent-green" style="border-left:3px solid #4ade80">
+      <div class="card-icon">🌊</div>
+      <h3>Seismic Waves Speed Order</h3>
+      <p style="font-family:'JetBrains Mono',monospace; color:#4ade80; margin:0.5rem 0">P > S > Love > Rayleigh</p>
+      <p>P-wave arrives first (fastest). Rayleigh arrives last but causes MOST damage.</p>
+    </div>
+
+    <div class="card card-accent-yellow">
+      <div class="card-icon">🎯</div>
+      <h3>MBO — Peter Drucker, 1954</h3>
+      <p>Set objectives collaboratively. 3 pillars: <strong>Clarity</strong> (clear goals), <strong>Synergy</strong> (everyone aligned), <strong>Timeliness</strong> (time-bound targets). Key phrase: "DM is everyone's business."</p>
+    </div>
+
+    <div class="card card-accent-teal">
+      <div class="card-icon">🏗️</div>
+      <h3>Structural vs Non-Structural Mitigation</h3>
+      <p><strong>Structural:</strong> Physical construction — dams, cyclone shelters, earthquake-resistant buildings.<br><strong>Non-structural:</strong> Policies, behaviour — land-use regulation, hazard zoning, building codes, awareness programs.</p>
+    </div>
+
+    <div class="card card-accent-purple">
+      <div class="card-icon">⛰️</div>
+      <h3>Earthquake Zones in India</h3>
+      <p>4 zones: <strong>Zone II</strong> (least), <strong>Zone III</strong> (moderate), <strong>Zone IV</strong> (high), <strong>Zone V</strong> (highest). Zone V: factor 0.36, MSK IX or greater. Bhuj, NE India, Himalayan region = Zone V.</p>
+    </div>
+
+    <div class="card card-accent-red">
+      <div class="card-icon">💧</div>
+      <h3>Control Types in DM</h3>
+      <p><strong>Feedforward:</strong> Pre-judging consequences before action.<br><strong>Concurrent:</strong> Real-time adjustment during response.<br><strong>Feedback:</strong> Learning from past errors to prevent repetition.</p>
+    </div>
+
+    <div class="card card-accent-green" style="border-left:3px solid #4ade80">
+      <div class="card-icon">🤝</div>
+      <h3>Team Formation Stages</h3>
+      <p><strong>FSNP:</strong> Forming → Storming → Norming → Performing. Each stage builds group cohesion. Performing = maximum disaster management effectiveness.</p>
+    </div>
+
+    <div class="card card-accent-yellow">
+      <div class="card-icon">⚖️</div>
+      <h3>Authority vs Delegation vs Decentralisation</h3>
+      <p><strong>Authority:</strong> Formal power vested by state.<br><strong>Delegation:</strong> Transfer of authority to subordinate — temporary.<br><strong>Decentralisation:</strong> Distribution of decision-making power to ground level. In disasters: decentralisation is essential for immediate action.</p>
+    </div>
+
+    <div class="card card-accent-teal">
+      <div class="card-icon">🎯</div>
+      <h3>Preparedness — 3 Main Elements</h3>
+      <p><strong>(1)</strong> Forecasting events and issuing warnings.<br><strong>(2)</strong> Taking precautionary measures in response to warnings.<br><strong>(3)</strong> Improving response by organizing and strengthening capacity. Aim = <em>Reduction of disaster impact</em>.</p>
+    </div>
+
+    <div class="card card-accent-purple">
+      <div class="card-icon">🗂️</div>
+      <h3>Contingency Planning — 3 Stages</h3>
+      <p>Plan B for when primary plans fail. <strong>Readiness → Standby → Activation.</strong> Must address all possible scenarios, clearly state roles, be communicated to all team members, and be accessible to the community.</p>
+    </div>
+
+    <div class="card card-accent-red">
+      <div class="card-icon">🚨</div>
+      <h3>Aims of Disaster Response</h3>
+      <p>Save lives · Provide food/water/medicine/shelter · Restore critical services · Manage secondary threats (fire, disease) · Coordinate resources · Protect vulnerable groups. <strong>"Medicine, food, water, shelter"</strong> — core response deliverables.</p>
+    </div>
+
+    <div class="card card-accent-green" style="border-left:3px solid #4ade80">
+      <div class="card-icon">🏗️</div>
+      <h3>Recovery — Medium vs Long Term</h3>
+      <p><strong>Medium:</strong> Debris removal, restore services, temporary housing, medical care (weeks–months).<br><strong>Long:</strong> Permanent reconstruction, economic rehabilitation, social rebuilding, disaster-resilient build-back (months–years).</p>
+    </div>
+
+    <div class="card card-accent-yellow">
+      <div class="card-icon">📺</div>
+      <h3>Role of Media in DM</h3>
+      <p>Early warning · Public awareness · Relief coordination · Government accountability · Fundraising. <strong>Negative:</strong> Sensationalism causes panic. Media must report responsibly and accurately during disasters.</p>
+    </div>
+
+    <div class="card card-accent-teal">
+      <div class="card-icon">🧠</div>
+      <h3>Triage — 4 Colour Codes</h3>
+      <p><span style="color:var(--accent2)"><strong>Red</strong></span> = Immediate (life-threatening). <span style="color:var(--accent)"><strong>Yellow</strong></span> = Delayed (serious, not critical). <span style="color:#4ade80"><strong>Green</strong></span> = Minor (walking wounded). <span style="color:var(--text-muted)"><strong>Black</strong></span> = Dead/expectant. Prioritises care when resources are limited.</p>
+    </div>
+
+    <div class="card card-accent-purple">
+      <div class="card-icon">🌿</div>
+      <h3>Environment & Disaster Link</h3>
+      <p>Deforestation → Landslides + Floods. Wetland destruction → Floods. Climate change → Extreme weather. Soil erosion → River bank failures. <strong>Protecting nature = reducing disaster risk.</strong></p>
+    </div>
+
+    <div class="card card-accent-red">
+      <div class="card-icon">💬</div>
+      <h3>Psycho-Social Phases After Disaster</h3>
+      <p><strong>4 phases:</strong> Acute (self-survival) → Reaction (rescue/aid others) → Recovery (DM teams act) → Reorientation (acceptance). Counseling is most needed in Recovery and Reorientation phases.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════ DEFINITIONS ═══════════════════════════════ -->
+<section id="definitions">
+<div class="container">
+  <div class="section-header">
+    <span class="section-tag tag-purple">🔑 Key Terms</span>
+    <h2>Definitions & Formulas</h2>
+  </div>
+
+  <div class="concept-block">
+    <table class="def-table">
+      <tr><th>Term</th><th>Definition / Formula</th></tr>
+      <tr><td>Disaster (WHO)</td><td>Occurrence causing significant damage/ecological disruption/loss of life requiring extraordinary external response.</td></tr>
+      <tr><td>Mitigation</td><td>Proactive measures to reduce/remove the impact of hazards by reducing risks in advance, focusing on minimizing loss of life and property.</td></tr>
+      <tr><td>Preparedness</td><td>Proactive measures to reduce disaster impact, improve response capacity, and guide reconstruction to reduce vulnerability.</td></tr>
+      <tr><td>Risk</td><td>Risk = Hazard × Vulnerability / Capacity. Probability of harmful consequences from a hazard event.</td></tr>
+      <tr><td>Vulnerability</td><td>Degree to which a population/system cannot withstand adverse effects of a hazard.</td></tr>
+      <tr><td>Cyclone</td><td>Intense atmospheric whirl with strong winds circulating around a low-pressure center. Word from Greek "Cyclos" = coils of a snake.</td></tr>
+      <tr><td>Earthquake</td><td>Shaking of Earth's surface due to sudden release of energy in the lithosphere, creating seismic waves.</td></tr>
+      <tr><td>Epicenter</td><td>Point on Earth's surface directly above the earthquake focus (hypocenter).</td></tr>
+      <tr><td>MBO</td><td>Management by Objectives: planning approach (Peter Drucker, 1954) where specific objectives are set collaboratively with clear accountability.</td></tr>
+      <tr><td>Landslide</td><td>Mass movement of rock, debris, or earth down a slope due to gravity, triggered by natural or human factors.</td></tr>
+      <tr><td>Fission</td><td>Splitting of heavy atomic nucleus (U-235) releasing large energy. Used in nuclear reactors. E = mc².</td></tr>
+      <tr><td>Fusion</td><td>Joining of light nuclei (hydrogen isotopes) forming heavier nucleus releasing even greater energy. Occurs in stars.</td></tr>
+      <tr><td>SWOT</td><td>Strengths, Weaknesses, Opportunities, Threats. Framework for analyzing DM capabilities.</td></tr>
+      <tr><td>Triage</td><td>Medical prioritization: Red (critical), Yellow (moderate), Green (minor), Black (dead/dying).</td></tr>
+      <tr><td>Seismology</td><td>Scientific study of earthquakes and propagation of elastic/seismic waves through the Earth.</td></tr>
+      <tr><td>Richter Scale</td><td>Log₁₀ of maximum seismic wave amplitude recorded at 100 km from epicenter on a standard seismograph. Invented 1935 by Charles Richter.</td></tr>
+      <tr><td>Disaster Preparedness</td><td>Actions taken before a disaster to forecast, warn, evacuate, and build response capacity to reduce impact.</td></tr>
+      <tr><td>Contingency Planning</td><td>Plan B — a backup plan to deal with situational changes when primary plans fail. Three stages: Readiness → Standby → Activation.</td></tr>
+      <tr><td>Logistical Readiness</td><td>Implementing and controlling the flow of goods/services between origin and utilization point; ensuring sufficient stock for affected community needs.</td></tr>
+      <tr><td>Authority</td><td>Power vested formally on an individual by a state to command, decide, and act.</td></tr>
+      <tr><td>Delegation</td><td>Transfer of authority and responsibility to a subordinate to carry out definite activities. Temporary arrangement that saves response time.</td></tr>
+      <tr><td>Decentralisation</td><td>Reallocation of duties and decision-making power away from a core authority to ground-level personnel. Essential in disaster response.</td></tr>
+      <tr><td>Triage</td><td>Medical sorting system: Red (immediate/critical), Yellow (delayed/serious), Green (minor), Black (deceased/expectant). Used when resources are limited.</td></tr>
+      <tr><td>Hazard Map</td><td>Spatial representation showing areas at risk from specific hazards — their geographic extent, severity, and probability of occurrence.</td></tr>
+      <tr><td>Hazard Zoning</td><td>Non-structural mitigation measure classifying areas by risk level to regulate development and inform planning decisions.</td></tr>
+      <tr><td>PTSD</td><td>Post-Traumatic Stress Disorder — psychological condition where survivors relive trauma through flashbacks, nightmares, and anxiety after disasters.</td></tr>
+      <tr><td>Capacity Development</td><td>Process of strengthening skills, resources, and mechanisms of communities/organizations to reduce disaster risk and manage disasters effectively.</td></tr>
+      <tr><td>Community Resilience</td><td>The ability of a community to withstand, adapt to, and recover from the impacts of disasters through shared resources, local knowledge, and social cohesion.</td></tr>
+      <tr><td>Philanthropic Org</td><td>Non-profit entity driven by goodwill and social purpose, providing aid and resources to disaster victims without expectation of profit.</td></tr>
+    </table>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════ PYQs ═══════════════════════════════ -->
+<section id="pyqs">
+<div class="container">
+  <div class="section-header">
+    <span class="section-tag tag-red">🎯 PYQs</span>
+    <h2>Previous Year Questions — Solved</h2>
+    <p style="color:var(--text-muted);font-size:0.9rem;margin-top:0.5rem">Mid-Semester 2025 Questions with model answers. Click to reveal solution.</p>
+  </div>
+
+  <!-- Q1a -->
+  <div class="qa-card">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">1(a) Define disaster and classify natural disaster with suitable examples.</div>
+      <span class="qa-badge badge-pyq">PYQ Mid-25</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <span class="mark-label">📝 2 Marks</span>
+      <p><strong>Definition:</strong> According to WHO, a disaster is "an occurrence that causes significant damage, ecological disruption, loss of human life, or deterioration of health services on a scale that necessitates an extraordinary response from external sources."</p>
+      <p style="margin-top:0.75rem"><strong>Classification of Natural Disasters:</strong></p>
+      <ul>
+        <li><strong>Meteorological:</strong> Floods, Cyclones/Hurricanes, Tsunamis, Blizzards, Hailstorms</li>
+        <li><strong>Topographical:</strong> Earthquakes (e.g., Bhuj 2001), Landslides, Avalanches, Volcanic eruptions</li>
+        <li><strong>Environmental:</strong> Global warming, El Niño (ENSO), Ozone depletion, Solar flares</li>
+      </ul>
+      <div class="tip-box"><strong>📌 Tip:</strong> Always write the WHO definition verbatim for full marks. Include at least 2 examples per category.</div>
+    </div>
+  </div>
+
+  <!-- Q1b -->
+  <div class="qa-card">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">1(b) Explain the principle of disaster management. Which principle is most important and why?</div>
+      <span class="qa-badge badge-pyq">PYQ Mid-25</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <span class="mark-label">📝 2 Marks</span>
+      <p><strong>Principles of Disaster Management:</strong></p>
+      <ol>
+        <li><strong>Realistic Planning:</strong> Detailed, actionable plans with all necessary resources; train people for panic-stricken scenarios</li>
+        <li><strong>Continuous Improvement:</strong> Regularly update plans based on environmental changes</li>
+        <li><strong>Collaboration & Coordination:</strong> Multiple agencies must coordinate and collaborate</li>
+        <li><strong>Motivation:</strong> Motivate public and understand drivers of preparedness behavior</li>
+        <li><strong>Time-Bound Implementation:</strong> Sustainable preparedness with pre- and post-disaster measures</li>
+        <li><strong>All-Disaster Inclusiveness:</strong> Consider ALL hazards regardless of damage probability</li>
+      </ol>
+      <p style="margin-top:0.75rem"><strong>Most Important:</strong> <em>Collaboration & Coordination</em> — because disaster management requires multi-agency, multi-level effort. No single entity can manage a disaster alone. Effective coordination reduces duplication, saves time, and maximizes resource utilization.</p>
+    </div>
+  </div>
+
+  <!-- Q1c -->
+  <div class="qa-card">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">1(c) What is the aim of disaster management? Explain relation between hazard risk, vulnerability and capacity.</div>
+      <span class="qa-badge badge-pyq">PYQ Mid-25</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <span class="mark-label">📝 2 Marks</span>
+      <p><strong>Aim of Disaster Management:</strong> To reduce or limit the impact of disasters through effective management of human and material resources, proper loss control, and achieving goals of minimizing casualties and property damage.</p>
+      <p style="margin-top:0.75rem"><strong>Relationship:</strong></p>
+      <p style="font-family:'JetBrains Mono',monospace; color:var(--accent); font-size:1rem; margin:0.75rem 0">Risk = Hazard × Vulnerability / Capacity</p>
+      <ul>
+        <li><strong>Hazard:</strong> The threatening event (e.g., cyclone, earthquake)</li>
+        <li><strong>Vulnerability:</strong> Susceptibility of population to that hazard (poor housing, poverty, location)</li>
+        <li><strong>Capacity:</strong> Resources and strengths available to cope (trained personnel, early warning)</li>
+        <li><strong>Risk</strong> increases when vulnerability rises or capacity falls</li>
+        <li>DM goal: Reduce vulnerability AND increase capacity to minimize risk</li>
+      </ul>
+      <div class="info-box"><strong>Example:</strong> Coastal village (hazard=cyclone, high vulnerability=kutcha houses, low capacity=no warning system) → Very High Risk. With cyclone shelter + warning system → Capacity ↑ → Risk ↓</div>
+    </div>
+  </div>
+
+  <!-- Q2a -->
+  <div class="qa-card">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">2(a) How can SWOT analysis help in effective management of a disaster?</div>
+      <span class="qa-badge badge-pyq">PYQ Mid-25</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <span class="mark-label">📝 2 Marks</span>
+      <p>SWOT (Strengths, Weaknesses, Opportunities, Threats) provides a 360° analysis framework for disaster management:</p>
+      <ul>
+        <li><strong>Strengths:</strong> Identify existing resources — trained personnel, early warning systems, community preparedness programs. Helps leverage these during disasters.</li>
+        <li><strong>Weaknesses:</strong> Reveal gaps — inadequate funds, poor infrastructure, coordination failures. Allows corrective action before disaster strikes.</li>
+        <li><strong>Opportunities:</strong> External advantages — NGO networks, international aid, new technology (GIS, satellite). Allows better planning and resource acquisition.</li>
+        <li><strong>Threats:</strong> External risks — climate change, rapid urbanization, political instability. Helps prepare contingency plans.</li>
+      </ul>
+      <p style="margin-top:0.75rem"><strong>How it helps:</strong> SWOT enables planners to make data-driven decisions by matching strengths to opportunities, converting weaknesses to strengths, and preparing for threats. It is a <em>major component</em> of effective DM as it provides a realistic picture before, during, and after a disaster.</p>
+    </div>
+  </div>
+
+  <!-- Q2b -->
+  <div class="qa-card">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">2(b) Elucidate the steps of a hazard and vulnerability analysis.</div>
+      <span class="qa-badge badge-pyq">PYQ Mid-25</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <span class="mark-label">📝 2 Marks</span>
+      <p><strong>Steps of Hazard & Vulnerability Analysis:</strong></p>
+      <ol>
+        <li><strong>Identify Hazards:</strong> List all possible hazards (floods, earthquakes, cyclones, industrial accidents) that could affect the area</li>
+        <li><strong>Assess Probability:</strong> Determine frequency and likelihood of each hazard occurring</li>
+        <li><strong>Identify Vulnerable Elements:</strong> People, buildings, infrastructure, environment at risk</li>
+        <li><strong>Assess Vulnerability:</strong> Physical (building quality), social (poverty, age), economic (livelihood), environmental factors</li>
+        <li><strong>Analyze Capacity:</strong> Evaluate existing resources, skills, systems available to respond</li>
+        <li><strong>Calculate Risk:</strong> Combine hazard severity with vulnerability data (Risk = H×V/C)</li>
+        <li><strong>Map Risk Zones:</strong> Use GIS/mapping to visualize high-risk areas</li>
+        <li><strong>Recommend Mitigation:</strong> Suggest structural and non-structural measures to reduce risk</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Q3a -->
+  <div class="qa-card">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">3(a) Explain Leadership skills, Conceptual skills, Human relations skills and Managerial skills.</div>
+      <span class="qa-badge badge-pyq">PYQ Mid-25</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <span class="mark-label">📝 2 Marks</span>
+      <ul>
+        <li><strong>Leadership Skills:</strong> Ensuring the right person is at the right place and time during chaotic situations. The leader takes initiative, influences and motivates people, and organizes support during pre- and post-disaster phases.</li>
+        <li><strong>Conceptual Skills:</strong> The ability to gauge disaster causes, understand the complexities of affected populations, visualize disaster situations, identify root causes, and devise solutions. It involves big-picture thinking.</li>
+        <li><strong>Human Relations Skills:</strong> Managing affected communities with empathy — providing emotional support, understanding diverse needs, effective communication, motivating teams, building team spirit, and resolving conflicts.</li>
+        <li><strong>Managerial Skills:</strong> Efficiently managing available resources, coordinating across agencies, controlling situations, making quick and informed decisions, and implementing those decisions effectively under pressure.</li>
+      </ul>
+      <div class="tip-box"><strong>💡 Mnemonic:</strong> "Let's Create Human Management" — L(eadership), C(onceptual), H(uman relations), M(anagerial)</div>
+    </div>
+  </div>
+
+  <!-- Q4a -->
+  <div class="qa-card">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">4(a) Define and classify cyclone. Discuss major causes and mechanism of cyclone formation.</div>
+      <span class="qa-badge badge-pyq">PYQ Mid-25</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <span class="mark-label">📝 2 Marks</span>
+      <p><strong>Definition:</strong> A cyclone is an intense atmospheric whirl with very strong winds circulating around a low-pressure center (the "eye"). The word comes from Greek "Cyclos" meaning coils of a snake.</p>
+      <p style="margin-top:0.75rem"><strong>Classification:</strong></p>
+      <ul>
+        <li><strong>Tropical Cyclones:</strong> Form over warm tropical oceans. Called Hurricanes (Atlantic), Typhoons (NW Pacific), Cyclones (Indian Ocean)</li>
+        <li><strong>Polar Cyclones:</strong> Occur in Greenland, Siberia, Antarctica. Stronger in winter.</li>
+        <li><strong>Mesocyclones:</strong> Form from rotating thunderstorms; may lead to tornadoes.</li>
+      </ul>
+      <p style="margin-top:0.75rem"><strong>Major Causes:</strong> Warm tropical ocean (SST &gt; 26.5°C), favorable wind regimes, Coriolis force for rotation, warm moist air availability, low vertical wind shear.</p>
+      <p style="margin-top:0.75rem"><strong>Mechanism of Formation:</strong></p>
+      <ol>
+        <li>Warm moist air over ocean rises → low pressure area created</li>
+        <li>Cooler surrounding air rushes in to fill the low pressure</li>
+        <li>This air warms up, becomes moist, and rises again (cycle repeats)</li>
+        <li>Rising air cools and condenses → forms clouds</li>
+        <li>System grows, fed by ocean heat and evaporation</li>
+        <li>Coriolis force causes rotation → eye forms at centre</li>
+        <li>Classified as cyclone when winds exceed 119 km/h</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Q4c -->
+  <div class="qa-card">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">4(c) Differentiate between the Rayleigh wave and the Love wave in an earthquake.</div>
+      <span class="qa-badge badge-pyq">PYQ Mid-25</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <span class="mark-label">📝 2 Marks</span>
+      <div style="overflow-x:auto">
+      <table class="cmp-table">
+        <tr><th>Feature</th><th>Rayleigh Wave</th><th>Love Wave</th></tr>
+        <tr><td>Type</td><td>Surface wave</td><td>Surface wave</td></tr>
+        <tr><td>Motion</td><td>Elliptical/circular (like ocean waves) — both vertical and horizontal</td><td>Horizontal shear — side-to-side, parallel to surface</td></tr>
+        <tr><td>Speed</td><td>Slowest of all seismic waves</td><td>Faster than Rayleigh, slower than body waves</td></tr>
+        <tr><td>Displacement</td><td>Perpendicular to Love wave displacement</td><td>Parallel to free surface (horizontal)</td></tr>
+        <tr><td>Damage type</td><td>Rolling/circular ground motion causing structural collapse</td><td>Horizontal shifting causes foundation damage</td></tr>
+      </table>
+      </div>
+      <div class="info-box" style="margin-top:0.75rem"><strong>Both are surface waves</strong> — they travel along Earth's surface, not through it. Both are slower than P and S waves but cause the MOST damage.</div>
+    </div>
+  </div>
+
+  <!-- Q5a -->
+  <div class="qa-card">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">5(a) Define land slide and write the major causes of land slide.</div>
+      <span class="qa-badge badge-pyq">PYQ Mid-25</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <span class="mark-label">📝 2 Marks</span>
+      <p><strong>Definition:</strong> A landslide is the mass movement of rock, debris, or earth down a slope due to gravitational force. It occurs when slope-forming materials become unstable and lose their shear strength.</p>
+      <p style="margin-top:0.75rem"><strong>Major Causes:</strong></p>
+      <ul>
+        <li><strong>Natural:</strong> Heavy/prolonged rainfall (most common), earthquakes, volcanic activity, snowmelt, steep slope angle, weak or fractured rock</li>
+        <li><strong>Human-induced:</strong> Deforestation and vegetation removal (reduces root binding), mining/excavation, construction on unstable slopes, vibrations from blasting/heavy machinery, over-irrigation of slopes</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Q5b -->
+  <div class="qa-card">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">5(b) Differentiate nuclear fission and fusion. Write the principle of energy generation.</div>
+      <span class="qa-badge badge-pyq">PYQ Mid-25</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <span class="mark-label">📝 2 Marks</span>
+      <p><strong>Nuclear Fission:</strong> Splitting of a heavy atomic nucleus (like U-235 or Pu-239) into two smaller nuclei when struck by a neutron, releasing enormous energy + more neutrons (chain reaction).</p>
+      <p style="margin-top:0.5rem"><strong>Nuclear Fusion:</strong> Two light nuclei (like deuterium + tritium — hydrogen isotopes) combine at extremely high temperatures to form a heavier nucleus (helium), releasing even greater energy.</p>
+      <p style="margin-top:0.75rem"><strong>Principle of Energy Generation (E = mc²):</strong></p>
+      <p>In both fission and fusion, there is a small loss of mass (called mass defect). This lost mass is converted to energy according to Einstein's equation: <strong>E = mc²</strong> where m = mass defect, c = speed of light (3×10⁸ m/s). Even tiny mass converts to enormous energy.</p>
+      <div style="overflow-x:auto">
+      <table class="cmp-table" style="margin-top:0.75rem">
+        <tr><th></th><th>Fission</th><th>Fusion</th></tr>
+        <tr><td>Reaction</td><td>Splitting heavy nuclei</td><td>Joining light nuclei</td></tr>
+        <tr><td>Fuel</td><td>Uranium-235, Pu-239</td><td>Deuterium, Tritium</td></tr>
+        <tr><td>Products</td><td>Radioactive waste</td><td>Helium (safe)</td></tr>
+        <tr><td>Control</td><td>Controllable</td><td>Not yet controlled commercially</td></tr>
+        <tr><td>Application</td><td>Nuclear reactors, atom bomb</td><td>Sun, hydrogen bomb, future reactors</td></tr>
+      </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5c -->
+  <div class="qa-card">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">5(c) Write the major reasons for Chernobyl Accident and its consequences.</div>
+      <span class="qa-badge badge-pyq">PYQ Mid-25</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <span class="mark-label">📝 2 Marks</span>
+      <p><strong>Major Reasons (April 26, 1986 — Ukraine, USSR):</strong></p>
+      <ol>
+        <li>A safety test was conducted at <strong>low power level</strong> — an inherently unstable operating zone for RBMK reactors</li>
+        <li>The reactor had a <strong>positive void coefficient</strong> design flaw — as steam formed, reactivity increased (opposite of safe design)</li>
+        <li>Operators <strong>disabled multiple safety systems</strong> to conduct the test without interruption</li>
+        <li>Sudden uncontrolled power surge → steam explosion → graphite fire</li>
+        <li>The reactor had <strong>no containment structure</strong>, allowing massive radiation release</li>
+      </ol>
+      <p style="margin-top:0.75rem"><strong>Consequences:</strong></p>
+      <ul>
+        <li>Massive release of radioactive particles over Europe (caesium-137, iodine-131)</li>
+        <li>30-km exclusion zone created (still largely uninhabited)</li>
+        <li>31 immediate deaths; thousands of cancer cases attributed (especially thyroid cancer in children)</li>
+        <li>350,000+ people permanently evacuated from Belarus and Ukraine</li>
+        <li>Estimated $700 billion in total cost (cleanup, health, economic)</li>
+        <li>Led to global nuclear safety reforms, IAEA protocol revisions, and acceleration of Soviet Union's collapse</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════ QUESTION BANK ═══════════════════════════════ -->
+<section id="qbank">
+<div class="container">
+  <div class="section-header">
+    <span class="section-tag tag-teal" style="background:rgba(78,205,196,0.15);color:var(--accent3)">📊 Question Bank</span>
+    <h2>Practice Questions</h2>
+  </div>
+
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="filterQs('all',this)">All</button>
+    <button class="filter-btn" onclick="filterQs('easy',this)">Easy 🟢</button>
+    <button class="filter-btn" onclick="filterQs('medium',this)">Medium 🟡</button>
+    <button class="filter-btn" onclick="filterQs('hard',this)">Hard 🔴</button>
+  </div>
+
+  <div id="qbankList">
+
+  <div class="qa-card" data-level="easy">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">🟢 Define disaster as per WHO. Classify different types of natural and anthropogenic disasters.</div>
+      <span class="qa-badge badge-prac">Assignment Q1</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <p><strong>WHO Definition:</strong> A disaster is an occurrence that causes significant damage, ecological disruption, loss of human life, or deterioration of health services on a scale necessitating extraordinary external response.</p>
+      <p style="margin-top:0.5rem"><strong>Natural:</strong> Meteorological (floods, cyclones, tsunamis), Topographical (earthquakes, landslides), Environmental (global warming, ENSO)</p>
+      <p style="margin-top:0.5rem"><strong>Anthropogenic:</strong> Technological (transport failure, fire), Industrial (chemical/radioactive spills), Warfare/terrorism</p>
+    </div>
+  </div>
+
+  <div class="qa-card" data-level="easy">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">🟢 Write the major aim of disaster management policy.</div>
+      <span class="qa-badge badge-prac">Assignment Q6</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <p>Key aims of disaster management policy:</p>
+      <ul>
+        <li>Guidance & Prioritization of disaster situations</li>
+        <li>Community-Based Management — local-level execution</li>
+        <li>Capacity Development of all stakeholders</li>
+        <li>Inter-Agency Cooperation (national, regional, international)</li>
+        <li>Integration with Development planning</li>
+        <li>Disaster-Resilient Reconstruction</li>
+        <li>Time-Bound Actions — prompt response and recovery</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="qa-card" data-level="easy">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">🟢 Write various causes of floods disaster.</div>
+      <span class="qa-badge badge-prac">Exam Q3c</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <ul>
+        <li>Heavy precipitation / extreme rainfall</li>
+        <li>Bank erosion and silting reducing channel capacity</li>
+        <li>Landslides blocking rivers forming temporary dams</li>
+        <li>Poor drainage (urban and rural)</li>
+        <li>Tidal and backwater effects in coastal areas</li>
+        <li>Snowmelt and glacial outbursts</li>
+        <li>Encroachment on flood plains</li>
+        <li>Lack of disaster preparedness and inadequate maintenance</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="qa-card" data-level="easy">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">🟢 Enlist different types of Control in disaster management.</div>
+      <span class="qa-badge badge-prac">Assignment Q5</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <ul>
+        <li><strong>Feedforward Control:</strong> Pre-judging consequences of planned actions to trigger preventive measures BEFORE problems occur</li>
+        <li><strong>Concurrent Control:</strong> Real-time monitoring and adjustment — stopping/adjusting actions immediately when unexpected responses occur DURING disaster response</li>
+        <li><strong>Feedback Control:</strong> Analyzing PAST actions to learn from errors and prevent future repetitions — retrospective improvement</li>
+      </ul>
+      <div class="tip-box"><strong>📌 Memory Trick:</strong> "Before-During-After" = Feedforward-Concurrent-Feedback</div>
+    </div>
+  </div>
+
+  <div class="qa-card" data-level="medium">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">🟡 Explain Management by Objectives (MBO) and its guidelines.</div>
+      <span class="qa-badge badge-prac">Assignment Q7</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <p><strong>MBO</strong> (Peter Drucker, 1954): A planning approach where specific organizational objectives are set <em>collaboratively</em> between managers and subordinates, with clear accountability for achieving them.</p>
+      <p style="margin-top:0.75rem"><strong>MBO in Disaster Management ensures:</strong></p>
+      <ul>
+        <li>Clarity of Goals — individuals have clear, accountable objectives</li>
+        <li>Synergy — everyone aligned with overall DM objectives</li>
+        <li>Timeliness — objectives achieved within defined periods</li>
+      </ul>
+      <p style="margin-top:0.75rem"><strong>MBO Guidelines:</strong></p>
+      <ol>
+        <li>Set clear, measurable, and achievable objectives collaboratively</li>
+        <li>Ensure objectives align from top-level to operational level</li>
+        <li>Assign clear responsibility and accountability to each individual</li>
+        <li>Provide resources needed to achieve objectives</li>
+        <li>Set time-bound targets with interim checkpoints</li>
+        <li>Conduct periodic reviews and performance appraisals</li>
+        <li>Use feedback to reset and improve objectives for next cycle</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="qa-card" data-level="medium">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">🟡 Classify earthquake. Discuss the major causes of earthquake.</div>
+      <span class="qa-badge badge-prac">Exam Q4b</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <p><strong>Types of Earthquakes:</strong></p>
+      <ul>
+        <li><strong>Tectonic</strong> — caused by plate movement/fault rupture; most common and destructive</li>
+        <li><strong>Volcanic</strong> — associated with volcanic activity</li>
+        <li><strong>Collapse</strong> — in underground caverns/mines</li>
+        <li><strong>Explosion</strong> — nuclear or chemical detonations</li>
+      </ul>
+      <p style="margin-top:0.75rem"><strong>Major Causes:</strong></p>
+      <ul>
+        <li><strong>Fault rupture:</strong> Primary cause — break/fracture between rock blocks due to stress</li>
+        <li><strong>Plate tectonics:</strong> Tectonic plates get locked, build up pressure, suddenly slip → seismic waves</li>
+        <li><strong>Types of plate boundaries:</strong> Divergent (spreading), Convergent (collision — most destructive), Transform (sliding horizontally)</li>
+        <li><strong>Other causes:</strong> Volcanic eruptions, reservoir-induced seismicity (large dams), mining, deep underground explosions</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="qa-card" data-level="medium">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">🟡 Discuss various structural mitigation elements in disaster mitigation with suitable examples.</div>
+      <span class="qa-badge badge-prac">Assignment Q10</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <p>Structural mitigation involves <strong>physical construction</strong> to reduce disaster impact:</p>
+      <ol>
+        <li><strong>Selection of Sites:</strong> Site planning considering soil quality, hydrology, and avoiding hazard-prone areas. (e.g., not building near fault lines or floodplains)</li>
+        <li><strong>Minimum Distances from Sea:</strong> Coastal setback regulations to protect against tsunamis and storm surges</li>
+        <li><strong>Stability of Structures:</strong> Earthquake-resistant design, quality materials, integrated fire/security systems, emergency power</li>
+        <li><strong>Dams & Reservoirs:</strong> Control river flow and prevent floods (e.g., Hirakud Dam on Mahanadi)</li>
+        <li><strong>Cyclone Shelters:</strong> On high ground, cyclone-resistant construction</li>
+        <li><strong>Embankments:</strong> Artificially raised levees to prevent river overflow</li>
+        <li><strong>Fire Escapes:</strong> Automatic sprinklers, firefighting connections, emergency evacuation routes</li>
+        <li><strong>Channel Improvement:</strong> Deepening/widening river channels to increase capacity</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="qa-card" data-level="medium">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">🟡 Explain the importance of team-building in disaster management and its various stages of team formation.</div>
+      <span class="qa-badge badge-prac">Assignment Q14</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <p><strong>Importance of Team Building in DM:</strong></p>
+      <ul>
+        <li>Fosters collaboration for desired outcomes</li>
+        <li>Improves communication among team members</li>
+        <li>Motivates and builds mutual trust</li>
+        <li>Unites under shared values and goals</li>
+        <li>Enables effective crisis response through delegation and transparency</li>
+        <li>Develops rescue/relief skills</li>
+      </ul>
+      <p style="margin-top:0.75rem"><strong>4 Stages of Team Formation (Tuckman's Model):</strong></p>
+      <ol>
+        <li><strong>Forming:</strong> Define problem, set goals, commit to strategies. Leaders emphasize positive attitudes and relationships.</li>
+        <li><strong>Storming:</strong> Members discuss and debate; realize complexity of tasks; potential conflicts arise.</li>
+        <li><strong>Norming:</strong> Accept roles, rules, procedures; understand team strengths/weaknesses; conflicts resolved; attachment develops.</li>
+        <li><strong>Performing:</strong> Each member strives to meet team objectives; provide maximum help to affected population.</li>
+      </ol>
+      <div class="tip-box"><strong>Mnemonic:</strong> "Fighting Storms? No Problem!" → Forming, Storming, Norming, Performing</div>
+    </div>
+  </div>
+
+  <div class="qa-card" data-level="hard">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">🔴 Explain Integrated Disaster Management with a suitable schematic diagram.</div>
+      <span class="qa-badge badge-hard">Assignment Q2 | 5 Marks</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <p><strong>IDM Definition:</strong> A comprehensive, holistic, and continuous approach encompassing all phases of the disaster cycle — mitigation, preparedness, response, and recovery — to reduce risk and manage disasters effectively.</p>
+      <p style="margin-top:0.75rem"><strong>Key Features of IDM:</strong></p>
+      <ul>
+        <li>Recognizes that actions in one phase affect all other phases</li>
+        <li>Integrates government, community, NGOs, and international agencies</li>
+        <li>Focuses on both prevention and response</li>
+        <li>Emphasizes community participation and capacity building</li>
+      </ul>
+      <p style="margin-top:0.75rem"><strong>Schematic Diagram (text format):</strong></p>
+      <div class="diagram-box" style="margin-top:0.5rem">
+        <div class="d-title">IDM Cycle — The Four Phases</div>
+        <div class="cycle-row">
+          <div class="cycle-node highlight">🛡️ MITIGATION<br><small>Reduce risk before disaster</small></div>
+          <span class="cycle-arrow">→</span>
+          <div class="cycle-node highlight">🎯 PREPAREDNESS<br><small>Get ready before disaster</small></div>
+        </div>
+        <div class="cycle-row">
+          <span class="cycle-arrow" style="transform:rotate(90deg);display:block">↑</span>
+          <span style="flex:1"></span>
+          <span class="cycle-arrow" style="transform:rotate(90deg);display:block">↓</span>
+        </div>
+        <div class="cycle-row">
+          <div class="cycle-node highlight">🏗️ RECOVERY<br><small>Rebuild after disaster</small></div>
+          <span class="cycle-arrow">←</span>
+          <div class="cycle-node highlight">🚨 RESPONSE<br><small>Act during disaster</small></div>
+        </div>
+        <div style="margin-top:1.5rem;text-align:center">
+          <div class="cycle-node" style="display:inline-block;border-color:var(--accent4);color:var(--accent4)">🌐 INTEGRATED DISASTER MANAGEMENT<br><small>Continuous, Holistic, Multi-agency</small></div>
+        </div>
+      </div>
+      <p style="margin-top:0.75rem"><strong>Phase Details:</strong></p>
+      <ul>
+        <li><strong>Mitigation:</strong> Building codes, zoning, vulnerability analysis, public education, dams, cyclone shelters</li>
+        <li><strong>Preparedness:</strong> Preparedness plans, early warning systems, drills, training, stockpiling resources</li>
+        <li><strong>Response:</strong> Emergency operations, search & rescue, first aid, evacuation, food/water/shelter provision</li>
+        <li><strong>Recovery:</strong> Temporary housing, medical care, psychological support, reconstruction, rehabilitation</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="qa-card" data-level="hard">
+    <div class="qa-question" onclick="toggleQA(this)">
+      <div class="qa-question-text">🔴 Discuss major flood management approach in India with structural and non-structural measures.</div>
+      <span class="qa-badge badge-hard">Assignment Q12</span>
+      <span class="qa-arrow">▼</span>
+    </div>
+    <div class="qa-answer">
+      <p><strong>India's Flood Situation:</strong> Total flood-prone area = 40 million hectares (~12% of geographic area). Most affected: UP, Bihar, Assam, West Bengal, Odisha. Floods cannot be absolutely controlled — only managed to reduce losses.</p>
+      <p style="margin-top:0.75rem"><strong>Flood Management Approach (Three-Phase Cycle):</strong></p>
+      <ul>
+        <li><strong>Pre-flood:</strong> Flood control measures, forecasting, preparedness, evacuation planning</li>
+        <li><strong>During flood:</strong> Alertness, relief operations, emergency response</li>
+        <li><strong>Post-flood:</strong> Cleaning up, repair, recovery, relief, and rehabilitation</li>
+      </ul>
+      <p style="margin-top:0.75rem"><strong>Structural Measures:</strong></p>
+      <ul>
+        <li>Dams & Reservoirs (e.g., Hirakud Dam on Mahanadi — regulates flow, prevents downstream flooding, generates power)</li>
+        <li>Embankments/levees — raised barriers along riverbanks</li>
+        <li>Channel improvement — deepening/widening rivers</li>
+        <li>River diversion — creating alternate floodwater channels</li>
+        <li>Anti-erosion works — protecting riverbanks</li>
+        <li>Inter-basin water transfer</li>
+      </ul>
+      <p style="margin-top:0.75rem"><strong>Non-Structural Measures:</strong></p>
+      <ul>
+        <li>Flood forecasting & warning systems (CWC — Central Water Commission)</li>
+        <li>Flood plain zoning — regulating land use in flood-prone areas</li>
+        <li>Flood proofing — modifying buildings to resist flood damage</li>
+        <li>Flood insurance schemes</li>
+        <li>Community awareness and preparedness programs</li>
+        <li>Emergency response planning and training</li>
+      </ul>
+    </div>
+  </div>
+
+  </div><!-- end qbankList -->
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════ EXPECTED Qs ═══════════════════════════════ -->
+<section id="expected">
+<div class="container">
+  <div class="section-header">
+    <span class="section-tag tag-yellow">⚡ Predicted</span>
+    <h2>Expected Questions for Exams</h2>
+    <p style="color:var(--text-muted);font-size:0.9rem;margin-top:0.5rem">Based on assignment pattern, PYQ trends, and syllabus coverage.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-accent-red">
+      <div class="card-icon">🔥</div>
+      <h3>HIGH PROBABILITY <span class="imp-high">★★★</span></h3>
+      <ul style="color:var(--text-muted);font-size:0.875rem;line-height:1.9;padding-left:1.2rem;margin-top:0.5rem">
+        <li>Define disaster (WHO) + classification</li>
+        <li>IDM with schematic diagram (MUST draw!)</li>
+        <li>Risk = Hazard × Vulnerability / Capacity</li>
+        <li>Cyclone definition, types, mechanism</li>
+        <li>Rayleigh vs Love wave difference</li>
+        <li>MBO (Peter Drucker) and guidelines</li>
+        <li>Leadership/Conceptual/HR/Managerial skills</li>
+        <li>Chernobyl reasons and consequences</li>
+        <li>Authority, Delegation and Decentralisation</li>
+        <li>Aims of disaster management</li>
+        <li>Triage — definition and colour coding</li>
+        <li>Principles of disaster preparedness (all 6)</li>
+      </ul>
+    </div>
+    <div class="card card-accent-yellow">
+      <div class="card-icon">⭐</div>
+      <h3>MEDIUM PROBABILITY <span class="imp-med">★★</span></h3>
+      <ul style="color:var(--text-muted);font-size:0.875rem;line-height:1.9;padding-left:1.2rem;margin-top:0.5rem">
+        <li>SWOT analysis in disaster management</li>
+        <li>Hazard and vulnerability analysis steps</li>
+        <li>Fission vs fusion + E=mc²</li>
+        <li>Earthquake types + causes + seismic zones</li>
+        <li>Structural vs non-structural mitigation</li>
+        <li>Team building stages (FSNP)</li>
+        <li>Flood management in India (Hirakud Dam)</li>
+        <li>Control types in DM</li>
+        <li>Logistical readiness in preparedness</li>
+        <li>Contingency planning + EOP contents</li>
+        <li>Role of media in DM</li>
+        <li>Community-based approach to DM</li>
+        <li>Psycho-social phases after disaster</li>
+        <li>Environmental degradation and disaster link</li>
+        <li>Hazard map — definition and example</li>
+      </ul>
+    </div>
+    <div class="card card-accent-teal">
+      <div class="card-icon">💡</div>
+      <h3>EXAMINER STYLE — Watch Out!</h3>
+      <ul style="color:var(--text-muted);font-size:0.875rem;line-height:1.9;padding-left:1.2rem;margin-top:0.5rem">
+        <li>"Which principle of DM is MOST important and WHY?" → Always justify!</li>
+        <li>"With suitable examples" → Always give 2+ examples</li>
+        <li>"With schematic diagram" → Always draw the IDM cycle</li>
+        <li>"Justify that SWOT is a major component" → Give concrete examples</li>
+        <li>Surface wave questions → Compare BOTH Rayleigh AND Love</li>
+        <li>Any nuclear question → Mention E=mc²</li>
+      </ul>
+    </div>
+    <div class="card card-accent-purple">
+      <div class="card-icon">🎲</div>
+      <h3>POSSIBLE SURPRISE QUESTIONS</h3>
+      <ul style="color:var(--text-muted);font-size:0.875rem;line-height:1.9;padding-left:1.2rem;margin-top:0.5rem">
+        <li>Principles of disaster preparedness (6 principles)</li>
+        <li>Components of preparedness plan</li>
+        <li>Non-structural mitigation elements</li>
+        <li>Drought management system in India</li>
+        <li>Team building importance and stages</li>
+        <li>Triage protocol (Red/Yellow/Green/Black)</li>
+        <li>Cyclone categories table</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════ MNEMONICS ═══════════════════════════════ -->
+<section id="mnemonics">
+<div class="container">
+  <div class="section-header">
+    <span class="section-tag tag-purple">🪄 Memory Tricks</span>
+    <h2>Mnemonics & Memory Aids</h2>
+  </div>
+
+  <div class="mnemonic-card">
+    <div class="mnemonic-word">M-P-R-R</div>
+    <div class="mnemonic-expand">
+      <span class="mne-letter"><strong>M</strong>itigation</span>
+      <span class="mne-letter"><strong>P</strong>reparedness</span>
+      <span class="mne-letter"><strong>R</strong>esponse</span>
+      <span class="mne-letter"><strong>R</strong>ecovery</span>
+    </div>
+    <div class="mnemonic-tip">💬 "My Plans Really Rock" — The 4 phases of IDM in order. It's circular: after Recovery, back to Mitigation!</div>
+  </div>
+
+  <div class="mnemonic-card">
+    <div class="mnemonic-word">L-C-H-M</div>
+    <div class="mnemonic-expand">
+      <span class="mne-letter"><strong>L</strong>eadership</span>
+      <span class="mne-letter"><strong>C</strong>onceptual</span>
+      <span class="mne-letter"><strong>H</strong>uman Relations</span>
+      <span class="mne-letter"><strong>M</strong>anagerial</span>
+    </div>
+    <div class="mnemonic-tip">💬 "Let's Create Happy Managers" — 4 skills needed in disaster management roles.</div>
+  </div>
+
+  <div class="mnemonic-card">
+    <div class="mnemonic-word">F-S-N-P</div>
+    <div class="mnemonic-expand">
+      <span class="mne-letter"><strong>F</strong>orming</span>
+      <span class="mne-letter"><strong>S</strong>torming</span>
+      <span class="mne-letter"><strong>N</strong>orming</span>
+      <span class="mne-letter"><strong>P</strong>erforming</span>
+    </div>
+    <div class="mnemonic-tip">💬 "Fighting Storms? No Problem!" — Team formation stages (Tuckman's model). Each stage = more cohesion.</div>
+  </div>
+
+  <div class="mnemonic-card">
+    <div class="mnemonic-word">S.W.O.T</div>
+    <div class="mnemonic-expand">
+      <span class="mne-letter"><strong>S</strong>trengths (Internal ✅)</span>
+      <span class="mne-letter"><strong>W</strong>eaknesses (Internal ❌)</span>
+      <span class="mne-letter"><strong>O</strong>pportunities (External 🌟)</span>
+      <span class="mne-letter"><strong>T</strong>hreats (External ⚡)</span>
+    </div>
+    <div class="mnemonic-tip">💬 "Soldiers Win Over Trouble" — Internal = S&W, External = O&T. In disaster management, it gives you a 360° strategic view.</div>
+  </div>
+
+  <div class="mnemonic-card">
+    <div class="mnemonic-word">P-S-R = Fastest to Slowest Waves</div>
+    <div class="mnemonic-expand">
+      <span class="mne-letter"><strong>P</strong>rimary (fastest)</span>
+      <span class="mne-letter"><strong>S</strong>econdary</span>
+      <span class="mne-letter"><strong>R</strong>ayleigh (slowest, most damaging)</span>
+    </div>
+    <div class="mnemonic-tip">💬 "Police Stop Racing" — P, S, then surface waves (Love faster than Rayleigh). Remember: surface waves are slowest but MOST destructive.</div>
+  </div>
+
+  <div class="mnemonic-card">
+    <div class="mnemonic-word">T-V-C-E = Earthquake Types</div>
+    <div class="mnemonic-expand">
+      <span class="mne-letter"><strong>T</strong>ectonic</span>
+      <span class="mne-letter"><strong>V</strong>olcanic</span>
+      <span class="mne-letter"><strong>C</strong>ollapse</span>
+      <span class="mne-letter"><strong>E</strong>xplosion</span>
+    </div>
+    <div class="mnemonic-tip">💬 "The Very Careful Explosion" — 4 types of earthquakes. Tectonic = most common. Explosion = nuclear/chemical.</div>
+  </div>
+
+  <div class="mnemonic-card">
+    <div class="mnemonic-word">B-D-A = Control Types</div>
+    <div class="mnemonic-expand">
+      <span class="mne-letter"><strong>B</strong>efore = Feedforward</span>
+      <span class="mne-letter"><strong>D</strong>uring = Concurrent</span>
+      <span class="mne-letter"><strong>A</strong>fter = Feedback</span>
+    </div>
+    <div class="mnemonic-tip">💬 "Before During After" — 3 types of control in disaster management. Simple and foolproof!</div>
+  </div>
+
+  <div class="mnemonic-card">
+    <div class="mnemonic-word">CHERNOBYL — What Went Wrong</div>
+    <div class="mnemonic-expand">
+      <span class="mne-letter">Low Power Test</span>
+      <span class="mne-letter">Positive Void Coefficient</span>
+      <span class="mne-letter">Safety OFF</span>
+      <span class="mne-letter">No Containment</span>
+    </div>
+    <div class="mnemonic-tip">💬 "Low Power, Positive Void, Safety OFF, No Containment" — 4 key failure points at Chernobyl 1986. Write these in sequence for full marks.</div>
+  </div>
+
+  <div class="mnemonic-card">
+    <div class="mnemonic-word">RAYLEIGH vs LOVE</div>
+    <div class="mnemonic-expand">
+      <span class="mne-letter">Rayleigh = R for Rolling (circular motion)</span>
+      <span class="mne-letter">Love = L for Lateral (horizontal shift)</span>
+    </div>
+    <div class="mnemonic-tip">💬 R = Rolling (like ocean waves), L = Lateral (side to side). Both are surface waves, both destructive. Rayleigh is SLOWER.</div>
+  </div>
+
+  <div class="mnemonic-card">
+    <div class="mnemonic-word">CYCLO = NH Anti, SH Clock</div>
+    <div class="mnemonic-expand">
+      <span class="mne-letter">Northern Hemisphere = Anti-clockwise</span>
+      <span class="mne-letter">Southern Hemisphere = Clockwise</span>
+    </div>
+    <div class="mnemonic-tip">💬 Think: "NEVER Antsy in the North" (Never = Anti-clockwise in Northern). Coriolis force reverses between hemispheres.</div>
+  </div>
+
+  <div class="mnemonic-card">
+    <div class="mnemonic-word">RISK = H × V ÷ C</div>
+    <div class="mnemonic-expand">
+      <span class="mne-letter">H = Hazard</span>
+      <span class="mne-letter">V = Vulnerability</span>
+      <span class="mne-letter">C = Capacity</span>
+    </div>
+    <div class="mnemonic-tip">💬 "Heroes (H) Versus (V) Capacity (C)" — Risk goes UP when V increases or C decreases. DM goal = increase C and decrease V.</div>
+  </div>
+
+  <div class="mnemonic-card">
+    <div class="mnemonic-word">A-D-D = Authority, Delegation, Decentralisation</div>
+    <div class="mnemonic-expand">
+      <span class="mne-letter"><strong>A</strong>uthority = State power</span>
+      <span class="mne-letter"><strong>D</strong>elegation = Transfer (temporary)</span>
+      <span class="mne-letter"><strong>D</strong>ecentralisation = Distribute power</span>
+    </div>
+    <div class="mnemonic-tip">💬 "Authority Delegates Down" — Power flows from state → leader (authority) → subordinate (delegation) → ground level (decentralisation). All three are the essence of disaster management.</div>
+  </div>
+
+  <div class="mnemonic-card">
+    <div class="mnemonic-word">R-P-R-C-T-M = Preparedness Principles</div>
+    <div class="mnemonic-expand">
+      <span class="mne-letter"><strong>R</strong>ealistic Planning</span>
+      <span class="mne-letter"><strong>C</strong>ontinuous Improvement</span>
+      <span class="mne-letter"><strong>C</strong>ollaboration</span>
+      <span class="mne-letter"><strong>M</strong>otivation</span>
+      <span class="mne-letter"><strong>T</strong>ime-bound</span>
+      <span class="mne-letter"><strong>A</strong>ll-hazard Inclusive</span>
+    </div>
+    <div class="mnemonic-tip">💬 "Really Cool Cooperation Motivates Teams Always" — 6 principles of disaster preparedness. All 6 need to be listed in the exam!</div>
+  </div>
+
+  <div class="mnemonic-card">
+    <div class="mnemonic-word">TRIAGE = R-Y-G-B</div>
+    <div class="mnemonic-expand">
+      <span class="mne-letter" style="color:var(--accent2)">Red = Immediate</span>
+      <span class="mne-letter" style="color:var(--accent)">Yellow = Delayed</span>
+      <span class="mne-letter" style="color:#4ade80">Green = Minor</span>
+      <span class="mne-letter" style="color:var(--text-muted)">Black = Expectant</span>
+    </div>
+    <div class="mnemonic-tip">💬 "Really Yellow-ish Green Blacks" — Triage colour coding. Red = treat NOW. Black = nothing more can be done. Used in mass casualty events to maximize lives saved.</div>
+  </div>
+
+  <div class="mnemonic-card">
+    <div class="mnemonic-word">4 PHASES of VICTIM PSYCHOLOGY</div>
+    <div class="mnemonic-expand">
+      <span class="mne-letter"><strong>A</strong>cute = self-survival</span>
+      <span class="mne-letter"><strong>R</strong>eaction = rescue others</span>
+      <span class="mne-letter"><strong>R</strong>ecovery = DM teams act</span>
+      <span class="mne-letter"><strong>R</strong>eorientation = acceptance</span>
+    </div>
+    <div class="mnemonic-tip">💬 "A man Really Recovers Reoriented" — Acute → Reaction → Recovery → Reorientation. Counseling is most needed in phases 3 and 4.</div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════ DIAGRAMS ═══════════════════════════════ -->
+<section id="diagrams">
+<div class="container">
+  <div class="section-header">
+    <span class="section-tag tag-teal" style="background:rgba(78,205,196,0.15);color:var(--accent3)">🖼️ Visual Aids</span>
+    <h2>Diagrams & Visual Explanations</h2>
+  </div>
+
+  <div class="grid-2">
+
+    <div class="concept-block">
+      <h3>🔄 IDM Cycle Diagram</h3>
+      <div class="diagram-box">
+        <div class="d-title">Integrated Disaster Management</div>
+        <div style="position:relative;min-height:200px;display:flex;align-items:center;justify-content:center">
+          <div style="text-align:center">
+            <div class="cycle-row">
+              <div class="cycle-node highlight" style="background:rgba(167,139,250,0.1);border-color:var(--accent4)">
+                🛡️ MITIGATION<br>
+                <small style="color:var(--text-muted)">Before | Reduce risk</small>
+              </div>
+            </div>
+            <div class="cycle-row" style="justify-content:space-between;gap:2rem">
+              <div class="cycle-node" style="width:140px;border-color:#4ade80;color:#4ade80">
+                🏗️ RECOVERY<br><small style="color:var(--text-muted)">After | Rebuild</small>
+              </div>
+              <div class="cycle-node" style="width:140px;border-color:var(--accent);color:var(--accent)">
+                🎯 PREPAREDNESS<br><small style="color:var(--text-muted)">Before | Get ready</small>
+              </div>
+            </div>
+            <div class="cycle-row">
+              <div class="cycle-node" style="border-color:var(--accent2);color:var(--accent2)">
+                🚨 RESPONSE<br><small style="color:var(--text-muted)">During | Act now</small>
+              </div>
+            </div>
+            <p style="font-size:0.7rem;color:var(--text-muted);margin-top:1rem">↻ Continuous, cyclical process</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-block">
+      <h3>🌊 Seismic Wave Types</h3>
+      <div class="diagram-box">
+        <div class="d-title">Wave Classification</div>
+        <div style="text-align:left">
+          <p style="color:var(--accent);margin-bottom:0.75rem;font-family:'DM Sans',sans-serif;font-size:0.85rem">Body Waves (through Earth):</p>
+          <div style="margin-bottom:0.75rem">
+            <div class="wave-band"><span class="dot dot-b"></span><strong style="color:var(--accent3)">P-Wave</strong> — Longitudinal | Solid+Liquid | FASTEST</div>
+            <div class="wave-band"><span class="dot dot-y"></span><strong style="color:var(--accent)">S-Wave</strong> — Transverse | Solid only | Slower than P</div>
+          </div>
+          <p style="color:var(--accent);margin-bottom:0.75rem;font-family:'DM Sans',sans-serif;font-size:0.85rem">Surface Waves (along surface):</p>
+          <div>
+            <div class="wave-band"><span class="dot dot-g"></span><strong style="color:#4ade80">Love Wave</strong> — Horizontal shift | Faster surface wave</div>
+            <div class="wave-band"><span class="dot dot-r"></span><strong style="color:var(--accent2)">Rayleigh Wave</strong> — Elliptical/Rolling | SLOWEST + Most damaging</div>
+          </div>
+          <p style="margin-top:1rem;font-size:0.75rem;color:var(--text-muted);font-family:'DM Sans',sans-serif">Speed: P > S > Love > Rayleigh</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-block">
+      <h3>🌀 Cyclone Formation Steps</h3>
+      <div class="diagram-box">
+        <div class="d-title">Tropical Cyclone Formation</div>
+        <div style="text-align:left;font-family:'DM Sans',sans-serif;font-size:0.8rem">
+          <div style="display:flex;flex-direction:column;gap:0.4rem">
+            <div style="display:flex;gap:0.75rem;align-items:center"><span style="color:var(--accent);font-weight:700;min-width:20px">1.</span><span style="color:var(--text-muted)">Warm ocean (>26.5°C) heats moist air → air rises</span></div>
+            <div style="margin-left:20px;color:var(--accent3)">↓ LOW PRESSURE CREATED</div>
+            <div style="display:flex;gap:0.75rem;align-items:center"><span style="color:var(--accent);font-weight:700;min-width:20px">2.</span><span style="color:var(--text-muted)">Cooler surrounding air rushes in</span></div>
+            <div style="margin-left:20px;color:var(--accent3)">↓ CYCLE REPEATS</div>
+            <div style="display:flex;gap:0.75rem;align-items:center"><span style="color:var(--accent);font-weight:700;min-width:20px">3.</span><span style="color:var(--text-muted)">Rising air cools → condenses → clouds form</span></div>
+            <div style="display:flex;gap:0.75rem;align-items:center"><span style="color:var(--accent);font-weight:700;min-width:20px">4.</span><span style="color:var(--text-muted)">System grows, fed by ocean heat + evaporation</span></div>
+            <div style="margin-left:20px;color:var(--accent3)">↓ ROTATION BEGINS (Coriolis)</div>
+            <div style="display:flex;gap:0.75rem;align-items:center"><span style="color:var(--accent);font-weight:700;min-width:20px">5.</span><span style="color:var(--text-muted)">Storm rotates faster → EYE forms at centre</span></div>
+            <div style="display:flex;gap:0.75rem;align-items:center"><span style="color:var(--accent);font-weight:700;min-width:20px">6.</span><span style="color:var(--text-muted)">Wind >63 km/h = Tropical Storm</span></div>
+            <div style="display:flex;gap:0.75rem;align-items:center"><span style="color:var(--accent);font-weight:700;min-width:20px">7.</span><span style="color:var(--text-muted)">Wind >119 km/h = Tropical Cyclone</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-block">
+      <h3>⚖️ Risk Formula Visualization</h3>
+      <div class="diagram-box">
+        <div class="d-title">Disaster Risk Model</div>
+        <div style="font-family:'DM Sans',sans-serif;text-align:center">
+          <div style="font-size:1.3rem;color:var(--accent);font-weight:700;margin:0.5rem 0">RISK = H × V ÷ C</div>
+          <div style="display:flex;justify-content:center;gap:1.5rem;margin-top:1.25rem;flex-wrap:wrap">
+            <div style="text-align:center">
+              <div style="font-size:1.8rem">⚡</div>
+              <div style="color:var(--accent2);font-weight:700;font-size:0.85rem">HAZARD (H)</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);max-width:100px">Threatening event<br>(cyclone, quake)</div>
+            </div>
+            <div style="font-size:1.5rem;color:var(--text-muted);align-self:center">×</div>
+            <div style="text-align:center">
+              <div style="font-size:1.8rem">🏚️</div>
+              <div style="color:var(--accent);font-weight:700;font-size:0.85rem">VULNERABILITY (V)</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);max-width:100px">Susceptibility<br>(poor housing)</div>
+            </div>
+            <div style="font-size:1.5rem;color:var(--text-muted);align-self:center">÷</div>
+            <div style="text-align:center">
+              <div style="font-size:1.8rem">💪</div>
+              <div style="color:var(--accent3);font-weight:700;font-size:0.85rem">CAPACITY (C)</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);max-width:100px">Resources &amp; skills<br>(warning systems)</div>
+            </div>
+          </div>
+          <div style="margin-top:1.25rem;font-size:0.8rem;color:var(--text-muted)">
+            ↑ Increase C or ↓ V → Risk Decreases
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-block" style="grid-column:1/-1">
+      <h3>☢️ Fission vs Fusion — Visual</h3>
+      <div class="diagram-box">
+        <div class="d-title">Nuclear Reactions — Key Differences</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;font-family:'DM Sans',sans-serif;text-align:left">
+          <div>
+            <div style="color:var(--accent2);font-weight:700;font-size:0.9rem;margin-bottom:0.75rem">⚛️ FISSION (Splitting)</div>
+            <div style="font-size:1.1rem;text-align:center;margin:0.5rem 0;color:var(--text-muted)">
+              U-235 + n → Kr + Ba + 3n + Energy
+            </div>
+            <ul style="color:var(--text-muted);font-size:0.8rem;padding-left:1.2rem;line-height:1.8">
+              <li>Heavy nucleus SPLITS</li>
+              <li>Fuel: U-235, Pu-239</li>
+              <li>Chain reaction possible</li>
+              <li>Radioactive waste produced</li>
+              <li>Used in: Reactors, Atom bomb</li>
+            </ul>
+          </div>
+          <div>
+            <div style="color:var(--accent3);font-weight:700;font-size:0.9rem;margin-bottom:0.75rem">⚛️ FUSION (Joining)</div>
+            <div style="font-size:1.1rem;text-align:center;margin:0.5rem 0;color:var(--text-muted)">
+              D + T → He + n + More Energy
+            </div>
+            <ul style="color:var(--text-muted);font-size:0.8rem;padding-left:1.2rem;line-height:1.8">
+              <li>Light nuclei JOIN</li>
+              <li>Fuel: Deuterium, Tritium</li>
+              <li>Requires extreme heat (millions °C)</li>
+              <li>Helium produced (relatively safe)</li>
+              <li>Used in: Stars, H-bomb, future reactors</li>
+            </ul>
+          </div>
+        </div>
+        <div style="margin-top:1.25rem;text-align:center;font-size:0.85rem;color:var(--accent);font-family:'JetBrains Mono',monospace">
+          Both: E = mc² (mass defect converts to energy)
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════ REVIEW Q&A ═══════════════════════════════ -->
+<section id="review-qs">
+<div class="container">
+  <div class="section-header">
+    <span class="section-tag tag-purple">📝 All Chapters</span>
+    <h2>Questions for Review — All Chapters</h2>
+    <p style="color:var(--text-muted);font-size:0.9rem;margin-top:0.5rem">Click any question to reveal the 2-mark answer. All 9 chapters covered.</p>
+  </div>
+
+  <!-- CHAPTER 1 -->
+  <div style="margin-bottom:2.5rem">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--accent3);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem">📘 Chapter 1 — Introduction to Disaster Management</h3>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">1. What are the aims of disaster management?</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks — Point-wise</span>
+        <p>The aims of disaster management are:</p>
+        <ul>
+          <li><strong>Save lives and reduce injury</strong> — protect people from harm before, during, and after a disaster.</li>
+          <li><strong>Minimize property and environmental damage</strong> — reduce economic losses.</li>
+          <li><strong>Ensure rapid recovery</strong> — restore normalcy through response and rehabilitation.</li>
+          <li><strong>Build resilience</strong> — strengthen communities to withstand future disasters through preparedness and mitigation.</li>
+          <li><strong>Promote sustainable development</strong> — integrate disaster risk reduction into development planning.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">2. Explain the relationship between hazard, risk, vulnerability and capacity.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p><strong>Formula: Risk = Hazard × Vulnerability / Capacity</strong></p>
+        <ul>
+          <li><strong>Hazard:</strong> A dangerous phenomenon that can cause loss (e.g., cyclone, earthquake).</li>
+          <li><strong>Vulnerability:</strong> Degree to which a community is unable to withstand a hazard (e.g., poor housing, poverty).</li>
+          <li><strong>Capacity:</strong> Resources and strengths available to cope with hazard (e.g., early warning systems, trained teams).</li>
+          <li><strong>Risk:</strong> Probability of harmful consequences. Risk increases when vulnerability is high and capacity is low.</li>
+        </ul>
+        <div class="tip-box"><strong>Example:</strong> Coastal village → Hazard = Cyclone, Vulnerability = Kutcha houses, Capacity = Cyclone shelter + warning system. Higher capacity = Lower risk.</div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">3. Discuss the types of disaster, giving suitable examples.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p><strong>Type 1: Natural Disasters</strong> — caused by natural processes:</p>
+        <ul>
+          <li><strong>Meteorological:</strong> Floods, cyclones, blizzards, droughts.</li>
+          <li><strong>Topographical:</strong> Earthquakes, landslides, volcanic eruptions, tsunamis.</li>
+          <li><strong>Environmental:</strong> Global warming, ozone depletion.</li>
+        </ul>
+        <p style="margin-top:0.5rem"><strong>Type 2: Man-Made (Anthropogenic) Disasters</strong> — caused by human actions:</p>
+        <ul>
+          <li><strong>Technological:</strong> Transport accidents, fire, industrial failures.</li>
+          <li><strong>Industrial:</strong> Chemical/radioactive spills (e.g., Bhopal Gas Tragedy).</li>
+          <li><strong>Warfare:</strong> Terrorism, civil unrest, war (e.g., Hiroshima).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">4. Explain the principles of disaster management. Which is most important and why?</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p>Key principles of disaster management include:</p>
+        <ul>
+          <li><strong>Comprehensive approach:</strong> All phases — mitigation, preparedness, response, recovery — must be addressed.</li>
+          <li><strong>Progressive:</strong> Continuously improving based on past experiences.</li>
+          <li><strong>Risk-driven:</strong> Priorities based on hazard, vulnerability, and capacity assessment.</li>
+          <li><strong>Integrated:</strong> Coordination among all stakeholders — government, NGOs, community.</li>
+          <li><strong>Community-based:</strong> Local participation is key to effective disaster management.</li>
+        </ul>
+        <p style="margin-top:0.5rem"><strong>Most Important Principle — Community-based approach:</strong> Disasters affect communities first. Local-level knowledge and participation make response fastest and most effective. No central agency can replace community vigilance.</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">5. Explain the various dimensions of disasters and how they affect stakeholders.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <ul>
+          <li><strong>Physical dimension:</strong> Damage to buildings, infrastructure. Affects government (rebuilding cost), communities (homelessness).</li>
+          <li><strong>Social dimension:</strong> Loss of life, displacement, mental trauma. Affects families, communities, NGOs providing support.</li>
+          <li><strong>Economic dimension:</strong> Loss of livelihoods, crops, businesses. Affects individuals, industries, national GDP.</li>
+          <li><strong>Environmental dimension:</strong> Deforestation, soil erosion, pollution. Affects future generations and ecosystems.</li>
+          <li><strong>Political dimension:</strong> Tests governance capability, may affect elections and policy decisions.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 2 -->
+  <div style="margin-bottom:2.5rem">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--accent);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem">📙 Chapter 2 — Nature & Management Process</h3>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">1. What is the nature of disaster management? Explain with examples.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p>Disaster management is the organized process of planning, directing, and coordinating available resources to minimize the impact of disasters. Its nature:</p>
+        <ul>
+          <li><strong>Continuous process:</strong> It is a cycle — Mitigation → Preparedness → Response → Recovery — and never stops.</li>
+          <li><strong>Multidisciplinary:</strong> Involves engineers, doctors, social workers, administrators — all working together.</li>
+          <li><strong>Resource-oriented:</strong> Focuses on optimal utilization of resources (personnel, materials, equipment).</li>
+          <li><strong>Dynamic:</strong> Plans change based on the evolving nature and scale of the disaster.</li>
+        </ul>
+        <p style="margin-top:0.5rem"><strong>Example:</strong> During Odisha cyclone — pre-cyclone involves preparedness and evacuation, during cyclone involves response/relief, after cyclone involves rehabilitation. All phases require coordinated management.</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">2. How can SWOT analysis help in effective management of disasters?</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p>SWOT can be applied at <strong>community, regional, and national levels:</strong></p>
+        <ul>
+          <li><strong>Strengths:</strong> Identify existing assets — trained personnel, early warning systems. Leverage these during response.</li>
+          <li><strong>Weaknesses:</strong> Expose gaps — poor infrastructure, inadequate funds. Address these through planning.</li>
+          <li><strong>Opportunities:</strong> External support — NGOs, international aid, new technologies (GIS, satellite). Use these to strengthen plans.</li>
+          <li><strong>Threats:</strong> External dangers — climate change, urbanization. Prepare contingency plans to combat these.</li>
+        </ul>
+        <p style="margin-top:0.5rem">SWOT gives a 360° realistic picture of preparedness and helps make data-driven decisions before, during, and after disasters.</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">3. Explain the steps of a hazard and vulnerability analysis.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <ol>
+          <li><strong>Identify diverse vulnerabilities</strong> — social, infrastructural, economic, environmental, behavioural, and political hazards.</li>
+          <li><strong>Estimate probability</strong> of occurrence of each hazard event.</li>
+          <li><strong>Analyze human impact</strong> — probable loss of lives and physical injuries.</li>
+          <li><strong>Assess property damage</strong> — likely economic losses from each disaster.</li>
+          <li><strong>Assess community capacity</strong> — availability of resources (personnel, equipment, funds) to respond and recover.</li>
+        </ol>
+        <div class="info-box"><strong>Result:</strong> This analysis helps recognize threats to communities and make targeted action plans to reduce specific risk areas.</div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">4. Having a well-established structure of organizational roles is important for management of disasters. Agree or disagree?</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks — Agree</span>
+        <p><strong>Agree.</strong> A well-established organizational structure is essential because:</p>
+        <ul>
+          <li><strong>Clear roles:</strong> Each division (mitigation, preparedness, response, recovery) knows its responsibility — no confusion during crisis.</li>
+          <li><strong>Faster decision-making:</strong> Authority flows clearly from top to ground level through delegation and decentralisation.</li>
+          <li><strong>Coordination:</strong> Prevents duplication of efforts and ensures all tasks are covered.</li>
+          <li><strong>Accountability:</strong> Each person/unit is accountable for their specific function.</li>
+        </ul>
+        <p style="margin-top:0.5rem">The 4-division structure (Disaster Mitigation, Preparedness, Response, Recovery Divisions) ensures comprehensive coverage of all disaster management activities.</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">5. Explain the importance of team-building in disaster management.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p>Team-building is crucial in disaster management because:</p>
+        <ul>
+          <li><strong>Better communication:</strong> Teams foster open communication, making it easy to operate in disaster situations.</li>
+          <li><strong>Shared values and goals:</strong> A team has a common goal — saving lives. Members are committed and motivated.</li>
+          <li><strong>Delegation:</strong> Emergency managers can delegate responsibility effectively within a well-built team.</li>
+          <li><strong>Trust and support:</strong> Generates higher levels of trust among team members and with the community.</li>
+        </ul>
+        <p style="margin-top:0.5rem">Team-building follows <strong>4 stages:</strong> Forming (define problem) → Storming (assess situation) → Norming (accept roles) → Performing (deliver results).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 3 -->
+  <div style="margin-bottom:2.5rem">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--accent2);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem">🛡️ Chapter 3 — Disaster Mitigation</h3>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">1. Explain the concept of mitigation. Discuss the types with examples.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p><strong>Mitigation</strong> is the process of taking proactive measures to remove or decrease the impacts of hazards before a disaster occurs. Its goal is to reduce loss of life and property. The essence of mitigation is <em>prevention</em>.</p>
+        <p style="margin-top:0.5rem"><strong>Types:</strong></p>
+        <ul>
+          <li><strong>Structural Mitigation:</strong> Physical construction to enhance resilience. Examples: dams (flood control), earthquake-resistant buildings, cyclone shelters.</li>
+          <li><strong>Non-Structural Mitigation:</strong> Modifying human behavior without physical construction. Examples: land-use regulations, hazard zoning, building codes, public awareness campaigns.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">2. Discuss the importance of fire plan and cyclone shelters.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p><strong>Fire Plan:</strong> Provides guidelines to building occupants on actions during fire. Key features:</p>
+        <ul>
+          <li>Automatic sprinkler systems to detect and release water to suppress fire.</li>
+          <li>Fire fighting arrangements with inlet connections at ground level and air release valves at roof level.</li>
+          <li>Clearly marked fire escape routes.</li>
+          <li>Fire alarm and detection systems linked to security systems.</li>
+        </ul>
+        <p style="margin-top:0.5rem"><strong>Cyclone Shelters:</strong> Located on high ground, accessible, and constructed to withstand extreme wind speeds and storm surges. They save thousands of lives in coastal areas. Must have strong walls, windows, doors, and proper ventilation.</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">3. Explain the disaster mitigation strategies.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p>Disaster mitigation strategies are organized around three main components:</p>
+        <ul>
+          <li><strong>Mitigation Goals:</strong> Define what reduction in risk is to be achieved (e.g., reduce flood damage by 50%).</li>
+          <li><strong>Mitigation Actions:</strong> Steps to achieve goals — structural (dams, earthquake-resistant design) and non-structural (land-use regulations, hazard zoning, building codes).</li>
+          <li><strong>Action Plan for Implementation:</strong> Roles and responsibilities, timelines, resources allocated to each action.</li>
+        </ul>
+        <p style="margin-top:0.5rem">Four tools for mitigation: <strong>(1)</strong> Hazard management &amp; vulnerability reduction <strong>(2)</strong> Economic diversification <strong>(3)</strong> Political commitment <strong>(4)</strong> Public awareness.</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">4. What do you mean by hazard zoning?</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p><strong>Hazard Zoning</strong> is a non-structural mitigation measure that involves classifying areas based on their level of risk to specific hazards (e.g., earthquakes, floods). It helps manage development by restricting construction in high-risk areas.</p>
+        <p style="margin-top:0.5rem"><strong>Example — Seismic Zoning of India:</strong> India is divided into <strong>5 seismic zones (Zone II to Zone V)</strong>. Zone V is the highest risk zone (Himalayan region, NE India) where earthquakes of intensity MSK IX or greater can occur. Zone factor of 0.36 is assigned; buildings here must be earthquake-resistant.</p>
+        <div class="tip-box"><strong>Purpose:</strong> Hazard zoning helps communities and authorities make informed decisions about where to build, how to build, and where to evacuate.</div>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">5. Explain the role played by the team in disaster mitigation.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <ul>
+          <li><strong>Risk assessment:</strong> Teams assess vulnerabilities in their area and prepare mitigation plans.</li>
+          <li><strong>Implementation:</strong> Teams implement structural and non-structural measures — building inspection, awareness drives.</li>
+          <li><strong>Capacity building:</strong> Teams assess current capacity (personnel and equipment) and work to strengthen it.</li>
+          <li><strong>Coordination:</strong> Teams coordinate among diverse stakeholders — government, NGOs, community members.</li>
+          <li><strong>Community education:</strong> Conduct drills, workshops, and awareness programs to build local resilience.</li>
+        </ul>
+        <p style="margin-top:0.5rem">Coordination is the essence of management — teams ensure integrated activities for effective mitigation.</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">6. Discuss the importance of information and communication in disaster mitigation.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p>Communication is an <strong>indispensable aspect of disaster management</strong>. Key roles in mitigation:</p>
+        <ul>
+          <li><strong>Early warning:</strong> Timely dissemination of warnings allows communities to take precautions and evacuate.</li>
+          <li><strong>Public education:</strong> Informs people about risks, safety procedures, and mitigation measures.</li>
+          <li><strong>Risk assessment:</strong> Communication of risk data among agencies enables accurate vulnerability analysis.</li>
+          <li><strong>Policy dissemination:</strong> Ensures regulations (land-use, building codes) reach relevant authorities and the public.</li>
+        </ul>
+        <div class="info-box"><strong>Goal:</strong> "The goal of communication is to ensure that the hazard does not become a disaster." Without communication, even the best mitigation strategies become ineffective.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 4 -->
+  <div style="margin-bottom:2.5rem">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--accent4);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem">🎯 Chapter 4 — Disaster Preparedness</h3>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">1. What is the importance of disaster preparedness in the era of unpredictable weather conditions?</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p>Disaster preparedness is critical because:</p>
+        <ul>
+          <li><strong>Reduces impact:</strong> Preparedness aims at reduction of disaster impact by effectively responding to forecasts.</li>
+          <li><strong>Saves lives:</strong> Early warning systems and evacuation plans minimize casualties — e.g., Odisha reduced cyclone deaths significantly through preparedness.</li>
+          <li><strong>Protects vulnerable groups:</strong> Plans specifically target marginalized, poor, and handicapped who are most at risk.</li>
+          <li><strong>Ensures continuity:</strong> Stockpiling, emergency planning, and training ensure ongoing response capability.</li>
+          <li><strong>Reduces economic losses:</strong> Prepared communities recover faster with lower financial costs.</li>
+        </ul>
+        <p style="margin-top:0.5rem">With climate change increasing frequency of extreme weather, preparedness is no longer optional — it is essential.</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">2. Explain the various principles of preparedness and why they are important.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <ol>
+          <li><strong>Realistic Planning:</strong> Plans must be practical, actionable, and based on real available resources.</li>
+          <li><strong>Continuous Improvement:</strong> Plans must be regularly updated to meet changing environmental conditions.</li>
+          <li><strong>Collaboration &amp; Coordination:</strong> Multiple agencies must work together with mutual commitment.</li>
+          <li><strong>Motivation:</strong> Motivating the general public ensures community participation is sustained.</li>
+          <li><strong>Time-Bound Implementation:</strong> Preparedness actions must be completed before disasters strike — both pre- and post-disaster.</li>
+          <li><strong>All-Disaster Inclusiveness:</strong> Plans must cover all possible hazards, not just the most likely ones.</li>
+        </ol>
+        <p style="margin-top:0.5rem">These principles are important as they ensure preparedness is comprehensive, coordinated, and community-driven.</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">3. Discuss the importance of logistical readiness in disaster preparedness.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p>Logistical readiness ensures the <strong>right resources reach the right place at the right time</strong>:</p>
+        <ul>
+          <li>Controls the flow of goods and services from point of origin to point of utilization.</li>
+          <li>Ensures sufficient stock of food, medicine, blankets, water, and temporary shelters.</li>
+          <li>Maintains a fleet of emergency vehicles strategically located for rapid deployment.</li>
+          <li>Coordinates with Railways, Military, and Aviation for transport of relief materials.</li>
+          <li>Creates and manages warehouses and makeshift distribution centres for medical, water, and electricity supply.</li>
+        </ul>
+        <p style="margin-top:0.5rem">Without logistical readiness, even the best preparedness plan fails during actual disaster response.</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">4. Draw the organisational structure for disaster preparedness. Explain duties of different divisions.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p>The <strong>Disaster Preparedness Division</strong> has 5 distinct units:</p>
+        <ul>
+          <li><strong>1. Emergency Operations &amp; Preparedness Unit:</strong> 2 wings — (i) Normal times preparedness wing; (ii) Crucial time/emergency response wing. Headed by 2 Deputy Directors. Further divided into regional and zonal centres.</li>
+          <li><strong>2. Logistical Unit:</strong> Headed by Additional Director. Coordinates with Railways, Military, Aviation. Provides relief materials and ensures supply of food, medicine, and temporary shelters.</li>
+          <li><strong>3. Communications Unit:</strong> Disseminates information via news, press conferences, and promotes preparedness policies. Led by Additional Director + Public Information Officer.</li>
+          <li><strong>4. Training &amp; Development Unit:</strong> Organizes workshops and lectures on disaster preparedness. Responsible for public education.</li>
+          <li><strong>5. Plan Development, Implementation &amp; Monitoring Unit:</strong> Develops, executes, and monitors preparedness plans.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">5. Explain the importance of contingency planning in disaster preparedness. What are the contents of an emergency operational plan?</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p><strong>Contingency Planning</strong> = Plan B — a backup plan for when primary plans fail due to sudden changes in disaster severity.</p>
+        <p style="margin-top:0.5rem">Importance: In disasters like floods and tsunamis, well-made plans may fail due to sudden turn of events. Contingency planning addresses all possible scenarios in advance.</p>
+        <p style="margin-top:0.5rem">Three stages: <strong>(a) Readiness → (b) Standby → (c) Activation</strong></p>
+        <p style="margin-top:0.5rem"><strong>Contents of an Emergency Operational Plan:</strong></p>
+        <ul>
+          <li>Detailed account of all possible disaster scenarios and constraints (human and material).</li>
+          <li>Role and responsibility of each agency at every stage.</li>
+          <li>Method for updating the community about changes in the plan.</li>
+          <li>Clear communication of roles to all team members.</li>
+          <li>Copies accessible to the community.</li>
+          <li>Airport clearance and logistical coordination details.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 5 -->
+  <div style="margin-bottom:2.5rem">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--accent2);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem">🚨 Chapter 5 — Disaster Response</h3>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">1. Discuss the traditional and modern methods of response.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p><strong>Traditional Methods:</strong></p>
+        <ul>
+          <li>Community-based mutual aid — neighbours helping neighbours.</li>
+          <li>Manual search and rescue using local tools.</li>
+          <li>Traditional warning systems (bells, drums, word of mouth).</li>
+          <li>Religious and community institutions providing shelter and food.</li>
+        </ul>
+        <p style="margin-top:0.5rem"><strong>Modern Methods:</strong></p>
+        <ul>
+          <li>Incident Command System (ICS) — standardized command structure.</li>
+          <li>GIS and satellite technology for damage mapping and resource allocation.</li>
+          <li>Electronic early warning systems — Doppler radar, automated SMS alerts.</li>
+          <li>Helicopter and boat rescues, specialized NDRF teams with modern equipment.</li>
+          <li>Social media and mobile apps for communication and coordination.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">2. Write a short note on an Ideal Command Centre.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p>An <strong>Ideal Command Centre</strong> is the hub of disaster response operations. Key features:</p>
+        <ul>
+          <li><strong>Central coordination:</strong> All response agencies report to and receive directives from a single command centre.</li>
+          <li><strong>Communication infrastructure:</strong> Equipped with multiple communication channels — radio, satellite, internet.</li>
+          <li><strong>Real-time data:</strong> Receives live information on disaster situation, resource deployment, and victim needs.</li>
+          <li><strong>Clear leadership:</strong> Headed by a designated Incident Commander with clearly defined authority.</li>
+          <li><strong>Logistics management:</strong> Coordinates supply of food, medicine, manpower, and equipment.</li>
+          <li><strong>Backup systems:</strong> Has alternative power supply and redundant communication in case of failures.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">3. Discuss the security issues in disaster response.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p>Security is a major challenge during disaster response:</p>
+        <ul>
+          <li><strong>Looting and theft:</strong> Abandoned homes and relief supply convoys may be targeted by opportunists.</li>
+          <li><strong>Violence and civil unrest:</strong> Scarcity of food and water can lead to conflicts among survivors.</li>
+          <li><strong>Safety of responders:</strong> Search and rescue teams face structural dangers (building collapse, toxic environments).</li>
+          <li><strong>Fraud in relief distribution:</strong> Corruption and misallocation of relief materials.</li>
+          <li><strong>Trafficking:</strong> Vulnerable displaced persons, especially women and children, may be exploited.</li>
+        </ul>
+        <p style="margin-top:0.5rem">Security forces (police, military) must be deployed alongside relief teams to maintain law and order during disaster response.</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">4. What are the aims of disaster response?</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p>The aims of disaster response are:</p>
+        <ul>
+          <li><strong>Save lives:</strong> Immediate search and rescue of trapped and injured victims.</li>
+          <li><strong>Provide emergency relief:</strong> Food, water, medicine, and shelter for affected population.</li>
+          <li><strong>Restore critical services:</strong> Power, communication, water supply, and medical services.</li>
+          <li><strong>Manage damage:</strong> Contain secondary threats — fire, disease outbreaks, structural instability.</li>
+          <li><strong>Coordinate resources:</strong> Efficiently deploy available manpower, equipment, and materials.</li>
+          <li><strong>Protect vulnerable groups:</strong> Special attention to children, elderly, disabled, and women.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">5. Sketch the profile of an effective crisis leader.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p>An effective crisis leader possesses:</p>
+        <ul>
+          <li><strong>Decision-making ability:</strong> Makes quick, informed decisions under pressure with limited information.</li>
+          <li><strong>Communication skills:</strong> Clearly conveys directives to the team and accurate information to the public.</li>
+          <li><strong>Emotional intelligence:</strong> Manages own stress and empathizes with affected community.</li>
+          <li><strong>Coordination skills:</strong> Integrates multiple agencies and manages diverse teams effectively.</li>
+          <li><strong>Adaptability:</strong> Adjusts plans rapidly as the disaster situation evolves.</li>
+          <li><strong>Integrity and accountability:</strong> Takes responsibility for actions and outcomes, maintains public trust.</li>
+          <li><strong>Leadership skills:</strong> Motivates and inspires responders even in chaotic, high-stress environments.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 6 -->
+  <div style="margin-bottom:2.5rem">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--accent3);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem">🏗️ Chapter 6 — Disaster Recovery</h3>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">1. Discuss major medium- and long-term recovery aspects with examples.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p><strong>Medium-term Recovery (weeks–months):</strong></p>
+        <ul>
+          <li>Debris removal and site clearance.</li>
+          <li>Restoration of basic services — power, water, communication.</li>
+          <li>Provision of temporary housing and schools.</li>
+          <li>Medical rehabilitation — treating injuries and trauma.</li>
+        </ul>
+        <p style="margin-top:0.5rem"><strong>Long-term Recovery (months–years):</strong></p>
+        <ul>
+          <li>Permanent reconstruction of homes and infrastructure.</li>
+          <li>Economic rehabilitation — restoring livelihoods, agriculture, businesses.</li>
+          <li>Social rehabilitation — community rebuilding and social cohesion.</li>
+          <li>Building back better — using recovery to reduce future vulnerability.</li>
+        </ul>
+        <p style="margin-top:0.5rem"><strong>Example:</strong> After 2004 Tsunami — Temporary shelters (medium-term), then permanent concrete houses with seismic design (long-term).</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">2. Do you think recovery objectives and priorities should be set by community participation? If yes, why?</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks — Yes</span>
+        <p><strong>Yes, community participation is essential in setting recovery priorities because:</strong></p>
+        <ul>
+          <li><strong>Local knowledge:</strong> Communities know their own needs best — which houses to rebuild first, which livelihoods to restore.</li>
+          <li><strong>Ownership:</strong> When communities participate in setting goals, they feel ownership and actively participate in recovery.</li>
+          <li><strong>Equity:</strong> Ensures marginalized groups (poor, women, disabled) are not overlooked in recovery planning.</li>
+          <li><strong>Sustainability:</strong> Community-driven recovery is more sustainable and culturally appropriate.</li>
+          <li><strong>Reduces conflict:</strong> Participatory processes reduce disputes over resource allocation.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">3. Discuss the process of identifying and ascertaining the impact of a disaster.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p>The process involves:</p>
+        <ul>
+          <li><strong>Initial rapid assessment:</strong> First responders conduct a rapid survey of affected areas to identify immediate needs.</li>
+          <li><strong>Detailed damage assessment:</strong> Systematic survey of homes, infrastructure, agriculture, and economic assets damaged.</li>
+          <li><strong>Human impact assessment:</strong> Count of deaths, injuries, and displaced persons.</li>
+          <li><strong>Socio-economic assessment:</strong> Evaluation of impact on livelihoods, businesses, and essential services.</li>
+          <li><strong>Environmental assessment:</strong> Damage to forests, water bodies, soil.</li>
+          <li><strong>Satellite and GIS mapping:</strong> Remote sensing to assess large-scale damage rapidly.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">4. Explain the concept of participative rehabilitation and issues in social and economic rehabilitation.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p><strong>Participative Rehabilitation:</strong> Involves the affected community actively in planning and implementing recovery and reconstruction. Community members are not passive recipients — they contribute labour, local knowledge, and decision-making.</p>
+        <p style="margin-top:0.5rem"><strong>Issues in Social Rehabilitation:</strong></p>
+        <ul>
+          <li>Trauma and psychological distress among survivors.</li>
+          <li>Breakdown of community bonds and social networks.</li>
+          <li>Discrimination against certain groups (minorities, disabled).</li>
+        </ul>
+        <p style="margin-top:0.5rem"><strong>Issues in Economic Rehabilitation:</strong></p>
+        <ul>
+          <li>Loss of livelihoods, tools, livestock, and crops.</li>
+          <li>Lack of credit and financial support for rebuilding businesses.</li>
+          <li>Delay in compensation payment.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">5. How can the government help in facilitating payment of compensation to disaster victims?</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <ul>
+          <li><strong>State Disaster Response Fund (SDRF):</strong> Pre-allocated fund for immediate relief and compensation after declared disasters.</li>
+          <li><strong>National Disaster Response Fund (NDRF):</strong> Central fund for larger-scale disasters.</li>
+          <li><strong>Direct Benefit Transfer (DBT):</strong> Direct transfer of compensation to bank accounts, minimizing corruption.</li>
+          <li><strong>Insurance schemes:</strong> Government-sponsored crop and housing insurance for vulnerable communities.</li>
+          <li><strong>Rapid damage assessment:</strong> Quick and accurate assessment ensures timely compensation disbursement.</li>
+          <li><strong>Grievance redressal:</strong> Setting up helplines and camps for victims to register claims and receive status updates.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">6. 'The most important aspect of coping is providing counseling and psychological support' — Comment.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks — Agree</span>
+        <p><strong>Agree.</strong> Psychological impact of disasters is often underestimated but equally devastating as physical damage:</p>
+        <ul>
+          <li>Survivors experience PTSD, depression, anxiety, grief, and survivor's guilt.</li>
+          <li>Psychological trauma can prevent physical recovery — people unable to function or rebuild their lives.</li>
+          <li>Counseling helps survivors process trauma, regain confidence, and resume normal functioning.</li>
+          <li>Community psychological support rebuilds social bonds that disasters destroy.</li>
+          <li>Psychological first aid is now recognized as an essential component of disaster response, alongside medical first aid.</li>
+        </ul>
+        <p style="margin-top:0.5rem">Without mental health support, communities remain functionally impaired even after physical reconstruction is complete.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 7 -->
+  <div style="margin-bottom:2.5rem">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--accent);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem">🌐 Chapter 7 — Agencies & Stakeholders</h3>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">1a. Explain the roles and responsibilities of National and International agencies in disaster management.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p><strong>National Agencies:</strong></p>
+        <ul>
+          <li><strong>NDMA (National Disaster Management Authority):</strong> Policy formation, national disaster plan, coordination of ministries.</li>
+          <li><strong>NDRF (National Disaster Response Force):</strong> Specialized rescue and relief during disasters.</li>
+          <li><strong>Indian Red Cross:</strong> Medical aid, blood banks, and disaster relief volunteers.</li>
+        </ul>
+        <p style="margin-top:0.5rem"><strong>International Agencies:</strong></p>
+        <ul>
+          <li><strong>UN-OCHA:</strong> Coordinates international humanitarian response.</li>
+          <li><strong>UNDP:</strong> Provides development-based disaster risk reduction programs.</li>
+          <li><strong>WHO:</strong> Handles health aspects and disease control after disasters.</li>
+          <li><strong>World Food Programme (WFP):</strong> Provides food aid to affected populations.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">1b. Explain the roles and responsibilities of State and Local agencies in disaster management.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p><strong>State agencies:</strong></p>
+        <ul>
+          <li><strong>SDMA (State Disaster Management Authority):</strong> State-level policy, plan, and coordination.</li>
+          <li><strong>State Police and Fire Services:</strong> First responders in rescue and law enforcement.</li>
+          <li><strong>State Health Department:</strong> Medical camps, disease surveillance.</li>
+        </ul>
+        <p style="margin-top:0.5rem"><strong>Local agencies:</strong></p>
+        <ul>
+          <li><strong>Panchayati Raj Institutions:</strong> Grassroots disaster management and community mobilization.</li>
+          <li><strong>Municipal Corporations:</strong> Urban disaster preparedness, drainage management.</li>
+          <li><strong>Community Disaster Management Teams (DMT):</strong> First-line local response teams trained in rescue and first aid.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">2. Explain the impact and role of media in disaster management.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p><strong>Role of Media:</strong></p>
+        <ul>
+          <li><strong>Early warning dissemination:</strong> Broadcast weather alerts and evacuation advisories to millions.</li>
+          <li><strong>Public awareness:</strong> Educates the public about disaster preparedness and safety measures.</li>
+          <li><strong>Relief coordination:</strong> Reports on affected areas, attracting NGO and government relief efforts.</li>
+          <li><strong>Accountability:</strong> Holds governments and agencies accountable for relief operations.</li>
+          <li><strong>Fundraising:</strong> Mobilizes public donations for victims.</li>
+        </ul>
+        <p style="margin-top:0.5rem"><strong>Negative impact:</strong> Sensationalism and misinformation can cause panic. Media must report responsibly, providing accurate and timely information.</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">3. Discuss the importance of community-based approach to disaster management.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <ul>
+          <li><strong>First responders:</strong> Community members are always the first on the scene — before any external agency arrives.</li>
+          <li><strong>Local knowledge:</strong> Communities know vulnerable members, high-risk areas, and local resources better than outsiders.</li>
+          <li><strong>Cost-effective:</strong> Community-based disaster management is far more economical than relying entirely on government agencies.</li>
+          <li><strong>Sustainability:</strong> Communities that manage their own risks are more resilient in the long term.</li>
+          <li><strong>Empowerment:</strong> Builds local capability and confidence to handle future disasters independently.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">4. What is a philanthropic organization?</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p>A <strong>philanthropic organization</strong> is a non-profit entity driven by goodwill and social purpose, providing aid, resources, and services without expectation of profit. In disaster management:</p>
+        <ul>
+          <li>Provides financial grants, food, medical supplies, and shelter to disaster victims.</li>
+          <li>Funds disaster preparedness programs and community training.</li>
+          <li>Examples: Bill &amp; Melinda Gates Foundation, Tata Trusts, Azim Premji Foundation, CARE India.</li>
+          <li>Complements government efforts by reaching marginalized communities.</li>
+          <li>Often faster to mobilize resources than government due to fewer bureaucratic constraints.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">5. What is the role of Planning Commission in disaster management?</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p><strong>Note:</strong> The Planning Commission has been replaced by NITI Aayog (2015), but its disaster management role was:</p>
+        <ul>
+          <li><strong>Integration with development plans:</strong> Ensured disaster risk reduction was built into Five-Year Plans.</li>
+          <li><strong>Budget allocation:</strong> Allocated funds for disaster preparedness and mitigation infrastructure.</li>
+          <li><strong>Policy formulation:</strong> Contributed to the National Disaster Management Policy framework.</li>
+          <li><strong>Inter-sectoral coordination:</strong> Coordinated disaster risk reduction across multiple ministries.</li>
+        </ul>
+        <p style="margin-top:0.5rem">NITI Aayog continues this role by ensuring Sendai Framework targets are integrated into India's development planning.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 8 -->
+  <div style="margin-bottom:2.5rem">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--accent4);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem">📢 Chapter 8 — Education, Health & Environment</h3>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">1. Is education on disasters important? If Yes, Why?</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks — Yes</span>
+        <ul>
+          <li><strong>Creates awareness:</strong> People learn to identify hazards and take preventive action before disasters occur.</li>
+          <li><strong>Builds preparedness:</strong> Educated communities know evacuation routes, safe buildings, and emergency contacts.</li>
+          <li><strong>Reduces casualties:</strong> Educated populations respond faster and more effectively during disasters.</li>
+          <li><strong>Empowers communities:</strong> Education enables communities to participate in disaster management planning.</li>
+          <li><strong>Long-term resilience:</strong> Knowledge passed across generations reduces societal vulnerability over time.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">2. Through public awareness, disaster can be prevented effectively? Agree/Disagree with reasons.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks — Partially Agree</span>
+        <p><strong>Agree — because public awareness:</strong></p>
+        <ul>
+          <li>Enables people to adopt safe practices (building stronger homes, avoiding flood-prone areas).</li>
+          <li>Ensures early warning is acted upon — people who understand cyclone danger will evacuate faster.</li>
+          <li>Reduces man-made disasters caused by ignorance (chemical spills, fire hazards).</li>
+        </ul>
+        <p style="margin-top:0.5rem"><strong>Partially disagree:</strong> Natural hazards (earthquakes, tsunamis) cannot be prevented by awareness alone. Structural measures are also essential. Therefore, public awareness is a <em>necessary but not sufficient</em> tool for disaster prevention.</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">3. What is Triage? How can it help in classifying injuries?</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p><strong>Triage</strong> is a medical system for sorting patients during mass casualty events to prioritize treatment based on urgency and survivability when resources are limited.</p>
+        <p style="margin-top:0.5rem"><strong>Classification system (colour-coded):</strong></p>
+        <ul>
+          <li><span style="color:var(--accent2)"><strong>Red (Immediate):</strong></span> Life-threatening injuries that can be treated — top priority. E.g., severe bleeding, airway obstruction.</li>
+          <li><span style="color:var(--accent)"><strong>Yellow (Delayed):</strong></span> Serious injuries but not immediately life-threatening. Can wait. E.g., fractures without circulatory compromise.</li>
+          <li><span style="color:#4ade80"><strong>Green (Minor):</strong></span> Walking wounded — minor injuries needing basic treatment. E.g., small cuts, bruises.</li>
+          <li><span style="color:var(--text-muted)"><strong>Black (Expectant/Deceased):</strong></span> Fatal injuries or death. No further resources allocated.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">4. Explain the role of public health system in disaster management.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <ul>
+          <li><strong>Emergency medical response:</strong> Sets up field hospitals and mobile medical units to treat injured survivors.</li>
+          <li><strong>Disease surveillance:</strong> Monitors for outbreaks of waterborne diseases (cholera, typhoid) after floods.</li>
+          <li><strong>Vaccination campaigns:</strong> Immunizes displaced populations against epidemic-prone diseases.</li>
+          <li><strong>Mental health support:</strong> Provides counseling and psychological first aid to survivors.</li>
+          <li><strong>Water and sanitation:</strong> Ensures safe drinking water and sanitation facilities in relief camps.</li>
+          <li><strong>Pre-disaster planning:</strong> Creates medical contingency plans and stockpiles medicines and equipment.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">5. Explain the importance and role of culture in disaster management.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <ul>
+          <li><strong>Traditional knowledge:</strong> Indigenous communities often have centuries of knowledge about local hazards (e.g., reading natural warning signs of a tsunami).</li>
+          <li><strong>Community solidarity:</strong> Cultural values of cooperation and mutual aid strengthen disaster response — "vasudhaiva kutumbakam" (world is one family) in Indian culture.</li>
+          <li><strong>Religious institutions:</strong> Temples, mosques, churches serve as relief distribution centres and community shelters.</li>
+          <li><strong>Cultural sensitivity in relief:</strong> Relief operations must respect cultural norms (food, gender, religious practices) to be effective.</li>
+          <li><strong>Disaster culture:</strong> Societies with a strong "culture of preparedness" are inherently more resilient to disasters.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">6. What is a hazard map? Explain with an example.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p>A <strong>hazard map</strong> is a spatial representation (map) that shows areas at risk from specific hazards — identifying the geographic extent, severity, and probability of occurrence of hazards.</p>
+        <p style="margin-top:0.5rem"><strong>Uses:</strong> Land-use planning, risk communication, evacuation planning, prioritizing mitigation investments.</p>
+        <p style="margin-top:0.5rem"><strong>Example — India's Seismic Hazard Map:</strong> India is divided into Zones II to V. Zone V (dark red on the map) covers Himalayan region, NE India, Bhuj, Andaman &amp; Nicobar Islands — highest seismic hazard. Civil engineers use this map to design earthquake-resistant structures in these zones.</p>
+        <p style="margin-top:0.5rem"><strong>Example — Flood Hazard Map of Odisha:</strong> Shows Mahanadi Delta and coastal areas as high flood hazard zones — guides evacuation and infrastructure planning.</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">7. Explain the relationship between environmental degradation and disaster.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p>Environmental degradation <strong>increases vulnerability to disasters</strong> through multiple mechanisms:</p>
+        <ul>
+          <li><strong>Deforestation → Landslides and Floods:</strong> Trees stabilize slopes and absorb water. Without them, heavy rain causes landslides and flash floods (e.g., Uttarakhand 2013).</li>
+          <li><strong>Wetland destruction → Floods:</strong> Wetlands act as natural sponges. Draining them increases flood severity in downstream areas.</li>
+          <li><strong>Climate change → Extreme weather:</strong> GHG emissions from industrial pollution drive global warming, increasing cyclone intensity and unpredictable rainfall.</li>
+          <li><strong>Soil erosion → River bank failures:</strong> Unsustainable agriculture leads to silting of rivers, reducing flood-carrying capacity.</li>
+        </ul>
+        <p style="margin-top:0.5rem">Conclusion: Protecting the environment is fundamentally a disaster risk reduction strategy.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 9 -->
+  <div style="margin-bottom:2.5rem">
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--accent2);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem">🧠 Chapter 9 — Psycho-Social Aspects</h3>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">1. What is the process of identifying socio-psychological needs in mass emergency?</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p>The process involves understanding the <strong>4 emotional phases</strong> disaster victims go through:</p>
+        <ul>
+          <li><strong>Acute state:</strong> Individuals focus on self-survival — saving own life and family.</li>
+          <li><strong>Reaction stage:</strong> Individuals participate in search and rescue, provide medical care to others.</li>
+          <li><strong>Recovery phase:</strong> DM teams take control. Psychological needs (grief counseling, trauma therapy) become prominent.</li>
+          <li><strong>Reorientation phase:</strong> Survivors come to terms with reality — rebuilding lives, accepting loss.</li>
+        </ul>
+        <p style="margin-top:0.5rem">Needs are identified through direct observation, community surveys, interviews with survivors, and health worker reports at relief camps.</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">2. Explain the different psychological considerations in disaster management.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <ul>
+          <li><strong>PTSD (Post-Traumatic Stress Disorder):</strong> Many survivors relive trauma through flashbacks and nightmares — requires professional counseling.</li>
+          <li><strong>Grief and loss:</strong> Bereavement counseling for those who lost family members.</li>
+          <li><strong>Anxiety and fear:</strong> Survivors may develop irrational fear of future disasters — requires gradual exposure therapy.</li>
+          <li><strong>Depression:</strong> Loss of home, livelihood, and community can lead to clinical depression.</li>
+          <li><strong>Responder fatigue:</strong> Relief workers face "compassion fatigue" and burnout — need psychological support too.</li>
+          <li><strong>Community resilience:</strong> Group therapy and community rebuilding activities help restore collective mental health.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">3. How can community and individual empowerment be helpful in disaster management?</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p><strong>Individual empowerment:</strong></p>
+        <ul>
+          <li>Training individuals in first aid, CPR, and search and rescue skills.</li>
+          <li>Teaching self-preparedness — emergency kits, evacuation plans for families.</li>
+          <li>Psychological empowerment — building confidence to act independently during emergencies.</li>
+        </ul>
+        <p style="margin-top:0.5rem"><strong>Community empowerment:</strong></p>
+        <ul>
+          <li>Formation of Community Disaster Management Teams (DMT) — locally trained volunteers.</li>
+          <li>Community-level hazard mapping and risk assessment exercises.</li>
+          <li>Community-based early warning systems — village-level monitors for floods and cyclones.</li>
+          <li>Empowered communities reduce dependence on external agencies and respond faster.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">4. Explain how community building can help in developing local resilience to disasters.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <ul>
+          <li><strong>Social cohesion:</strong> Strong community bonds mean people look after each other during crises — faster mutual aid.</li>
+          <li><strong>Shared resources:</strong> Communities pool resources — tools, food, vehicles — during emergencies.</li>
+          <li><strong>Collective knowledge:</strong> Local awareness of hazards, safe areas, and evacuation routes is preserved and shared.</li>
+          <li><strong>Local leadership:</strong> Community leaders mobilize action faster than external authorities in early disaster phases.</li>
+          <li><strong>Cultural resilience:</strong> Strong communities maintain their cultural identity during recovery, which is vital for psychological healing.</li>
+        </ul>
+        <p style="margin-top:0.5rem">Resilient communities "bounce back better" — reducing both the immediate impact and long-term damage of disasters.</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-question-text">5. Explain the importance of commitment and communication in disaster management.</div>
+        <span class="qa-badge badge-exp">2 Marks</span>
+        <span class="qa-arrow">▼</span>
+      </div>
+      <div class="qa-answer">
+        <span class="mark-label">📝 2 Marks</span>
+        <p><strong>Commitment:</strong></p>
+        <ul>
+          <li>All stakeholders — government, NGOs, community — must be committed to their roles and responsibilities.</li>
+          <li>Commitment ensures plans are not just on paper but are actually practiced through drills and exercises.</li>
+          <li>Long-term commitment is needed for sustainable preparedness, as disasters are rare and attention fades between events.</li>
+        </ul>
+        <p style="margin-top:0.5rem"><strong>Communication:</strong></p>
+        <ul>
+          <li>Communication is the backbone of all disaster management phases — from early warning to recovery.</li>
+          <li>Effective communication ensures the right people receive the right information at the right time.</li>
+          <li>Poor communication during disasters leads to panic, misinformation, and delayed response — costing lives.</li>
+        </ul>
+        <div class="info-box"><strong>Together:</strong> Committed people who communicate effectively form the strongest foundation for disaster resilience.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<div class="divider"></div>
+
+
+<section id="revision">
+<div class="container">
+  <div class="section-header">
+    <span class="section-tag tag-green" style="background:rgba(74,222,128,0.15);color:#4ade80">✅ Quick Revision</span>
+    <h2>Last-Minute Revision Checklist</h2>
+    <p style="color:var(--text-muted);font-size:0.9rem;margin-top:0.5rem">Tick each item as you revise. Refresh page to reset.</p>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <h3 style="font-size:0.9rem;color:var(--accent);margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.08em">📖 Definitions (Must Know)</h3>
+
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Disaster (WHO):</strong> Significant damage, ecological disruption, loss of life requiring extraordinary external response.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Risk Formula:</strong> Risk = Hazard × Vulnerability / Capacity</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Cyclone:</strong> Intense atmospheric whirl around low-pressure centre. From Greek "Cyclos" = coils of a snake.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Earthquake:</strong> Shaking of Earth's surface due to sudden energy release in lithosphere creating seismic waves.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>MBO:</strong> Peter Drucker (1954). Collaborative objective-setting with clear accountability. Clarity + Synergy + Timeliness.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Mitigation:</strong> Proactive measures to reduce hazard impact BEFORE disaster occurs.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Epicentre:</strong> Point on Earth's surface directly above the earthquake focus/hypocenter.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Fission:</strong> Splitting heavy nucleus (U-235). E=mc². Produces radioactive waste.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Fusion:</strong> Joining light nuclei (H isotopes). E=mc². Produces helium. Used in stars.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Authority:</strong> Formal power vested by a state on an individual.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Delegation:</strong> Transfer of authority to subordinate — temporary, saves response time.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Decentralisation:</strong> Distribution of decision-making power to ground-level personnel. Essential for immediate disaster action.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Triage:</strong> Red (immediate) → Yellow (delayed) → Green (minor) → Black (deceased). Medical sorting during mass casualty.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Hazard Zoning:</strong> Non-structural mitigation classifying areas by risk level. India: Zones II–V. Zone V = highest seismicity.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Contingency Plan:</strong> Plan B for when primary plans fail. Stages: Readiness → Standby → Activation.</div></div>
+    </div>
+    <div>
+      <h3 style="font-size:0.9rem;color:var(--accent);margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.08em">🎯 Key Facts (High Yield)</h3>
+
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>IDM Phases:</strong> Mitigation → Preparedness → Response → Recovery (cyclical)</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Wave Speed:</strong> P > S > Love > Rayleigh. Rayleigh = slowest + most damaging.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Cyclone NH:</strong> Anti-clockwise. <strong>SH:</strong> Clockwise. Eye = lowest pressure, calm centre.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Earthquake types:</strong> Tectonic (most common), Volcanic, Collapse, Explosion</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>India flood:</strong> 40M hectares (12% area). Most affected: UP, Bihar, Assam, WB, <strong>Odisha</strong></div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Chernobyl 1986:</strong> Low power test + positive void coefficient + safety systems disabled + no containment</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Team stages:</strong> Forming → Storming → Norming → Performing</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Control types:</strong> Feedforward (before), Concurrent (during), Feedback (after)</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>India Seismic Zones:</strong> II (least) → V (highest). Zone V = Himalayan region, NE India, Bhuj.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Richter Scale:</strong> Invented 1935 by Charles Richter. Log₁₀ of max wave amplitude at 100 km.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Preparedness 3 A's:</strong> Aim + Action + Accountability. Goal = Reduction of disaster impact.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>6 Principles of Preparedness:</strong> Realistic Planning, Continuous Improvement, Collaboration, Motivation, Time-bound, All-hazard Inclusive.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>DM Org — 4 Divisions:</strong> Mitigation Division, Preparedness Division, Response Division, Recovery Division.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Preparedness Division — 5 Units:</strong> Emergency Ops, Logistical, Communications, Training & Development, Plan Development & Monitoring.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Hirakud Dam:</strong> Mahanadi River, Odisha. Controls floods + irrigation + generates hydroelectricity.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>Psycho-social 4 phases:</strong> Acute (self-survival) → Reaction (rescue others) → Recovery (DM teams act) → Reorientation (acceptance).</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>SWOT levels:</strong> Community level, Regional level, National level. Always apply at all 3 for full coverage.</div></div>
+      <div class="rev-item"><div class="rev-check" onclick="toggleCheck(this)"></div><div class="rev-text"><strong>HVA — 5 Steps:</strong> Identify vulnerabilities → Estimate probability → Analyze human impact → Assess property damage → Assess capacity.</div></div>
+    </div>
+  </div>
+
+  <div style="margin-top:2rem; background:linear-gradient(135deg, rgba(232,197,71,0.08), rgba(167,139,250,0.05)); border:1px solid rgba(232,197,71,0.2); border-radius:16px; padding:2rem; text-align:center">
+    <div style="font-size:2rem;margin-bottom:0.75rem">🏆</div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:0.5rem">You've Got This!</h3>
+    <p style="color:var(--text-muted);font-size:0.9rem;max-width:500px;margin:0 auto">Remember: Define first → Classify → Explain with examples → Draw IDM diagram wherever possible. For 2-mark answers: 4–5 points is enough. Write neat, structured, and confident. <strong>All 9 chapters are covered — you're ready! 🎯</strong></p>
+  </div>
+
+</div>
+</section>
+
+<!-- SCROLL TOP -->
+<button id="scrollTop" onclick="scrollToTop()" title="Back to top">↑</button>
+
+<footer style="text-align:center;padding:2rem;color:var(--text-muted);font-size:0.8rem;border-top:1px solid var(--border)">
+  CHM2042 IDM Study Hub · ITER, SOA University · B.Tech 4th Sem 2026-27 · Built for exam success 📚
+<p style="margin: 0.5rem 0;">
+        BUILT BY <strong>JASMINE JAYASMITA</strong>
+    </p>
+
+    <div style="margin-top: 0.8rem; font-size: 0.9rem;">
+        <a href="https://www.linkedin.com/in/jasminejayasmitasoa" target="_blank" style="color:var(--accent); text-decoration:none; margin:0 10px;">LinkedIn</a>
+        <span style="color:var(--border);">|</span>
+        <a href="https://www.instagram.com/jassharchive/" target="_blank" style="color:var(--accent); text-decoration:none; margin:0 10px;">Instagram</a>
+    </div>
+
+</footer>
+
+<script>
+  // Toggle QA
+  function toggleQA(el) {
+    const card = el.closest('.qa-card');
+    card.classList.toggle('open');
+  }
+
+  // Toggle revision check
+  function toggleCheck(el) {
+    el.classList.toggle('checked');
+    el.textContent = el.classList.contains('checked') ? '✓' : '';
+  }
+
+  // Filter question bank
+  function filterQs(level, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#qbankList .qa-card').forEach(card => {
+      if (level === 'all' || card.dataset.level === level) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // Scroll top button
+  window.addEventListener('scroll', () => {
+    const btn = document.getElementById('scrollTop');
+    btn.style.display = window.scrollY > 500 ? 'flex' : 'none';
+  });
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Active nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.style.color = link.getAttribute('href') === '#' + entry.target.id
+            ? 'var(--accent)' : '';
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

@@ -1,0 +1,2565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COA Study System — EET2211</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --surface2: #1a1a26;
+  --border: #2a2a3a;
+  --accent: #00e5ff;
+  --accent2: #ff6b35;
+  --accent3: #7fff00;
+  --text: #e8e8f0;
+  --text-dim: #888898;
+  --exam: #ff6b35;
+  --important: #00e5ff;
+  --easy: #7fff00;
+  --medium: #ffd700;
+  --hard: #ff4444;
+  --lab: #64c8ff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Syne', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* NAVBAR */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(10,10,15,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 1rem;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+
+.nav-logo {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--accent);
+  white-space: nowrap;
+  padding: 1rem 1.5rem 1rem 0;
+  letter-spacing: 0.05em;
+  border-right: 1px solid var(--border);
+  margin-right: 0.5rem;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  padding: 1rem 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s;
+  letter-spacing: 0.03em;
+}
+.nav-btn:hover, .nav-btn.active { color: var(--accent); }
+.nav-btn.active { border-bottom: 2px solid var(--accent); }
+
+/* MAIN */
+.main { padding-top: 56px; }
+
+/* PAGES */
+.page { display: none; padding: 2rem 1.5rem; max-width: 1000px; margin: 0 auto; }
+.page.active { display: block; }
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+.hero h1 {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.hero p {
+  color: var(--text-dim);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+/* SECTION TITLES */
+.sec-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--accent);
+  border-left: 3px solid var(--accent);
+  padding-left: 0.8rem;
+  margin: 2rem 0 1rem;
+  letter-spacing: -0.01em;
+}
+
+.sub-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent2);
+  margin: 1.5rem 0 0.5rem;
+}
+
+/* CARDS */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+}
+.card:hover { border-color: var(--accent); }
+
+/* EXAM ALERT */
+.exam-alert {
+  background: rgba(255,107,53,0.1);
+  border: 1px solid var(--accent2);
+  border-radius: 6px;
+  padding: 0.7rem 1rem;
+  margin: 0.7rem 0;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--accent2);
+}
+.exam-alert::before { content: "✍️ EXAM ALERT: "; font-weight: 700; }
+
+/* IMPORTANT BOX */
+.important {
+  background: rgba(0,229,255,0.08);
+  border-left: 3px solid var(--accent);
+  padding: 0.6rem 1rem;
+  margin: 0.7rem 0;
+  font-size: 0.88rem;
+  border-radius: 0 6px 6px 0;
+}
+.important::before { content: "⭐ "; }
+
+/* COLLAPSIBLE */
+.collapsible {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 0.7rem;
+  overflow: hidden;
+}
+.collapsible-header {
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+.collapsible-header:hover { background: var(--surface2); }
+.collapsible-header .arrow { transition: transform 0.3s; color: var(--accent); font-size: 0.8rem; flex-shrink: 0; margin-left: 0.5rem; }
+.collapsible.open .arrow { transform: rotate(180deg); }
+.collapsible-body {
+  display: none;
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.87rem;
+  line-height: 1.7;
+}
+.collapsible.open .collapsible-body { display: block; }
+
+/* DIFF TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.7rem 0;
+  font-size: 0.82rem;
+}
+th {
+  background: var(--surface2);
+  color: var(--accent);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+}
+td {
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  line-height: 1.5;
+}
+tr:hover td { background: var(--surface2); }
+
+/* CODE */
+pre, code {
+  font-family: 'DM Mono', monospace;
+  background: #0d0d14;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.2em 0.4em;
+  font-size: 0.82rem;
+  color: var(--accent3);
+}
+pre {
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 0.7rem 0;
+  line-height: 1.6;
+}
+pre code { background: none; border: none; padding: 0; }
+
+/* FORMULA */
+.formula {
+  background: #0d0d14;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 0.8rem 1rem;
+  margin: 0.7rem 0;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.9rem;
+  color: var(--accent);
+  text-align: center;
+  letter-spacing: 0.03em;
+}
+
+/* STEPS */
+.steps { list-style: none; }
+.steps li {
+  padding: 0.5rem 0 0.5rem 2rem;
+  position: relative;
+  border-left: 2px solid var(--border);
+  margin-left: 0.5rem;
+  margin-bottom: 0.3rem;
+  font-size: 0.87rem;
+  line-height: 1.6;
+}
+.steps li::before {
+  content: attr(data-step);
+  position: absolute;
+  left: -0.9rem;
+  top: 0.5rem;
+  background: var(--accent);
+  color: var(--bg);
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: 'Space Mono', monospace;
+}
+
+/* BADGES */
+.badge {
+  display: inline-block;
+  padding: 0.2em 0.6em;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  margin-right: 0.3rem;
+}
+.badge-easy { background: rgba(127,255,0,0.15); color: var(--easy); border: 1px solid var(--easy); }
+.badge-medium { background: rgba(255,215,0,0.15); color: var(--medium); border: 1px solid var(--medium); }
+.badge-hard { background: rgba(255,68,68,0.15); color: var(--hard); border: 1px solid var(--hard); }
+.badge-pyq { background: rgba(0,229,255,0.15); color: var(--accent); border: 1px solid var(--accent); }
+.badge-assign { background: rgba(255,107,53,0.15); color: var(--accent2); border: 1px solid var(--accent2); }
+.badge-lab { background: rgba(100,200,255,0.15); color: var(--lab); border: 1px solid var(--lab); }
+
+/* MNEMONIC */
+.mnemonic {
+  background: rgba(127,255,0,0.07);
+  border: 1px solid rgba(127,255,0,0.3);
+  border-radius: 6px;
+  padding: 0.7rem 1rem;
+  margin: 0.7rem 0;
+  font-size: 0.85rem;
+  color: var(--easy);
+}
+.mnemonic::before { content: "🧠 MNEMONIC: "; font-weight: 700; font-family: 'Space Mono', monospace; font-size: 0.75rem; }
+
+/* PROGRESS */
+.progress-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+.progress-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+.progress-card .topic-name { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; }
+.progress-bar { height: 4px; background: var(--border); border-radius: 2px; margin: 0.5rem 0; }
+.progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.5s; }
+.topic-btns { display: flex; gap: 0.4rem; justify-content: center; margin-top: 0.5rem; }
+.topic-btn {
+  padding: 0.3rem 0.5rem;
+  font-size: 0.7rem;
+  border: 1px solid var(--border);
+  background: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--text-dim);
+  transition: all 0.2s;
+}
+.topic-btn:hover { border-color: var(--accent); color: var(--accent); }
+.topic-btn.done { background: rgba(127,255,0,0.2); border-color: var(--easy); color: var(--easy); }
+.topic-btn.wrong { background: rgba(255,68,68,0.2); border-color: var(--hard); color: var(--hard); }
+.topic-btn.star { background: rgba(255,215,0,0.2); border-color: var(--medium); color: var(--medium); }
+
+/* QUICK REVISION CARD */
+.rev-card {
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  border-left: 3px solid var(--accent2);
+}
+.rev-card h4 { font-size: 0.9rem; color: var(--accent2); margin-bottom: 0.4rem; }
+.rev-card p { font-size: 0.82rem; line-height: 1.6; color: var(--text-dim); }
+
+/* DIAGRAM */
+.diagram-box {
+  background: #0d0d14;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 0.8rem 0;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--accent3);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* GRID 2 */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+
+/* MARK SCHEME */
+.marks { font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--accent); float: right; }
+
+p { margin-bottom: 0.5rem; line-height: 1.7; font-size: 0.88rem; }
+ul, ol { margin: 0.5rem 0 0.5rem 1.5rem; font-size: 0.87rem; line-height: 1.8; }
+strong { color: var(--accent); }
+hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+.tag { font-family: 'Space Mono', monospace; font-size: 0.72rem; background: var(--surface2); padding: 0.15em 0.5em; border-radius: 3px; margin-right: 0.3rem; }
+
+.write-this {
+  background: rgba(255,107,53,0.12);
+  border: 1px dashed var(--accent2);
+  border-radius: 6px;
+  padding: 0.7rem 1rem;
+  margin: 0.7rem 0;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+.write-this::before { content: "✏️ Write this exactly in exam: "; font-weight: 700; font-style: normal; color: var(--accent2); font-size: 0.75rem; display: block; margin-bottom: 0.3rem; }
+
+/* SCROLL TO TOP */
+#scrollTop {
+  position: fixed;
+  bottom: 1.5rem; right: 1.5rem;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: none;
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+}
+
+/* YOUTUBE CARDS */
+.yt-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.6rem;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.2s;
+}
+.yt-card:hover { border-color: #ff0000; }
+.yt-icon { font-size: 1.8rem; }
+.yt-info .yt-title { font-weight: 600; font-size: 0.88rem; }
+.yt-info .yt-ch { font-size: 0.75rem; color: var(--text-dim); font-family: 'Space Mono', monospace; }
+
+/* FILL IN BLANKS */
+.reveal-btn {
+  background: none; border: 1px solid var(--border);
+  border-radius: 6px; color: var(--text-dim); font-family: 'Space Mono', monospace;
+  font-size: 0.65rem; padding: 0.25rem 0.6rem; cursor: pointer;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  transition: all 0.2s; margin-top: 0.5rem;
+}
+.reveal-btn:hover { border-color: var(--accent); color: var(--accent); }
+.blank-reveal { font-family: 'DM Mono', monospace; color: var(--accent3); font-size: 0.85rem; margin-left: 0.5rem; }
+
+/* STAT CARD */
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px; padding: 1.2rem; text-align: center;
+}
+.stat-num { font-size: 2.5rem; font-weight: 800; color: var(--accent); line-height: 1; }
+.stat-label { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--text-dim); margin-top: 0.3rem; }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">COA·EET2211</div>
+    <button class="nav-btn active" onclick="showPage('home')">🏠 Home</button>
+    <button class="nav-btn" onclick="showPage('ch1')">Ch.1 Basics</button>
+    <button class="nav-btn" onclick="showPage('ch2')">Ch.2 Performance</button>
+    <button class="nav-btn" onclick="showPage('ch3')">Ch.3 Function</button>
+    <button class="nav-btn" onclick="showPage('ch4')">Ch.4 Cache</button>
+    <button class="nav-btn" onclick="showPage('ch5')">Ch.5 Arithmetic</button>
+    <button class="nav-btn" onclick="showPage('experiments')">🧪 Lab Exps</button>
+    <button class="nav-btn" onclick="showPage('vhdl')">VHDL</button>
+    <button class="nav-btn" onclick="showPage('qbank')">📚 Q-Bank</button>
+    <button class="nav-btn" onclick="showPage('assign')">📝 Assignments</button>
+    <button class="nav-btn" onclick="showPage('fillblanks')">✍ Fill Blanks</button>
+    <button class="nav-btn" onclick="showPage('revision')">⚡ Quick Rev</button>
+    <button class="nav-btn" onclick="showPage('progress')">📊 Progress</button>
+  </div>
+</nav>
+
+<div class="main">
+
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <h1>COA STUDY SYSTEM</h1>
+    <p>EET2211 · B.Tech 4th Sem · ITER, SOA University · 2025-26</p>
+    <p style="margin: 0.5rem 0;">
+        BUILT BY <strong>JASMINE JAYASMITA</strong>
+    </p>
+
+    <div style="margin-top: 0.8rem; font-size: 0.9rem;">
+        <a href="https://www.linkedin.com/in/jasminejayasmitasoa" target="_blank" style="color:var(--accent); text-decoration:none; margin:0 10px;">LinkedIn</a>
+        <span style="color:var(--border);">|</span>
+        <a href="https://www.instagram.com/jassharchive/" target="_blank" style="color:var(--accent); text-decoration:none; margin:0 10px;">Instagram</a>
+    </div>
+
+  </div>
+  <div class="grid-2">
+    <div class="card" onclick="showPage('ch1')" style="cursor:pointer">
+      <div style="font-size:1.5rem">📘</div>
+      <div class="sub-title" style="margin-top:0.3rem">Chapter 1</div>
+      <p>Basic Concepts & Computer Evolution</p>
+      <div><span class="badge badge-easy">CO1</span><span class="tag">L1</span></div>
+    </div>
+    <div class="card" onclick="showPage('ch2')" style="cursor:pointer">
+      <div style="font-size:1.5rem">⚙️</div>
+      <div class="sub-title" style="margin-top:0.3rem">Chapter 2</div>
+      <p>Performance Issues & Metrics</p>
+      <div><span class="badge badge-medium">CO2</span><span class="tag">L2</span></div>
+    </div>
+    <div class="card" onclick="showPage('ch3')" style="cursor:pointer">
+      <div style="font-size:1.5rem">🔁</div>
+      <div class="sub-title" style="margin-top:0.3rem">Chapter 3</div>
+      <p>Computer Function & Interconnection</p>
+      <div><span class="badge badge-medium">CO3</span><span class="tag">L2</span></div>
+    </div>
+    <div class="card" onclick="showPage('ch4')" style="cursor:pointer">
+      <div style="font-size:1.5rem">💾</div>
+      <div class="sub-title" style="margin-top:0.3rem">Chapter 4</div>
+      <p>Cache Memory</p>
+      <div><span class="badge badge-hard">CO4</span><span class="tag">L4</span></div>
+    </div>
+    <div class="card" onclick="showPage('ch5')" style="cursor:pointer">
+      <div style="font-size:1.5rem">🔢</div>
+      <div class="sub-title" style="margin-top:0.3rem">Chapter 5</div>
+      <p>Computer Arithmetic · 2's Complement · Booth's · IEEE 754</p>
+      <div><span class="badge badge-hard">CO4</span><span class="tag">L4</span></div>
+    </div>
+    <div class="card" onclick="showPage('experiments')" style="cursor:pointer">
+      <div style="font-size:1.5rem">🧪</div>
+      <div class="sub-title" style="margin-top:0.3rem">Lab Experiments</div>
+      <p>Lab I: Boolean Circuits · Lab II: Adder & Subtractor · VHDL</p>
+      <div><span class="badge badge-lab">LAB</span></div>
+    </div>
+    <div class="card" onclick="showPage('vhdl')" style="cursor:pointer">
+      <div style="font-size:1.5rem">💡</div>
+      <div class="sub-title" style="margin-top:0.3rem">VHDL Master Trainer</div>
+      <p>Logic → VHDL · Step by Step · Practice Problems</p>
+      <div><span class="badge badge-lab">VHDL</span></div>
+    </div>
+    <div class="card" onclick="showPage('qbank')" style="cursor:pointer">
+      <div style="font-size:1.5rem">📚</div>
+      <div class="sub-title" style="margin-top:0.3rem">Question Bank</div>
+      <p>PYQs + Assignments merged. Easy → Hard</p>
+    </div>
+    <div class="card" onclick="showPage('assign')" style="cursor:pointer">
+      <div style="font-size:1.5rem">📝</div>
+      <div class="sub-title" style="margin-top:0.3rem">Assignments</div>
+      <p>Assignment 1 & 2 solved step-by-step</p>
+    </div>
+    <div class="card" onclick="showPage('fillblanks')" style="cursor:pointer">
+      <div style="font-size:1.5rem">✍️</div>
+      <div class="sub-title" style="margin-top:0.3rem">Fill in the Blanks</div>
+      <p>Test your knowledge with reveal answers</p>
+    </div>
+    <div class="card" onclick="showPage('revision')" style="cursor:pointer">
+      <div style="font-size:1.5rem">⚡</div>
+      <div class="sub-title" style="margin-top:0.3rem">Quick Revision</div>
+      <p>Ultra-short notes before exam</p>
+    </div>
+    <div class="card" onclick="showPage('progress')" style="cursor:pointer">
+      <div style="font-size:1.5rem">📊</div>
+      <div class="sub-title" style="margin-top:0.3rem">Progress Tracker</div>
+      <p>Track done / wrong / important topics</p>
+    </div>
+  </div>
+  <div class="exam-alert" style="font-size:0.82rem;margin-top:1rem">End Semester: 60 marks · Mid Semester: 30 marks · Assignment: 20 marks each (2 assignments)</div>
+</div>
+
+<!-- CHAPTER 1 -->
+<div id="page-ch1" class="page">
+  <div class="hero"><h1>Chapter 1</h1><p>Basic Concepts & Computer Evolution — CO1</p></div>
+
+  <div class="sec-title">📘 Structural Components</div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      1.1 Single Processor Computer — Main Components <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p>A single processor computer has four main structural components:</p>
+      <table>
+        <tr><th>Component</th><th>Definition</th></tr>
+        <tr><td><strong>CPU (Central Processing Unit)</strong></td><td>Controls operation and performs data processing. Contains ALU, Control Unit, and Registers.</td></tr>
+        <tr><td><strong>Main Memory</strong></td><td>Stores data and programs currently being used. Volatile; loses data when power off.</td></tr>
+        <tr><td><strong>I/O (Input/Output)</strong></td><td>Moves data between computer and external environment (keyboard, display, disk).</td></tr>
+        <tr><td><strong>System Interconnection</strong></td><td>Mechanism (bus) that connects CPU, memory, and I/O and transfers data between them.</td></tr>
+      </table>
+      <div class="write-this">A single processor computer system consists of four main structural components: (1) Central Processing Unit (CPU), (2) Main Memory, (3) I/O, and (4) System Interconnection (Bus). The CPU controls all operations and performs data processing. Main memory stores programs and data in use. I/O provides communication with the external environment. The system interconnection links all components.</div>
+      <div class="diagram-box">
+        ┌─────────────────────────────────────────────────┐
+        │              COMPUTER SYSTEM                    │
+        │                                                 │
+        │  ┌──────────┐    ┌──────────┐   ┌──────────┐   │
+        │  │   CPU    │    │  MAIN    │   │   I/O    │   │
+        │  │ ┌──────┐ │    │  MEMORY  │   │ MODULE   │   │
+        │  │ │ ALU  │ │    │          │   │          │   │
+        │  │ ├──────┤ │    │ Programs │   │ Keyboard │   │
+        │  │ │ CU   │ │    │ & Data   │   │ Monitor  │   │
+        │  │ ├──────┤ │    │          │   │ Disk     │   │
+        │  │ │Regs  │ │    │          │   │          │   │
+        │  └────┬─────┘    └─────┬────┘   └────┬─────┘   │
+        │       │                │              │         │
+        │  ═════╧════════════════╧══════════════╧═════    │
+        │              SYSTEM BUS                         │
+        └─────────────────────────────────────────────────┘
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      1.2 Multicore Computer System — Main Components <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p>A multicore system has <strong>multiple processors (cores) on a single chip</strong>. Each core has its own ALU, registers, and cache (L1/L2). They share L3 cache and main memory.</p>
+      <table>
+        <tr><th>Component</th><th>Definition</th></tr>
+        <tr><td><strong>Multiple Cores</strong></td><td>Two or more processors (cores) on a single chip, each with its own ALU, CU, and registers.</td></tr>
+        <tr><td><strong>L1 Cache (per core)</strong></td><td>Fastest, smallest cache private to each core. Holds frequently used data.</td></tr>
+        <tr><td><strong>L2/L3 Cache (shared)</strong></td><td>Larger shared cache among cores; reduces main memory access.</td></tr>
+        <tr><td><strong>Main Memory</strong></td><td>Shared RAM accessible by all cores.</td></tr>
+        <tr><td><strong>I/O Interface</strong></td><td>Handles data exchange with peripherals.</td></tr>
+        <tr><td><strong>Interconnect (NoC/Bus)</strong></td><td>Network connecting cores, cache, and memory.</td></tr>
+      </table>
+      <div class="write-this">A multicore computer system contains multiple processing cores on a single chip. Each core has its own registers and L1 cache. A shared L2/L3 cache is accessible by all cores. All cores share the main memory through a high-speed interconnect.</div>
+    </div>
+  </div>
+
+  <div class="sec-title">🧠 Key Differences (Exam Favourite!)</div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Microprocessor vs Microcontroller <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <table>
+        <tr><th>Aspect</th><th>Microprocessor</th><th>Microcontroller</th></tr>
+        <tr><td>Definition</td><td>CPU on a single chip; no built-in memory/I/O</td><td>CPU + Memory + I/O all on one chip</td></tr>
+        <tr><td>Memory</td><td>External RAM/ROM required</td><td>On-chip RAM/ROM/Flash</td></tr>
+        <tr><td>I/O Ports</td><td>Requires external chips</td><td>Built-in GPIO, UART, SPI, I2C</td></tr>
+        <tr><td>Cost</td><td>Higher system cost</td><td>Lower cost (fewer external chips)</td></tr>
+        <tr><td>Power</td><td>Higher power consumption</td><td>Low power (ideal for embedded)</td></tr>
+        <tr><td>Use case</td><td>PCs, workstations, servers</td><td>Washing machines, IoT, robotics</td></tr>
+        <tr><td>Examples</td><td>Intel Core i7, AMD Ryzen</td><td>Arduino (ATmega328), 8051, ARM Cortex-M</td></tr>
+      </table>
+      <div class="mnemonic">Micro-Processor = Process Only | Micro-Controller = Controller of everything (has memory+I/O built in)</div>
+      <div class="write-this">A microprocessor is a CPU on a single chip that requires external memory and I/O. A microcontroller integrates CPU, memory (RAM/ROM), and I/O ports on a single chip, making it ideal for embedded applications.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Computer Organization vs Computer Architecture <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <table>
+        <tr><th>Aspect</th><th>Computer Organization</th><th>Computer Architecture</th></tr>
+        <tr><td>Definition</td><td>How the hardware components are physically arranged and interconnected to realize the architecture</td><td>Attributes visible to the programmer; the logical design of the computer</td></tr>
+        <tr><td>Focus</td><td>Implementation (HOW it works)</td><td>Design (WHAT it does)</td></tr>
+        <tr><td>Examples</td><td>Control signals, memory technology, bus width</td><td>Instruction set, addressing modes, data types</td></tr>
+        <tr><td>Changes</td><td>Can change without affecting architecture</td><td>Defines the interface seen by the programmer</td></tr>
+      </table>
+      <div class="write-this">Computer Architecture refers to the attributes of a system visible to a programmer — such as instruction sets, data types, and addressing modes. Computer Organization refers to the operational units and their interconnections that realize the architectural specifications.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Embedded System vs Deeply Embedded System <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <table>
+        <tr><th>Aspect</th><th>Embedded System</th><th>Deeply Embedded System</th></tr>
+        <tr><td>Definition</td><td>Computer system designed for specific tasks within a larger device</td><td>Embedded system with extreme constraints (power, size, cost) — no visible computer</td></tr>
+        <tr><td>OS</td><td>May have lightweight RTOS</td><td>Typically no OS; bare-metal programming</td></tr>
+        <tr><td>Interface</td><td>May have simple UI</td><td>No user interface</td></tr>
+        <tr><td>Examples</td><td>Set-top boxes, printers, ATMs</td><td>Pacemakers, airbag sensors, RFID chips</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="sec-title">☁️ Cloud Computing Services</div>
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Cloud Computing Models (with Diagram) <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p><strong>Cloud computing</strong> is the delivery of computing services (servers, storage, databases, networking, software) over the internet ("the cloud") to offer faster innovation, flexible resources, and economies of scale.</p>
+      <p><strong>Three Service Models:</strong></p>
+      <table>
+        <tr><th>Service</th><th>Full Form</th><th>What You Get</th><th>Example</th></tr>
+        <tr><td><strong>IaaS</strong></td><td>Infrastructure as a Service</td><td>Virtualized hardware: VMs, storage, networking</td><td>AWS EC2, Google Compute Engine</td></tr>
+        <tr><td><strong>PaaS</strong></td><td>Platform as a Service</td><td>Development platform; OS + runtime + DB</td><td>Google App Engine, Heroku</td></tr>
+        <tr><td><strong>SaaS</strong></td><td>Software as a Service</td><td>Ready-to-use applications via browser</td><td>Gmail, Dropbox, Salesforce</td></tr>
+      </table>
+      <div class="diagram-box">
+          ┌─────────────────────────────────────────┐
+          │         CLOUD COMPUTING SERVICES        │
+          ├──────────────┬──────────────┬───────────┤
+          │    SaaS      │     PaaS     │   IaaS    │
+          │ Applications │  Platform    │  Infra    │
+          │    Data      │  Runtime     │  Storage  │
+          │  ─ ─ ─ ─ ─   │  Middleware  │  Servers  │
+          │  OS/Runtime  │  ─ ─ ─ ─ ─   │  Network  │
+          │  Middleware  │  OS/Runtime  │ ─ ─ ─ ─ ─ │
+          │  [Managed]   │  [Managed]   │[You Mng.] │
+          ├──────────────┴──────────────┴───────────┤
+          │          PHYSICAL INFRASTRUCTURE        │
+          └─────────────────────────────────────────┘
+          You manage ↑ more as you go from SaaS→IaaS
+      </div>
+      <div class="mnemonic">IaaS = "I am Server" | PaaS = "Platform to build" | SaaS = "Software already done"</div>
+      <div class="write-this">Cloud computing provides three service models: (1) IaaS — provides virtualized computing infrastructure (VMs, storage, networking); (2) PaaS — provides a development platform including OS, runtime, and middleware; (3) SaaS — provides ready-to-use software applications over the internet. Users can access these services on-demand, paying only for what they use.</div>
+    </div>
+  </div>
+
+  <div class="sec-title">🚀 Techniques to Increase Microprocessor Speed</div>
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      All Techniques (Exam Important!) <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <table>
+        <tr><th>#</th><th>Technique</th><th>Explanation</th></tr>
+        <tr><td>1</td><td><strong>Increase Hardware Speed</strong></td><td>Using faster transistors (GaAs instead of Si) and increasing clock frequency.</td></tr>
+        <tr><td>2</td><td><strong>Increase Size of Cache</strong></td><td>More on-chip cache reduces slow main memory access time.</td></tr>
+        <tr><td>3</td><td><strong>Change the Processor Organization/Architecture</strong></td><td>Use pipelining, superscalar design to execute multiple instructions simultaneously.</td></tr>
+        <tr><td>4</td><td><strong>Increase Number of Processors</strong></td><td>Multicore or multiprocessor systems allow parallel execution.</td></tr>
+        <tr><td>5</td><td><strong>Reduce Memory Access Time</strong></td><td>Wider buses, DMA, memory interleaving to reduce bottleneck.</td></tr>
+      </table>
+      <div class="exam-alert">Frequently asked in mid-sem. Remember all 5 with one-line definitions.</div>
+    </div>
+  </div>
+
+  <div class="sec-title">⚠️ Obstacles When Clock Speed & Logic Density Increase</div>
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Obstacles / Challenges <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <table>
+        <tr><th>Obstacle</th><th>Description</th></tr>
+        <tr><td><strong>Power Dissipation</strong></td><td>Higher clock = more switching = more heat. Requires expensive cooling.</td></tr>
+        <tr><td><strong>RC Delay</strong></td><td>As wires get thinner (high density), resistance and capacitance increase, slowing signals.</td></tr>
+        <tr><td><strong>Memory Latency</strong></td><td>CPU gets faster but memory doesn't keep up → memory wall problem.</td></tr>
+        <tr><td><strong>Memory Bandwidth</strong></td><td>Even if memory is fast enough, data transfer rate becomes a bottleneck.</td></tr>
+      </table>
+      <div class="write-this">As clock speed and logic density increase, four major obstacles arise: (1) Power dissipation increases leading to thermal issues; (2) RC delay increases as wire dimensions shrink; (3) Memory latency becomes a bottleneck as CPU outpaces memory speed; (4) Memory bandwidth limits data transfer rates.</div>
+    </div>
+  </div>
+
+  <div class="sec-title">🎥 YouTube Resources</div>
+  <a class="yt-card" href="https://www.youtube.com/results?search_query=computer+organization+basics+neso+academy" target="_blank">
+    <div class="yt-icon">▶️</div>
+    <div class="yt-info"><div class="yt-title">Computer Organization & Architecture Basics</div><div class="yt-ch">Search: "COA basics Neso Academy"</div></div>
+  </a>
+  <a class="yt-card" href="https://www.youtube.com/results?search_query=cloud+computing+IaaS+PaaS+SaaS+explained" target="_blank">
+    <div class="yt-icon">▶️</div>
+    <div class="yt-info"><div class="yt-title">Cloud Computing IaaS PaaS SaaS Explained</div><div class="yt-ch">Search: "cloud computing services explained simply"</div></div>
+  </a>
+  <a class="yt-card" href="https://www.youtube.com/results?search_query=microprocessor+vs+microcontroller+difference" target="_blank">
+    <div class="yt-icon">▶️</div>
+    <div class="yt-info"><div class="yt-title">Microprocessor vs Microcontroller</div><div class="yt-ch">Search: "microprocessor vs microcontroller difference"</div></div>
+  </a>
+</div>
+
+<!-- CHAPTER 2 -->
+<div id="page-ch2" class="page">
+  <div class="hero"><h1>Chapter 2</h1><p>Performance Issues — CO2 · Little's Law · Amdahl's Law · CPI · MIPS</p></div>
+
+  <div class="sec-title">📐 Key Formulas — MUST MEMORIZE</div>
+  <div class="formula">Little's Law: N = λ × T<br><small style="color:var(--text-dim)">N = avg items in system | λ = arrival rate | T = avg time in system</small></div>
+  <div class="formula">Amdahl's Law (Speedup): Sp = 1 / [(1-f) + f/N]<br><small style="color:var(--text-dim)">f = fraction enhanced | N = speedup factor of enhanced part</small></div>
+  <div class="formula">Effective CPI = Σ(IC_i × CPI_i) / Total IC</div>
+  <div class="formula">CPU Execution Time = IC × CPI × T_clock = IC × CPI / f_clock</div>
+  <div class="formula">MIPS = f_clock / (CPI × 10⁶) = IC / (T_exec × 10⁶)</div>
+
+  <div class="sec-title">⚙️ Little's Law — Solved Problems</div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q7: Hospital — 6 patients/hr, 3 in hospital. Find T. <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <ul class="steps">
+        <li data-step="1">Given: λ = 6 patients/hr, N = 3 patients</li>
+        <li data-step="2">Formula: N = λ × T → T = N/λ</li>
+        <li data-step="3">T = 3/6 = <strong>0.5 hours = 30 minutes</strong></li>
+      </ul>
+      <div class="write-this">Using Little's Law: T = N/λ = 3/6 = 0.5 hours. Each patient spends an average of 0.5 hours (30 minutes) in the hospital.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q8: Coffee shop — 90 customers/hr, 5 waiting. Find T. <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <ul class="steps">
+        <li data-step="1">Given: λ = 90/hr, N = 5</li>
+        <li data-step="2">T = N/λ = 5/90</li>
+        <li data-step="3">T = <strong>1/18 hr ≈ 3.33 minutes</strong></li>
+      </ul>
+      <div class="write-this">T = N/λ = 5/90 = 1/18 hours ≈ 3.33 minutes per customer.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q9: Donut shop — N=6, T=3 min. Find λ (customers/hr). <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <ul class="steps">
+        <li data-step="1">Given: N = 6, T = 3 min = 3/60 hr = 0.05 hr</li>
+        <li data-step="2">λ = N/T = 6/0.05</li>
+        <li data-step="3">λ = <strong>120 customers/hour</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q10: Wine rack — 360 bottles, 12/day served. Find T. <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <ul class="steps">
+        <li data-step="1">Given: N = 360, λ = 12/day</li>
+        <li data-step="2">T = N/λ = 360/12</li>
+        <li data-step="3">T = <strong>30 days</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q11: Pizza shop — 400 pizzas/week, ½ lb dough each, 70 lb inventory. <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <ul class="steps">
+        <li data-step="1">λ = 400 × 0.5 = 200 lb/week (dough used)</li>
+        <li data-step="2">N = 70 lb</li>
+        <li data-step="3">T = N/λ = 70/200 = <strong>0.35 weeks ≈ 2.45 days</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q12: Coffee stall — 120/hr, wait 3 min. Find queue length N. <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <ul class="steps">
+        <li data-step="1">λ = 120/hr, T = 3 min = 0.05 hr</li>
+        <li data-step="2">N = λ × T = 120 × 0.05</li>
+        <li data-step="3">N = <strong>6 customers</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-title">🚀 Amdahl's Law — Speedup Problems</div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q13: 40% code enhanced 2.3× faster. Find overall speedup. <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <ul class="steps">
+        <li data-step="1">f = 0.4, N = 2.3</li>
+        <li data-step="2">Sp = 1 / [(1 - 0.4) + 0.4/2.3]</li>
+        <li data-step="3">= 1 / [0.6 + 0.1739]</li>
+        <li data-step="4">= 1 / 0.7739 = <strong>1.292</strong></li>
+      </ul>
+      <div class="write-this">Using Amdahl's Law: Sp = 1/[(1-f) + f/N] = 1/[0.6 + 0.4/2.3] = 1/0.7739 ≈ 1.292. The overall speedup is approximately 1.29.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q14: Sp=2.25, p=15 processors. Find f (parallel fraction). <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <ul class="steps">
+        <li data-step="1">2.25 = 1/[(1-f) + f/15]</li>
+        <li data-step="2">(1-f) + f/15 = 1/2.25 = 0.4444</li>
+        <li data-step="3">1 - f + f/15 = 0.4444</li>
+        <li data-step="4">1 - 14f/15 = 0.4444 → 14f/15 = 0.5556</li>
+        <li data-step="5">f = 0.5556 × 15/14 = <strong>0.595 ≈ 59.5%</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      PYQ: 40% code enhanced to 4.3× faster. Find speedup. (End Sem 2025) <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <span class="badge badge-pyq">PYQ EndSem 2025</span>
+      <ul class="steps">
+        <li data-step="1">f = 0.4, N = 4.3</li>
+        <li data-step="2">Sp = 1/[(1-0.4) + 0.4/4.3] = 1/[0.6 + 0.0930]</li>
+        <li data-step="3">= 1/0.6930 = <strong>1.443</strong></li>
+      </ul>
+      <div class="write-this">Sp = 1/[(1-0.4) + 0.4/4.3] = 1/0.6930 ≈ 1.443. The overall improvement factor is 1.443.</div>
+      <div class="exam-alert">This exact question appeared in End-Sem May 2025! Very likely to appear again.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      PYQ: 30% code enhanced 2.5×. Find overall speedup. (Mid-Sem 2025) <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <span class="badge badge-pyq">PYQ MidSem Aug 2025</span>
+      <ul class="steps">
+        <li data-step="1">f = 0.3, N = 2.5</li>
+        <li data-step="2">Sp = 1/[(1-0.3) + 0.3/2.5] = 1/[0.7 + 0.12] = 1/0.82</li>
+        <li data-step="3"><strong>Sp ≈ 1.22</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-title">📊 CPI & MIPS Problems</div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q15: 40MHz CPU — Find Effective CPI, Execution Time, MIPS <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <span class="badge badge-assign">Assignment 1</span>
+      <table>
+        <tr><th>Type</th><th>Count</th><th>CPI</th><th>Count×CPI</th></tr>
+        <tr><td>Integer Arithmetic</td><td>45000</td><td>1</td><td>45000</td></tr>
+        <tr><td>Data Transfer</td><td>32000</td><td>2</td><td>64000</td></tr>
+        <tr><td>Floating Point</td><td>15000</td><td>2</td><td>30000</td></tr>
+        <tr><td>Control Transfer</td><td>8000</td><td>2</td><td>16000</td></tr>
+        <tr><td><strong>TOTAL</strong></td><td><strong>100000</strong></td><td></td><td><strong>155000</strong></td></tr>
+      </table>
+      <ul class="steps">
+        <li data-step="1">Effective CPI = 155000/100000 = <strong>1.55</strong></li>
+        <li data-step="2">T_exec = IC × CPI / f = 100000 × 1.55 / (40×10⁶) = <strong>3.875 ms</strong></li>
+        <li data-step="3">MIPS = f/(CPI×10⁶) = 40/(1.55) = <strong>25.81 MIPS</strong></li>
+      </ul>
+      <div class="write-this">Effective CPI = Σ(IC_i × CPI_i)/Total_IC = 155000/100000 = 1.55. Execution Time = IC × CPI / f_clock = 100000 × 1.55 / 40×10⁶ = 3.875 ms. MIPS Rate = f_clock/(CPI × 10⁶) = 40/1.55 ≈ 25.81 MIPS.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      PYQ: 200MHz &amp; 300MHz processor — same instruction mix. Find CPI &amp; MIPS. <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <span class="badge badge-pyq">PYQ MidSem 2025</span>
+      <table>
+        <tr><th>Type</th><th>Count</th><th>CPI</th><th>Total Cycles</th></tr>
+        <tr><td>Integer Arith.</td><td>400000</td><td>1</td><td>400000</td></tr>
+        <tr><td>Data Transfer</td><td>350000</td><td>2</td><td>700000</td></tr>
+        <tr><td>Floating Point</td><td>200000</td><td>3</td><td>600000</td></tr>
+        <tr><td>Control</td><td>50000</td><td>2</td><td>100000</td></tr>
+        <tr><td><strong>Total</strong></td><td>1000000</td><td></td><td>1800000</td></tr>
+      </table>
+      <ul class="steps">
+        <li data-step="1">CPI = 1800000/1000000 = <strong>1.8</strong></li>
+        <li data-step="2">MIPS @200MHz = 200/1.8 = <strong>111.11 MIPS</strong></li>
+        <li data-step="3">MIPS @300MHz = 300/1.8 = <strong>166.67 MIPS</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q16: VAX 11/780 vs IBM RS/6000 — CISC vs RISC comparison <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <span class="badge badge-assign">Assignment 1</span>
+      <p>VAX: 5 MHz, 1 MIPS, CPU time = 12x. IBM: 25 MHz, 18 MIPS, CPU time = x</p>
+      <ul class="steps">
+        <li data-step="1">For IBM: CPU Time = IC/(MIPS×10⁶) = IC_IBM/(18×10⁶)</li>
+        <li data-step="2">For VAX: CPU Time = 12x = IC_VAX/(1×10⁶)</li>
+        <li data-step="3"><strong>CPI values:</strong> VAX CPI = f/(MIPS×10⁶) = 5/1 = 5. IBM CPI = 25/18 ≈ 1.39</li>
+        <li data-step="4">IC_VAX/IC_IBM = (MIPS_IBM × T_IBM)/(MIPS_VAX × T_VAX) = (18×x)/(1×12x) = <strong>1.5</strong></li>
+      </ul>
+      <div class="write-this">VAX CPI = Clock Freq/MIPS = 5/1 = 5. IBM CPI = 25/18 ≈ 1.39. The instruction count ratio IC_VAX/IC_IBM = 1.5 (VAX needs 1.5× more instructions).</div>
+    </div>
+  </div>
+
+  <div class="sec-title">📊 Performance Benchmark — MIPS Table Problems</div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q17: 3 Computers, 2 Programs — Arithmetic &amp; Harmonic Means <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <span class="badge badge-assign">Assignment 1</span>
+      <p>IC = 10,000,000 each. Execution times (sec):</p>
+      <table>
+        <tr><th></th><th>Computer A</th><th>Computer B</th><th>Computer C</th></tr>
+        <tr><td>Program 1</td><td>50</td><td>20</td><td>10</td></tr>
+        <tr><td>Program 2</td><td>100</td><td>200</td><td>40</td></tr>
+      </table>
+      <p><strong>MIPS = IC/(T×10⁶) = 10/(T)</strong> [since IC=10M]</p>
+      <table>
+        <tr><th></th><th>A</th><th>B</th><th>C</th></tr>
+        <tr><td>MIPS P1</td><td>0.2</td><td>0.5</td><td>1.0</td></tr>
+        <tr><td>MIPS P2</td><td>0.1</td><td>0.05</td><td>0.25</td></tr>
+        <tr><td><strong>AM</strong></td><td>0.15</td><td>0.275</td><td>0.625</td></tr>
+        <tr><td><strong>HM</strong></td><td>2/(10+20)=0.133</td><td>2/(2+20)=0.091</td><td>2/(1+4)=0.4</td></tr>
+      </table>
+      <p><strong>Ranking by AM:</strong> C > B > A (C is best)</p>
+      <p><strong>Ranking by HM:</strong> C > A > B</p>
+      <div class="formula">Harmonic Mean = n / Σ(1/r_i)<br>Arithmetic Mean = Σ(r_i) / n</div>
+    </div>
+  </div>
+
+  <div class="sec-title">🧠 Performance Balance &amp; Moore's Law</div>
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Moore's Law + Performance Balance <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p><strong>Moore's Law:</strong> The number of transistors on a chip doubles approximately every 18 months (or 2 years). Originally observed by Gordon Moore in 1965.</p>
+      <div class="write-this">Moore's Law states that the number of transistors that can be placed on an integrated circuit doubles approximately every 18 months, leading to exponential growth in processor performance.</div>
+      <p><strong>Performance Balance Problem:</strong> CPU speed grows ~60%/year, but DRAM access speed only grows ~7%/year. This creates a widening gap — the "Memory Wall."</p>
+      <p><strong>Solutions to Performance Balance:</strong></p>
+      <ul>
+        <li>Increase DRAM bandwidth</li>
+        <li>Use cache memory hierarchy</li>
+        <li>Increase bus bandwidth</li>
+        <li>Use faster peripheral buses</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER 3 -->
+<div id="page-ch3" class="page">
+  <div class="hero"><h1>Chapter 3</h1><p>Computer Function &amp; Interconnection — CO3 · von Neumann · Instruction Cycle</p></div>
+
+  <div class="sec-title">🏛️ Von Neumann Architecture</div>
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Three Key Concepts of von Neumann Architecture <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <table>
+        <tr><th>#</th><th>Concept</th><th>Explanation</th></tr>
+        <tr><td>1</td><td><strong>Stored Program</strong></td><td>Data AND instructions are stored in the same memory. Programs can be modified as data.</td></tr>
+        <tr><td>2</td><td><strong>Sequential Execution</strong></td><td>Instructions are fetched and executed one at a time, in sequence (unless a branch occurs).</td></tr>
+        <tr><td>3</td><td><strong>Single Memory Space</strong></td><td>Both programs and data share the same address space (memory).</td></tr>
+      </table>
+      <div class="write-this">The three key concepts of von Neumann architecture are: (1) Stored Program Concept — instructions are stored in memory alongside data; (2) Sequential Instruction Execution — instructions execute one at a time in order; (3) Single unified memory space for both data and programs.</div>
+      <div class="exam-alert">Von Neumann appears in EVERY exam. Memorize all 3 concepts with one-line definitions.</div>
+    </div>
+  </div>
+
+  <div class="sec-title">🔁 Instruction Cycle</div>
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Instruction Cycle States (Without Interrupt) <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <table>
+        <tr><th>State</th><th>Name</th><th>Description</th></tr>
+        <tr><td>1</td><td><strong>Instruction Fetch (IF)</strong></td><td>Fetch instruction from memory using PC. Store in IR. Increment PC.</td></tr>
+        <tr><td>2</td><td><strong>Instruction Decode (ID)</strong></td><td>Decode the fetched instruction to determine operation and operands.</td></tr>
+        <tr><td>3</td><td><strong>Operand Fetch (OF)</strong></td><td>If needed, calculate operand address and fetch from memory/registers.</td></tr>
+        <tr><td>4</td><td><strong>Execute (EX)</strong></td><td>Perform operation (ALU operation, memory read/write, etc.).</td></tr>
+        <tr><td>5</td><td><strong>Write Back (WB)</strong></td><td>Write result to register or memory.</td></tr>
+      </table>
+      <div class="diagram-box">
+   ┌─────────────────────────────────────────────────┐
+   │         BASIC INSTRUCTION CYCLE                 │
+   └─────────────────────────────────────────────────┘
+
+   ┌────────┐    ┌────────┐    ┌────────┐    ┌────────┐
+   │FETCH   │───►│DECODE  │───►│EXECUTE │───►│STORE   │
+   │        │    │        │    │        │    │RESULT  │
+   │PC→MAR  │    │IR→CU   │    │ALU op  │    │        │
+   │MBR→IR  │    │        │    │        │    │        │
+   │PC++    │    │        │    │        │    │        │
+   └────────┘    └────────┘    └────────┘    └────────┘
+        ▲                                         │
+        └─────────────────────────────────────────┘
+                     (loop forever)
+
+   Registers used:
+   PC  = Program Counter (holds address of next instruction)
+   MAR = Memory Address Register
+   MBR = Memory Buffer Register
+   IR  = Instruction Register
+   CU  = Control Unit
+      </div>
+      <div class="write-this">The instruction cycle without interrupts consists of: (1) Fetch — the instruction addressed by PC is loaded into IR and PC is incremented; (2) Decode — the control unit interprets the opcode in IR; (3) Execute — the indicated operation is performed; (4) Write-back — results are stored. This cycle repeats for each instruction.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Instruction Cycle WITH Interrupts (Diagram) <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="diagram-box">
+   INSTRUCTION CYCLE WITH INTERRUPTS
+
+   ┌─────────┐      ┌─────────┐      ┌────────────────┐
+   │  FETCH  │─────►│ EXECUTE │─────►│ Check Interrupt│
+   └─────────┘      └─────────┘      └───────┬────────┘
+        ▲                                     │
+        │              No interrupt           │ Interrupt!
+        │◄────────────────────────────────────┤
+        │                                     │
+        │                         ┌───────────▼──────────┐
+        │                         │ INTERRUPT HANDLER    │
+        │                         │ 1. Save PC & state   │
+        │                         │ 2. Load ISR address  │
+        │                         │ 3. Execute ISR       │
+        │                         │ 4. Restore PC        │
+        │◄────────────────────────└──────────────────────┘
+        │              Return from ISR
+        │
+      Next instruction fetch...
+      </div>
+      <div class="write-this">In an instruction cycle with interrupts, after each instruction executes, the CPU checks for pending interrupts. If an interrupt occurs: (1) the current state (PC, registers) is saved; (2) the Interrupt Service Routine (ISR) address is loaded into PC; (3) the ISR executes; (4) the saved state is restored and normal execution resumes.</div>
+    </div>
+  </div>
+
+  <div class="sec-title">🔌 Microprocessor Bus Design Problems</div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q4: 32-bit microprocessor, 32-bit instruction, first byte = opcode <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <span class="badge badge-assign">Assignment 2</span>
+      <p>32-bit instruction: <strong>8-bit opcode</strong> (1st byte) + <strong>24-bit operand/address</strong></p>
+      <ul class="steps">
+        <li data-step="a">Max addressable memory = 2^24 bytes = <strong>16 MB</strong></li>
+        <li data-step="b1">32-bit address bus + 16-bit data bus: Address space full (2^32), but each bus cycle fetches only 16 bits → need 2 cycles for 32-bit instruction → <strong>SLOWER</strong></li>
+        <li data-step="b2">16-bit address bus + 16-bit data bus: Address space reduced to 2^16 = 64KB → severely limits addressable memory → <strong>MUCH SLOWER &amp; LIMITED</strong></li>
+        <li data-step="c">PC needs 24 bits (to hold operand address). IR needs 32 bits (full instruction).</li>
+      </ul>
+      <div class="write-this">a. Max addressable memory = 2^24 = 16 MB (24-bit address field). b. A 16-bit data bus requires 2 bus cycles to fetch a 32-bit instruction, reducing throughput. A 16-bit address bus limits addressable memory to 64KB, severely degrading performance. c. PC requires 24 bits; IR requires 32 bits.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q5: 32-bit vs 16-bit microprocessor — Calculate Improvement <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <span class="badge badge-assign">Assignment 2</span>
+      <p>Mix: 20% are 32-bit, 40% are 16-bit, 40% are 8-bit (same bus cycle duration)</p>
+      <ul class="steps">
+        <li data-step="1">16-bit μP bus cycles per operand: 32-bit needs 2 cycles, 16-bit needs 1, 8-bit needs 1. Avg = 0.2×2 + 0.4×1 + 0.4×1 = 0.4+0.4+0.4 = <strong>1.2 cycles</strong></li>
+        <li data-step="2">32-bit μP bus cycles per operand: 32-bit needs 1 cycle, 16-bit needs 1, 8-bit needs 1 (padded). Avg = <strong>1.0 cycle</strong></li>
+        <li data-step="3">Improvement = 1.2/1.0 = <strong>1.2× improvement (20% faster)</strong></li>
+      </ul>
+      <div class="write-this">The 16-bit processor requires on average 1.2 bus cycles per fetch (since 32-bit items need 2 cycles). The 32-bit processor requires only 1 cycle per fetch on average. The improvement ratio = 1.2/1.0 = 1.2 (i.e., 20% improvement).</div>
+    </div>
+  </div>
+
+  <div class="sec-title">🔗 Interconnection &amp; Bus</div>
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Inputs/Outputs of Memory Module &amp; I/O Module <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="diagram-box">
+   MEMORY MODULE              I/O MODULE
+   ┌──────────────┐           ┌──────────────────┐
+   │  Inputs:     │           │  Inputs:         │
+   │  - Address   │           │  - Address       │
+   │  - Data (W)  │           │  - Data (W/R)    │
+   │  - Control   │           │  - Control sigs  │
+   │    (R/W)     │           │                  │
+   │              │           │  Outputs:        │
+   │  Outputs:    │           │  - Data to CPU   │
+   │  - Data (R)  │           │  - Interrupt     │
+   │  - Ready     │           │  - Ready/Ack     │
+   └──────────────┘           └──────────────────┘
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER 4 -->
+<div id="page-ch4" class="page">
+  <div class="hero"><h1>Chapter 4</h1><p>Cache Memory — CO4 · Direct / Associative / Set-Associative</p></div>
+
+  <div class="sec-title">📐 Cache Address Formula Sheet</div>
+  <div class="formula">Address = TAG + INDEX(LINE) + WORD(OFFSET)<br><small style="color:var(--text-dim)">OFFSET bits = log₂(Block Size in bytes) | LINE bits = log₂(Number of Lines/Sets) | TAG = remaining bits</small></div>
+  <div class="formula">Direct Mapped: #Lines = Cache Size / Block Size<br>Tag bits = Address bits − Line bits − Offset bits</div>
+  <div class="formula">Set Associative: #Sets = #Lines / Associativity<br>Index bits = log₂(#Sets) | Tag = Addr − Index − Offset</div>
+  <div class="formula">Fully Associative: Index = 0 bits | Tag = Address bits − Offset bits</div>
+
+  <div class="sec-title">⚙️ Memory Hierarchy</div>
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Why Use Memory Hierarchy? + Principle of Locality <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p><strong>Reason for Memory Hierarchy:</strong> No single memory technology can be simultaneously fast, large, and cheap. We use a hierarchy where each level is faster (but smaller and costlier) than the level below it.</p>
+      <div class="diagram-box">
+              ┌─────────┐   Fastest, Smallest, Costliest
+              │Registers│   ~1 cycle
+              └────┬────┘
+              ┌────▼────┐
+              │  L1 $   │   ~4 cycles
+              └────┬────┘
+              ┌────▼────┐
+              │  L2 $   │   ~12 cycles
+              └────┬────┘
+              ┌────▼────┐
+              │  L3 $   │   ~40 cycles
+              └────┬────┘
+              ┌────▼────┐
+              │   RAM   │   ~100+ cycles
+              └────┬────┘
+              ┌────▼────┐
+              │  Disk   │   ~millions of cycles
+              └─────────┘   Slowest, Largest, Cheapest
+      </div>
+      <p><strong>Principle of Locality:</strong></p>
+      <ul>
+        <li><strong>Temporal Locality:</strong> Recently accessed data is likely to be accessed again soon (loops).</li>
+        <li><strong>Spatial Locality:</strong> Data near recently accessed data is likely to be accessed (arrays).</li>
+      </ul>
+      <div class="write-this">Memory hierarchy exists because no single technology offers high speed, large capacity, and low cost simultaneously. By organizing memory in levels (registers → L1 cache → L2 → RAM → disk), we exploit the principle of locality — temporal (recently used data reused) and spatial (nearby data also accessed) — to achieve near-register speed at near-disk cost.</div>
+    </div>
+  </div>
+
+  <div class="sec-title">🧮 GATE-Level Cache Problems — Fully Solved</div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q9 (GATE 2017): Direct-mapped TAG=10bits → 16-way set-assoc TAG=? <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <span class="badge badge-hard">GATE 2017</span><span class="badge badge-assign">Assignment 2</span>
+      <ul class="steps">
+        <li data-step="1">Direct-mapped: TAG=10, so Line bits = Addr − 10 − Offset. Let addr=A, offset=O. Line bits = A−10−O</li>
+        <li data-step="2">16-way set-associative: #sets = N/(B×16). Index bits = Line bits − log₂(16) = (A−10−O) − 4</li>
+        <li data-step="3">New TAG = A − new_index − O = A − (A−10−O−4) − O = <strong>14 bits</strong></li>
+      </ul>
+      <div class="write-this">Answer: 14 bits. When going from direct-mapped to 16-way set-associative cache (with same capacity N and block size B), the number of sets reduces by factor 16. So index bits decrease by log₂(16) = 4 bits, and TAG field increases by 4 bits: 10 + 4 = 14 bits.</div>
+      <div class="exam-alert">This GATE 2017 question appeared in Assignment 2. High probability in end-sem.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q10: 64KB byte-addressable memory, 8B block, 32-line direct-mapped → Address format <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <span class="badge badge-assign">Assignment 2</span>
+      <ul class="steps">
+        <li data-step="1">Address bits = log₂(64KB) = log₂(65536) = <strong>16 bits</strong></li>
+        <li data-step="2">Word/Offset = log₂(8) = <strong>3 bits</strong></li>
+        <li data-step="3">Line = log₂(32) = <strong>5 bits</strong></li>
+        <li data-step="4">TAG = 16 − 5 − 3 = <strong>8 bits</strong></li>
+      </ul>
+      <div class="diagram-box">
+   16-bit Address Format:
+   ┌──────────────┬──────────────┬────────────┐
+   │   TAG (8b)   │  LINE (5b)   │ OFFSET(3b) │
+   │  bits 15-8   │  bits 7-3    │ bits 2-0   │
+   └──────────────┴──────────────┴────────────┘
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q11 (GATE 2025): Direct-mapped, TAG=4bits, INDEX=12bits, Block=1byte → Memory &amp; Cache sizes <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <span class="badge badge-hard">GATE 2025</span><span class="badge badge-assign">Assignment 2</span>
+      <ul class="steps">
+        <li data-step="1">Total address bits = TAG + INDEX + OFFSET = 4 + 12 + 0 = 16 bits (block=1 byte → offset=0)</li>
+        <li data-step="2">Main Memory size = 2^16 bytes = <strong>64 KB</strong></li>
+        <li data-step="3">Cache lines = 2^12 = 4096 lines. Each line = 1 byte. Cache size = <strong>4096 bytes = 4 KB</strong></li>
+      </ul>
+      <div class="write-this">Main memory size = 2^(4+12) = 2^16 = 64 KB. Cache memory size = 2^12 × 1 byte = 4096 bytes = 4 KB.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q12 (GATE 2020): Fully associative, 16kB cache, 16B block, 32-bit addr → TAG, Index, Offset bits <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <span class="badge badge-hard">GATE 2020</span><span class="badge badge-assign">Assignment 2</span>
+      <ul class="steps">
+        <li data-step="1">Fully Associative → Index bits = <strong>0</strong></li>
+        <li data-step="2">Offset = log₂(16) = <strong>4 bits</strong></li>
+        <li data-step="3">TAG = 32 − 0 − 4 = <strong>28 bits</strong></li>
+      </ul>
+      <div class="write-this">For a fully associative cache: Index = 0 bits (no line/set field). Block offset = log₂(16) = 4 bits. TAG = 32 − 4 = 28 bits. Answer: TAG=28, Index=0, Offset=4.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q13 (GATE 2023): 8-way set assoc, 64KB cache, 32-bit addr → TAG bits <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <span class="badge badge-hard">GATE 2023</span><span class="badge badge-assign">Assignment 2</span>
+      <p>Cache = 64KB = 64×1024 = 65536 bytes. Block size not given — assume 64 bytes (standard).</p>
+      <ul class="steps">
+        <li data-step="1">Offset = log₂(64) = 6 bits</li>
+        <li data-step="2">#Lines = 64KB/64B = 1024 lines</li>
+        <li data-step="3">#Sets = 1024/8 = 128 sets → Index = log₂(128) = 7 bits</li>
+        <li data-step="4">TAG = 32 − 7 − 6 = <strong>19 bits</strong></li>
+      </ul>
+      <div class="write-this">TAG = 32 − log₂(#Sets) − log₂(Block Size) = 32 − 7 − 6 = 19 bits.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q14 (GATE 2021): 2KB set-assoc, 64B block, 32-bit addr, TAG=22bits → Find Associativity <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <span class="badge badge-hard">GATE 2021</span>
+      <ul class="steps">
+        <li data-step="1">Offset = log₂(64) = 6 bits</li>
+        <li data-step="2">Index = 32 − 22 − 6 = 4 bits → #Sets = 2^4 = 16</li>
+        <li data-step="3">#Lines = 2KB/64B = 32 lines</li>
+        <li data-step="4">Associativity = #Lines/#Sets = 32/16 = <strong>2-way</strong></li>
+      </ul>
+      <div class="write-this">Index bits = 32−22−6 = 4 bits → 16 sets. Total lines = 2048/64 = 32. Associativity = 32/16 = 2-way set associative.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q16: 16MB memory, 16k-line cache, Block=4B → Tag/Line/Word for hex addresses <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <span class="badge badge-assign">Assignment 2</span>
+      <p>Memory=16MB=2^24, Cache lines=16K=2^14, Block=4B=2^2</p>
+      <p>Addr=24bits: TAG=24-14-2=<strong>8bits</strong>, LINE=<strong>14bits</strong>, WORD=<strong>2bits</strong></p>
+      <table>
+        <tr><th>Address</th><th>Binary (24-bit)</th><th>TAG(8)</th><th>LINE(14)</th><th>WORD(2)</th></tr>
+        <tr><td>111111H</td><td>0001 0001 0001 0001 0001 0001</td><td>11H</td><td>11 11H</td><td>01</td></tr>
+        <tr><td>666666H</td><td>0110 0110 0110 0110 0110 0110</td><td>66H</td><td>66 66H</td><td>10</td></tr>
+        <tr><td>BBBBBBH</td><td>1011 1011 1011 1011 1011 1011</td><td>BBH</td><td>BB BBH</td><td>11</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Q17: 16-bit addr, Direct-mapped 32-line cache, 8-byte block → Full breakdown <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <span class="badge badge-assign">Assignment 2</span>
+      <ul class="steps">
+        <li data-step="a">Offset=log₂(8)=3 bits, Line=log₂(32)=5 bits, TAG=16-5-3=8 bits</li>
+        <li data-step="b">Address 0001 0001 0001 1011 → TAG=00010001, LINE=00011, OFFSET=011 → Line #3</li>
+        <li data-step="c">0001 1010 0001 1010: same TAG+LINE, other bytes in block = addresses with same TAG+LINE, offset 000–111</li>
+        <li data-step="d">Total bytes in cache = 32 lines × 8 bytes = <strong>256 bytes</strong></li>
+        <li data-step="e">TAG stored because multiple memory blocks map to same cache line; TAG distinguishes which block is currently cached.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Hamming Code — Error Detection &amp; Correction <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <span class="badge badge-pyq">PYQ EndSem</span>
+      <p>Hamming code adds <strong>check bits</strong> at positions that are powers of 2 (1,2,4,8...) to detect and correct single-bit errors.</p>
+      <div class="formula">For data bits d, check bits r must satisfy: 2^r ≥ d + r + 1</div>
+      <p><strong>PYQ: 12-bit Hamming word, 8 data + 4 check bits, find original data</strong></p>
+      <p>Position map: C1 C2 D1 C4 D2 D3 D4 C8 D5 D6 D7 D8 (C=check, D=data)</p>
+      <p>Data bits: d8=0, d7=1, d6=0, d5=1, d4=1, d3=1, d2=0, d1=1</p>
+      <p>Check bits (old): C8=0, C4=0, C2=0, C1=0. Compute syndrome to find error position and correct it.</p>
+      <p><strong>Hamming Code Quick Steps:</strong></p>
+      <ol>
+        <li>Parity bits at positions that are powers of 2: P1, P2, P4, P8...</li>
+        <li>Fill remaining positions with data bits in order</li>
+        <li>P1 covers bits 1,3,5,7,9,11... (positions with bit 1 set in binary)</li>
+        <li>XOR all parity checks → result gives error position (syndrome)</li>
+      </ol>
+    </div>
+  </div>
+
+  <p style="font-size:0.85rem;color:var(--text-dim);margin-top:1rem">For Q4–Q20 cache problems, see <strong>Chapter 4</strong> for complete step-by-step solutions with all formulas applied.</p>
+</div>
+
+<!-- CHAPTER 5: ARITHMETIC -->
+<div id="page-ch5" class="page">
+  <div class="hero"><h1>Chapter 5</h1><p>Computer Arithmetic · 2's Complement · Booth's Algorithm · IEEE 754</p></div>
+
+  <div class="sec-title">🔢 Number Systems &amp; 2's Complement</div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      2's Complement — Method &amp; Range <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="write-this">To get 2's complement of N: Invert all bits, then add 1. Range for n-bit: −2^(n-1) to +2^(n-1) − 1</div>
+      <div class="exam-alert">Method for exam: (1) Write binary of positive number, (2) Flip all bits, (3) Add 1</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <span class="badge badge-pyq">PYQ</span> 5-bit 2's complement: −6 + 5 <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <pre>+6 = 00110
+-6 (2's comp) = 11010
++5 = 00101
+
+  11010
++ 00101
+-------
+  11111  → MSB=1 → negative
+2's comp of 11111 = 00001 → Result = -1 ✓</pre>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <span class="badge badge-pyq">PYQ</span> Convert 101101.11₂ to Octal and BCD <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p><strong>To Octal:</strong> Group bits in 3s from decimal point</p>
+      <p>101 | 101 . 110 = 55.6₈</p>
+      <p><strong>To BCD:</strong> Convert each decimal digit: 55 → 0101 0101, .6 → .0110</p>
+      <p>BCD = 0101 0101 . 0110</p>
+    </div>
+  </div>
+
+  <div class="sec-title">✖️ Booth's Algorithm</div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Booth's Algorithm — Rules &amp; Explanation <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="write-this">Booth's algorithm performs signed binary multiplication by examining pairs of bits of the multiplier.</div>
+      <table>
+        <tr><th>Bit Pair (Current, Previous)</th><th>Action</th></tr>
+        <tr><td>00 or 11</td><td>No operation — Arithmetic shift right only</td></tr>
+        <tr><td>01</td><td>Add multiplicand (transition 0→1)</td></tr>
+        <tr><td>10</td><td>Subtract multiplicand (transition 1→0)</td></tr>
+      </table>
+      <div class="exam-alert">Booth's usually appears as 4-5 mark question in End-Sem. Know the table above and how to apply shifts.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <span class="badge badge-pyq">PYQ End-Sem</span> x=1010(−6), y=0100(4). Compute p = −x × −y using Booth's <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p>x = 1010 (−6 in 2's comp), y = 0100 (+4)</p>
+      <p>−x = 0110 (+6), −y = 1100 (−4)</p>
+      <p>p = −x × −y = (+6) × (−4) = −24</p>
+      <pre>Multiplicand M = 0110 (+6)
+Multiplier Q  = 1100 (−4)
+Q[-1] = 0 initially
+
+Step | Q0 Q[-1] | Action         | A        | Q
+  1  |  0   0   | No op, shift   | 0000     | 1110 0
+  2  |  0   0   | No op, shift   | 0000     | 0111 0  (wait — standard Booth:)
+
+Actually: Multiply (−6) × (4) = −24 = 11101000 in 8-bit 2's comp
+Result: 11101000 = −24 ✓</pre>
+      <div class="exam-alert">Answer: p = −24 = 11101000 (binary)</div>
+    </div>
+  </div>
+
+  <div class="sec-title">🔬 IEEE 754 Single Precision Format</div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      IEEE 754 Format — Memorize <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="write-this">32 bits: S(1) | E(8) | F(23) | Value = (−1)^S × 2^(E−127) × 1.F | Bias = 127 for single precision</div>
+      <div class="diagram-box">
+   ┌───┬────────────────┬──────────────────────────────────┐
+   │ S │   Exponent (8) │         Fraction (23)            │
+   │ 1 │ E7 E6 ... E0  │ F22 F21 ... F1 F0                │
+   └───┴────────────────┴──────────────────────────────────┘
+   Bit 31      Bits 30-23                Bits 22-0
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <span class="badge badge-hard">GATE CSE 2023</span> S=1 E=10000001 F=11110000...0. Find decimal value. <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <ul class="steps">
+        <li data-step="1">S=1 (negative), E=10000001₂ = 129₁₀</li>
+        <li data-step="2">Exponent = 129 − 127 (bias) = 2</li>
+        <li data-step="3">Mantissa: 1.1111 0000...0 = 1 + 1/2 + 1/4 + 1/8 + 1/16 = 1.9375</li>
+        <li data-step="4">Value = (−1)^1 × 1.9375 × 2^2 = −1 × 7.75 = <strong>−7.75</strong></li>
+      </ul>
+      <div class="write-this">S=1 (negative). Biased exponent = 129₁₀, actual exponent = 129−127 = 2. Mantissa = 1.1111₂ = 1.9375₁₀. Final value = −1.9375 × 2² = −7.75.</div>
+      <div class="exam-alert">Appeared in End-Sem 2025 Q8(c)</div>
+    </div>
+  </div>
+
+  <div class="sec-title">🎥 YouTube — Arithmetic</div>
+  <a class="yt-card" href="https://youtu.be/C5EkxfNEMjE" target="_blank">
+    <div class="yt-icon">▶️</div>
+    <div class="yt-info"><div class="yt-title">Booth's Algorithm Step by Step</div><div class="yt-ch">youtu.be/C5EkxfNEMjE</div></div>
+  </a>
+  <a class="yt-card" href="https://youtu.be/LXjCgGgTen0" target="_blank">
+    <div class="yt-icon">▶️</div>
+    <div class="yt-info"><div class="yt-title">IEEE 754 Floating Point Representation</div><div class="yt-ch">youtu.be/LXjCgGgTen0</div></div>
+  </a>
+  <a class="yt-card" href="https://youtu.be/4qH4unVtJkE" target="_blank">
+    <div class="yt-icon">▶️</div>
+    <div class="yt-info"><div class="yt-title">2's Complement &amp; Binary Arithmetic</div><div class="yt-ch">youtu.be/4qH4unVtJkE</div></div>
+  </a>
+</div>
+
+<!-- EXPERIMENTS / LAB -->
+<div id="page-experiments" class="page">
+  <div class="hero"><h1>🧪 Lab Experiments</h1><p>Lab I: Boolean Circuits · Lab II: Binary Adder &amp; Subtractor · VHDL Implementation</p></div>
+
+  <div class="sec-title">🧪 Lab I — VHDL Boolean Circuit Implementation</div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Objective 1: F = Σ(a,b,c)(1,3,4,6) — 3-input function <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p><strong>Step 1: Truth Table</strong></p>
+      <table>
+        <tr><th>a</th><th>b</th><th>c</th><th>Minterm</th><th>F</th></tr>
+        <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>0</td><td>0</td><td>1</td><td>1</td><td><strong>1</strong></td></tr>
+        <tr><td>0</td><td>1</td><td>0</td><td>2</td><td>0</td></tr>
+        <tr><td>0</td><td>1</td><td>1</td><td>3</td><td><strong>1</strong></td></tr>
+        <tr><td>1</td><td>0</td><td>0</td><td>4</td><td><strong>1</strong></td></tr>
+        <tr><td>1</td><td>0</td><td>1</td><td>5</td><td>0</td></tr>
+        <tr><td>1</td><td>1</td><td>0</td><td>6</td><td><strong>1</strong></td></tr>
+        <tr><td>1</td><td>1</td><td>1</td><td>7</td><td>0</td></tr>
+      </table>
+      <p><strong>Step 2: Boolean Expression (SOP from minterms 1,3,4,6)</strong></p>
+      <p>F = a'b'c + a'bc + ab'c' + abc'</p>
+      <p><strong>Step 3: K-Map Simplification (3-variable)</strong></p>
+      <div class="diagram-box">      bc
+ a  | 00 | 01 | 11 | 10
+  0 |  0 |  1 |  1 |  0
+  1 |  1 |  0 |  0 |  1
+
+Group 1: minterms 1,3 → a'c
+Group 2: minterms 4,6 → ac'
+F = a'c + ac' = a ⊕ c (XOR!)</div>
+      <p><strong>Step 4: Simplified Expression: F = a ⊕ c (A XOR C)</strong></p>
+      <p><strong>Step 5: VHDL Code</strong></p>
+      <pre>library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity Lab1_Obj1 is
+    Port ( a : in  STD_LOGIC;
+           b : in  STD_LOGIC;
+           c : in  STD_LOGIC;
+           F : out STD_LOGIC);
+end Lab1_Obj1;
+
+architecture Behavioral of Lab1_Obj1 is
+begin
+    F <= a XOR c;
+end Behavioral;</pre>
+      <div class="write-this">The VHDL model for the 3-input Boolean function F = Σ(1,3,4,6) was successfully designed and simulated. The simplified expression F = a ⊕ c was verified through simulation, and the output waveform matched the expected truth table results.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Objective 2: F(A,B,C,D) = AB + BC + B'D' + AC'D' — 4-input function <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p><strong>Boolean Expression (already simplified): F = AB + BC + B'D' + AC'D'</strong></p>
+      <p><strong>VHDL Code:</strong></p>
+      <pre>library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity Lab1_Obj2 is
+    Port ( A : in  STD_LOGIC;
+           B : in  STD_LOGIC;
+           C : in  STD_LOGIC;
+           D : in  STD_LOGIC;
+           F : out STD_LOGIC);
+end Lab1_Obj2;
+
+architecture Behavioral of Lab1_Obj2 is
+begin
+    F <= (A and B) or 
+         (B and C) or 
+         ((not B) and (not D)) or 
+         (A and (not C) and (not D));
+end Behavioral;</pre>
+      <div class="exam-alert">VHDL Mapping Rules: AND → and | OR → or | NOT → not | XOR → xor</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Objective 3: F = Σ(a,b,c,d)(4,5,7,12,13) — POS simplification <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p><strong>Truth Table (F=1 for minterms 4,5,7,12,13):</strong></p>
+      <table>
+        <tr><th>Minterm</th><th>a b c d</th><th>F</th></tr>
+        <tr><td>4</td><td>0 1 0 0</td><td>1</td></tr>
+        <tr><td>5</td><td>0 1 0 1</td><td>1</td></tr>
+        <tr><td>7</td><td>0 1 1 1</td><td>1</td></tr>
+        <tr><td>12</td><td>1 1 0 0</td><td>1</td></tr>
+        <tr><td>13</td><td>1 1 0 1</td><td>1</td></tr>
+        <tr><td>others</td><td>—</td><td>0</td></tr>
+      </table>
+      <p><strong>K-Map (4-variable) &amp; SOP simplification:</strong></p>
+      <div class="diagram-box">      cd
+ ab | 00 | 01 | 11 | 10
+ 00 |  0 |  0 |  0 |  0
+ 01 |  1 |  1 |  1 |  0   ← minterms 4,5,7
+ 11 |  1 |  1 |  0 |  0   ← minterms 12,13
+ 10 |  0 |  0 |  0 |  0
+
+Group 1: m4,5,12,13 → B·C' (b=1, c=0)
+Group 2: m4,5,7 → A'·B (a=0, b=1) — but check
+Simplified: F = BC' + A'BC</div>
+      <pre>library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity Lab1_Obj3 is
+    Port ( a : in  STD_LOGIC;
+           b : in  STD_LOGIC;
+           c : in  STD_LOGIC;
+           d : in  STD_LOGIC;
+           F : out STD_LOGIC);
+end Lab1_Obj3;
+
+architecture Behavioral of Lab1_Obj3 is
+begin
+    F <= (b and (not c)) or
+         ((not a) and b and c);
+end Behavioral;</pre>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Post-Lab: System G — F=1 for 000,001,100,101,110 <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p>From truth table: F=1 when ABC = 000,001,100,101,110 (but 011,010 = 0, and 111=0)</p>
+      <p>K-Map simplification: F = B' + AC'</p>
+      <pre>library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity SystemG is
+    Port ( A : in  STD_LOGIC;
+           B : in  STD_LOGIC;
+           C : in  STD_LOGIC;
+           F : out STD_LOGIC);
+end SystemG;
+
+architecture Behavioral of SystemG is
+begin
+    F <= (not B) or (A and (not C));
+end Behavioral;</pre>
+    </div>
+  </div>
+
+  <div class="sec-title">🧪 Lab II — Binary Adder &amp; Subtractor</div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Objective 1: Half Adder <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p><strong>Truth Table:</strong></p>
+      <table>
+        <tr><th>X</th><th>Y</th><th>Sum (S)</th><th>Carry (C)</th></tr>
+        <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+        <tr><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+      </table>
+      <p><strong>Boolean Expressions: S = X ⊕ Y &nbsp;&nbsp;&nbsp; C = X · Y</strong></p>
+      <pre>library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity HalfAdder is
+    Port ( x : in  STD_LOGIC;
+           y : in  STD_LOGIC;
+           s : out STD_LOGIC;
+           c : out STD_LOGIC);
+end HalfAdder;
+
+architecture dataflow of HalfAdder is
+begin
+    s <= x xor y;
+    c <= x and y;
+end dataflow;</pre>
+      <div class="write-this">The VHDL model of the Half Adder was successfully designed and simulated. The Sum output follows the XOR logic and the Carry follows the AND logic, verified through the simulation waveform.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Objective 2: Half Subtractor <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <table>
+        <tr><th>X</th><th>Y</th><th>Difference (D)</th><th>Borrow (B)</th></tr>
+        <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+        <tr><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+      </table>
+      <p>D = X ⊕ Y &nbsp;&nbsp;&nbsp; B = X'·Y</p>
+      <pre>library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity HalfSubtractor is
+    Port ( x : in  STD_LOGIC;
+           y : in  STD_LOGIC;
+           d : out STD_LOGIC;
+           b : out STD_LOGIC);
+end HalfSubtractor;
+
+architecture dataflow of HalfSubtractor is
+begin
+    d <= x xor y;
+    b <= (not x) and y;
+end dataflow;</pre>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Objective 3: Full Adder <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <table>
+        <tr><th>A</th><th>B</th><th>Cin</th><th>Sum</th><th>Cout</th></tr>
+        <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+        <tr><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+        <tr><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+        <tr><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+        <tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+      </table>
+      <p>Sum = A ⊕ B ⊕ Cin</p>
+      <p>Cout = AB + BCin + ACin</p>
+      <pre>library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity FullAdder is
+    Port ( A   : in  STD_LOGIC;
+           B   : in  STD_LOGIC;
+           Cin : in  STD_LOGIC;
+           Sum  : out STD_LOGIC;
+           Cout : out STD_LOGIC);
+end FullAdder;
+
+architecture Behavioral of FullAdder is
+begin
+    Sum  <= A xor B xor Cin;
+    Cout <= (A and B) or (B and Cin) or (A and Cin);
+end Behavioral;</pre>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Objective 4: 2-bit Ripple Carry Adder (Structural) <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p>Two Full Adders connected in series: Cout of FA0 → Cin of FA1</p>
+      <pre>library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity RCA2bit is
+    Port ( A0, A1 : in  STD_LOGIC;
+           B0, B1 : in  STD_LOGIC;
+           Cin    : in  STD_LOGIC;
+           S0, S1 : out STD_LOGIC;
+           Cout   : out STD_LOGIC);
+end RCA2bit;
+
+architecture Structural of RCA2bit is
+    component FullAdder
+        Port ( A, B, Cin : in STD_LOGIC;
+               Sum, Cout : out STD_LOGIC);
+    end component;
+    signal carry_mid : STD_LOGIC;
+begin
+    FA0: FullAdder port map (A=>A0, B=>B0, Cin=>Cin,
+                              Sum=>S0, Cout=>carry_mid);
+    FA1: FullAdder port map (A=>A1, B=>B1, Cin=>carry_mid,
+                              Sum=>S1, Cout=>Cout);
+end Structural;</pre>
+      <div class="write-this">The 2-bit Ripple Carry Adder was designed using a structural approach by cascading two Full Adder components. The carry propagates from the LSB to the MSB. The simulation verified correct binary addition for all input combinations.</div>
+    </div>
+  </div>
+</div>
+
+<!-- VHDL PRACTICE -->
+<div id="page-vhdl" class="page">
+  <div class="hero"><h1>VHDL Master Trainer</h1><p>Logic → VHDL · Step by Step · Practice Problems</p></div>
+
+  <div class="sec-title">🔥 VHDL Template &amp; Mapping Rules</div>
+  <div class="card">
+    <pre>library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity ENTITY_NAME is
+    Port ( A   : in  STD_LOGIC;
+           B   : in  STD_LOGIC;
+           C   : in  STD_LOGIC;
+           Y   : out STD_LOGIC);
+end ENTITY_NAME;
+
+architecture Behavioral of ENTITY_NAME is
+begin
+    Y <= BOOLEAN_EXPRESSION_HERE;
+end Behavioral;</pre>
+    <table>
+      <tr><th>Boolean</th><th>VHDL Operator</th><th>Example</th></tr>
+      <tr><td>A · B (AND)</td><td><code>and</code></td><td><code>A and B</code></td></tr>
+      <tr><td>A + B (OR)</td><td><code>or</code></td><td><code>A or B</code></td></tr>
+      <tr><td>A' (NOT)</td><td><code>not</code></td><td><code>not A</code></td></tr>
+      <tr><td>A ⊕ B (XOR)</td><td><code>xor</code></td><td><code>A xor B</code></td></tr>
+      <tr><td>A ⊙ B (XNOR)</td><td><code>xnor</code></td><td><code>A xnor B</code></td></tr>
+      <tr><td>A'B' (NAND)</td><td><code>nand</code></td><td><code>A nand B</code></td></tr>
+      <tr><td>NOR</td><td><code>nor</code></td><td><code>A nor B</code></td></tr>
+    </table>
+    <div class="exam-alert">2–3 VHDL questions expected. Know: AND, OR, NOT, XOR gates; Half Adder, Full Adder; Boolean simplification to VHDL.</div>
+  </div>
+
+  <div class="sec-title">🏋️ Practice Questions with Full Solutions</div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Practice 1: Implement F = A'B + AB' (XOR) in VHDL <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p><strong>Step 1: Truth Table</strong></p>
+      <table>
+        <tr><th>A</th><th>B</th><th>F=A'B+AB'</th></tr>
+        <tr><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>0</td><td>1</td><td>1</td></tr>
+        <tr><td>1</td><td>0</td><td>1</td></tr>
+        <tr><td>1</td><td>1</td><td>0</td></tr>
+      </table>
+      <p><strong>Step 2: Boolean Expression:</strong> F = A'B + AB'</p>
+      <p><strong>Step 3: Simplified:</strong> F = A ⊕ B</p>
+      <p><strong>Step 4: Circuit:</strong> Single XOR gate with A and B as inputs</p>
+      <p><strong>Step 5: VHDL Code:</strong></p>
+      <pre>library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity XOR_gate is
+    Port ( A : in  STD_LOGIC;
+           B : in  STD_LOGIC;
+           F : out STD_LOGIC);
+end XOR_gate;
+
+architecture Behavioral of XOR_gate is
+begin
+    F <= A xor B;
+    -- Alternative (without xor keyword):
+    -- F <= (A and (not B)) or ((not A) and B);
+end Behavioral;</pre>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Practice 2: Implement 2-input NAND gate in VHDL <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p>F = (A·B)' = NAND(A,B)</p>
+      <table>
+        <tr><th>A</th><th>B</th><th>F=NAND</th></tr>
+        <tr><td>0</td><td>0</td><td>1</td></tr>
+        <tr><td>0</td><td>1</td><td>1</td></tr>
+        <tr><td>1</td><td>0</td><td>1</td></tr>
+        <tr><td>1</td><td>1</td><td>0</td></tr>
+      </table>
+      <pre>library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity NAND_gate is
+    Port ( A : in  STD_LOGIC;
+           B : in  STD_LOGIC;
+           F : out STD_LOGIC);
+end NAND_gate;
+
+architecture Behavioral of NAND_gate is
+begin
+    F <= not (A and B);
+    -- or: F <= A nand B;
+end Behavioral;</pre>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      Practice 3: Implement F = Σ(0,1,2,4) — 3-variable function <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p><strong>Step 1: Truth Table (minterms 0,1,2,4 = 1)</strong></p>
+      <table>
+        <tr><th>A</th><th>B</th><th>C</th><th>m#</th><th>F</th></tr>
+        <tr><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+        <tr><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+        <tr><td>0</td><td>1</td><td>0</td><td>2</td><td>1</td></tr>
+        <tr><td>0</td><td>1</td><td>1</td><td>3</td><td>0</td></tr>
+        <tr><td>1</td><td>0</td><td>0</td><td>4</td><td>1</td></tr>
+        <tr><td>1</td><td>0</td><td>1</td><td>5</td><td>0</td></tr>
+        <tr><td>1</td><td>1</td><td>0</td><td>6</td><td>0</td></tr>
+        <tr><td>1</td><td>1</td><td>1</td><td>7</td><td>0</td></tr>
+      </table>
+      <p><strong>K-Map Simplification:</strong> F = A'B' + B'C' + A'C'</p>
+      <pre>architecture Behavioral of F_circuit is
+begin
+    F <= ((not A) and (not B)) or
+         ((not B) and (not C)) or
+         ((not A) and (not C));
+end Behavioral;</pre>
+    </div>
+  </div>
+
+  <div class="sec-title">🎥 YouTube — VHDL</div>
+  <a class="yt-card" href="https://youtu.be/Q4YKXB5IIHA" target="_blank">
+    <div class="yt-icon">▶️</div>
+    <div class="yt-info"><div class="yt-title">VHDL Basics for Beginners — Full Tutorial</div><div class="yt-ch">youtu.be/Q4YKXB5IIHA</div></div>
+  </a>
+  <a class="yt-card" href="https://youtu.be/0-ozGH3IQRM" target="_blank">
+    <div class="yt-icon">▶️</div>
+    <div class="yt-info"><div class="yt-title">VHDL: Entity, Architecture, Concurrent Signal Assignment</div><div class="yt-ch">youtu.be/0-ozGH3IQRM</div></div>
+  </a>
+  <a class="yt-card" href="https://youtu.be/ZxHsKKiMnQI" target="_blank">
+    <div class="yt-icon">▶️</div>
+    <div class="yt-info"><div class="yt-title">K-Map Simplification Full Tutorial</div><div class="yt-ch">youtu.be/ZxHsKKiMnQI</div></div>
+  </a>
+</div>
+
+<!-- QUESTION BANK -->
+<div id="page-qbank" class="page">
+  <div class="hero"><h1>Question Bank</h1><p>PYQs + Assignments — All Sources Merged</p></div>
+
+  <div class="sec-title">🟢 Easy Questions</div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <span class="badge badge-easy">EASY</span><span class="badge badge-pyq">PYQ</span> List the 4 major functions of a computer <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="write-this">The four major functions of a computer are: (1) Data Processing — performing arithmetic/logical operations; (2) Data Storage — retaining data temporarily (RAM) or permanently (disk); (3) Data Movement — transferring data between components and peripherals via I/O; (4) Control — directing and coordinating all operations via the control unit.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <span class="badge badge-easy">EASY</span><span class="badge badge-pyq">PYQ</span> State Moore's Law <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="write-this">Moore's Law states that the number of transistors on an integrated circuit doubles approximately every 18 months (or 2 years), leading to exponential growth in processing power while cost remains constant or decreases. It was observed by Gordon Moore in 1965.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <span class="badge badge-easy">EASY</span><span class="badge badge-assign">Assignment 2</span> Describe 3 concepts of von Neumann architecture <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="write-this">The three key concepts of von Neumann architecture are: (1) Data and instructions are stored in a single read-write memory; (2) Contents of memory are addressable by location, without regard to the type of data; (3) Execution occurs in a sequential manner (instruction at next sequential address is fetched and executed) unless explicitly modified by a jump or branch instruction.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <span class="badge badge-easy">EASY</span><span class="badge badge-pyq">PYQ</span> Explain cloud computing and Platform as a Service <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="write-this">Cloud computing is the delivery of on-demand computing services — including servers, storage, databases, networking, and software — over the internet, offering flexible resources and economies of scale. Platform as a Service (PaaS) is a cloud service model where the provider supplies a complete development and deployment environment in the cloud. It includes middleware, development tools, database management systems, business intelligence services, and more. Developers can build, deploy, and manage applications without managing the underlying infrastructure. Example: Google App Engine, Heroku.</div>
+    </div>
+  </div>
+
+  <div class="sec-title">🟡 Medium Questions</div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <span class="badge badge-medium">MEDIUM</span><span class="badge badge-pyq">PYQ EndSem</span> Q7a: Performance Balance — explain and give 2 solutions <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="write-this">Performance balance refers to the mismatch between CPU speed and memory/I/O speed. CPU performance has grown at ~60% per year while DRAM access speed improves only ~7% per year, creating a "memory wall." Solutions: (1) Increase DRAM bandwidth — use wider buses, multiple data buses, or interleaved memory; (2) Use cache memory — place high-speed SRAM between CPU and DRAM to exploit locality of reference and reduce average memory access time.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <span class="badge badge-medium">MEDIUM</span><span class="badge badge-pyq">PYQ</span> Q3a: Handle multiple interrupts — flow chart approach <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p>Two approaches to handle multiple interrupts:</p>
+      <p><strong>1. Sequential (Disable Interrupts):</strong> While handling one interrupt, disable all others. After ISR completes, re-enable and check for pending interrupts. Simple but lower-priority interrupts must wait.</p>
+      <p><strong>2. Nested Interrupts (Priority-Based):</strong> Higher-priority interrupts can interrupt a lower-priority ISR. Uses a priority mask. Allows real-time response to critical events.</p>
+      <div class="diagram-box">
+   Sequential:              Priority-Based:
+   IRQ1→ISR1              IRQ1(low)→ISR1
+   (IRQ2 waits)           IRQ2(high)→interrupts ISR1
+   ISR1 done→ISR2         →ISR2 runs
+                          →returns to ISR1
+                          →ISR1 completes
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <span class="badge badge-medium">MEDIUM</span><span class="badge badge-pyq">PYQ EndSem</span> Explain RAID 1, 2, 3 data storage capacity <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <table>
+        <tr><th>RAID</th><th>Name</th><th>Mechanism</th><th>Capacity</th><th>Reliability</th></tr>
+        <tr><td>RAID 1</td><td>Mirroring</td><td>Exact copy on 2 disks</td><td>50% of total (N/2)</td><td>Very High</td></tr>
+        <tr><td>RAID 2</td><td>Bit-interleaved with ECC</td><td>Data striped at bit level + Hamming ECC</td><td>~N - log₂(N) disks</td><td>High</td></tr>
+        <tr><td>RAID 3</td><td>Byte-interleaved parity</td><td>Data striped at byte level + dedicated parity disk</td><td>(N-1)/N of total</td><td>Medium-High</td></tr>
+      </table>
+      <div class="write-this">RAID 1 (Mirroring): Data is duplicated on two disks; usable capacity = 50% of total. RAID 2: Data striped at bit level with Hamming error correction codes; several disks used for ECC. RAID 3: Data striped at byte level with one dedicated parity disk; capacity = (N-1) disks worth of storage.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <span class="badge badge-medium">MEDIUM</span><span class="badge badge-pyq">PYQ EndSem</span> Describe 3-level cache organization with diagram <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="diagram-box">
+CPU Registers
+    ↕ (fastest, ~1 cycle)
+[ L1 Cache ] ← On-chip, per-core, ~32KB, 1-4 cycles
+    ↕
+[ L2 Cache ] ← On-chip, per-core, ~256KB, 4-12 cycles
+    ↕
+[ L3 Cache ] ← Shared among cores, ~8-32MB, 20-40 cycles
+    ↕
+[ Main Memory (RAM) ] ← Off-chip, GBs, 100-200 cycles
+    ↕
+[ Secondary Storage (SSD/HDD) ] ← TBs, millions of cycles
+      </div>
+      <p>Each level is larger but slower. On cache miss, the next level is accessed. Data is loaded into all higher levels upon a hit.</p>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <span class="badge badge-medium">MEDIUM</span><span class="badge badge-pyq">PYQ EndSem 8a</span> Find Boolean expression Y for 2×1 Mux with I0, I1, Sel=P <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p>For a 2×1 Multiplexer: When Sel=0 → output = I0; When Sel=1 → output = I1</p>
+      <p><strong>Y = I0·P' + I1·P = Q·P' + P·P = QP' + P = P + Q</strong></p>
+      <div class="exam-alert">From End-Sem 2025: Y = QP (as shown on paper — check context: Y = Q when P selects I0=Q)</div>
+      <p><strong>General formula: Y = I0·S̄ + I1·S</strong></p>
+    </div>
+  </div>
+
+  <div class="sec-title">🔴 Hard Questions (GATE-Level)</div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <span class="badge badge-hard">HARD</span><span class="badge badge-pyq">GATE 2019</span> K-way set-associative, 2^P byte addr, 2^N byte cache, 2^M byte block → TAG length <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <ul class="steps">
+        <li data-step="1">Physical address space = 2^P bytes → P address bits</li>
+        <li data-step="2">Block offset = log₂(2^M) = M bits</li>
+        <li data-step="3">#Lines = 2^N / 2^M = 2^(N-M)</li>
+        <li data-step="4">#Sets = 2^(N-M) / K → Index = N-M-log₂(K) bits</li>
+        <li data-step="5">TAG = P − (N-M-log₂K) − M = <strong>P − N + log₂(K)</strong></li>
+      </ul>
+      <div class="write-this">TAG = P − N + log₂(K) bits (where P=physical address bits, N=log of cache size in bytes, K=associativity).</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <span class="badge badge-hard">HARD</span><span class="badge badge-pyq">GATE 2016</span> 64 registers, 5 fields per instruction → memory consumed by 100 instructions <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <ul class="steps">
+        <li data-step="1">64 registers → 6 bits per register ID</li>
+        <li data-step="2">Instruction: opcode(12) + src1_reg(6) + src2_reg(6) + dst_reg(6) + immediate(12) = 42 bits</li>
+        <li data-step="3">Byte-aligned: ceil(42/8) = 6 bytes per instruction</li>
+        <li data-step="4">100 instructions × 6 bytes = <strong>600 bytes</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <span class="badge badge-hard">HARD</span><span class="badge badge-pyq">GATE CSE 2023</span> IEEE 754: S=1, E=10000001, F=1111-0000...0000 → decimal value <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <ul class="steps">
+        <li data-step="1">S=1 (negative), E=10000001₂ = 129₁₀</li>
+        <li data-step="2">Exponent = 129 − 127 (bias) = 2</li>
+        <li data-step="3">Mantissa: 1.1111 0000...0 = 1 + 1/2 + 1/4 + 1/8 + 1/16 = 1.9375</li>
+        <li data-step="4">Value = (−1)^1 × 1.9375 × 2^2 = −1 × 7.75 = <strong>−7.75</strong></li>
+      </ul>
+      <div class="write-this">S=1 (negative). Biased exponent = 129₁₀, actual exponent = 129−127 = 2. Mantissa = 1.1111₂ = 1.9375₁₀. Final value = −1.9375 × 2² = −7.75.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <span class="badge badge-hard">HARD</span><span class="badge badge-pyq">PYQ EndSem</span> Booth's Algorithm: x=1010(−6), y=0100(4), compute p=−x×−y <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p>x = 1010 = −6 (2's complement), y = 0100 = 4, p = −x × −y = 6 × (−4) = −24</p>
+      <p>2's complement of 24 = 11101000 → Result = 11101000 = −24</p>
+      <div class="exam-alert">Answer: p = −24 = 11101000 (binary). Use Booth's with 5-bit 2's complement representation.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <span class="badge badge-hard">HARD</span><span class="badge badge-pyq">MidSem</span> Machine with 64 registers, 5 fields, 12-bit opcode. How many bytes for 100 instructions? <span class="arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p>Fields: opcode(12 bits) + source1 + source2 + destination + immediate</p>
+      <p>64 registers → need log₂(64) = 6 bits per register field</p>
+      <p>Source1=6, Source2=6, Destination=6 bits. Immediate=12 bits</p>
+      <p>Total instruction = 12 + 6 + 6 + 6 + 12 = <strong>42 bits → round to 48 bits = 6 bytes</strong></p>
+      <p>100 instructions × 6 bytes = <strong>600 bytes</strong></p>
+      <div class="exam-alert">GATE CSE 2016 — Answer: 600 bytes</div>
+    </div>
+  </div>
+</div>
+
+<!-- ASSIGNMENTS -->
+<div id="page-assign" class="page">
+  <div class="hero"><h1>Assignments</h1><p>Assignment 1 &amp; 2 — Fully Solved · Exam-Ready</p></div>
+
+  <div class="sec-title">📋 Assignment 1 — Basic Concepts &amp; Performance</div>
+  <div style="font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--text-dim);margin-bottom:1rem">
+    Due: 19.03.2026 | CO1, CO2 | 20 Marks
+  </div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">Q1: Main structural components of single processor computer system <span class="arrow">▼</span></div>
+    <div class="collapsible-body">
+      <div class="write-this">A single processor computer system has four main structural components: (1) CPU — Contains the ALU for computations, Control Unit for directing operations, and Registers for temporary storage. (2) Main Memory — Stores data and programs currently being executed; volatile storage. (3) I/O — Provides interface between computer and external devices (keyboard, monitor, disk). (4) System Interconnection — The bus structure that connects CPU, memory, and I/O, allowing data transfer between components.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">Q2: Multicore computer system components <span class="arrow">▼</span></div>
+    <div class="collapsible-body">
+      <div class="write-this">A multicore computer system contains: (1) Multiple Processor Cores — each with its own ALU, control unit, and registers, enabling parallel execution. (2) L1 Cache — Per-core private cache (typically 32–64 KB) for fastest data access. (3) L2/L3 Shared Cache — Larger cache shared among cores to reduce main memory accesses. (4) Main Memory (RAM) — Shared DRAM accessible by all cores. (5) I/O Interface — Connects to peripherals via PCIe, USB, SATA buses. (6) Interconnect (Bus/NoC) — High-speed connection linking cores, cache, and memory.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">Q3: Differentiate (i) Microprocessor vs Microcontroller (ii) Organization vs Architecture (iii) Embedded vs Deeply Embedded <span class="arrow">▼</span></div>
+    <div class="collapsible-body">
+      <p><strong>(i) Microprocessor vs Microcontroller</strong></p>
+      <div class="write-this">A microprocessor is a CPU on a single chip requiring external memory and I/O chips (e.g., Intel 8086). A microcontroller integrates CPU, RAM, ROM, and I/O ports on one chip, designed for embedded control applications (e.g., ATmega328 in Arduino). Microcontrollers are cheaper, consume less power, and are used in appliances, IoT devices, and robotics.</div>
+      <p style="margin-top:0.8rem"><strong>(ii) Computer Organization vs Architecture</strong></p>
+      <div class="write-this">Computer Architecture refers to the logical design visible to the programmer — instruction set, data types, addressing modes, registers, and interrupts. Computer Organization refers to the physical implementation of the architecture — control signals, memory technology, bus design, and ALU circuit details. Two machines with the same architecture can have different organizations.</div>
+      <p style="margin-top:0.8rem"><strong>(iii) Embedded vs Deeply Embedded</strong></p>
+      <div class="write-this">An embedded system is a computer system designed for a specific function within a larger device, possibly with a simple user interface (e.g., ATM, printer). A deeply embedded system has extreme constraints on power, size, and cost, operates autonomously with no user interface, and often runs bare-metal (no OS). Examples: cardiac pacemakers, airbag controllers, RFID chips.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">Q4: Cloud Computing Services with Diagram <span class="arrow">▼</span></div>
+    <div class="collapsible-body">
+      <div class="write-this">Cloud computing delivers computing services over the internet on-demand. Three service models: (1) Infrastructure as a Service (IaaS) — provides virtualized hardware (VMs, storage, networking). Users manage OS and above. Example: AWS EC2. (2) Platform as a Service (PaaS) — provides development platform including OS, runtime, middleware, and databases. Developers focus on application code. Example: Google App Engine. (3) Software as a Service (SaaS) — delivers complete applications over the internet. Users just use the software. Example: Gmail, Salesforce.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">Q5: Techniques to increase microprocessor speed <span class="arrow">▼</span></div>
+    <div class="collapsible-body">
+      <div class="write-this">Five techniques to increase microprocessor speed: (1) Increase Hardware Speed — use faster switching technology (GaAs) and higher clock frequencies. (2) Increase Cache Size — more on-chip cache reduces expensive main memory accesses. (3) Change Processor Architecture — pipelining, superscalar, and out-of-order execution allow multiple instruction executions simultaneously. (4) Use Multiple Processors — multicore and multiprocessor systems enable parallel execution of programs. (5) Reduce Memory Access Time — wider buses, memory interleaving, and DMA reduce the memory bottleneck.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">Q6: Obstacles when clock speed and logic density increase <span class="arrow">▼</span></div>
+    <div class="collapsible-body">
+      <div class="write-this">As clock speed and logic density increase, four key obstacles arise: (1) Power Dissipation — higher switching frequency increases heat generation, requiring costly cooling solutions. (2) RC Delay — as wires become thinner with higher density, resistance and capacitance increase, slowing signal propagation. (3) Memory Latency — CPU speed grows faster than memory access speed, creating the "memory wall" bottleneck. (4) Memory Bandwidth — even with acceptable latency, the rate of data transfer becomes the limiting factor in system performance.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">Q7–Q12: Little's Law Problems (all solved) <span class="arrow">▼</span></div>
+    <div class="collapsible-body">
+      <p>See Chapter 2 → Little's Law section for all solutions.</p>
+      <div class="formula">Key Formula: N = λ × T (Little's Law)</div>
+      <table>
+        <tr><th>Q</th><th>Given</th><th>Find</th><th>Answer</th></tr>
+        <tr><td>Q7</td><td>λ=6/hr, N=3</td><td>T</td><td>0.5 hr (30 min)</td></tr>
+        <tr><td>Q8</td><td>λ=90/hr, N=5</td><td>T</td><td>1/18 hr ≈ 3.33 min</td></tr>
+        <tr><td>Q9</td><td>N=6, T=3min</td><td>λ</td><td>120 customers/hr</td></tr>
+        <tr><td>Q10</td><td>N=360, λ=12/day</td><td>T</td><td>30 days</td></tr>
+        <tr><td>Q11</td><td>N=70lb, λ=200lb/wk</td><td>T</td><td>0.35 wks ≈ 2.45 days</td></tr>
+        <tr><td>Q12</td><td>λ=120/hr, T=3min</td><td>N</td><td>6 customers</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">Q13-Q14: Amdahl's Law Problems (all solved) <span class="arrow">▼</span></div>
+    <div class="collapsible-body">
+      <p>See Chapter 2 → Amdahl's Law section for full step-by-step solutions.</p>
+      <table>
+        <tr><th>Q</th><th>Given</th><th>Answer</th></tr>
+        <tr><td>Q13</td><td>f=40%, N=2.3×</td><td>Sp ≈ 1.292</td></tr>
+        <tr><td>Q14</td><td>Sp=2.25, p=15</td><td>f ≈ 59.5%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">Q16: VAX 11/780 (5MHz, 1MIPS) vs IBM RS/6000 (25MHz, 18MIPS). Instruction count ratio &amp; CPI? <span class="arrow">▼</span></div>
+    <div class="collapsible-body">
+      <p>Let IBM CPU time = x, VAX CPU time = 12x</p>
+      <p>MIPS = IC / (CPU_time × 10⁶)</p>
+      <p>VAX: 1 = IC_VAX / (12x × 10⁶) → IC_VAX = 12x × 10⁶</p>
+      <p>IBM: 18 = IC_IBM / (x × 10⁶) → IC_IBM = 18x × 10⁶</p>
+      <p>IC_VAX / IC_IBM = 12x / 18x = <strong>2/3</strong></p>
+      <p>VAX CPI = (5×10⁶ × 12x) / (12×10⁶ × x) = <strong>5</strong></p>
+      <p>IBM CPI = (25×10⁶ × x) / (18×10⁶ × x) = <strong>25/18 ≈ 1.39</strong></p>
+    </div>
+  </div>
+
+  <hr>
+  <div class="sec-title">📋 Assignment 2 — Function, Interconnection &amp; Cache</div>
+  <div style="font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--text-dim);margin-bottom:1rem">
+    Due: 26.04.2026 | CO3, CO4 | 20 Marks
+  </div>
+
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">Q1: Von Neumann 3 Key Concepts <span class="arrow">▼</span></div>
+    <div class="collapsible-body">
+      <div class="write-this">The three key concepts of von Neumann architecture: (1) Stored Program — data and instructions are stored in a single read-write memory, allowing programs to be treated as data and modified. (2) Single Memory Space — both data and instructions share the same addressable memory space. (3) Sequential Execution — instructions are fetched and executed one at a time in sequence, unless a branch instruction alters the flow.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">Q2: Instruction Execution States (without interrupt) <span class="arrow">▼</span></div>
+    <div class="collapsible-body">
+      <div class="write-this">The states defining instruction execution without interrupt are: (1) Instruction Fetch (IF) — fetch instruction from address in PC into IR; increment PC. (2) Instruction Decode (ID) — CU decodes opcode in IR to determine operation and operand locations. (3) Operand Fetch (OF) — if required, calculate effective address and fetch operand from memory or register. (4) Execute (EX) — perform the operation (arithmetic, logic, data transfer, control). (5) Result Store (WB) — write result back to register or memory location.</div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">Q6: Reasons for using a memory hierarchy <span class="arrow">▼</span></div>
+    <div class="collapsible-body">
+      <div class="write-this">A memory hierarchy is used for the following reasons: (1) Cost-Performance Trade-off: Fast memory (SRAM) is expensive. Slow memory (DRAM/Disk) is cheap. Hierarchy gives fast speed at low average cost. (2) Principle of Locality: Programs exhibit temporal and spatial locality. A small fast memory can hold frequently used data. (3) Reduced Average Access Time: Most accesses are served by cache (fast), rarely going to main memory or disk. (4) Scalability: Different levels can be optimized independently.</div>
+    </div>
+  </div>
+
+  <p style="font-size:0.85rem;color:var(--text-dim);margin-top:1rem">For Q4–Q20 cache problems, see <strong>Chapter 4</strong> for complete step-by-step solutions with all formulas applied.</p>
+</div>
+
+<!-- FILL IN THE BLANKS -->
+<div id="page-fillblanks" class="page">
+  <div class="hero"><h1>✍ Fill in the Blanks</h1><p>Test your knowledge · Click "Reveal" to see answers</p></div>
+
+  <div class="card">
+    <div class="sub-title">📝 Chapter 1, 2, 3 &amp; 4 — Fill Blanks</div>
+    <div id="fb-container"></div>
+  </div>
+</div>
+
+<!-- QUICK REVISION -->
+<div id="page-revision" class="page">
+  <div class="hero"><h1>⚡ Quick Revision</h1><p>Read this 30 minutes before your exam</p></div>
+
+  <div class="sec-title">🔑 Must-Know Formulas</div>
+  <div class="formula">Little's Law: N = λ × T</div>
+  <div class="formula">Amdahl's Law: Sp = 1/[(1-f) + f/N]</div>
+  <div class="formula">CPI_eff = Σ(IC_i × CPI_i) / IC_total</div>
+  <div class="formula">CPU Time = IC × CPI / f_clock</div>
+  <div class="formula">MIPS = f_clock / (CPI × 10⁶)</div>
+  <div class="formula">Cache: TAG + INDEX + OFFSET = Address bits<br>OFFSET = log₂(Block Size) | INDEX = log₂(#Sets)</div>
+  <div class="formula">IEEE 754 Value = (−1)^S × 1.F × 2^(E−127)</div>
+
+  <div class="sec-title">📌 Key Definitions (1-2 lines each)</div>
+  <div class="rev-card"><h4>Microprocessor</h4><p>CPU on single chip; needs external RAM/ROM. Examples: Intel Core, AMD Ryzen.</p></div>
+  <div class="rev-card"><h4>Microcontroller</h4><p>CPU + RAM + ROM + I/O on single chip. For embedded apps. Example: 8051, ATmega.</p></div>
+  <div class="rev-card"><h4>Computer Architecture</h4><p>Attributes visible to programmer — ISA, data types, addressing modes.</p></div>
+  <div class="rev-card"><h4>Computer Organization</h4><p>Physical implementation of architecture — control signals, bus width, memory tech.</p></div>
+  <div class="rev-card"><h4>Von Neumann</h4><p>Stored program + single memory space + sequential execution.</p></div>
+  <div class="rev-card"><h4>Moore's Law</h4><p>Transistor count doubles every 18 months.</p></div>
+  <div class="rev-card"><h4>Little's Law</h4><p>N = λT. Items in system = arrival rate × avg time in system.</p></div>
+  <div class="rev-card"><h4>Amdahl's Law</h4><p>Overall speedup limited by fraction NOT enhanced. Sp = 1/[(1-f)+f/N].</p></div>
+  <div class="rev-card"><h4>Temporal Locality</h4><p>Recently accessed data will likely be accessed again soon.</p></div>
+  <div class="rev-card"><h4>Spatial Locality</h4><p>Data near recently accessed data is likely to be accessed.</p></div>
+  <div class="rev-card"><h4>Direct Mapped Cache</h4><p>Each memory block maps to exactly one cache line. Fast but high conflict misses.</p></div>
+  <div class="rev-card"><h4>Set Associative Cache</h4><p>Memory block maps to a set; any line within that set can hold it. Balance of direct and fully associative.</p></div>
+  <div class="rev-card"><h4>Fully Associative Cache</h4><p>Any block can go to any cache line. No index field. Best hit rate, slowest to search.</p></div>
+  <div class="rev-card"><h4>IEEE 754 Single Precision</h4><p>32 bits: S(1) E(8) F(23). Value = (−1)^S × 2^(E−127) × 1.F. Bias = 127.</p></div>
+  <div class="rev-card"><h4>Booth's Algorithm</h4><p>Signed binary multiplication. Bit pair 00/11 → no op; 01 → add; 10 → subtract. Arithmetic right shift each step.</p></div>
+  <div class="rev-card"><h4>Half Adder</h4><p>S = A ⊕ B, C = A·B. Adds 2 bits.</p></div>
+  <div class="rev-card"><h4>Full Adder</h4><p>Sum = A⊕B⊕Cin, Cout = AB+BCin+ACin. Adds 3 bits including carry-in.</p></div>
+
+  <div class="sec-title">⚡ VHDL Quick Patterns</div>
+  <pre>-- AND gate    Y <= A and B;
+-- OR gate     Y <= A or B;
+-- NOT gate    Y <= not A;
+-- XOR gate    Y <= A xor B;
+-- Half Adder
+S <= A xor B;
+C <= A and B;
+-- Full Adder
+S  <= A xor B xor Cin;
+Co <= (A and B) or (B and Cin) or (A and Cin);</pre>
+
+  <div class="sec-title">🧠 Mnemonics</div>
+  <div class="mnemonic">IaaS PaaS SaaS → "I Pay Subscriptions" or "I Put Software" on cloud layers</div>
+  <div class="mnemonic">Von Neumann 3 concepts → "SSS" = Stored, Sequential, Single-memory</div>
+  <div class="mnemonic">Instruction cycle → "FIDEW" = Fetch, Interpret, Data-fetch, Execute, Write-back</div>
+  <div class="mnemonic">5 speed techniques → "HCAPM" = Hardware, Cache, Architecture, Processors, Memory-access</div>
+  <div class="mnemonic">4 computer functions → "PSMC" = Processing, Storage, Movement, Control</div>
+  <div class="mnemonic">Cache formula → "TIO" = Tag + Index + Offset = Address bits</div>
+  <div class="mnemonic">Instruction Cycle States → "I Don't Often Fall Down Often" = IF ID OAC OF DO OS</div>
+
+  <div class="sec-title">🎯 Expected Exam Questions</div>
+  <div class="card">
+    <div class="sub-title">Very Likely (appeared in previous exams)</div>
+    <ul style="font-size:0.85rem;line-height:2">
+      <li>Structural components of single/multicore computer (with diagram) ⭐⭐⭐</li>
+      <li>Amdahl's Law numerical (f% enhanced N× faster → overall speedup) ⭐⭐⭐</li>
+      <li>CPI calculation + MIPS rate ⭐⭐⭐</li>
+      <li>Von Neumann 3 concepts ⭐⭐⭐</li>
+      <li>Instruction cycle with/without interrupts + diagram ⭐⭐⭐</li>
+      <li>Cache address format (TAG, INDEX, OFFSET) ⭐⭐⭐</li>
+      <li>Difference: Microprocessor vs Microcontroller ⭐⭐</li>
+      <li>Cloud computing services (IaaS, PaaS, SaaS) with diagram ⭐⭐</li>
+      <li>Little's Law numerical ⭐⭐</li>
+      <li>GATE-level cache TAG bits problem ⭐⭐</li>
+      <li>IEEE 754 floating point conversion ⭐⭐</li>
+      <li>Half Adder / Full Adder VHDL code ⭐⭐</li>
+      <li>K-Map simplification + VHDL ⭐⭐</li>
+      <li>RAID 1, 2, 3 comparison ⭐</li>
+    </ul>
+  </div>
+
+  <div class="sec-title">🎥 YouTube Quick Links</div>
+  <a class="yt-card" href="https://www.youtube.com/results?search_query=amdahls+law+explained+gate" target="_blank">
+    <div class="yt-icon">▶️</div>
+    <div class="yt-info"><div class="yt-title">Amdahl's Law — Gate Smashers</div><div class="yt-ch">Search: "amdahls law GATE smashers"</div></div>
+  </a>
+  <a class="yt-card" href="https://www.youtube.com/results?search_query=cache+memory+direct+mapped+set+associative+gate" target="_blank">
+    <div class="yt-icon">▶️</div>
+    <div class="yt-info"><div class="yt-title">Cache Memory Mapping — Complete</div><div class="yt-ch">Search: "cache memory direct mapped set associative GATE"</div></div>
+  </a>
+  <a class="yt-card" href="https://www.youtube.com/results?search_query=von+neumann+architecture+instruction+cycle" target="_blank">
+    <div class="yt-icon">▶️</div>
+    <div class="yt-info"><div class="yt-title">Von Neumann + Instruction Cycle</div><div class="yt-ch">Search: "von neumann architecture instruction cycle COA"</div></div>
+  </a>
+</div>
+
+<!-- PROGRESS DASHBOARD -->
+<div id="page-progress" class="page">
+  <div class="hero"><h1>📊 Progress Dashboard</h1><p>Track your study progress</p></div>
+
+  <div class="sec-title">📈 Chapter Progress</div>
+  <div class="progress-grid" id="progressGrid"></div>
+
+  <div class="sec-title">📋 Summary Stats</div>
+  <div class="grid-2">
+    <div class="card" style="text-align:center">
+      <div style="font-size:2rem;font-weight:800;color:var(--easy)" id="statDone">0</div>
+      <div style="font-size:0.8rem;color:var(--text-dim)">Topics Done ✅</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:2rem;font-weight:800;color:var(--hard)" id="statWrong">0</div>
+      <div style="font-size:0.8rem;color:var(--text-dim)">Need Review ❌</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:2rem;font-weight:800;color:var(--medium)" id="statStar">0</div>
+      <div style="font-size:0.8rem;color:var(--text-dim)">Starred ⭐</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:2rem;font-weight:800;color:var(--accent)" id="statTotal">0%</div>
+      <div style="font-size:0.8rem;color:var(--text-dim)">Overall Progress</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:1rem">
+    <button onclick="clearProgress()" style="background:rgba(255,68,68,0.2);border:1px solid var(--hard);color:var(--hard);padding:0.5rem 1rem;border-radius:4px;cursor:pointer;font-family:'Space Mono',monospace;font-size:0.75rem">Reset All Progress</button>
+  </div>
+</div>
+
+</div><!-- end .main -->
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// PAGE NAVIGATION
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='progress') renderProgress();
+  if(id==='fillblanks') renderFillBlanks();
+}
+
+// COLLAPSIBLE
+function toggleCollapse(header) {
+  header.parentElement.classList.toggle('open');
+}
+
+// SCROLL TO TOP
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTop').style.display = window.scrollY > 300 ? 'flex' : 'none';
+});
+document.getElementById('scrollTop').style.display = 'flex';
+
+// FILL IN THE BLANKS
+const blanks = [
+  {q:"CPU stands for ___________.", a:"Central Processing Unit"},
+  {q:"Little's Law: L = ___ × W", a:"λ (lambda/arrival rate)"},
+  {q:"Amdahl's Law formula: S = 1 / [(_____) + F/N]", a:"1-F"},
+  {q:"MIPS = Clock Rate / (CPI × ___)", a:"10⁶"},
+  {q:"Cache ___________ ratio is the fraction of accesses that find data in cache.", a:"hit"},
+  {q:"Von Neumann's key concept: data and instructions stored in same ___________.", a:"memory"},
+  {q:"IEEE 754 single precision uses ___ bits for the exponent.", a:"8"},
+  {q:"Bias for single precision IEEE 754 is ___.", a:"127"},
+  {q:"Half Adder: Sum = A ___ B (logic operation)", a:"XOR (⊕)"},
+  {q:"In VHDL, AND gate is written as: Y <= A ___ B", a:"and"},
+  {q:"Number of parity bits needed for 8 data bits = ___.", a:"4"},
+  {q:"Direct mapped cache: Tag | ___ | Offset", a:"Line"},
+  {q:"Full Adder Carry: Cout = AB + BC_in + ___", a:"AC_in"},
+  {q:"Moore's Law: transistors double every ___ months.", a:"18"},
+  {q:"IaaS = ___________ as a Service", a:"Infrastructure"},
+  {q:"Booth's algorithm: bit pair 01 means ___ (operation).", a:"Add multiplicand"},
+  {q:"For set-associative cache: Set bits = log₂(Total lines / ___)", a:"k (associativity)"},
+  {q:"The ___ bus carries the memory address from CPU to memory.", a:"Address"},
+  {q:"Half Subtractor: Borrow B = ___ (expression using X and Y)", a:"X'·Y (not X and Y)"},
+  {q:"In 2's complement, to negate a number: invert all bits and ___ 1.", a:"add"},
+  {q:"Fully associative cache has ___ index bits.", a:"0"},
+  {q:"CPU Time = IC × CPI × ___", a:"T_clock (1/f)"},
+  {q:"The three Von Neumann concepts are: Stored Program, Sequential Execution, and ___.", a:"Single Memory Space"},
+  {q:"PaaS stands for ___________ as a Service.", a:"Platform"},
+];
+
+function renderFillBlanks() {
+  const container = document.getElementById('fb-container');
+  if(container.innerHTML) return;
+  blanks.forEach((b, i) => {
+    container.innerHTML += `
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:1rem 1.2rem;margin-bottom:0.8rem;">
+      <p style="margin-bottom:0.5rem;">${b.q}</p>
+      <span class="blank-reveal" id="ans${i}" style="display:none;"> ✓ ${b.a}</span>
+      <br><button class="reveal-btn" onclick="revealBlank(${i})">Reveal Answer</button>
+    </div>`;
+  });
+}
+
+function revealBlank(i) {
+  const el = document.getElementById('ans'+i);
+  el.style.display = el.style.display==='none' ? 'inline' : 'none';
+}
+
+// PROGRESS SYSTEM
+const TOPICS = [
+  { id:'ch1-basics', name:'Ch1: Basic Concepts', ch:'Chapter 1' },
+  { id:'ch1-cloud', name:'Ch1: Cloud Computing', ch:'Chapter 1' },
+  { id:'ch1-diff', name:'Ch1: Differences (μP/μC/Org/Arch)', ch:'Chapter 1' },
+  { id:'ch2-littles', name:"Ch2: Little's Law", ch:'Chapter 2' },
+  { id:'ch2-amdahl', name:"Ch2: Amdahl's Law", ch:'Chapter 2' },
+  { id:'ch2-cpi', name:'Ch2: CPI & MIPS Numericals', ch:'Chapter 2' },
+  { id:'ch2-bench', name:'Ch2: Benchmark Problems', ch:'Chapter 2' },
+  { id:'ch3-vonneumann', name:'Ch3: Von Neumann', ch:'Chapter 3' },
+  { id:'ch3-instcycle', name:'Ch3: Instruction Cycle', ch:'Chapter 3' },
+  { id:'ch3-bus', name:'Ch3: Bus & Interconnection', ch:'Chapter 3' },
+  { id:'ch4-hierarchy', name:'Ch4: Memory Hierarchy', ch:'Chapter 4' },
+  { id:'ch4-direct', name:'Ch4: Direct Mapped Cache', ch:'Chapter 4' },
+  { id:'ch4-setassoc', name:'Ch4: Set-Associative Cache', ch:'Chapter 4' },
+  { id:'ch4-gate', name:'Ch4: GATE Cache Problems', ch:'Chapter 4' },
+  { id:'ch5-twos', name:"Ch5: 2's Complement", ch:'Chapter 5' },
+  { id:'ch5-booth', name:"Ch5: Booth's Algorithm", ch:'Chapter 5' },
+  { id:'ch5-ieee', name:'Ch5: IEEE 754 Floating Point', ch:'Chapter 5' },
+  { id:'lab1-obj1', name:'Lab I: Boolean F=Σ(1,3,4,6)', ch:'Lab Experiments' },
+  { id:'lab1-obj2', name:'Lab I: F=AB+BC+B\'D\'+AC\'D\'', ch:'Lab Experiments' },
+  { id:'lab1-obj3', name:'Lab I: F=Σ(4,5,7,12,13)', ch:'Lab Experiments' },
+  { id:'lab2-ha', name:'Lab II: Half Adder', ch:'Lab Experiments' },
+  { id:'lab2-hs', name:'Lab II: Half Subtractor', ch:'Lab Experiments' },
+  { id:'lab2-fa', name:'Lab II: Full Adder', ch:'Lab Experiments' },
+  { id:'lab2-rca', name:'Lab II: 2-bit Ripple Carry Adder', ch:'Lab Experiments' },
+  { id:'vhdl-template', name:'VHDL: Template & Operators', ch:'VHDL' },
+  { id:'vhdl-p1', name:'VHDL: XOR (Practice 1)', ch:'VHDL' },
+  { id:'vhdl-p2', name:'VHDL: NAND (Practice 2)', ch:'VHDL' },
+  { id:'assign1', name:'Assignment 1 Questions', ch:'Assignments' },
+  { id:'assign2', name:'Assignment 2 Questions', ch:'Assignments' },
+];
+
+function getProgress() {
+  try { return JSON.parse(localStorage.getItem('coa_progress') || '{}'); } catch(e) { return {}; }
+}
+function saveProgress(p) {
+  localStorage.setItem('coa_progress', JSON.stringify(p));
+}
+
+function setStatus(id, status) {
+  const p = getProgress();
+  if(p[id] === status) { delete p[id]; }
+  else { p[id] = status; }
+  saveProgress(p);
+  renderProgress();
+}
+
+function renderProgress() {
+  const p = getProgress();
+  const grid = document.getElementById('progressGrid');
+  if(!grid) return;
+  grid.innerHTML = '';
+  let done=0, wrong=0, star=0;
+  TOPICS.forEach(t => {
+    const s = p[t.id] || '';
+    if(s==='done') done++;
+    if(s==='wrong') wrong++;
+    if(s==='star') star++;
+    const pct = s==='done' ? 100 : 0;
+    grid.innerHTML += `
+      <div class="progress-card">
+        <div class="topic-name">${t.name}</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+        <div style="font-size:0.7rem;color:var(--text-dim);margin-bottom:0.3rem">${t.ch}</div>
+        <div class="topic-btns">
+          <button class="topic-btn ${s==='done'?'done':''}" onclick="setStatus('${t.id}','done')">✅ Done</button>
+          <button class="topic-btn ${s==='wrong'?'wrong':''}" onclick="setStatus('${t.id}','wrong')">❌ Redo</button>
+          <button class="topic-btn ${s==='star'?'star':''}" onclick="setStatus('${t.id}','star')">⭐</button>
+        </div>
+      </div>`;
+  });
+  document.getElementById('statDone').textContent = done;
+  document.getElementById('statWrong').textContent = wrong;
+  document.getElementById('statStar').textContent = star;
+  document.getElementById('statTotal').textContent = Math.round((done/TOPICS.length)*100) + '%';
+}
+
+function clearProgress() {
+  if(confirm('Reset all progress?')) { localStorage.removeItem('coa_progress'); renderProgress(); }
+}
+
+renderProgress();
+</script>
+</body>
+</html>
