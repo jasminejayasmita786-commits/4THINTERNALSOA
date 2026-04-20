@@ -18,7 +18,6 @@
   --accent4: #f76a9a;
   --text: #e8e8f0;
   --text2: #9898b0;
-  --text3: #6868808;
   --formula-bg: #1a1a2e;
   --formula-border: #7c6af7;
   --exam-bg: #1a2e1a;
@@ -28,11 +27,8 @@
   --tip-bg: #2e2a1a;
   --tip-border: #f7c26a;
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 html { scroll-behavior: smooth; }
-
 body {
   font-family: 'DM Sans', sans-serif;
   background: var(--bg);
@@ -41,8 +37,6 @@ body {
   font-size: 15px;
   line-height: 1.7;
 }
-
-/* NAVBAR */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -85,8 +79,6 @@ nav a {
   flex-shrink: 0;
 }
 nav a:hover { color: var(--text); background: var(--bg3); }
-
-/* HERO */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -143,16 +135,12 @@ nav a:hover { color: var(--text); background: var(--bg3); }
   font-weight: 500;
 }
 .stat-pill strong { color: var(--accent2); }
-
-/* SECTION WRAPPERS */
 section {
   max-width: 1100px;
   margin: 0 auto;
   padding: 5rem 1.5rem;
 }
-.section-head {
-  margin-bottom: 2.5rem;
-}
+.section-head { margin-bottom: 2.5rem; }
 .section-tag {
   font-size: 0.72rem;
   font-weight: 600;
@@ -168,16 +156,12 @@ section {
   line-height: 1.2;
 }
 .section-head p { color: var(--text2); margin-top: 0.5rem; font-size: 0.95rem; }
-
-/* DIVIDER */
 .divider {
   border: none;
   border-top: 1px solid var(--border);
   max-width: 1100px;
   margin: 0 auto;
 }
-
-/* CARDS */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -187,8 +171,6 @@ section {
 }
 .card:hover { border-color: rgba(124,106,247,0.4); }
 .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.2rem; }
-
-/* FORMULA BOXES */
 .formula-box {
   background: var(--formula-bg);
   border: 1px solid var(--formula-border);
@@ -215,8 +197,6 @@ section {
   color: var(--accent);
   font-weight: 600;
 }
-
-/* EXAM TRICK */
 .exam-trick {
   background: var(--exam-bg);
   border-left: 3px solid var(--accent3);
@@ -232,8 +212,6 @@ section {
   color: var(--accent3);
   margin-bottom: 0.4rem;
 }
-
-/* WARN BOX */
 .warn-box {
   background: var(--warn-bg);
   border-left: 3px solid var(--accent4);
@@ -249,8 +227,6 @@ section {
   color: var(--accent4);
   margin-bottom: 0.4rem;
 }
-
-/* TIP BOX */
 .tip-box {
   background: var(--tip-bg);
   border-left: 3px solid var(--accent2);
@@ -266,8 +242,6 @@ section {
   color: var(--accent2);
   margin-bottom: 0.4rem;
 }
-
-/* GRAPH CONTAINER */
 .graph-container {
   background: var(--bg3);
   border: 1px solid var(--border);
@@ -276,11 +250,7 @@ section {
   margin: 1.2rem 0;
   text-align: center;
 }
-.graph-container svg {
-  max-width: 100%;
-}
-
-/* COLLAPSIBLE */
+.graph-container svg { max-width: 100%; }
 .collapsible {
   background: var(--card);
   border: 1px solid var(--border);
@@ -316,12 +286,10 @@ section {
   transition: max-height 0.4s ease, padding 0.3s;
 }
 .collapsible.open .collapsible-body {
-  max-height: 3000px;
+  max-height: 4000px;
   padding: 0 1.3rem 1.3rem;
 }
 .collapsible.open .collapsible-arrow { transform: rotate(180deg); }
-
-/* Q-CARDS */
 .q-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -351,7 +319,7 @@ section {
   margin-top: 2px;
 }
 .q-text { font-size: 0.92rem; line-height: 1.6; flex: 1; }
-.q-toggle { color: var(--accent2); font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+.q-toggle { color: var(--accent2); font-size: 1rem; flex-shrink: 0; margin-top: 2px; transition: transform 0.3s; }
 .q-answer {
   padding: 0 1.3rem;
   max-height: 0;
@@ -361,12 +329,11 @@ section {
   background: rgba(10,10,15,0.5);
 }
 .q-card.open .q-answer {
-  max-height: 5000px;
+  max-height: 8000px;
   padding: 1.2rem 1.3rem;
   border-top-width: 1px;
 }
 .q-card.open .q-toggle { transform: rotate(180deg); }
-.q-toggle { transition: transform 0.3s; }
 .difficulty-badge {
   font-size: 0.68rem;
   font-weight: 700;
@@ -374,12 +341,11 @@ section {
   border-radius: 100px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  white-space: nowrap;
 }
 .easy { background: rgba(106,247,194,0.1); color: var(--accent3); border: 1px solid rgba(106,247,194,0.25); }
 .medium { background: rgba(247,194,106,0.1); color: var(--accent2); border: 1px solid rgba(247,194,106,0.25); }
 .hard { background: rgba(247,106,154,0.1); color: var(--accent4); border: 1px solid rgba(247,106,154,0.25); }
-
-/* TABLE */
 .data-table {
   width: 100%;
   border-collapse: collapse;
@@ -402,8 +368,6 @@ section {
   vertical-align: top;
 }
 .data-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
-
-/* STEP LIST */
 .steps { counter-reset: step; list-style: none; margin: 1rem 0; }
 .steps li {
   counter-increment: step;
@@ -427,8 +391,6 @@ section {
   flex-shrink: 0;
   margin-top: 2px;
 }
-
-/* CONCEPT TABS */
 .topic-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -453,14 +415,10 @@ section {
 }
 .topic-content { display: none; }
 .topic-content.active { display: block; }
-
-/* HIGHLIGHT */
 .hl { color: var(--accent2); font-weight: 600; }
 .hl2 { color: var(--accent3); font-weight: 600; }
 .hl3 { color: var(--accent4); font-weight: 600; }
 .hl4 { color: var(--accent); font-weight: 600; }
-
-/* VS GRID */
 .vs-grid {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -491,8 +449,6 @@ section {
   margin-bottom: 0.6rem;
   color: var(--accent);
 }
-
-/* MNEMONIC */
 .mnemonic-card {
   background: linear-gradient(135deg, rgba(124,106,247,0.1), rgba(106,247,194,0.05));
   border: 1px solid rgba(124,106,247,0.3);
@@ -508,14 +464,8 @@ section {
   margin-bottom: 0.5rem;
   letter-spacing: 0.05em;
 }
-.mnemonic-expand span {
-  display: block;
-  font-size: 0.85rem;
-  margin: 0.15rem 0;
-}
+.mnemonic-expand span { display: block; font-size: 0.85rem; margin: 0.15rem 0; }
 .mnemonic-expand .letter { color: var(--accent2); font-weight: 700; font-family: 'JetBrains Mono', monospace; }
-
-/* EXPECTED Q BADGE */
 .eq-badge {
   display: inline-block;
   font-size: 0.68rem;
@@ -527,8 +477,6 @@ section {
 }
 .likely { background: rgba(247,194,106,0.15); color: var(--accent2); border: 1px solid rgba(247,194,106,0.3); }
 .very-likely { background: rgba(247,106,154,0.15); color: var(--accent4); border: 1px solid rgba(247,106,154,0.3); }
-
-/* QUICK REVISION GRID */
 .qr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
 .qr-card {
   background: var(--card);
@@ -547,8 +495,6 @@ section {
 .qr-card ul { list-style: none; }
 .qr-card ul li { font-size: 0.8rem; color: var(--text2); padding: 0.2rem 0; padding-left: 1rem; position: relative; }
 .qr-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent2); }
-
-/* SCROLL TOP */
 .scroll-top {
   position: fixed;
   bottom: 2rem;
@@ -567,8 +513,6 @@ section {
   box-shadow: 0 4px 20px rgba(124,106,247,0.4);
 }
 .scroll-top.show { display: flex; }
-
-/* PROGRESS BAR */
 .progress-bar {
   position: fixed;
   top: 0; left: 0;
@@ -577,28 +521,36 @@ section {
   z-index: 9999;
   transition: width 0.1s;
 }
-
-/* responsive */
 @media (max-width: 640px) {
   .vs-grid { grid-template-columns: 1fr; }
   .vs-center { display: none; }
   section { padding: 3.5rem 1rem; }
 }
-
-/* SECTION DIVIDER VISUAL */
 .section-divider {
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--border), transparent);
   max-width: 1100px;
   margin: 0 auto;
 }
-
 p { margin-bottom: 0.6rem; }
 ul { padding-left: 1.2rem; }
 ul li { margin-bottom: 0.3rem; }
 h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin: 1.2rem 0 0.5rem; color: var(--accent2); }
 h4 { font-weight: 600; margin: 0.8rem 0 0.4rem; }
 strong { color: var(--text); }
+.expected-card {
+  background: linear-gradient(135deg, rgba(247,106,154,0.08), rgba(124,106,247,0.08));
+  border: 1px solid rgba(247,106,154,0.3);
+  border-radius: 14px;
+  padding: 1.3rem;
+  margin: 1rem 0;
+}
+.expected-card h4 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  color: var(--accent4);
+  margin-bottom: 0.5rem;
+}
 </style>
 </head>
 <body>
@@ -620,25 +572,22 @@ strong { color: var(--text); }
   </div>
 </nav>
 
-<!-- HERO -->
 <div class="hero" id="top">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <div class="hero-tag">HSS2024 · Introduction to Macroeconomics · 4th Sem</div>
+    <div class="hero-tag">HSS2024 · Introduction to Macroeconomics · 4th Sem · ITER, SOA University</div>
     <h1>Crack Your<br><span>Macro Exam</span><br>With Clarity</h1>
     <p>Concept → Graph → Formula → Question. Every topic explained like you're confused but smart — because you are.</p>
     <div class="hero-stats">
-      <div class="stat-pill"><strong>4</strong> Core Topics</div>
-      <div class="stat-pill"><strong>8+</strong> Key Graphs</div>
-      <div class="stat-pill"><strong>12+</strong> Formulas</div>
-      <div class="stat-pill"><strong>40+</strong> Practice Qs</div>
+      <div class="stat-pill"><strong>6</strong> Core Topics</div>
+      <div class="stat-pill"><strong>10+</strong> Key Graphs</div>
+      <div class="stat-pill"><strong>15+</strong> Formulas</div>
+      <div class="stat-pill"><strong>70+</strong> Practice Qs</div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════
-     SECTION 1: CONCEPT BUILDER
-═══════════════════════════════════════════════════ -->
+<!-- ═══ SECTION 1: CONCEPT BUILDER ═══ -->
 <section id="concepts">
   <div class="section-head">
     <div class="section-tag">📘 Section 1</div>
@@ -651,6 +600,8 @@ strong { color: var(--text); }
     <div class="topic-tab" onclick="showTopic('cpi')">Ch.24 CPI & Cost of Living</div>
     <div class="topic-tab" onclick="showTopic('gdp')">Ch.22 GDP & Income</div>
     <div class="topic-tab" onclick="showTopic('growth')">Ch.25 Growth & Saving</div>
+    <div class="topic-tab" onclick="showTopic('financial')">Ch.26 Financial System</div>
+    <div class="topic-tab" onclick="showTopic('money')">Ch.29 Money & Banking</div>
   </div>
 
   <!-- TOPIC: TRADE -->
@@ -683,7 +634,7 @@ strong { color: var(--text); }
         <p>Even if Japan is worse at both goods, it has comparative advantage in whichever good it gives up LESS to produce.</p>
         <div class="exam-trick">
           <div class="exam-trick-label">📌 Exam Rule</div>
-          Each country has comparative advantage in <strong>exactly one good each</strong>. They can't both have CA in the same good.
+          Each country has comparative advantage in <strong>exactly one good each</strong>. They can't both have CA in the same good. This is mathematically guaranteed.
         </div>
       </div>
       <div class="card">
@@ -692,25 +643,42 @@ strong { color: var(--text); }
         <p><strong>Points ON the line</strong> = efficient. <strong>Inside</strong> = inefficient (resources wasted). <strong>Outside</strong> = impossible (currently).</p>
         <p>For simple 2-good models with constant opportunity cost → PPF is a <strong>straight line</strong>.</p>
         <div class="tip-box">
-          <div class="tip-label">💡 Real Life</div>
-          A country can't produce unlimited of everything. If India produces more cars, it must produce fewer phones — that's the PPF tradeoff.
+          <div class="tip-label">💡 Gains from Trade</div>
+          After trade, a country can CONSUME beyond its PPF — like having more resources. Trade = consumption outside PPF! This is the same effect as technological progress.
         </div>
       </div>
     </div>
 
     <div class="card" style="margin-top:1.2rem;">
       <h3>🔁 How to Find Opportunity Cost (Step-by-Step)</h3>
-      <p><strong>Given:</strong> India: 10 labour hrs to produce 1 kg Rice, 25 labour hrs for 1 m Cloth | Total: 16000 Lhr</p>
+      <p><strong>Given:</strong> India: 10 labour hrs/kg Rice, 25 labour hrs/m Cloth | Total: 16000 Lhr</p>
       <ol class="steps">
         <li>Max Rice India = 16000/10 = <span class="hl">1600 kg</span> | Max Cloth = 16000/25 = <span class="hl">640 m</span></li>
         <li>OC of 1 kg Rice = 640/1600 = <span class="hl">0.4 m Cloth</span> (how much cloth is given up per kg rice)</li>
         <li>OC of 1 m Cloth = 1600/640 = <span class="hl">2.5 kg Rice</span></li>
         <li>Do the same for China. Lower OC = Comparative Advantage in that good.</li>
-        <li>Conclusion: Whoever has lower OC for a good should <strong>specialize and export</strong> that good.</li>
+        <li>Whoever has lower OC for a good should <strong>specialize and export</strong> that good.</li>
       </ol>
       <div class="exam-trick">
         <div class="exam-trick-label">⚡ Exam Shortcut</div>
         OC of Good A = (Max of B) ÷ (Max of A). This is the slope of the PPF. Smaller slope = lower OC = comparative advantage in A.
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:1.2rem;">
+      <h3>🏷️ 10 Principles of Economics (from your notes)</h3>
+      <div class="card-grid">
+        <div>
+          <p><strong>Principle 8:</strong> A country's standard of living depends on its ability to <span class="hl">produce goods & services</span> (= Productivity). Productivity = Q/L = output per worker.</p>
+          <p><strong>Principle 9:</strong> Prices rise when the government <span class="hl">prints too much money</span> → Inflation.</p>
+          <p><strong>Principle 10:</strong> Society faces a short-run trade-off between <span class="hl">inflation and unemployment</span> (Phillips Curve). ↑ Money supply → ↑ Demand → ↑ Prices → ↑ Production → ↑ Employment.</p>
+        </div>
+        <div>
+          <div class="tip-box">
+            <div class="tip-label">📌 Phillips Curve</div>
+            In the short run: High inflation = Low unemployment (and vice versa). This is a trade-off, not a choice you want — society faces it, not chooses it!
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -736,12 +704,16 @@ strong { color: var(--text); }
           <li><strong>Designate Base Year</strong> — Usually given; CPI of base year = 100</li>
           <li><strong>Compute CPI</strong> — CPI = (Cost in current year ÷ Cost in base year) × 100</li>
         </ol>
+        <div class="formula-box">
+          <div class="formula">CPI = (Cost of basket in current year / Cost of basket in base year) × 100</div>
+          <div class="formula" style="margin-top:0.5rem;">Inflation Rate = [(CPI_yr2 − CPI_yr1) / CPI_yr1] × 100</div>
+        </div>
       </div>
       <div class="card">
-        <h3>📉 Problems with CPI</h3>
+        <h3>📉 3 Problems with CPI</h3>
         <p>CPI <span class="hl3">overestimates</span> the true cost of living due to 3 biases:</p>
         <ol class="steps">
-          <li><strong>Substitution Bias</strong> — When price of beef rises, people buy chicken. CPI ignores this substitution (assumes fixed basket).</li>
+          <li><strong>Substitution Bias</strong> — When price of beef rises, people buy chicken. CPI ignores this substitution (assumes fixed basket). <em>e.g., Petrol price rises → people buy fuel-efficient cars.</em></li>
           <li><strong>Introduction of New Goods</strong> — New products (smartphones) aren't in old basket; their falling prices aren't captured.</li>
           <li><strong>Unmeasured Quality Changes</strong> — A car today is safer/better than 1990, but CPI may show it as "more expensive" ignoring quality gain.</li>
         </ol>
@@ -754,21 +726,27 @@ strong { color: var(--text); }
           <div class="formula">Real Interest Rate = Nominal Rate − Inflation Rate</div>
         </div>
         <div class="formula-box">
-          <div class="formula">Nominal Rate = (Final Amt − Initial Amt) / Initial Amt × 100</div>
+          <div class="formula">Nominal Rate = [(Final Amt − Initial Amt) / Initial Amt] × 100</div>
+        </div>
+        <div class="tip-box">
+          <div class="tip-label">📌 Memory Trick</div>
+          NIR = what bank promises. RIR = what you actually get in purchasing power. Deflation makes RIR > NIR!
         </div>
       </div>
     </div>
     <div class="card" style="margin-top:1.2rem;">
-      <h3>📏 Equivalent Current Salary / Adjusting for Inflation</h3>
-      <p>When someone earned a salary in a past year and you want to find its value in today's money:</p>
+      <h3>📏 Adjusting Values Across Time</h3>
+      <p>To convert a past salary/fee/price into today's money:</p>
       <div class="formula-box">
-        <div class="formula">Equivalent Current Salary = Old Salary × (CPI<sub>current</sub> ÷ CPI<sub>old</sub>)</div>
+        <div class="formula">Today's Value = Past Value × (CPI_today ÷ CPI_past)</div>
       </div>
-      <p><strong>Example:</strong> Uncle earned ₹25,000 in 1980. CPI 1980 = 82, CPI 2025 = 246.<br>
-      Equivalent 2025 salary = 25000 × (246/82) = 25000 × 3 = <span class="hl">₹75,000</span></p>
+      <p><strong>Example from notes:</strong> Sportsman earned $80,000 in 1931. CPI 1931 = 15.2, CPI 2012 = 229.5.<br>
+      2012 equivalent = 80,000 × (229.5/15.2) = <span class="hl">$1,207,894</span></p>
+      <p><strong>Assignment Example:</strong> Uncle earned ₹25,000 in 1980. CPI 1980 = 82, CPI 2025 = 246.<br>
+      2025 equivalent = 25,000 × (246/82) = 25,000 × 3 = <span class="hl">₹75,000</span></p>
       <div class="exam-trick">
-        <div class="exam-trick-label">📌 In Exam — If They Ask</div>
-        "What is the 2025 equivalent of ₹X earned in year Y?" → Use the formula above. This is CO2 topic.
+        <div class="exam-trick-label">📌 In Exam</div>
+        "What is the 2025 equivalent of ₹X earned in year Y?" → Use formula above. Also works for tuition fees, salaries, etc.
       </div>
     </div>
   </div>
@@ -780,22 +758,26 @@ strong { color: var(--text); }
         <h3>🏦 What is GDP?</h3>
         <p><span class="hl">Gross Domestic Product</span> = Total market value of all <strong>final</strong> goods and services produced <strong>within a country's borders</strong> in a given time period.</p>
         <p>Key words: <span class="hl2">final</span> (not intermediate), <span class="hl2">within borders</span> (not by citizens abroad), <span class="hl2">in a year</span>.</p>
-        <div class="tip-box">
-          <div class="tip-label">💡 Think of it as</div>
-          GDP = The total score of a country's economic output in one year. Higher = richer economy.
-        </div>
+        <p><strong>Inclusion Criteria:</strong> Imputed rent (owner-occupied homes), inventory additions, govt employee salaries, construction costs on vehicles/machinery.</p>
+        <p><strong>Exclusion Criteria:</strong> Second-hand goods, transfer payments (pensions, unemployment allowance), goods produced & consumed within household (backyard vegetables), underground economy.</p>
       </div>
       <div class="card">
-        <h3>📊 GDP Components (Expenditure Approach)</h3>
+        <h3>📊 3 Approaches to GDP</h3>
         <div class="formula-box">
-          <div class="formula">Y = C + I + G + NX</div>
+          <div class="formula">Y = C + I + G + NX (Expenditure Approach)</div>
         </div>
         <ul>
-          <li><span class="hl">C</span> = Consumption (households buying goods/services)</li>
-          <li><span class="hl">I</span> = Investment (firms buying capital + housing + inventory)</li>
-          <li><span class="hl">G</span> = Government Purchases (NOT transfers like pensions)</li>
+          <li><span class="hl">C</span> = Consumption (households buying goods/services, EXCEPT new house)</li>
+          <li><span class="hl">I</span> = Investment (firms buying capital + new housing + inventory changes)</li>
+          <li><span class="hl">G</span> = Government Purchases (NOT transfer payments like pensions)</li>
           <li><span class="hl">NX</span> = Net Exports = Exports − Imports</li>
         </ul>
+        <div class="formula-box">
+          <div class="formula">GDP = Wage + Rent + Interest + Profit (Income Approach)</div>
+        </div>
+        <div class="formula-box">
+          <div class="formula">GDP = Σ Value Added at each stage (Value-Added Approach)</div>
+        </div>
       </div>
       <div class="card">
         <h3>📈 Nominal vs Real GDP</h3>
@@ -805,6 +787,10 @@ strong { color: var(--text); }
           <div class="formula">Nominal GDP = Σ (Current Price × Current Quantity)</div>
           <div class="formula" style="margin-top:0.4rem">Real GDP = Σ (Base Year Price × Current Quantity)</div>
         </div>
+        <div class="warn-box">
+          <div class="warn-label">⚠️ Base Year Rule</div>
+          In the base year: Nominal GDP = Real GDP. GDP Deflator = 100. Always!
+        </div>
       </div>
       <div class="card">
         <h3>🔢 GDP Deflator</h3>
@@ -812,28 +798,44 @@ strong { color: var(--text); }
         <div class="formula-box">
           <div class="formula">GDP Deflator = (Nominal GDP ÷ Real GDP) × 100</div>
         </div>
-        <p>GDP Deflator of base year = 100 always. Above 100 = inflation; below 100 = deflation.</p>
+        <div class="formula-box">
+          <div class="formula">Inflation Rate = [(Deflator_yr2 − Deflator_yr1) / Deflator_yr1] × 100</div>
+        </div>
         <div class="exam-trick">
-          <div class="exam-trick-label">📌 CPI vs GDP Deflator — Key Diff</div>
-          CPI: fixed basket, includes imports, tracks consumer goods only<br>
-          GDP Deflator: all domestic production, changes with output mix
+          <div class="exam-trick-label">📌 CPI vs GDP Deflator Key Diff</div>
+          CPI: fixed basket, includes imports, tracks consumer goods only.<br>
+          GDP Deflator: all domestic production, changes with output mix, excludes imports.
         </div>
       </div>
     </div>
     <div class="card" style="margin-top:1.2rem;">
-      <h3>🔗 Value Added Approach</h3>
-      <p>To avoid <span class="hl3">double counting</span>, GDP only counts <strong>value added at each stage</strong>.</p>
-      <p><strong>Example:</strong> Farmer sells wheat to Miller for ₹80,000 → Miller sells flour to Baker for ₹1,00,000 → Baker sells bread for ₹1,50,000 to consumers.</p>
+      <h3>🔗 Value-Added Approach (Worked Example)</h3>
+      <p>From your notes: A farmer grows wheat → sells to miller for ₹80,000 → miller turns to flour → sells to baker for ₹1,00,000 → baker makes bread → sells to consumer for ₹1,50,000.</p>
       <table class="data-table">
         <thead><tr><th>Stage</th><th>Sale Price</th><th>Input Cost</th><th>Value Added</th></tr></thead>
         <tbody>
           <tr><td>Farmer (wheat)</td><td>₹80,000</td><td>₹0</td><td>₹80,000</td></tr>
           <tr><td>Miller (flour)</td><td>₹1,00,000</td><td>₹80,000</td><td>₹20,000</td></tr>
           <tr><td>Baker (bread)</td><td>₹1,50,000</td><td>₹1,00,000</td><td>₹50,000</td></tr>
-          <tr><td><strong>GDP</strong></td><td></td><td></td><td><strong>₹1,50,000</strong></td></tr>
+          <tr><td><strong>GDP = Final Price = Sum of Value Added</strong></td><td></td><td></td><td><strong>₹1,50,000</strong></td></tr>
         </tbody>
       </table>
-      <p>Notice: GDP = Final price = Sum of value added = ₹1,50,000. Three methods, same answer!</p>
+      <p>Notice: All three approaches give the same answer: <span class="hl">₹1,50,000</span>. This is not a coincidence — it's accounting identity.</p>
+    </div>
+    <div class="card" style="margin-top:1.2rem;">
+      <h3>🏠 Tricky GDP Inclusions (Exam Favorites)</h3>
+      <table class="data-table">
+        <thead><tr><th>Transaction</th><th>Component</th><th>Impact on GDP</th></tr></thead>
+        <tbody>
+          <tr><td>Family buys washing machine (made in India, 2025)</td><td>C (Consumption)</td><td>+GDP</td></tr>
+          <tr><td>Mr. Mohan buys a NEW house</td><td>I (Investment)</td><td>+GDP</td></tr>
+          <tr><td>Mr. Mohanty lives in own house (can fetch rent)</td><td>C (Imputed Rent)</td><td>+GDP (imputed)</td></tr>
+          <tr><td>Govt of Odisha buys helicopter from HAL</td><td>G (Govt. Purchases)</td><td>+GDP</td></tr>
+          <tr><td>LG sells from 2024 inventory in 2025</td><td>Reduces I (inventory was counted in 2024)</td><td>No net change to 2025 GDP for that unit</td></tr>
+          <tr><td>American tourist spends in Goa</td><td>NX (Exports)</td><td>+GDP for India</td></tr>
+          <tr><td>India buys fighter jets from France</td><td>G +, NX − (import)</td><td>Net contribution = 0 to GDP</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
@@ -842,43 +844,188 @@ strong { color: var(--text); }
     <div class="card-grid">
       <div class="card">
         <h3>💰 Saving & Investment Identity</h3>
-        <p>In a closed economy (no trade), all savings must equal investment. Why? Because every dollar saved = dollar available for borrowing = dollar invested.</p>
+        <p>In a closed economy (no trade), all savings must equal investment.</p>
         <div class="formula-box">
           <div class="formula">Y = C + I + G (closed economy)</div>
-          <div class="formula" style="margin-top:0.4rem">National Saving (S) = Y − C − G = I</div>
-          <div class="formula" style="margin-top:0.4rem">Private Saving = Y − T − C</div>
-          <div class="formula" style="margin-top:0.4rem">Public Saving = T − G</div>
+          <div class="formula" style="margin-top:0.4rem">National Saving (S) = Y − C − G</div>
+          <div class="formula" style="margin-top:0.4rem">Private Saving = Y − T − C (disposable income − consumption)</div>
+          <div class="formula" style="margin-top:0.4rem">Public Saving = T − G (tax revenue − govt spending)</div>
+          <div class="formula" style="margin-top:0.4rem">National Saving = Private + Public = I</div>
         </div>
+        <p><span class="hl">Budget Surplus</span>: T > G → Positive public saving<br>
+        <span class="hl3">Budget Deficit</span>: T &lt; G → Negative public saving (govt borrows, "crowding out")</p>
       </div>
       <div class="card">
-        <h3>📊 GDP Per Capita</h3>
+        <h3>📊 GDP Per Capita & Standard of Living</h3>
         <p>GDP per capita = GDP ÷ Population. It measures <span class="hl">average income per person</span> — a better indicator of standard of living than total GDP.</p>
         <div class="tip-box">
-          <div class="tip-label">💡 Example</div>
-          India's GDP > Singapore's GDP (India is bigger). But Singapore's GDP per capita >> India's (more income per person). Higher living standard in Singapore!
+          <div class="tip-label">💡 Example from Assignment</div>
+          India's total GDP >> Singapore's. But Singapore's GDP per capita >> India's. Higher living standard in Singapore despite lower total GDP!<br><br>
+          Also: Higher GDP per capita does NOT always = higher economic growth rate.
         </div>
-        <div class="exam-trick">
-          <div class="exam-trick-label">📌 In Exam</div>
-          "Higher GDP = Higher living standard?" → NOT necessarily. Check GDP per capita and also non-monetary factors (healthcare, leisure, etc.)
+        <div class="formula-box">
+          <div class="formula">GDP per capita = Real GDP / Total Population</div>
+          <div class="formula" style="margin-top:0.4rem">Economic Growth Rate = [(GDP_yr2 - GDP_yr1) / GDP_yr1] × 100</div>
         </div>
       </div>
       <div class="card">
-        <h3>🌱 Sources of Economic Growth</h3>
+        <h3>🌱 4 Sources of Productivity (Determinants)</h3>
         <ul>
-          <li><span class="hl">Physical Capital</span> — Tools, machines, buildings</li>
-          <li><span class="hl">Human Capital</span> — Education, skills, training</li>
-          <li><span class="hl">Natural Resources</span> — Land, minerals, oil</li>
-          <li><span class="hl">Technological Knowledge</span> — Know-how, R&D</li>
+          <li><span class="hl">Physical Capital (K)</span> — Tools, machines, buildings. ↑K/L → ↑productivity. But diminishing returns!</li>
+          <li><span class="hl">Human Capital (H)</span> — Education, skills, training. Investment sacrifices current consumption for future wages.</li>
+          <li><span class="hl">Natural Resources (N)</span> — Land, minerals, oil. Renewable (solar, water) vs Non-renewable (coal, oil).</li>
+          <li><span class="hl">Technological Knowledge (A)</span> — Society's understanding of best production methods. Key driver of long-run growth.</li>
         </ul>
-        <div class="warn-box">
-          <div class="warn-label">⚠️ Key Concept</div>
-          "Capital accumulation is not a free lunch" — Diminishing returns mean each additional unit of capital adds less and less growth. Sustained growth requires technology.
+        <div class="formula-box">
+          <div class="formula">y = Af(L, H, K, N) — Production Function</div>
         </div>
       </div>
       <div class="card">
         <h3>🤝 Trade = Technology</h3>
         <p>Trade allows countries to consume <strong>beyond their PPF</strong>, just like technology expands the PPF. Both increase productivity without new resources.</p>
-        <p>If India specializes in rice and China in cloth, both can consume MORE of both goods than if they each tried to produce everything — same as if technology improved.</p>
+        <p>If India specializes in rice and China in cloth, both can consume MORE — same as if technology improved.</p>
+        <div class="warn-box">
+          <div class="warn-label">⚠️ Capital Accumulation is NOT Free Lunch</div>
+          More capital → More output, BUT diminishing returns. To produce more capital, you must sacrifice consumption now (save more). And each new unit of capital adds less than the previous → cannot sustain growth forever. Need technological progress!
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1.2rem;">
+      <h3>🏦 Loanable Funds Market</h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;">
+        <div>
+          <p><strong>Supply</strong> = National Saving (households save → supply loanable funds)</p>
+          <p><strong>Demand</strong> = Businesses/households borrow to invest</p>
+          <p><strong>Price</strong> = Real Interest Rate (equilibrium where S = I)</p>
+          <p><strong>Saving Incentives</strong>: Tax on interest → discourages saving → supply shifts LEFT → interest rate ↑, loanable funds ↓</p>
+          <p><strong>Investment Incentives</strong>: Tax credit for new capital → demand shifts RIGHT → interest rate ↑, loanable funds ↑</p>
+          <p><strong>Budget Deficit</strong>: Govt borrows → supply shifts LEFT (national saving ↓) → interest rate ↑ → <span class="hl3">crowds out private investment</span></p>
+        </div>
+        <div class="graph-container">
+          <svg viewBox="0 0 280 240" style="width:100%;">
+            <line x1="40" y1="220" x2="260" y2="220" stroke="#555" stroke-width="1.5"/>
+            <line x1="40" y1="220" x2="40" y2="20" stroke="#555" stroke-width="1.5"/>
+            <polygon points="260,216 268,220 260,224" fill="#555"/>
+            <polygon points="36,20 40,12 44,20" fill="#555"/>
+            <!-- Supply (upward sloping) -->
+            <line x1="60" y1="200" x2="220" y2="50" stroke="#7c6af7" stroke-width="2.5"/>
+            <!-- Demand (downward sloping) -->
+            <line x1="60" y1="50" x2="220" y2="200" stroke="#f7c26a" stroke-width="2.5"/>
+            <!-- Equilibrium -->
+            <circle cx="140" cy="125" r="5" fill="#6af7c2"/>
+            <line x1="40" y1="125" x2="140" y2="125" stroke="#6af7c2" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>
+            <line x1="140" y1="220" x2="140" y2="125" stroke="#6af7c2" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>
+            <text x="222" y="55" font-size="10" fill="#7c6af7">S</text>
+            <text x="222" y="195" font-size="10" fill="#f7c26a">D</text>
+            <text x="145" y="120" font-size="9" fill="#6af7c2">E</text>
+            <text x="42" y="120" font-size="9" fill="#6af7c2">r*</text>
+            <text x="130" y="235" font-size="9" fill="#6af7c2">Q*</text>
+            <text x="5" y="125" font-size="8" fill="#9898b0" writing-mode="tb">Interest Rate</text>
+            <text x="200" y="235" font-size="9" fill="#9898b0">Loanable Funds</text>
+            <text x="55" y="14" font-size="11" fill="#e8e8f0" font-family="Syne" font-weight="700">Loanable Funds Market</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC: FINANCIAL SYSTEM -->
+  <div class="topic-content" id="topic-financial">
+    <div class="card-grid">
+      <div class="card">
+        <h3>🏛️ What is the Financial System?</h3>
+        <p>A group of institutions that help match one person's <span class="hl">saving</span> with another person's <span class="hl">investment</span>.</p>
+        <p><strong>Financial Markets</strong> (direct — savers directly provide funds):</p>
+        <ul>
+          <li>Bond Market (debt certificates)</li>
+          <li>Stock Market (equity ownership)</li>
+        </ul>
+        <p><strong>Financial Intermediaries</strong> (indirect — savers provide to institution → institution lends):</p>
+        <ul>
+          <li>Commercial Banks, Mutual Funds, NBFCs</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📄 Bonds: Key Characteristics</h3>
+        <ol class="steps">
+          <li><strong>Term</strong> — Length until maturity. Long-term bonds are riskier → higher interest rate</li>
+          <li><strong>Credit Risk</strong> — Probability of default. Higher risk → higher interest demanded. Junk bonds = high risk, high interest</li>
+          <li><strong>Tax Treatment</strong> — Municipal bonds (state/local govt) are tax-exempt → lower interest rate</li>
+        </ol>
+        <div class="tip-box">
+          <div class="tip-label">💡 Perpetuity</div>
+          A bond with NO maturity date — pays interest forever. British "Consol" bonds issued in 1917 are perpetuities. Principal never repaid!
+        </div>
+      </div>
+      <div class="card">
+        <h3>📊 Mutual Funds</h3>
+        <p>Sells shares to public → uses proceeds to buy portfolio of stocks/bonds.</p>
+        <p>Principle: <span class="hl">"Don't put all eggs in one basket"</span> = diversification reduces risk.</p>
+        <p><strong>Index Funds</strong> (subset of mutual funds): Buy all stocks in a given index. Outperform most actively managed funds because they keep costs low by rarely trading.</p>
+      </div>
+      <div class="card">
+        <h3>🔄 Budget Deficit & Crowding Out</h3>
+        <p>When govt runs a deficit, it borrows in the loanable funds market → ↑ demand for funds → ↑ interest rate → businesses borrow LESS → private investment ↓.</p>
+        <p>This is called <span class="hl3">crowding out</span>.</p>
+        <div class="warn-box">
+          <div class="warn-label">⚠️ Mechanism</div>
+          Deficit → ↓ Public Saving → ↓ National Saving → Supply of loanable funds shifts LEFT → ↑ interest rate → ↓ private investment → Long-run: less capital → slower growth
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC: MONEY & BANKING -->
+  <div class="topic-content" id="topic-money">
+    <div class="card-grid">
+      <div class="card">
+        <h3>💴 What is Money?</h3>
+        <p>Money = set of assets people regularly use to buy goods & services. It's NOT just cash!</p>
+        <p><strong>Money Supply (M1)</strong> = Currency (C) + Demand Deposits (D)</p>
+        <p><span class="hl">Currency</span> = Paper bills and coins held by the public</p>
+        <p><span class="hl">Demand Deposits</span> = Bank account balances accessible by cheque/debit card</p>
+        <div class="formula-box">
+          <div class="formula">Money Supply = Currency + Demand Deposits</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🏦 Fractional Reserve Banking</h3>
+        <p>Banks keep a <span class="hl">fraction</span> of deposits as reserves and lend out the rest.</p>
+        <p><strong>Reserve Ratio (R)</strong> = Fraction of deposits held as reserve (set by central bank).</p>
+        <div class="formula-box">
+          <div class="formula">Money Multiplier (m) = 1/R = 1/Reserve Ratio</div>
+          <div class="formula" style="margin-top:0.4rem">Total Money Supply = Initial Deposit × Money Multiplier</div>
+        </div>
+        <p><strong>Example:</strong> R = 10% (0.10). Initial deposit = $100. Multiplier = 1/0.10 = 10. Money supply = $100 × 10 = $1,000.</p>
+      </div>
+      <div class="card">
+        <h3>🏛️ Bank T-Account</h3>
+        <p>A simplified accounting statement showing a bank's assets & liabilities.</p>
+        <table class="data-table">
+          <thead><tr><th>Assets</th><th>Liabilities</th></tr></thead>
+          <tbody>
+            <tr><td>Reserves = $10 (10%)</td><td>Deposits = $100</td></tr>
+            <tr><td>Loans = $90</td><td></td></tr>
+          </tbody>
+        </table>
+        <p>Money Supply = C + D = $90 (loans back in system) + $100 = $190</p>
+        <div class="exam-trick">
+          <div class="exam-trick-label">📌 100% Reserve System</div>
+          Banks keep ALL deposits as reserves → no loans → money supply = just the initial deposit (no money creation).
+        </div>
+      </div>
+      <div class="card">
+        <h3>📈 Money Creation Chain</h3>
+        <p>With R = 10%, deposit of $100:</p>
+        <table class="data-table">
+          <thead><tr><th>Bank</th><th>Deposits</th><th>Reserve</th><th>Loans</th></tr></thead>
+          <tbody>
+            <tr><td>FNB</td><td>$100</td><td>$10</td><td>$90</td></tr>
+            <tr><td>SNB</td><td>$90</td><td>$9</td><td>$81</td></tr>
+            <tr><td>TNB</td><td>$81</td><td>$8.1</td><td>$72.9</td></tr>
+            <tr><td colspan="2">... (infinite chain)</td><td colspan="2"><strong>Total = $1,000</strong></td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -886,9 +1033,7 @@ strong { color: var(--text); }
 
 <div class="section-divider"></div>
 
-<!-- ═══════════════════════════════════════════════════
-     SECTION 2: GRAPH MASTERY
-═══════════════════════════════════════════════════ -->
+<!-- ═══ SECTION 2: GRAPH MASTERY ═══ -->
 <section id="graphs">
   <div class="section-head">
     <div class="section-tag">📊 Section 2</div>
@@ -896,11 +1041,10 @@ strong { color: var(--text); }
     <p>Every graph you'll ever need — axes, shape, shifts, exam tricks, common mistakes.</p>
   </div>
 
-  <!-- GRAPH 1: PPF (Straight Line) -->
+  <!-- GRAPH 1: PPF -->
   <div class="card" style="margin-bottom:1.5rem;">
     <h3>Graph 1 — Production Possibilities Frontier (PPF)</h3>
     <p><strong>When to draw:</strong> Any question with "construct PPF", "production combination", absolute/comparative advantage.</p>
-
     <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem; align-items:start;">
       <div>
         <h4>📐 How to Draw (Step-by-Step)</h4>
@@ -922,54 +1066,44 @@ strong { color: var(--text); }
         <div class="exam-trick">
           <div class="exam-trick-label">📌 70% Allocation Example</div>
           Austria: Max 40 cakes or 80 candles. 2000 hrs total.<br>
-          70% to cakes → 1400 hrs → 1400/50 = 28 cakes<br>
-          30% to candles → 600 hrs → 600/25 = 24 candles<br>
+          70% to cakes → 1400 hrs → (2000×40/2000)×0.7 = 28 cakes<br>
+          30% to candles → 600 hrs → (2000×80/2000)×0.3 = 24 candles<br>
           Plot point (28, 24) on the PPF.
         </div>
       </div>
       <div>
         <div class="graph-container">
           <svg viewBox="0 0 340 300" style="width:100%; max-width:340px;">
-            <!-- Axes -->
             <line x1="50" y1="260" x2="310" y2="260" stroke="#555" stroke-width="1.5"/>
             <line x1="50" y1="260" x2="50" y2="20" stroke="#555" stroke-width="1.5"/>
-            <!-- Arrows -->
             <polygon points="310,256 318,260 310,264" fill="#555"/>
             <polygon points="46,20 50,12 54,20" fill="#555"/>
-            <!-- PPF Line -->
             <line x1="50" y1="40" x2="290" y2="260" stroke="#7c6af7" stroke-width="2.5" stroke-linecap="round"/>
-            <!-- Production Point -->
             <circle cx="178" cy="152" r="6" fill="#f7c26a" stroke="#fff" stroke-width="1.5"/>
-            <!-- Axis Labels -->
-            <text x="300" y="275" font-size="12" fill="#9898b0" font-family="DM Sans">Cakes (X)</text>
-            <text x="10" y="35" font-size="12" fill="#9898b0" font-family="DM Sans" writing-mode="tb">Candles (Y)</text>
-            <!-- Max Points -->
-            <text x="280" y="278" font-size="11" fill="#7c6af7" font-family="JetBrains Mono">40</text>
+            <text x="290" y="275" font-size="12" fill="#9898b0" font-family="DM Sans">Cakes (X)</text>
+            <text x="10" y="35" font-size="12" fill="#9898b0" font-family="DM Sans" writing-mode="tb">Candles(Y)</text>
+            <text x="278" y="278" font-size="11" fill="#7c6af7" font-family="JetBrains Mono">40</text>
             <text x="22" y="44" font-size="11" fill="#7c6af7" font-family="JetBrains Mono">80</text>
-            <!-- Production point label -->
             <text x="185" y="148" font-size="10" fill="#f7c26a" font-family="DM Sans">Production Point</text>
             <text x="185" y="162" font-size="10" fill="#f7c26a" font-family="JetBrains Mono">(28, 24)</text>
-            <!-- Dashed lines to point -->
             <line x1="50" y1="152" x2="178" y2="152" stroke="#f7c26a" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
             <line x1="178" y1="260" x2="178" y2="152" stroke="#f7c26a" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
-            <!-- Region labels -->
-            <text x="100" y="170" font-size="9" fill="#6af7c2" font-family="DM Sans">Inefficient</text>
-            <text x="200" y="120" font-size="9" fill="#f76a9a" font-family="DM Sans">Impossible</text>
-            <!-- Title -->
-            <text x="130" y="14" font-size="12" fill="#e8e8f0" font-family="Syne" font-weight="700">PPF — Straight Line</text>
+            <text x="85" y="170" font-size="9" fill="#6af7c2" font-family="DM Sans">Inefficient</text>
+            <text x="210" y="110" font-size="9" fill="#f76a9a" font-family="DM Sans">Impossible</text>
+            <text x="100" y="14" font-size="12" fill="#e8e8f0" font-family="Syne" font-weight="700">PPF — Straight Line</text>
           </svg>
         </div>
-        <p style="font-size:0.82rem; color:var(--text2); margin-top:0.5rem;">Straight line PPF = Constant opportunity cost. The slope of the line represents the opportunity cost of the x-axis good.</p>
+        <p style="font-size:0.82rem; color:var(--text2); margin-top:0.5rem;">Straight line PPF = Constant opportunity cost. The slope of the line = OC of the x-axis good.</p>
       </div>
     </div>
   </div>
 
-  <!-- GRAPH 2: Two PPFs (Comparative Advantage) -->
+  <!-- GRAPH 2: Two PPFs Comparative Advantage -->
   <div class="card" style="margin-bottom:1.5rem;">
-    <h3>Graph 2 — Two PPFs on One Graph (Comparative Advantage)</h3>
+    <h3>Graph 2 — Two PPFs: Comparative Advantage Diagram</h3>
     <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem; align-items:start;">
       <div>
-        <p>When comparing two countries (e.g., India vs Japan), draw both PPFs on the same axes. The one with the <span class="hl">less steep slope</span> for a good has comparative advantage in that good.</p>
+        <p>When comparing two countries, draw both PPFs on the same axes. The one with the <span class="hl">less steep slope</span> for a good has comparative advantage in that good.</p>
         <h4>How to Read:</h4>
         <ul>
           <li>If India's PPF is <strong>flatter</strong> for x-axis good → India has CA in x-good</li>
@@ -978,7 +1112,12 @@ strong { color: var(--text); }
         </ul>
         <div class="exam-trick">
           <div class="exam-trick-label">📌 Exam Read</div>
-          "Steeper slope of PPF = Higher OC = Comparative DISadvantage in that good". Always check BOTH intercepts to determine absolute advantage.
+          Steeper slope of PPF = Higher OC = Comparative DISadvantage in that good. Always check BOTH intercepts to determine absolute advantage.
+        </div>
+        <div class="tip-box">
+          <div class="tip-label">💡 Before & After Trade</div>
+          Before trade: production point = consumption point (on PPF)<br>
+          After trade with specialization: production point stays on PPF, but CONSUMPTION point can be BEYOND PPF!
         </div>
       </div>
       <div class="graph-container">
@@ -987,144 +1126,241 @@ strong { color: var(--text); }
           <line x1="40" y1="250" x2="40" y2="20" stroke="#555" stroke-width="1.5"/>
           <polygon points="300,246 308,250 300,254" fill="#555"/>
           <polygon points="36,20 40,12 44,20" fill="#555"/>
-          <!-- Country A PPF (flatter, higher x-intercept) -->
           <line x1="40" y1="60" x2="270" y2="250" stroke="#7c6af7" stroke-width="2.5"/>
-          <!-- Country B PPF (steeper, higher y-intercept) -->
           <line x1="40" y1="30" x2="190" y2="250" stroke="#6af7c2" stroke-width="2.5"/>
-          <!-- Labels -->
-          <text x="260" y="240" font-size="10" fill="#7c6af7" font-family="DM Sans">Country A</text>
-          <text x="170" y="240" font-size="10" fill="#6af7c2" font-family="DM Sans">Country B</text>
+          <!-- Consumption point beyond PPF for Country A -->
+          <circle cx="220" cy="80" r="5" fill="#f7c26a"/>
+          <text x="225" y="78" font-size="8" fill="#f7c26a">Consumption after trade</text>
+          <text x="260" y="240" font-size="10" fill="#7c6af7" font-family="DM Sans">India</text>
+          <text x="170" y="240" font-size="10" fill="#6af7c2" font-family="DM Sans">Japan</text>
           <text x="280" y="265" font-size="10" fill="#9898b0">Good X</text>
-          <text x="5" y="35" font-size="10" fill="#9898b0">Good</text>
-          <text x="8" y="47" font-size="10" fill="#9898b0">Y</text>
-          <!-- A has CA in X (flatter), B has CA in Y (steeper in X means lower OC in Y) -->
-          <text x="90" y="160" font-size="9" fill="#f7c26a" font-family="DM Sans">A: CA in X</text>
-          <text x="60" y="80" font-size="9" fill="#f7c26a" font-family="DM Sans">B: CA in Y</text>
-          <text x="80" y="12" font-size="12" fill="#e8e8f0" font-family="Syne" font-weight="700">Two PPFs Compared</text>
+          <text x="5" y="35" font-size="10" fill="#9898b0">Good Y</text>
+          <text x="70" y="165" font-size="9" fill="#f7c26a" font-family="DM Sans">India: CA in X</text>
+          <text x="50" y="80" font-size="9" fill="#f7c26a" font-family="DM Sans">Japan: CA in Y</text>
+          <text x="60" y="12" font-size="12" fill="#e8e8f0" font-family="Syne" font-weight="700">Two PPFs Compared</text>
         </svg>
       </div>
     </div>
   </div>
 
-  <!-- GRAPH 3: Farmer & Rancher PPF (from notes) -->
+  <!-- GRAPH 3: Loanable Funds Shifts -->
   <div class="card" style="margin-bottom:1.5rem;">
-    <h3>Graph 3 — Farmer vs Rancher PPF (Classic Textbook Example)</h3>
-    <p>From your notes: Farmer takes 60 min/oz meat, 15 min/oz potato. Rancher takes 20 min/oz meat, 10 min/oz potato. Both work 8 hrs/day.</p>
-    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.2rem;">
+    <h3>Graph 3 — Loanable Funds Market: Policy Shifts</h3>
+    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:1rem;">
       <div>
-        <h4>Farmer's PPF:</h4>
-        <p>8 hrs = 480 min. Max meat = 480/60 = <span class="hl">8 oz</span>. Max potato = 480/15 = <span class="hl">32 oz</span>.</p>
+        <p><strong>Saving Incentive</strong> (e.g., tax on interest reduced)</p>
         <div class="graph-container">
-          <svg viewBox="0 0 280 220" style="width:100%;">
-            <line x1="40" y1="195" x2="255" y2="195" stroke="#555" stroke-width="1.5"/>
-            <line x1="40" y1="195" x2="40" y2="20" stroke="#555" stroke-width="1.5"/>
-            <line x1="40" y1="30" x2="240" y2="195" stroke="#7c6af7" stroke-width="2.5"/>
-            <circle cx="104" cy="130" r="5" fill="#f7c26a"/>
-            <!-- Before trade production point (half time each) -->
-            <text x="108" y="127" font-size="8" fill="#f7c26a">4oz, 16oz</text>
-            <text x="232" y="208" font-size="10" fill="#9898b0">32</text>
-            <text x="20" y="34" font-size="10" fill="#9898b0">8</text>
-            <text x="230" y="213" font-size="9" fill="#9898b0">Potato</text>
-            <text x="5" y="110" font-size="9" fill="#9898b0">Meat</text>
-            <text x="70" y="14" font-size="11" fill="#e8e8f0" font-family="Syne" font-weight="700">Farmer PPF</text>
+          <svg viewBox="0 0 220 200" style="width:100%;">
+            <line x1="30" y1="180" x2="200" y2="180" stroke="#555" stroke-width="1"/>
+            <line x1="30" y1="180" x2="30" y2="15" stroke="#555" stroke-width="1"/>
+            <line x1="50" y1="165" x2="180" y2="30" stroke="#7c6af7" stroke-width="2" stroke-dasharray="4,3"/>
+            <line x1="80" y1="165" x2="200" y2="30" stroke="#7c6af7" stroke-width="2"/>
+            <line x1="50" y1="30" x2="180" y2="165" stroke="#f7c26a" stroke-width="2"/>
+            <text x="183" y="28" font-size="9" fill="#7c6af7">S₂</text>
+            <text x="155" y="28" font-size="9" fill="#7c6af7" opacity="0.5">S₁</text>
+            <text x="183" y="162" font-size="9" fill="#f7c26a">D</text>
+            <text x="32" y="75" font-size="8" fill="#6af7c2">→r↓,Q↑</text>
+            <text x="45" y="195" font-size="9" fill="#9898b0">Saving Incentive</text>
           </svg>
         </div>
-        <p style="font-size:0.82rem; color:var(--text2);">OC of meat = 4 potatoes/oz meat. OC of potato = 1/4 oz meat.</p>
+        <p style="font-size:0.8rem; color:var(--text2);">Supply shifts RIGHT → interest rate ↓ → investment ↑</p>
       </div>
       <div>
-        <h4>Rancher's PPF:</h4>
-        <p>8 hrs = 480 min. Max meat = 480/20 = <span class="hl">24 oz</span>. Max potato = 480/10 = <span class="hl">48 oz</span>.</p>
+        <p><strong>Investment Incentive</strong> (e.g., tax credit)</p>
         <div class="graph-container">
-          <svg viewBox="0 0 280 220" style="width:100%;">
-            <line x1="40" y1="195" x2="255" y2="195" stroke="#555" stroke-width="1.5"/>
-            <line x1="40" y1="195" x2="40" y2="20" stroke="#555" stroke-width="1.5"/>
-            <line x1="40" y1="20" x2="240" y2="195" stroke="#6af7c2" stroke-width="2.5"/>
-            <circle cx="140" cy="107" r="5" fill="#f7c26a"/>
-            <text x="144" y="104" font-size="8" fill="#f7c26a">12oz, 24oz</text>
-            <text x="232" y="208" font-size="10" fill="#9898b0">48</text>
-            <text x="20" y="24" font-size="10" fill="#9898b0">24</text>
-            <text x="230" y="213" font-size="9" fill="#9898b0">Potato</text>
-            <text x="5" y="110" font-size="9" fill="#9898b0">Meat</text>
-            <text x="65" y="14" font-size="11" fill="#e8e8f0" font-family="Syne" font-weight="700">Rancher PPF</text>
+          <svg viewBox="0 0 220 200" style="width:100%;">
+            <line x1="30" y1="180" x2="200" y2="180" stroke="#555" stroke-width="1"/>
+            <line x1="30" y1="180" x2="30" y2="15" stroke="#555" stroke-width="1"/>
+            <line x1="50" y1="165" x2="180" y2="30" stroke="#7c6af7" stroke-width="2"/>
+            <line x1="50" y1="30" x2="180" y2="165" stroke="#f7c26a" stroke-width="2" stroke-dasharray="4,3"/>
+            <line x1="70" y1="30" x2="200" y2="165" stroke="#f7c26a" stroke-width="2"/>
+            <text x="183" y="28" font-size="9" fill="#7c6af7">S</text>
+            <text x="183" y="162" font-size="9" fill="#f7c26a">D₂</text>
+            <text x="155" y="162" font-size="9" fill="#f7c26a" opacity="0.5">D₁</text>
+            <text x="32" y="75" font-size="8" fill="#6af7c2">→r↑,Q↑</text>
+            <text x="40" y="195" font-size="9" fill="#9898b0">Investment Incentive</text>
           </svg>
         </div>
-        <p style="font-size:0.82rem; color:var(--text2);">OC of meat = 2 potatoes/oz meat. OC of potato = 1/2 oz meat.</p>
+        <p style="font-size:0.8rem; color:var(--text2);">Demand shifts RIGHT → interest rate ↑ → saving ↑</p>
+      </div>
+      <div>
+        <p><strong>Budget Deficit</strong> (crowding out)</p>
+        <div class="graph-container">
+          <svg viewBox="0 0 220 200" style="width:100%;">
+            <line x1="30" y1="180" x2="200" y2="180" stroke="#555" stroke-width="1"/>
+            <line x1="30" y1="180" x2="30" y2="15" stroke="#555" stroke-width="1"/>
+            <line x1="50" y1="165" x2="180" y2="30" stroke="#7c6af7" stroke-width="2"/>
+            <line x1="20" y1="165" x2="150" y2="30" stroke="#7c6af7" stroke-width="2" stroke-dasharray="4,3"/>
+            <line x1="50" y1="30" x2="180" y2="165" stroke="#f7c26a" stroke-width="2"/>
+            <text x="183" y="28" font-size="9" fill="#7c6af7">S₁</text>
+            <text x="155" y="28" font-size="9" fill="#7c6af7" opacity="0.5">S₂</text>
+            <text x="183" y="162" font-size="9" fill="#f7c26a">D</text>
+            <text x="32" y="75" font-size="8" fill="#f76a9a">→r↑,Q↓</text>
+            <text x="40" y="195" font-size="9" fill="#9898b0">Budget Deficit</text>
+          </svg>
+        </div>
+        <p style="font-size:0.8rem; color:var(--text2);">Supply shifts LEFT → interest rate ↑ → private investment crowded out</p>
       </div>
     </div>
-    <div class="tip-box" style="margin-top:1rem;">
-      <div class="tip-label">📌 Conclusion from Notes</div>
-      Rancher has absolute advantage in BOTH (produces more of both). Farmer has CA in potatoes (OC = 1/4 < Rancher's 1/2). Rancher has CA in meat (OC = 2 < Farmer's 4). → Farmer specializes in potatoes, Rancher in meat. Both gain!
+  </div>
+
+  <!-- GRAPH 4: GDP Deflator vs CPI -->
+  <div class="card" style="margin-bottom:1.5rem;">
+    <h3>Graph 4 — CPI vs GDP Deflator: Key Differences</h3>
+    <div class="vs-grid">
+      <div class="vs-item">
+        <h5>🛒 CPI</h5>
+        <ul>
+          <li>Fixed basket (base year quantities)</li>
+          <li>Includes imported goods (e.g., Yamaha bike made in Japan, sold in India)</li>
+          <li>Excludes some domestically produced goods (not in basket)</li>
+          <li>Overestimates inflation (substitution bias)</li>
+          <li>Used for adjusting wages, pensions</li>
+        </ul>
+      </div>
+      <div class="vs-center">VS</div>
+      <div class="vs-item">
+        <h5>🏭 GDP Deflator</h5>
+        <ul>
+          <li>Current year basket (changes every year)</li>
+          <li>Excludes imports (only domestic production)</li>
+          <li>Includes ALL domestic goods, even those not in consumer basket</li>
+          <li>More accurate reflection of domestic price level</li>
+          <li>Used for measuring economic growth</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exam-trick">
+      <div class="exam-trick-label">📌 Exam Trick — Assignment Q6 Type</div>
+      <ul>
+        <li>Bajaj Sugar ↑ price (produced & sold in India) → Affects BOTH CPI and GDP Deflator</li>
+        <li>L&T increases price of Komatsu excavator (made & sold in India) → Affects GDP Deflator (capital good), NOT CPI (not in consumer basket)</li>
+        <li>Yamaha MT-10 (made in Japan, sold in India) → Affects CPI (imported consumer good), NOT GDP Deflator (not domestically produced)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- GRAPH 5: Phillips Curve -->
+  <div class="card" style="margin-bottom:1.5rem;">
+    <h3>Graph 5 — Phillips Curve (Principle 10)</h3>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.5rem; align-items:start;">
+      <div>
+        <p>The Phillips Curve shows the short-run trade-off between <span class="hl">inflation and unemployment</span>.</p>
+        <h4>How it works:</h4>
+        <ol class="steps">
+          <li>Govt prints more money → ↑ money supply</li>
+          <li>↑ demand for goods → ↑ prices (inflation)</li>
+          <li>↑ production → firms hire more labour</li>
+          <li>↓ unemployment (at least in short run)</li>
+        </ol>
+        <div class="warn-box">
+          <div class="warn-label">⚠️ Important Distinction</div>
+          This is a SHORT-RUN trade-off only. In the long run, the Phillips Curve is vertical — you can't permanently reduce unemployment by accepting more inflation.
+        </div>
+      </div>
+      <div class="graph-container">
+        <svg viewBox="0 0 280 220" style="width:100%;">
+          <line x1="40" y1="195" x2="255" y2="195" stroke="#555" stroke-width="1.5"/>
+          <line x1="40" y1="195" x2="40" y2="15" stroke="#555" stroke-width="1.5"/>
+          <polygon points="255,191 263,195 255,199" fill="#555"/>
+          <polygon points="36,15 40,7 44,15" fill="#555"/>
+          <!-- Phillips Curve (downward sloping) -->
+          <path d="M 60 40 Q 150 120 235 185" stroke="#7c6af7" stroke-width="2.5" fill="none"/>
+          <!-- Points on curve -->
+          <circle cx="100" cy="65" r="4" fill="#f7c26a"/>
+          <circle cx="170" cy="125" r="4" fill="#6af7c2"/>
+          <!-- Dashed lines -->
+          <line x1="40" y1="65" x2="100" y2="65" stroke="#f7c26a" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+          <line x1="100" y1="195" x2="100" y2="65" stroke="#f7c26a" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+          <line x1="40" y1="125" x2="170" y2="125" stroke="#6af7c2" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+          <line x1="170" y1="195" x2="170" y2="125" stroke="#6af7c2" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+          <text x="105" y="62" font-size="8" fill="#f7c26a">High inflation</text>
+          <text x="105" y="72" font-size="8" fill="#f7c26a">Low unemployment</text>
+          <text x="175" y="122" font-size="8" fill="#6af7c2">Low inflation</text>
+          <text x="175" y="132" font-size="8" fill="#6af7c2">High unemployment</text>
+          <text x="230" y="210" font-size="10" fill="#9898b0">Unemployment</text>
+          <text x="5" y="110" font-size="8" fill="#9898b0" writing-mode="tb">Inflation Rate</text>
+          <text x="65" y="12" font-size="11" fill="#e8e8f0" font-family="Syne" font-weight="700">Phillips Curve (Short Run)</text>
+        </svg>
+      </div>
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- ═══════════════════════════════════════════════════
-     SECTION 3: FORMULA ZONE
-═══════════════════════════════════════════════════ -->
+<!-- ═══ SECTION 3: FORMULA ZONE ═══ -->
 <section id="formulas">
   <div class="section-head">
     <div class="section-tag">🧮 Section 3</div>
     <h2>Formula Zone</h2>
-    <p>Every formula with: what it means, when to use, when NOT to use, and solved examples.</p>
+    <p>Every formula — when to use, when NOT to use, worked examples.</p>
   </div>
 
   <div class="collapsible open">
     <div class="collapsible-header" onclick="toggleCollapse(this)">
-      <h4>📐 PPF & Opportunity Cost Formulas</h4>
+      <h4>📦 Trade & Opportunity Cost Formulas</h4>
       <span class="collapsible-arrow">▼</span>
     </div>
     <div class="collapsible-body">
       <div class="formula-box">
-        <div class="formula">Max Output of Good A = Total Resources ÷ Resources per unit of A</div>
+        <div class="formula">OC of Good A = Max output of B / Max output of A</div>
       </div>
+      <p><strong>When to use:</strong> Whenever asked for comparative advantage, basis of trade, who should specialize in what.</p>
+      <p><strong>When NOT to use:</strong> Don't use this for absolute advantage — for AA, just compare max outputs or hours per unit directly.</p>
       <div class="formula-box">
-        <div class="formula">OC of Good A = Max Output B ÷ Max Output A</div>
-        <div style="font-size:0.82rem; color:var(--text2); margin-top:0.4rem;">= Units of B sacrificed to produce 1 more unit of A</div>
+        <div class="formula">Slope of PPF = −(Y-intercept) / (X-intercept)</div>
       </div>
-      <p><strong>When to use:</strong> Any question asking to find comparative advantage, construct PPF, or determine basis of trade.</p>
-      <p><strong>When NOT to use:</strong> Don't use this for CPI or GDP questions!</p>
-      <h4>✅ Solved Example — Quiz Q2 (from image):</h4>
-      <p>India: 40 hrs/motorcycle, 80 hrs/car | Japan: 60 hrs/motorcycle, 30 hrs/car</p>
-      <table class="data-table">
-        <thead><tr><th>Country</th><th>OC of Motorcycle</th><th>OC of Car</th></tr></thead>
-        <tbody>
-          <tr><td>India</td><td>80/40 = 2 cars</td><td>40/80 = 0.5 motorcycles</td></tr>
-          <tr><td>Japan</td><td>30/60 = 0.5 cars</td><td>60/30 = 2 motorcycles</td></tr>
-        </tbody>
-      </table>
-      <p>India has CA in Cars (OC=0.5 < Japan's 2). Japan has CA in Motorcycles (OC=0.5 < India's 2).</p>
-      <p>Absolute Advantage: India in Motorcycles (40 < 60 hrs). Japan in Cars (30 < 80 hrs).</p>
+      <p><strong>When to use:</strong> To find OC graphically. The magnitude of slope = OC of x-axis good in terms of y-axis good.</p>
+      <p><strong>Solved Example:</strong> India can produce max 1600 kg Rice or 640 m Cloth. OC of 1 kg Rice = 640/1600 = 0.4 m Cloth. OC of 1 m Cloth = 1600/640 = 2.5 kg Rice.</p>
     </div>
   </div>
 
   <div class="collapsible">
     <div class="collapsible-header" onclick="toggleCollapse(this)">
-      <h4>📊 CPI Formulas</h4>
+      <h4>🛒 CPI & Inflation Formulas</h4>
       <span class="collapsible-arrow">▼</span>
     </div>
     <div class="collapsible-body">
       <div class="formula-box">
-        <div class="formula">Basket Cost (Year X) = Σ [Price(X) × Quantity(Base Year)]</div>
-        <div style="font-size:0.82rem; color:var(--text2); margin-top:0.4rem;">Quantity is ALWAYS the base year quantity (fixed basket)</div>
+        <div class="formula">CPI = (Cost of basket in current year / Cost of basket in base year) × 100</div>
       </div>
       <div class="formula-box">
-        <div class="formula">CPI = (Basket Cost in Current Year ÷ Basket Cost in Base Year) × 100</div>
+        <div class="formula">Inflation Rate (%) = [(CPI_yr2 − CPI_yr1) / CPI_yr1] × 100</div>
       </div>
       <div class="formula-box">
-        <div class="formula">Inflation Rate (Year 2) = [(CPI Year 2 − CPI Year 1) ÷ CPI Year 1] × 100</div>
+        <div class="formula">Equivalent Value = Old Value × (CPI_now / CPI_then)</div>
+      </div>
+      <p><strong>Worked Example (Assignment Q8):</strong> Uncle earned ₹25,000 in 1980. CPI 1980=82, CPI 2025=246.<br>
+      Equivalent salary = 25,000 × (246/82) = 25,000 × 3 = <span class="hl">₹75,000</span></p>
+      <p><strong>When NOT to use CPI formula:</strong> Don't use CPI formula to compute deflation for GDP or to measure economy-wide price changes — use GDP Deflator instead.</p>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <h4>💵 Nominal vs Real Interest Rate</h4>
+      <span class="collapsible-arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="formula-box">
+        <div class="formula">Nominal Interest Rate (NIR) = [(Final Amt − Initial Amt) / Initial Amt] × 100</div>
       </div>
       <div class="formula-box">
-        <div class="formula">Equivalent Current Value = Old Value × (CPI_current ÷ CPI_old)</div>
+        <div class="formula">Real Interest Rate (RIR) = NIR − Inflation Rate</div>
       </div>
-      <div class="warn-box">
-        <div class="warn-label">⚠️ Critical Rule</div>
-        When computing basket cost in ALL years, use the BASE YEAR QUANTITY. Do not use the current year quantity. This is the most common exam mistake!
-      </div>
-      <h4>✅ Solved Example — Quiz 2 Q1:</h4>
-      <p>Sagar earned ₹70,000/month in 1990. CPI 1990 = 45, CPI 2026 = 270.</p>
-      <p>Equivalent salary in 2026 = 70,000 × (270 ÷ 45) = 70,000 × 6 = <span class="hl">₹4,20,000/month</span></p>
+      <p><strong>Worked Example (Assignment Q5):</strong> Deposit ₹2,000 in 2024 → grows to ₹2,200 in 2025. CPI rises from 200 to 220.</p>
+      <ul>
+        <li>NIR = [(2200−2000)/2000] × 100 = <span class="hl">10%</span></li>
+        <li>Inflation = [(220−200)/200] × 100 = <span class="hl">10%</span></li>
+        <li>RIR = 10% − 10% = <span class="hl">0%</span> (no real gain!)</li>
+      </ul>
+      <p><strong>Worked Example (Assignment Q6):</strong> Mahesh lends ₹100, receives ₹130. CPI increased 20%.</p>
+      <ul>
+        <li>NIR = [(130−100)/100] × 100 = <span class="hl">30%</span></li>
+        <li>Inflation = 20%</li>
+        <li>RIR = 30% − 20% = <span class="hl">10%</span></li>
+      </ul>
     </div>
   </div>
 
@@ -1135,62 +1371,19 @@ strong { color: var(--text); }
     </div>
     <div class="collapsible-body">
       <div class="formula-box">
-        <div class="formula">Nominal GDP = Σ (Current Year Price × Current Year Quantity)</div>
+        <div class="formula">Nominal GDP = Σ (Current Price × Current Quantity)</div>
+        <div class="formula" style="margin-top:0.4rem">Real GDP = Σ (Base Year Price × Current Quantity)</div>
+        <div class="formula" style="margin-top:0.4rem">GDP Deflator = (Nominal GDP / Real GDP) × 100</div>
+        <div class="formula" style="margin-top:0.4rem">Inflation Rate via Deflator = [(Def_yr2 − Def_yr1) / Def_yr1] × 100</div>
+        <div class="formula" style="margin-top:0.4rem">Y = C + I + G + NX (Expenditure approach)</div>
+        <div class="formula" style="margin-top:0.4rem">GDP per capita = Real GDP / Population</div>
       </div>
-      <div class="formula-box">
-        <div class="formula">Real GDP = Σ (Base Year Price × Current Year Quantity)</div>
-      </div>
-      <div class="formula-box">
-        <div class="formula">GDP Deflator = (Nominal GDP ÷ Real GDP) × 100</div>
-      </div>
-      <div class="formula-box">
-        <div class="formula">GDP Inflation Rate = [(Deflator Year 2 − Deflator Year 1) ÷ Deflator Year 1] × 100</div>
-      </div>
-      <div class="formula-box">
-        <div class="formula">GDP per Capita = GDP ÷ Total Population</div>
-      </div>
+      <p><strong>When to use Real GDP:</strong> Comparing economic growth over time, measuring standard of living.</p>
+      <p><strong>When to use Nominal GDP:</strong> Computing GDP Deflator, current market value calculations.</p>
       <div class="exam-trick">
-        <div class="exam-trick-label">⚡ Quick Rule</div>
-        Nominal GDP Year 2024 with 2023 base year → use 2023 prices × 2024 quantities for Real GDP.
-        GDP Deflator of base year = (NGDP_base ÷ RGDP_base) × 100 = 100 always.
+        <div class="exam-trick-label">📌 Key Rule</div>
+        In base year: Nominal GDP = Real GDP → GDP Deflator = 100. This is always true, no exceptions!
       </div>
-      <h4>✅ Solved Example — Assignment 2 Q1 (Partial):</h4>
-      <p>2022 is base year. For year 2020: Milk 100 liters @ ₹40 current, ₹45 base price.</p>
-      <p>Nominal GDP 2020 = (100×40) + (200×50) + (300×100) = 4000+10000+30000 = <span class="hl">₹44,000</span></p>
-      <p>Real GDP 2020 = (100×45) + (200×50) + (300×150) = 4500+10000+45000 = <span class="hl">₹59,500</span></p>
-      <p>GDP Deflator 2020 = (44000÷59500) × 100 = <span class="hl">73.9</span> (Price level was lower than base year)</p>
-    </div>
-  </div>
-
-  <div class="collapsible">
-    <div class="collapsible-header" onclick="toggleCollapse(this)">
-      <h4>💵 Interest Rate Formulas</h4>
-      <span class="collapsible-arrow">▼</span>
-    </div>
-    <div class="collapsible-body">
-      <div class="formula-box">
-        <div class="formula">Nominal Interest Rate = [(Final Amt − Initial Amt) ÷ Initial Amt] × 100</div>
-      </div>
-      <div class="formula-box">
-        <div class="formula">Real Interest Rate = Nominal Interest Rate − Inflation Rate</div>
-      </div>
-      <div class="formula-box">
-        <div class="formula">Inflation Rate = [(CPI_2 − CPI_1) ÷ CPI_1] × 100</div>
-      </div>
-      <h4>✅ Solved Example — Assignment 1 Q5:</h4>
-      <p>Deposit ₹2000 in 2024. In 2025, it becomes ₹2200. CPI: 200 → 220.</p>
-      <ul>
-        <li>Nominal Rate = (2200−2000)/2000 × 100 = <span class="hl">10%</span></li>
-        <li>Inflation Rate = (220−200)/200 × 100 = <span class="hl">10%</span></li>
-        <li>Real Rate = 10% − 10% = <span class="hl">0%</span> (purchasing power didn't change!)</li>
-      </ul>
-      <h4>✅ Solved Example — Assignment 1 Q6:</h4>
-      <p>Lend ₹100, get ₹130. CPI increased by 20%.</p>
-      <ul>
-        <li>Nominal Rate = (130−100)/100 × 100 = <span class="hl">30%</span></li>
-        <li>Inflation Rate = <span class="hl">20%</span> (given)</li>
-        <li>Real Rate = 30% − 20% = <span class="hl">10%</span></li>
-      </ul>
     </div>
   </div>
 
@@ -1201,64 +1394,240 @@ strong { color: var(--text); }
     </div>
     <div class="collapsible-body">
       <div class="formula-box">
-        <div class="formula">Disposable Income = Y − T (Income minus Taxes)</div>
+        <div class="formula">Private Saving = Y − T − C (income minus taxes minus consumption)</div>
+        <div class="formula" style="margin-top:0.4rem">Public Saving = T − G (taxes minus govt spending)</div>
+        <div class="formula" style="margin-top:0.4rem">National Saving (S) = Y − C − G = Private + Public Saving</div>
+        <div class="formula" style="margin-top:0.4rem">In closed economy: S = I (National Saving = Investment)</div>
+        <div class="formula" style="margin-top:0.4rem">Disposable Income = Y − T</div>
       </div>
-      <div class="formula-box">
-        <div class="formula">Private Saving = Y − T − C</div>
-      </div>
-      <div class="formula-box">
-        <div class="formula">Public Saving = T − G (Positive = surplus, Negative = deficit)</div>
-      </div>
-      <div class="formula-box">
-        <div class="formula">National Saving = Private Saving + Public Saving = Y − C − G</div>
-      </div>
-      <div class="formula-box">
-        <div class="formula">Investment = National Saving (Closed Economy)</div>
-      </div>
-      <h4>✅ Solved Example — Assignment 2 Q2:</h4>
-      <p>GDP = $2,00,000 | C = $1,00,000 | G = $40,000 | Budget Surplus = $10,000 → T = G + Surplus = $50,000</p>
+      <p><strong>Worked Example (Assignment 2, Q2):</strong></p>
+      <p>GDP (Y) = $200,000; C = $100,000; G = $40,000; Budget Surplus = $10,000 (means T − G = 10,000 → T = $50,000)</p>
       <ul>
-        <li>Disposable Income = 2,00,000 − 50,000 = <span class="hl">$1,50,000</span></li>
-        <li>Private Saving = 1,50,000 − 1,00,000 = <span class="hl">$50,000</span></li>
-        <li>Public Saving = 50,000 − 40,000 = <span class="hl">$10,000</span> (surplus)</li>
+        <li>Disposable Income = Y − T = 200,000 − 50,000 = <span class="hl">$150,000</span></li>
+        <li>Private Saving = Y − T − C = 200,000 − 50,000 − 100,000 = <span class="hl">$50,000</span></li>
+        <li>Public Saving = T − G = 50,000 − 40,000 = <span class="hl">$10,000</span></li>
         <li>National Saving = 50,000 + 10,000 = <span class="hl">$60,000</span></li>
-        <li>Investment = <span class="hl">$60,000</span></li>
+        <li>Investment = National Saving = <span class="hl">$60,000</span></li>
       </ul>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <h4>🏦 Money Multiplier</h4>
+      <span class="collapsible-arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="formula-box">
+        <div class="formula">Money Multiplier (m) = 1 / Reserve Ratio (R)</div>
+        <div class="formula" style="margin-top:0.4rem">Total Money Supply = Initial Deposit × (1/R)</div>
+      </div>
+      <p><strong>Worked Example:</strong> R = 10%, initial deposit = $100. m = 1/0.10 = 10. Money supply = $100 × 10 = $1,000.</p>
+      <p><strong>If R increases to 20%:</strong> m = 1/0.20 = 5. Money supply = $100 × 5 = $500. ↑R → ↓Money supply.</p>
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- ═══════════════════════════════════════════════════
-     SECTION 4: PYQs WITH DEEP SOLUTIONS
-═══════════════════════════════════════════════════ -->
+<!-- ═══ SECTION 4: PYQs ═══ -->
 <section id="pyqs">
   <div class="section-head">
     <div class="section-tag">🎯 Section 4</div>
-    <h2>PYQs with Deep Solutions</h2>
-    <p>From your quizzes and assignments — step-by-step, formula-tagged solutions.</p>
+    <h2>PYQs & Quiz Solutions</h2>
+    <p>Step-by-step solutions. Every question from the midsem, quizzes, and assignments.</p>
+  </div>
+
+  <h3 style="color:var(--accent); margin-bottom:1rem;">📋 Mid-Semester Exam Questions</h3>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">MIDSEM Q1a</span>
+      <span class="q-text">Rohan & Mohan produce TV and Laptop. TV: Rohan=40 hrs, Mohan=80 hrs. Laptop: Rohan=80 hrs, Mohan=40 hrs. Who has comparative advantage in TV and Laptop?</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Concept:</strong> Comparative Advantage = Lower Opportunity Cost</p>
+      <table class="data-table">
+        <thead><tr><th>Person</th><th>TV (hrs)</th><th>Laptop (hrs)</th><th>OC of TV</th><th>OC of Laptop</th></tr></thead>
+        <tbody>
+          <tr><td>Rohan</td><td>40</td><td>80</td><td>80/40 = 2 Laptops</td><td>40/80 = 0.5 TVs</td></tr>
+          <tr><td>Mohan</td><td>80</td><td>40</td><td>40/80 = 0.5 Laptops</td><td>80/40 = 2 TVs</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Conclusion:</strong></p>
+      <ul>
+        <li>TV: Mohan's OC (0.5 Laptops) &lt; Rohan's OC (2 Laptops) → <span class="hl2">Mohan has CA in TV</span></li>
+        <li>Laptop: Rohan's OC (0.5 TVs) &lt; Mohan's OC (2 TVs) → <span class="hl2">Rohan has CA in Laptop</span></li>
+      </ul>
+      <div class="tip-box">
+        <div class="tip-label">💡 Note</div>
+        Mohan is LESS efficient at both goods (takes more hours for both) — yet trade still benefits both! Mohan should produce TVs, Rohan should produce Laptops.
+      </div>
+    </div>
   </div>
 
   <div class="q-card">
     <div class="q-card-header" onclick="toggleQ(this)">
-      <span class="q-number">QUIZ 1 · Q1</span>
-      <span class="q-text">Austria can produce max 40 cakes or 80 candles per hour. Total resources = 2000 labour hours. Before trade, allocates 70% to cakes, 30% to candles. Construct PPF and identify production combination.</span>
+      <span class="q-number">MIDSEM Q1b</span>
+      <span class="q-text">India: 1800 T-shirts or 600 pairs of trousers. USA: 2000 T-shirts or 600 pairs. Compute total opportunity cost and unit opportunity cost of producing trousers by an Indian.</span>
       <span class="q-toggle">▼</span>
     </div>
     <div class="q-answer">
-      <p><strong>Concept Used:</strong> PPF Construction, Resource Allocation</p>
-      <ol class="steps">
-        <li><strong>Find hourly rates:</strong> 40 cakes/hr means 1 cake takes 1/40 hr = 2000×40 = 80,000 cakes max... Wait — reread. Max 40 cakes OR 80 candles per hour means: 1 cake takes 1/40 hr, 1 candle takes 1/80 hr.</li>
-        <li><strong>Max output with 2000 hrs:</strong> Max Cakes = 2000 × 40 = <span class="hl">80,000 cakes</span> | Max Candles = 2000 × 80 = <span class="hl">160,000 candles</span></li>
-        <li><strong>PPF endpoints:</strong> (80,000 cakes, 0) and (0, 160,000 candles). Draw straight line.</li>
-        <li><strong>70% allocation:</strong> 70% of 2000 hrs = 1400 hrs for cakes → 1400 × 40 = 56,000 cakes | 30% = 600 hrs for candles → 600 × 80 = 48,000 candles</li>
-        <li><strong>Production point:</strong> Mark (56,000, 48,000) on the PPF line.</li>
-      </ol>
-      <div class="exam-trick">
-        <div class="exam-trick-label">📌 PPF Slope Check</div>
-        OC of 1 cake = 80,000/80,000... Actually OC = Max candles/Max cakes = 160,000/80,000 = 2 candles per cake. The PPF is downward sloping with slope = -2.
+      <p><strong>Total Opportunity Cost of producing 600 trousers by India:</strong></p>
+      <p>To produce 600 trousers, India gives up ALL T-shirt production = <span class="hl">1800 T-shirts</span></p>
+      <p><strong>Unit Opportunity Cost of 1 pair of trousers:</strong></p>
+      <p>OC of 1 trouser = 1800/600 = <span class="hl">3 T-shirts</span></p>
+      <div class="formula-box">
+        <div class="formula">Unit OC of Trousers = Max T-shirts / Max Trousers = 1800/600 = 3 T-shirts</div>
       </div>
+      <p><strong>For USA:</strong> OC of 1 trouser = 2000/600 = 3.33 T-shirts</p>
+      <p><strong>Comparative Advantage:</strong> India's OC (3) &lt; USA's OC (3.33) → <span class="hl2">India has CA in trousers</span>. USA has CA in T-shirts.</p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">MIDSEM Q1c</span>
+      <span class="q-text">Bijaya has 40 labour hours/week. OC of 1 kg potatoes = 0.25 kg meat. PPF touches potatoes axis at 40 units. Draw the PPF.</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Given:</strong> X-axis = Potatoes (max = 40 units), OC of 1 kg potatoes = 0.25 kg meat</p>
+      <p><strong>Find Y-intercept (max meat):</strong></p>
+      <p>OC of 1 kg potatoes = 0.25 kg meat means: to produce 40 kg potatoes, Bijaya gives up 40 × 0.25 = <span class="hl">10 kg meat</span></p>
+      <p>So max meat = 10 kg. Y-intercept = (0, 10). X-intercept = (40, 0).</p>
+      <p><strong>PPF:</strong> Straight line from (0, 10) on meat axis to (40, 0) on potato axis.</p>
+      <div class="exam-trick">
+        <div class="exam-trick-label">📌 Slope Verification</div>
+        Slope = −10/40 = −0.25. Magnitude 0.25 = OC of potatoes in terms of meat. ✓ Consistent!
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">MIDSEM Q2 (Hotland CPI)</span>
+      <span class="q-text">Hotland residents buy cauliflower, broccoli, carrots. 2020: 100 cauliflower @$2, 50 broccoli @$1.50, 500 carrots @$0.10. 2021: prices changed. Compute CPI and inflation rate.</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Step 1 — Find prices per unit in each year:</strong></p>
+      <table class="data-table">
+        <thead><tr><th>Item</th><th>2020 Price/unit</th><th>2021 Price/unit</th><th>Base Qty (2020)</th></tr></thead>
+        <tbody>
+          <tr><td>Cauliflower</td><td>$200/100 = $2</td><td>$225/75 = $3</td><td>100</td></tr>
+          <tr><td>Broccoli</td><td>$75/50 = $1.50</td><td>$120/80 = $1.50</td><td>50</td></tr>
+          <tr><td>Carrots</td><td>$50/500 = $0.10</td><td>$100/500 = $0.20</td><td>500</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Step 2 — Cost of FIXED 2020 basket at each year's prices:</strong></p>
+      <ul>
+        <li>2020: (100×2) + (50×1.5) + (500×0.10) = 200 + 75 + 50 = <span class="hl">$325</span></li>
+        <li>2021: (100×3) + (50×1.5) + (500×0.20) = 300 + 75 + 100 = <span class="hl">$475</span></li>
+      </ul>
+      <p><strong>Step 3 — CPI (base year 2020):</strong></p>
+      <ul>
+        <li>CPI 2020 = (325/325) × 100 = <span class="hl">100</span></li>
+        <li>CPI 2021 = (475/325) × 100 = <span class="hl">146.15</span></li>
+      </ul>
+      <p><strong>Inflation Rate 2020-21:</strong> [(146.15 − 100)/100] × 100 = <span class="hl">46.15%</span></p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">MIDSEM Q3a (GDP Pizza/Burger)</span>
+      <span class="q-text">Pizza: 2020 $20/400, 2021 $21/500, 2022 $22/600. Burger: 2020 $12/1000, 2021 $13/1100, 2022 $14/1200. Compute Nominal GDP, Real GDP, GDP Deflator (base 2020).</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Nominal GDP (current prices × current qty):</strong></p>
+      <ul>
+        <li>2020: (20×400)+(12×1000) = 8000+12000 = <span class="hl">$20,000</span></li>
+        <li>2021: (21×500)+(13×1100) = 10500+14300 = <span class="hl">$24,800</span></li>
+        <li>2022: (22×600)+(14×1200) = 13200+16800 = <span class="hl">$30,000</span></li>
+      </ul>
+      <p><strong>Real GDP (base year 2020 prices × current qty):</strong></p>
+      <ul>
+        <li>2020: (20×400)+(12×1000) = <span class="hl">$20,000</span></li>
+        <li>2021: (20×500)+(12×1100) = 10000+13200 = <span class="hl">$23,200</span></li>
+        <li>2022: (20×600)+(12×1200) = 12000+14400 = <span class="hl">$26,400</span></li>
+      </ul>
+      <p><strong>GDP Deflator = (Nominal/Real) × 100:</strong></p>
+      <ul>
+        <li>2020: (20,000/20,000)×100 = <span class="hl">100</span></li>
+        <li>2021: (24,800/23,200)×100 = <span class="hl">106.9</span></li>
+        <li>2022: (30,000/26,400)×100 = <span class="hl">113.6</span></li>
+      </ul>
+      <p><strong>Inflation Rate:</strong> 2020-21: [(106.9-100)/100]×100 = <span class="hl">6.9%</span> | 2021-22: [(113.6-106.9)/106.9]×100 = <span class="hl">6.27%</span></p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">MIDSEM Q5b</span>
+      <span class="q-text">GDP = $7 trillion, Tax Revenue = $2 trillion, Private Saving = $0.4 trillion, Public Saving = $0.3 trillion. Find Consumption, Govt Purchases, National Saving, Investment.</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Given:</strong> Y = 7T, T = 2T, Private Saving = 0.4T, Public Saving = 0.3T (closed economy)</p>
+      <div class="formula-box">
+        <div class="formula">Private Saving = Y − T − C → 0.4 = 7 − 2 − C → C = 7 − 2 − 0.4 = $4.6 trillion</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula">Public Saving = T − G → 0.3 = 2 − G → G = 2 − 0.3 = $1.7 trillion</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula">National Saving = Private + Public = 0.4 + 0.3 = $0.7 trillion</div>
+      </div>
+      <div class="formula-box">
+        <div class="formula">Investment = National Saving = $0.7 trillion</div>
+      </div>
+      <p><strong>Verification:</strong> Y = C + I + G = 4.6 + 0.7 + 1.7 = $7T ✓</p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">MIDSEM Q5c (Equilibrium Interest Rate)</span>
+      <span class="q-text">GDP = $7000, C = $5000, T = $900, G = $800, Investment function I = 1800 − 150r. Find equilibrium real interest rate and investment.</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>National Saving = Y − C − G = 7000 − 5000 − 800 = $1,200</strong></p>
+      <p>In closed economy: S = I → 1,200 = 1800 − 150r</p>
+      <p>150r = 1800 − 1200 = 600</p>
+      <p>r = 600/150 = <span class="hl">4%</span></p>
+      <p>Investment = 1800 − 150(4) = 1800 − 600 = <span class="hl">$1,200</span></p>
+      <div class="tip-box">
+        <div class="tip-label">💡 Verification</div>
+        S = I = $1,200 ✓. The equilibrium interest rate is 4%, which equates saving and investment.
+      </div>
+    </div>
+  </div>
+
+  <h3 style="color:var(--accent2); margin-top:2rem; margin-bottom:1rem;">📋 Quiz Questions</h3>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">QUIZ 1 · Q1</span>
+      <span class="q-text">Austria: max 40 cakes or 80 candles/hr. Total 2000 labour hours. Before trade, 70% to cakes, 30% to candles. Construct PPF and identify production combination.</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>PPF Endpoints:</strong></p>
+      <ul>
+        <li>Max Cakes (all resources to cakes): 2000 hrs / (50 min per cake) → first need hrs per cake.<br>40 cakes in 1 hr = 60 min. Time per cake = 60/40 = 1.5 min. Max cakes = 2000×60/1.5 = <span class="hl">80,000 cakes</span></li>
+        <li>Alternatively — given: max 40 cakes per hour. In 2000 hrs = 40×2000 = <span class="hl">80,000 cakes</span></li>
+        <li>Max candles: 80 candles/hr × 2000 hrs = <span class="hl">160,000 candles</span></li>
+      </ul>
+      <p><strong>Production Combination (70% to cakes, 30% to candles):</strong></p>
+      <ul>
+        <li>Time for cakes = 70% × 2000 = 1400 hrs → Cakes = 40 × 1400 = <span class="hl">56,000 cakes</span></li>
+        <li>Time for candles = 30% × 2000 = 600 hrs → Candles = 80 × 600 = <span class="hl">48,000 candles</span></li>
+      </ul>
+      <p>Plot PPF from (80,000, 0) to (0, 160,000). Mark production point at (56,000 cakes, 48,000 candles).</p>
     </div>
   </div>
 
@@ -1269,7 +1638,7 @@ strong { color: var(--text); }
       <span class="q-toggle">▼</span>
     </div>
     <div class="q-answer">
-      <p><strong>Concept Used:</strong> Absolute Advantage — Lower hours per unit = Absolute Advantage</p>
+      <p><strong>Absolute Advantage — compare hours per unit (fewer hours = AA):</strong></p>
       <table class="data-table">
         <thead><tr><th>Country</th><th>Motorcycle (hrs)</th><th>Car (hrs)</th></tr></thead>
         <tbody>
@@ -1277,12 +1646,11 @@ strong { color: var(--text); }
           <tr><td>Japan</td><td>60</td><td>30</td></tr>
         </tbody>
       </table>
-      <p><strong>Absolute Advantage:</strong></p>
       <ul>
-        <li>Motorcycles: India takes 40 hrs vs Japan's 60 hrs → <span class="hl2">India has AA in motorcycles</span></li>
-        <li>Cars: Japan takes 30 hrs vs India's 80 hrs → <span class="hl2">Japan has AA in cars</span></li>
+        <li>Motorcycles: India (40) &lt; Japan (60) → <span class="hl2">India has AA in motorcycles</span></li>
+        <li>Cars: Japan (30) &lt; India (80) → <span class="hl2">Japan has AA in cars</span></li>
       </ul>
-      <p><strong>Bonus — Comparative Advantage:</strong></p>
+      <p><strong>Comparative Advantage (bonus):</strong></p>
       <table class="data-table">
         <thead><tr><th>Country</th><th>OC of Motorcycle</th><th>OC of Car</th></tr></thead>
         <tbody>
@@ -1290,27 +1658,25 @@ strong { color: var(--text); }
           <tr><td>Japan</td><td>30/60 = 0.5 cars</td><td>60/30 = 2 motorcycles</td></tr>
         </tbody>
       </table>
-      <p>India: CA in Cars (OC 0.5 &lt; Japan's 2). Japan: CA in Motorcycles (OC 0.5 &lt; India's 2).</p>
+      <p>Japan: CA in Motorcycles (OC 0.5 cars &lt; India's 2). India: CA in Cars (OC 0.5 motorcycles &lt; Japan's 2).</p>
     </div>
   </div>
 
   <div class="q-card">
     <div class="q-card-header" onclick="toggleQ(this)">
       <span class="q-number">QUIZ 2 · Q1</span>
-      <span class="q-text">Sagar received ₹70,000/month salary in 1990. How much in 2026 if CPI 1990 = 45 and CPI 2026 = 270?</span>
+      <span class="q-text">In 1990, Sagar received ₹70,000/month salary. How much should he receive in 2026 if CPI 1990 = 45 and CPI 2026 = 270?</span>
       <span class="q-toggle">▼</span>
     </div>
     <div class="q-answer">
-      <p><strong>Concept Used:</strong> Adjusting Wages for Inflation using CPI</p>
-      <p><strong>Formula:</strong></p>
+      <p><strong>Concept:</strong> Adjusting nominal wages for inflation using CPI ratio.</p>
       <div class="formula-box">
-        <div class="formula">2026 Salary = 1990 Salary × (CPI_2026 ÷ CPI_1990)</div>
+        <div class="formula">2026 Salary = 1990 Salary × (CPI_2026 / CPI_1990)</div>
       </div>
-      <p><strong>Solution:</strong><br>
-      2026 Salary = 70,000 × (270 ÷ 45) = 70,000 × 6 = <span class="hl">₹4,20,000 per month</span></p>
+      <p>2026 Salary = 70,000 × (270/45) = 70,000 × 6 = <span class="hl">₹4,20,000 per month</span></p>
       <div class="tip-box">
         <div class="tip-label">💡 Interpretation</div>
-        This means ₹4,20,000 in 2026 has the SAME purchasing power as ₹70,000 in 1990. Prices are 6× higher, so you need 6× more money to maintain the same standard of living.
+        Prices rose 6× between 1990 and 2026. To maintain the same purchasing power, the salary must also be 6× higher. This is why wages should be indexed to CPI!
       </div>
     </div>
   </div>
@@ -1318,69 +1684,117 @@ strong { color: var(--text); }
   <div class="q-card">
     <div class="q-card-header" onclick="toggleQ(this)">
       <span class="q-number">QUIZ 2 · Q2</span>
-      <span class="q-text">GDP Deflator = 110 in 2024, base year 2023. Nominal GDP 2023 = $10,000, 2024 = $11,000. Analyse real GDP change.</span>
+      <span class="q-text">GDP Deflator = 110 in 2024, base year 2023. Nominal GDP 2023 = $10,000, 2024 = $11,000. Analyse effect on real GDP from 2023 to 2024.</span>
       <span class="q-toggle">▼</span>
     </div>
     <div class="q-answer">
-      <p><strong>Concept Used:</strong> Real GDP using GDP Deflator</p>
-      <div class="formula-box">
-        <div class="formula">Real GDP = (Nominal GDP ÷ GDP Deflator) × 100</div>
-      </div>
-      <p><strong>2023 (Base Year):</strong> Real GDP = (10,000 ÷ 100) × 100 = <span class="hl">$10,000</span></p>
-      <p><strong>2024:</strong> Real GDP = (11,000 ÷ 110) × 100 = <span class="hl">$10,000</span></p>
-      <p><strong>Analysis:</strong> Although Nominal GDP rose from $10,000 to $11,000, Real GDP stayed at $10,000. This means ALL the increase was due to <span class="hl3">price rise (inflation)</span>, NOT actual increase in production. The economy didn't really grow in real terms!</p>
+      <p><strong>Concept:</strong> Real GDP = (Nominal GDP / GDP Deflator) × 100</p>
+      <ul>
+        <li>2023 (Base Year): Real GDP = (10,000/100) × 100 = <span class="hl">$10,000</span></li>
+        <li>2024: Real GDP = (11,000/110) × 100 = <span class="hl">$10,000</span></li>
+      </ul>
+      <p><strong>Analysis:</strong> Nominal GDP rose $1,000 (10%), but Real GDP stayed at $10,000. The ENTIRE increase in nominal GDP was due to price increases (inflation), NOT real production growth. The economy did NOT grow in real terms!</p>
       <div class="exam-trick">
         <div class="exam-trick-label">📌 Key Takeaway</div>
-        When Real GDP doesn't change but Nominal GDP rises → economy is experiencing inflation with no real growth.
+        When Real GDP doesn't change but Nominal GDP rises → economy is experiencing inflation with ZERO real growth.
       </div>
     </div>
   </div>
 
   <div class="q-card">
     <div class="q-card-header" onclick="toggleQ(this)">
-      <span class="q-number">ASSIGN 1 · Q4</span>
-      <span class="q-text">CPI calculation for Orange, Pizza, Wheat for years 2015-2017. Base basket: 40 kg Orange, 80 Pizza, 30 kg Wheat (2015 quantities).</span>
+      <span class="q-number">ASSIGN 1 · Q4 (CPI Calculation)</span>
+      <span class="q-text">Orange, Pizza, Wheat data for 2015-2017. Base basket: 40kg Orange @₹70, 80 Pizza @₹25, 30kg Wheat @₹40. Compute CPI and inflation rate.</span>
       <span class="q-toggle">▼</span>
     </div>
     <div class="q-answer">
-      <p><strong>Concept Used:</strong> CPI Construction (5 Steps)</p>
-      <p><strong>Step 1 — Fix Basket:</strong> 40 kg Orange, 80 Pizza, 30 kg Wheat (given 2015 base quantities)</p>
-      <p><strong>Step 2 & 3 — Find Prices & Compute Basket Cost:</strong></p>
       <table class="data-table">
-        <thead><tr><th>Item</th><th>Qty (Fixed)</th><th>Price 2015</th><th>Cost 2015</th><th>Price 2016</th><th>Cost 2016</th><th>Price 2017</th><th>Cost 2017</th></tr></thead>
+        <thead><tr><th>Item</th><th>Qty</th><th>Price 2015</th><th>Cost 2015</th><th>Price 2016</th><th>Cost 2016</th><th>Price 2017</th><th>Cost 2017</th></tr></thead>
         <tbody>
           <tr><td>Orange</td><td>40 kg</td><td>₹70</td><td>₹2800</td><td>₹80</td><td>₹3200</td><td>₹60</td><td>₹2400</td></tr>
-          <tr><td>Pizza</td><td>80 no</td><td>₹25</td><td>₹2000</td><td>₹30</td><td>₹2400</td><td>₹35</td><td>₹2800</td></tr>
+          <tr><td>Pizza</td><td>80</td><td>₹25</td><td>₹2000</td><td>₹30</td><td>₹2400</td><td>₹35</td><td>₹2800</td></tr>
           <tr><td>Wheat</td><td>30 kg</td><td>₹40</td><td>₹1200</td><td>₹42</td><td>₹1260</td><td>₹50</td><td>₹1500</td></tr>
           <tr><td><strong>Total</strong></td><td></td><td></td><td><strong>₹6000</strong></td><td></td><td><strong>₹6860</strong></td><td></td><td><strong>₹6700</strong></td></tr>
         </tbody>
       </table>
-      <p><strong>Step 4 — Base Year = 2015.</strong></p>
-      <p><strong>Step 5 — CPI:</strong></p>
+      <p><strong>CPI (Base = 2015):</strong></p>
       <ul>
-        <li>CPI 2015 = (6000/6000) × 100 = <span class="hl">100</span></li>
-        <li>CPI 2016 = (6860/6000) × 100 = <span class="hl">114.33</span></li>
-        <li>CPI 2017 = (6700/6000) × 100 = <span class="hl">111.67</span></li>
+        <li>CPI 2015 = (6000/6000)×100 = <span class="hl">100</span></li>
+        <li>CPI 2016 = (6860/6000)×100 = <span class="hl">114.33</span></li>
+        <li>CPI 2017 = (6700/6000)×100 = <span class="hl">111.67</span></li>
       </ul>
       <p><strong>Inflation Rates:</strong></p>
       <ul>
-        <li>2015-16: (114.33−100)/100 × 100 = <span class="hl">14.33%</span></li>
-        <li>2016-17: (111.67−114.33)/114.33 × 100 = <span class="hl">−2.33%</span> (deflation!)</li>
+        <li>2015-16: [(114.33−100)/100]×100 = <span class="hl">14.33%</span></li>
+        <li>2016-17: [(111.67−114.33)/114.33]×100 = <span class="hl">−2.33% (deflation)</span></li>
       </ul>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">ASSIGN 2 · Q1 (NGDP/RGDP)</span>
+      <span class="q-text">Milk, Biscuits, Pizza data for 2020-2022. Compute NGDP, RGDP, GDP Deflator, Inflation Rate. Base year = 2022.</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Data:</strong> Milk: 2020 (100L @₹40), 2021 (90L @₹50), 2022 (120L @₹45) | Biscuits: 2020 (200 @₹50), 2021 (250 @₹40), 2022 (220 @₹50) | Pizza: 2020 (300 @₹100), 2021 (300 @₹120), 2022 (250 @₹150)</p>
+      <p><strong>NGDP (current prices × current qty):</strong></p>
+      <ul>
+        <li>2020: (100×40)+(200×50)+(300×100) = 4000+10000+30000 = <span class="hl">₹44,000</span></li>
+        <li>2021: (90×50)+(250×40)+(300×120) = 4500+10000+36000 = <span class="hl">₹50,500</span></li>
+        <li>2022: (120×45)+(220×50)+(250×150) = 5400+11000+37500 = <span class="hl">₹53,900</span></li>
+      </ul>
+      <p><strong>RGDP (base year 2022 prices × current qty):</strong></p>
+      <ul>
+        <li>2020: (100×45)+(200×50)+(300×150) = 4500+10000+45000 = <span class="hl">₹59,500</span></li>
+        <li>2021: (90×45)+(250×50)+(300×150) = 4050+12500+45000 = <span class="hl">₹61,550</span></li>
+        <li>2022: (120×45)+(220×50)+(250×150) = 5400+11000+37500 = <span class="hl">₹53,900</span></li>
+      </ul>
+      <p><strong>GDP Deflator = (NGDP/RGDP)×100:</strong></p>
+      <ul>
+        <li>2020: (44,000/59,500)×100 = <span class="hl">73.95</span></li>
+        <li>2021: (50,500/61,550)×100 = <span class="hl">82.05</span></li>
+        <li>2022: (53,900/53,900)×100 = <span class="hl">100</span></li>
+      </ul>
+      <p><strong>Inflation Rate:</strong> 2020-21: [(82.05−73.95)/73.95]×100 = <span class="hl">10.95%</span> | 2021-22: [(100−82.05)/82.05]×100 = <span class="hl">21.87%</span></p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">ASSIGN 2 · Q4 (Value Added)</span>
+      <span class="q-text">Farmer sells wheat to miller for ₹80,000. Miller sells flour to baker for ₹1,00,000. Baker sells bread to consumer for ₹1,50,000. Compute GDP using value-added approach and identify another method.</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <table class="data-table">
+        <thead><tr><th>Stage</th><th>Value of Output</th><th>Value of Input</th><th>Value Added</th></tr></thead>
+        <tbody>
+          <tr><td>Farmer (wheat)</td><td>₹80,000</td><td>₹0</td><td>₹80,000</td></tr>
+          <tr><td>Miller (flour)</td><td>₹1,00,000</td><td>₹80,000</td><td>₹20,000</td></tr>
+          <tr><td>Baker (bread)</td><td>₹1,50,000</td><td>₹1,00,000</td><td>₹50,000</td></tr>
+          <tr><td><strong>GDP</strong></td><td></td><td></td><td><strong>₹1,50,000</strong></td></tr>
+        </tbody>
+      </table>
+      <p><strong>Alternative Method — Expenditure Approach:</strong> Consumer spends ₹1,50,000 on bread (final good). GDP = ₹1,50,000. Same result!</p>
+      <p><strong>Third Method — Income Approach:</strong> Sum of all factor incomes (wages + profits at each stage) also equals ₹1,50,000.</p>
+      <div class="exam-trick">
+        <div class="exam-trick-label">📌 All 3 Methods</div>
+        Value-Added = Final Expenditure = Sum of Factor Incomes = ₹1,50,000. This is GDP accounting identity.
+      </div>
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- ═══════════════════════════════════════════════════
-     SECTION 5: QUESTION BANK
-═══════════════════════════════════════════════════ -->
+<!-- ═══ SECTION 5: QUESTION BANK ═══ -->
 <section id="qbank">
   <div class="section-head">
     <div class="section-tag">📝 Section 5</div>
     <h2>Question Bank</h2>
-    <p>Easy → Medium → Hard. Click to reveal answers.</p>
+    <p>Easy → Medium → Hard. All assignment + quiz + extra questions solved.</p>
   </div>
 
   <h3 style="color:var(--accent3);">🟢 Easy Questions</h3>
@@ -1388,21 +1802,21 @@ strong { color: var(--text); }
   <div class="q-card">
     <div class="q-card-header" onclick="toggleQ(this)">
       <span class="q-number">E-01</span>
-      <span class="q-text">If CPI in 2024 is 150 and inflation rate is 8% between 2024 and 2025, what is the CPI in 2025?</span>
+      <span class="q-text">If CPI in 2024 is 150 and inflation rate is 8% between 2024 and 2025, what is the CPI in 2025? [Assign 1 · Q7]</span>
       <span class="difficulty-badge easy">Easy</span>
       <span class="q-toggle">▼</span>
     </div>
     <div class="q-answer">
-      <p>Inflation Rate = [(CPI_2025 − CPI_2024) ÷ CPI_2024] × 100</p>
-      <p>8 = [(CPI_2025 − 150) ÷ 150] × 100</p>
-      <p>CPI_2025 = 150 + (8 × 150/100) = 150 + 12 = <span class="hl">CPI 2025 = 162</span></p>
+      <p>Inflation Rate = [(CPI_2025 − CPI_2024) / CPI_2024] × 100</p>
+      <p>8 = [(CPI_2025 − 150) / 150] × 100 → CPI_2025 − 150 = 12</p>
+      <p>CPI_2025 = <span class="hl">162</span></p>
     </div>
   </div>
 
   <div class="q-card">
     <div class="q-card-header" onclick="toggleQ(this)">
       <span class="q-number">E-02</span>
-      <span class="q-text">In 1980, your uncle earned ₹25,000. CPI 1980 = 82, CPI 2025 = 246. What is the 2025 equivalent salary?</span>
+      <span class="q-text">In 1980, your uncle earned ₹25,000. CPI 1980 = 82, CPI 2025 = 246. Find 2025 equivalent salary. [Assign 1 · Q8]</span>
       <span class="difficulty-badge easy">Easy</span>
       <span class="q-toggle">▼</span>
     </div>
@@ -1414,18 +1828,6 @@ strong { color: var(--text); }
   <div class="q-card">
     <div class="q-card-header" onclick="toggleQ(this)">
       <span class="q-number">E-03</span>
-      <span class="q-text">Country A can produce 200 tons of rice or 100 m cloth. Country B can produce 150 tons of rice or 150 m cloth. Which has absolute advantage in rice?</span>
-      <span class="difficulty-badge easy">Easy</span>
-      <span class="q-toggle">▼</span>
-    </div>
-    <div class="q-answer">
-      <p>Absolute advantage in rice: Compare max rice output. Country A (200) > Country B (150) → <span class="hl">Country A has AA in rice</span>. Country B has AA in cloth (150 > 100).</p>
-    </div>
-  </div>
-
-  <div class="q-card">
-    <div class="q-card-header" onclick="toggleQ(this)">
-      <span class="q-number">E-04</span>
       <span class="q-text">What are the 4 components of GDP? Give one real example of each.</span>
       <span class="difficulty-badge easy">Easy</span>
       <span class="q-toggle">▼</span>
@@ -1433,10 +1835,69 @@ strong { color: var(--text); }
     <div class="q-answer">
       <ul>
         <li><span class="hl">C (Consumption)</span> — Family buys a washing machine for personal use</li>
-        <li><span class="hl">I (Investment)</span> — Firm buys new machinery; family buys a new house</li>
-        <li><span class="hl">G (Government Purchases)</span> — State govt buys a helicopter from HAL</li>
-        <li><span class="hl">NX (Net Exports)</span> — American tourist spends ₹3 lakh in Goa (export for India, counted in GDP)</li>
+        <li><span class="hl">I (Investment)</span> — Firm buys new machinery; Mr. Mohan buys a new house</li>
+        <li><span class="hl">G (Government Purchases)</span> — Govt of Odisha buys helicopter from HAL</li>
+        <li><span class="hl">NX (Net Exports)</span> — American tourist spends ₹3 lakh in Goa (= Indian export, +GDP)</li>
       </ul>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">E-04</span>
+      <span class="q-text">You deposit ₹2,000 in 2024, get ₹2,200 in 2025. CPI rises from 200 to 220. Compute inflation rate, nominal and real interest rates. [Assign 1 · Q5]</span>
+      <span class="difficulty-badge easy">Easy</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <ul>
+        <li>Nominal Interest Rate = [(2200−2000)/2000] × 100 = <span class="hl">10%</span></li>
+        <li>Inflation Rate = [(220−200)/200] × 100 = <span class="hl">10%</span></li>
+        <li>Real Interest Rate = 10% − 10% = <span class="hl">0%</span></li>
+      </ul>
+      <p>Despite earning ₹200 more, purchasing power did NOT increase — inflation wiped out all gains.</p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">E-05</span>
+      <span class="q-text">Mahesh lends ₹100 and receives ₹130 after one year. CPI increased by 20%. Find nominal and real interest rates. [Assign 1 · Q6]</span>
+      <span class="difficulty-badge easy">Easy</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <ul>
+        <li>Nominal Interest Rate = [(130−100)/100] × 100 = <span class="hl">30%</span></li>
+        <li>Inflation Rate = 20%</li>
+        <li>Real Interest Rate = 30% − 20% = <span class="hl">10%</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">E-06</span>
+      <span class="q-text">Define absolute advantage. India takes 10 Lhr/kg Rice, China takes 20 Lhr/kg Rice. Who has absolute advantage in Rice?</span>
+      <span class="difficulty-badge easy">Easy</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Absolute Advantage</strong> = ability to produce a good using fewer inputs than another producer.</p>
+      <p>India takes 10 Lhr/kg vs China's 20 Lhr/kg. India uses FEWER hours → <span class="hl">India has absolute advantage in Rice</span>.</p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">E-07</span>
+      <span class="q-text">What is the money multiplier? If Reserve Ratio = 10%, find the money multiplier and total money supply created from an initial deposit of ₹1000.</span>
+      <span class="difficulty-badge easy">Easy</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p>Money Multiplier = 1/R = 1/0.10 = <span class="hl">10</span></p>
+      <p>Total Money Supply = 1000 × 10 = <span class="hl">₹10,000</span></p>
     </div>
   </div>
 
@@ -1445,46 +1906,45 @@ strong { color: var(--text); }
   <div class="q-card">
     <div class="q-card-header" onclick="toggleQ(this)">
       <span class="q-number">M-01</span>
-      <span class="q-text">India: 10 Lhr/kg Rice, 25 Lhr/m Cloth. China: 20 Lhr/kg Rice, 25 Lhr/m Cloth. Resources = 16,000 Lhr each. Determine basis of trade.</span>
+      <span class="q-text">India: 10 Lhr/kg Rice, 25 Lhr/m Cloth. China: 20 Lhr/kg Rice, 25 Lhr/m Cloth. Resources = 16,000 Lhr each. Determine basis of trade and construct PPF. [Assign 1 · Q2]</span>
       <span class="difficulty-badge medium">Medium</span>
       <span class="q-toggle">▼</span>
     </div>
     <div class="q-answer">
-      <p><strong>Step 1 — Max outputs:</strong></p>
       <table class="data-table">
-        <thead><tr><th>Country</th><th>Max Rice</th><th>Max Cloth</th></tr></thead>
+        <thead><tr><th>Country</th><th>Max Rice</th><th>Max Cloth</th><th>OC of Rice</th><th>OC of Cloth</th></tr></thead>
         <tbody>
-          <tr><td>India</td><td>16000/10 = 1600 kg</td><td>16000/25 = 640 m</td></tr>
-          <tr><td>China</td><td>16000/20 = 800 kg</td><td>16000/25 = 640 m</td></tr>
+          <tr><td>India</td><td>16000/10=1600 kg</td><td>16000/25=640 m</td><td>640/1600=0.4 m cloth</td><td>1600/640=2.5 kg rice</td></tr>
+          <tr><td>China</td><td>16000/20=800 kg</td><td>16000/25=640 m</td><td>640/800=0.8 m cloth</td><td>800/640=1.25 kg rice</td></tr>
         </tbody>
       </table>
-      <p><strong>Absolute Advantage:</strong> India in Rice (1600 > 800). Neither has AA in Cloth (both 640).</p>
-      <p><strong>Opportunity Costs:</strong></p>
-      <table class="data-table">
-        <thead><tr><th>Country</th><th>OC of Rice</th><th>OC of Cloth</th></tr></thead>
-        <tbody>
-          <tr><td>India</td><td>640/1600 = 0.4 m cloth</td><td>1600/640 = 2.5 kg rice</td></tr>
-          <tr><td>China</td><td>640/800 = 0.8 m cloth</td><td>800/640 = 1.25 kg rice</td></tr>
-        </tbody>
-      </table>
+      <p><strong>Absolute Advantage:</strong> India in Rice (1600 > 800). Neither in Cloth (both 640).</p>
       <p><strong>Comparative Advantage:</strong> India in Rice (OC 0.4 &lt; China's 0.8). China in Cloth (OC 1.25 &lt; India's 2.5).</p>
-      <p><strong>Basis of Trade:</strong> <span class="hl">Comparative Advantage</span>. India should specialize in Rice, China in Cloth. Trade benefits both!</p>
+      <p><strong>Basis of Trade: <span class="hl">Comparative Advantage</span></strong>. India exports Rice, China exports Cloth. Even though India has absolute advantage in Rice, China has comparative advantage in Cloth — trade benefits both!</p>
     </div>
   </div>
 
   <div class="q-card">
     <div class="q-card-header" onclick="toggleQ(this)">
       <span class="q-number">M-02</span>
-      <span class="q-text">An American tourist spends ₹3,00,000 on hotels, food and travel in Goa in 2025. How does this affect India's 2025 GDP?</span>
+      <span class="q-text">India and Japan produce TV & Watch. India: 50 Lhr/TV, 20 Lhr/Watch. Japan: 25 Lhr/TV, 10 Lhr/Watch. Resources = 24,000 Lhr each. Basis of trade? [Assign 1 · Q3]</span>
       <span class="difficulty-badge medium">Medium</span>
       <span class="q-toggle">▼</span>
     </div>
     <div class="q-answer">
-      <p><strong>GDP Component Affected:</strong> Net Exports (NX) — specifically, <span class="hl">Exports</span>.</p>
-      <p><strong>Reasoning:</strong> When a foreigner buys Indian services, it's counted as India's export. This increases NX, and since Y = C + I + G + NX, India's GDP <span class="hl2">increases by ₹3,00,000</span>.</p>
-      <div class="tip-box">
-        <div class="tip-label">💡 Think of It This Way</div>
-        Foreigners spending in India = India "exporting" its services. Money flows INTO India = positive for GDP.
+      <table class="data-table">
+        <thead><tr><th>Country</th><th>Max TV</th><th>Max Watch</th><th>OC of TV</th><th>OC of Watch</th></tr></thead>
+        <tbody>
+          <tr><td>India</td><td>24000/50=480</td><td>24000/20=1200</td><td>1200/480=2.5 Watches</td><td>480/1200=0.4 TVs</td></tr>
+          <tr><td>Japan</td><td>24000/25=960</td><td>24000/10=2400</td><td>2400/960=2.5 Watches</td><td>960/2400=0.4 TVs</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Absolute Advantage:</strong> Japan has AA in both TV and Watch (960 > 480 and 2400 > 1200).</p>
+      <p><strong>Comparative Advantage:</strong> OC of TV = 2.5 for BOTH countries. OC of Watch = 0.4 for BOTH. The OCs are identical!</p>
+      <p><strong>Conclusion:</strong> When opportunity costs are equal, there is <span class="hl3">no comparative advantage</span> for either country. Trade would not provide additional benefits from specialization. <strong>Trade would still occur based on absolute advantage</strong>, with Japan exporting both (since it has AA in both), or no specialization benefit.</p>
+      <div class="exam-trick">
+        <div class="exam-trick-label">📌 Key Observation</div>
+        This is a special case — when ratios of inputs are the same (50:20 = 25:10 = 2.5), OCs are identical and no CA exists. This is rare but exam-worthy!
       </div>
     </div>
   </div>
@@ -1492,27 +1952,129 @@ strong { color: var(--text); }
   <div class="q-card">
     <div class="q-card-header" onclick="toggleQ(this)">
       <span class="q-number">M-03</span>
-      <span class="q-text">Rohit: 100 kg wheat or 20 shoes/day. Ramesh: 120 kg wheat or 40 shoes/day. Each has 10 days. Both allocate half time to each. Find PPF and production points.</span>
+      <span class="q-text">GDP = $200,000; C = $100,000; G = $40,000. Budget surplus = $10,000. Compute: (i) disposable income, (ii) private saving, (iii) public saving, (iv) national saving, (v) investment. [Assign 2 · Q2]</span>
       <span class="difficulty-badge medium">Medium</span>
       <span class="q-toggle">▼</span>
     </div>
     <div class="q-answer">
-      <p><strong>Rohit's PPF:</strong> Max wheat (10 days) = 100×10 = 1000 kg | Max shoes = 20×10 = 200 pairs</p>
-      <p><strong>Ramesh's PPF:</strong> Max wheat = 120×10 = 1200 kg | Max shoes = 40×10 = 400 pairs</p>
-      <p><strong>Before Trade (half time each):</strong></p>
+      <p>Budget Surplus = T − G = $10,000 → T = 10,000 + 40,000 = $50,000</p>
       <ul>
-        <li>Rohit: 5 days wheat = 500 kg + 5 days shoes = 100 pairs → consumes (500 kg, 100 pairs)</li>
-        <li>Ramesh: 5 days wheat = 600 kg + 5 days shoes = 200 pairs → consumes (600 kg, 200 pairs)</li>
+        <li>(i) Disposable Income = Y − T = 200,000 − 50,000 = <span class="hl">$150,000</span></li>
+        <li>(ii) Private Saving = Y − T − C = 200,000 − 50,000 − 100,000 = <span class="hl">$50,000</span></li>
+        <li>(iii) Public Saving = T − G = 50,000 − 40,000 = <span class="hl">$10,000</span></li>
+        <li>(iv) National Saving = 50,000 + 10,000 = <span class="hl">$60,000</span></li>
+        <li>(v) Investment = National Saving = <span class="hl">$60,000</span></li>
       </ul>
-      <p><strong>OC Analysis:</strong></p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">M-04</span>
+      <span class="q-text">Rohit: 100 kg wheat or 20 pairs shoes per day, 10 days. Ramesh: 120 kg wheat or 40 pairs shoes per day, 10 days. Both allocate half time to each. Find PPF and production points. [Assign 1 · Q1]</span>
+      <span class="difficulty-badge medium">Medium</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>PPF Endpoints:</strong></p>
+      <ul>
+        <li>Rohit: Max wheat = 100×10 = 1000 kg | Max shoes = 20×10 = 200 pairs</li>
+        <li>Ramesh: Max wheat = 120×10 = 1200 kg | Max shoes = 40×10 = 400 pairs</li>
+      </ul>
+      <p><strong>Production before trade (half time each):</strong></p>
+      <ul>
+        <li>Rohit: 5 days wheat = 500 kg + 5 days shoes = 100 pairs → (500 kg wheat, 100 pairs shoes)</li>
+        <li>Ramesh: 5 days wheat = 600 kg + 5 days shoes = 200 pairs → (600 kg wheat, 200 pairs shoes)</li>
+      </ul>
       <table class="data-table">
-        <thead><tr><th>Person</th><th>OC of Wheat</th><th>OC of Shoes</th></tr></thead>
+        <thead><tr><th>Person</th><th>OC of Wheat</th><th>OC of Shoes</th><th>CA in</th></tr></thead>
         <tbody>
-          <tr><td>Rohit</td><td>200/1000 = 0.2 shoes</td><td>1000/200 = 5 kg wheat</td></tr>
-          <tr><td>Ramesh</td><td>400/1200 = 0.33 shoes</td><td>1200/400 = 3 kg wheat</td></tr>
+          <tr><td>Rohit</td><td>200/1000 = 0.2 pairs shoes</td><td>1000/200 = 5 kg wheat</td><td>Wheat</td></tr>
+          <tr><td>Ramesh</td><td>400/1200 = 0.33 pairs shoes</td><td>1200/400 = 3 kg wheat</td><td>Shoes</td></tr>
         </tbody>
       </table>
-      <p>Rohit: CA in Wheat (OC 0.2 &lt; Ramesh's 0.33). Ramesh: CA in Shoes (OC 3 &lt; Rohit's 5).</p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">M-05</span>
+      <span class="q-text">India: GDP = $2,76,15,852 lakhs (2021), Population = 14,076 lakhs. Japan: GDP = $4,46,26,490 lakhs (2021), Population = 1,257 lakhs. Rank by standard of living. [Assign 2 · Q3]</span>
+      <span class="difficulty-badge medium">Medium</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>GDP per capita = GDP / Population:</strong></p>
+      <table class="data-table">
+        <thead><tr><th>Country</th><th>GDP (2021) lakhs</th><th>Population lakhs</th><th>GDP per Capita ($)</th><th>Rank</th></tr></thead>
+        <tbody>
+          <tr><td>India</td><td>2,76,15,852</td><td>14,076</td><td>27,615,852/14,076 ≈ $1,962</td><td>Low</td></tr>
+          <tr><td>Japan</td><td>4,46,26,490</td><td>1,257</td><td>44,626,490/1,257 ≈ $35,501</td><td>High</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Analysis:</strong> Japan has much higher GDP per capita → higher standard of living despite India having its own massive total GDP. <span class="hl3">Higher total GDP does NOT mean higher living standard.</span> Per capita matters!</p>
+      <p><strong>Higher GDP per capita ≠ Higher economic growth rate.</strong> Growth rate depends on CHANGE in GDP, not the absolute level.</p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">M-06</span>
+      <span class="q-text">Identify which component of GDP is affected: (a) Mumbai family buys washing machine made in Noida, (b) Mr. Mohan buys new house, (c) Mohanty lives in own house (rent ₹15,000/month), (d) Odisha Govt buys helicopter from HAL, (e) LG sells TVs from 2024 inventory. [Assign 2 · Q5]</span>
+      <span class="difficulty-badge medium">Medium</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <table class="data-table">
+        <thead><tr><th>Transaction</th><th>Component</th><th>Impact on GDP 2025</th></tr></thead>
+        <tbody>
+          <tr><td>a) Washing machine (made in India 2025)</td><td>C (Consumption)</td><td>+₹30,000 to GDP 2025</td></tr>
+          <tr><td>b) New house purchase</td><td>I (Investment)</td><td>+₹90 lakh to GDP 2025</td></tr>
+          <tr><td>c) Own house (imputed rent)</td><td>C (Imputed Rent)</td><td>+₹15,000/month to GDP 2025</td></tr>
+          <tr><td>d) Govt buys helicopter from HAL</td><td>G (Govt Purchases)</td><td>+₹30.5 crore to GDP 2025</td></tr>
+          <tr><td>e) LG sells from 2024 inventory</td><td>C + (negative I for inventory drawdown)</td><td>Net = 0 to 2025 GDP (was counted in 2024)</td></tr>
+        </tbody>
+      </table>
+      <div class="exam-trick">
+        <div class="exam-trick-label">📌 Inventory Trick</div>
+        When a company sells FROM inventory (built in 2024), in 2025: the sale increases C, but reduces inventory (I decreases by same amount). Net effect on 2025 GDP = 0. The production was counted in 2024.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">M-07</span>
+      <span class="q-text">Analyse whether CPI or GDP Deflator or both is affected: (a) Bajaj Sugar raises price, (b) L&T raises price of excavator Komatsu, (c) Yamaha raises price of MT-10 bike (made in Japan, sold in India). [Assign 2 · Q6]</span>
+      <span class="difficulty-badge medium">Medium</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <table class="data-table">
+        <thead><tr><th>Transaction</th><th>CPI</th><th>GDP Deflator</th><th>Reason</th></tr></thead>
+        <tbody>
+          <tr><td>a) Bajaj Sugar ↑ price (produced & sold in India)</td><td>✅ Affected</td><td>✅ Affected</td><td>Sugar is in consumer basket (→ CPI) AND it is domestically produced (→ GDP Deflator)</td></tr>
+          <tr><td>b) L&T Komatsu excavator ↑ price (made & sold in India)</td><td>❌ NOT affected</td><td>✅ Affected</td><td>Excavator is a capital/industrial good, NOT in consumer basket. But it's domestically produced → Deflator ✓</td></tr>
+          <tr><td>c) Yamaha MT-10 ↑ price (made in Japan, sold in India)</td><td>✅ Affected</td><td>❌ NOT affected</td><td>Bike is in consumer basket (if Indians buy it → CPI). But it's IMPORTED, not domestically produced → Deflator ✗</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">M-08</span>
+      <span class="q-text">In hypothetical economy: C = $820 (durable) + $2010 (non-durable) + $1838 (service) = ? Investment = $1834, Govt purchase = $1743, Net export = −$370. Compute GDP. [Class notes example]</span>
+      <span class="difficulty-badge medium">Medium</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p>C = 820 + 2010 + 1838 = $4,668 | I = $1,834 | G = $1,743 | NX = −$370</p>
+      <p>GDP = C + I + G + NX = 4668 + 1834 + 1743 − 370 = <span class="hl">$9,875</span> (approx $9,966 with the exact figures from notes)</p>
+      <div class="exam-trick">
+        <div class="exam-trick-label">📌 NX is Negative</div>
+        Negative NX means India IMPORTS more than it exports. This reduces GDP! Don't forget to subtract NX when it's negative.
+      </div>
     </div>
   </div>
 
@@ -1521,18 +2083,21 @@ strong { color: var(--text); }
   <div class="q-card">
     <div class="q-card-header" onclick="toggleQ(this)">
       <span class="q-number">H-01</span>
-      <span class="q-text">"A country can enjoy absolute advantage and comparative advantage in both goods." Do you agree? Analyse.</span>
+      <span class="q-text">"A country can enjoy absolute advantage and comparative advantage in the production of both goods in comparison to another country." Do you agree? Analyse. [Assign 1 · Q9]</span>
       <span class="difficulty-badge hard">Hard</span>
       <span class="q-toggle">▼</span>
     </div>
     <div class="q-answer">
-      <p><strong>ABSOLUTE Advantage in both — YES possible:</strong> If Country A is more efficient than B at producing both goods (fewer hours/unit for both), A has absolute advantage in both.</p>
-      <p><strong>COMPARATIVE Advantage in both — IMPOSSIBLE:</strong> Each country must have CA in exactly one good. This is a mathematical certainty.</p>
-      <p><strong>Proof by contradiction:</strong> If OC of good X in Country A &lt; OC in Country B, then the reciprocal (OC of Y in A) must be > OC of Y in B. You can't have lower OC in both goods simultaneously.</p>
-      <p><strong>Conclusion:</strong> A country CAN have absolute advantage in both goods, but CANNOT have comparative advantage in both goods. Trade is based on comparative advantage — even if one country is better at everything, both countries still gain by specializing.</p>
+      <p><strong>ABSOLUTE Advantage in both — YES, possible:</strong></p>
+      <p>If Country A uses fewer hours per unit for BOTH goods, it has absolute advantage in both. Example: Japan takes 25 hrs/TV and 10 hrs/watch, India takes 50 hrs/TV and 20 hrs/watch → Japan has AA in both.</p>
+      <p><strong>COMPARATIVE Advantage in both — IMPOSSIBLE (mathematically):</strong></p>
+      <p>Proof by contradiction: If India has lower OC in Rice than China, then OC of Rice_India &lt; OC of Rice_China. Since OC of Rice and OC of Cloth are reciprocals: OC of Cloth_India &gt; OC of Cloth_China. India CANNOT have lower OC in both goods simultaneously.</p>
+      <p><strong>Conclusion:</strong> <span class="hl">I partially agree.</span> Absolute advantage in both goods is possible (one country simply more productive). However, comparative advantage in both goods is mathematically impossible, as OCs are reciprocal. Trade is determined by comparative advantage — even a country with absolute advantage in everything should specialize in what it does with lowest opportunity cost.</p>
       <div class="exam-trick">
-        <div class="exam-trick-label">📌 Example Answer</div>
-        "I partially agree. Absolute advantage in both goods is possible (e.g., if Country A uses fewer labour hours for both goods). However, comparative advantage in both goods is mathematically impossible, as opportunity costs are reciprocal by nature."
+        <div class="exam-trick-label">📌 Answer Template (3 marks)</div>
+        1. State what is possible (AA in both) with example<br>
+        2. State what is impossible (CA in both) with mathematical proof<br>
+        3. Conclude: trade benefits both regardless
       </div>
     </div>
   </div>
@@ -1540,329 +2105,648 @@ strong { color: var(--text); }
   <div class="q-card">
     <div class="q-card-header" onclick="toggleQ(this)">
       <span class="q-number">H-02</span>
-      <span class="q-text">"GDP is a good measure of economic well-being, but not a perfect one." Analyse.</span>
+      <span class="q-text">"An increase in petrol price leads to greater use of fuel-efficient cars." Which problem in CPI construction does this illustrate? [Assign 1 · Q10]</span>
       <span class="difficulty-badge hard">Hard</span>
       <span class="q-toggle">▼</span>
     </div>
     <div class="q-answer">
-      <p><strong>Why GDP IS a good measure:</strong></p>
-      <ul>
-        <li>Strong correlation: High GDP per capita countries tend to have better healthcare, education, nutrition</li>
-        <li>Reflects productive capacity and living standards generally</li>
-        <li>Countries with higher GDP can afford better public services</li>
-      </ul>
-      <p><strong>Why GDP is NOT perfect (limitations):</strong></p>
-      <ul>
-        <li><span class="hl3">Doesn't capture inequality</span> — GDP may be high but concentrated among few (e.g., oil-rich nations with poor populations)</li>
-        <li><span class="hl3">Leisure is excluded</span> — A country working 80 hrs/week vs 40 hrs/week may have same GDP but very different well-being</li>
-        <li><span class="hl3">Environmental degradation</span> — Pollution-causing industries add to GDP but reduce quality of life</li>
-        <li><span class="hl3">Non-market activities</span> — Home cooking, voluntary work not counted</li>
-        <li><span class="hl3">Underground economy</span> — Informal sector excluded</li>
-        <li><span class="hl3">Quality of life indices</span> — Health, safety, freedom not measured</li>
-      </ul>
-      <p><strong>Conclusion:</strong> GDP is a useful first approximation but should be supplemented with Human Development Index (HDI), Gini Coefficient, etc. for complete picture of well-being.</p>
+      <p><strong>Problem Illustrated: Substitution Bias</strong></p>
+      <p>When petrol prices rise, rational consumers substitute by buying fuel-efficient cars (use less petrol). They adapt their consumption bundle to minimize cost.</p>
+      <p>However, CPI uses a <span class="hl">fixed basket</span> from the base year. If the base year basket assumed consumers buy regular cars and lots of petrol, it does NOT account for the shift to fuel-efficient cars.</p>
+      <p>The CPI calculation will show petrol as very expensive, BUT consumers are actually buying LESS petrol (by switching cars). So CPI <span class="hl3">overestimates</span> the true cost of living because it doesn't reflect this rational substitution.</p>
+      <div class="tip-box">
+        <div class="tip-label">💡 In Exam</div>
+        Whenever you see "price of X rises → consumers shift to Y," that's substitution bias in CPI. CPI ignores this behavioral change because it uses a fixed basket.
+      </div>
     </div>
   </div>
 
   <div class="q-card">
     <div class="q-card-header" onclick="toggleQ(this)">
       <span class="q-number">H-03</span>
-      <span class="q-text">Identify GDP component affected: (a) Family buys washing machine made in India (b) Mr. Mohan buys new house ₹90 lakh (c) Mr. Mohanty lives in own house (market rent ₹15,000/month) (d) Govt. Odisha buys helicopter from HAL (e) LG sells 500 TVs from 2024 inventory in 2025.</span>
+      <span class="q-text">"GDP is a good measure of economic well-being, but not a perfect one." Analyse. [Assign 2 · Q7, Midsem Q4a]</span>
       <span class="difficulty-badge hard">Hard</span>
       <span class="q-toggle">▼</span>
     </div>
     <div class="q-answer">
+      <p><strong>Why GDP IS a good measure (arguments for):</strong></p>
+      <ul>
+        <li>Countries with high GDP per capita tend to have better healthcare, education, nutrition</li>
+        <li>Higher GDP → more government revenue → better public services</li>
+        <li>Widely used, standardized, easy to compare across countries</li>
+        <li>Strongly correlated with HDI (Human Development Index)</li>
+      </ul>
+      <p><strong>Why GDP is NOT perfect (limitations):</strong></p>
+      <ul>
+        <li><span class="hl3">Inequality</span> — GDP may be high but concentrated among few (oil-rich nations with poor population)</li>
+        <li><span class="hl3">Leisure excluded</span> — Country A with 80 hrs/week vs Country B with 40 hrs/week may have same GDP but very different well-being</li>
+        <li><span class="hl3">Environmental degradation</span> — Pollution industries add to GDP but reduce quality of life</li>
+        <li><span class="hl3">Non-market activities</span> — Home cooking, volunteering, childcare not counted</li>
+        <li><span class="hl3">Underground economy</span> — Informal sector excluded</li>
+        <li><span class="hl3">Quality of life</span> — Safety, freedom, happiness not captured</li>
+      </ul>
+      <p><strong>Conclusion:</strong> GDP is a useful starting point but should be supplemented with HDI, Gini Coefficient, and other indices for a complete picture of economic well-being.</p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">H-04</span>
+      <span class="q-text">"CPI is an imperfect measure of the cost of living." Analyse. [Assign 2 · Q8]</span>
+      <span class="difficulty-badge hard">Hard</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Three biases that make CPI imperfect:</strong></p>
+      <ol class="steps">
+        <li><strong>Substitution Bias</strong>: CPI uses a fixed basket. When one good becomes expensive, consumers substitute. CPI doesn't capture this → overestimates cost of living.<br>Example: Petrol price rises → people buy fuel-efficient cars → actual spending on petrol falls, but CPI still assumes old consumption pattern.</li>
+        <li><strong>New Goods Bias</strong>: When new goods (smartphones, streaming services) are introduced, consumers can buy them cheaply. CPI basket doesn't immediately include them → misses the value of new goods.</li>
+        <li><strong>Quality Bias</strong>: A laptop in 2025 is far better than 2010, but if price rose, CPI records it as more expensive without accounting for quality improvement → overestimates price increase.</li>
+      </ol>
+      <p><strong>Overall Effect:</strong> All three biases cause CPI to <span class="hl3">overstate inflation</span> and therefore overstate the cost of living. Real wages (adjusted for CPI) may be understated.</p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">H-05</span>
+      <span class="q-text">"Trade has a similar effect as that of technology." Analyse. [Assign 2 · Q9]</span>
+      <span class="difficulty-badge hard">Hard</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>How Technology affects the economy:</strong></p>
+      <ul>
+        <li>New technology allows a country to produce MORE with the same resources</li>
+        <li>Graphically: PPF shifts outward → can consume more of both goods</li>
+        <li>Improves productivity without adding more labour or capital</li>
+      </ul>
+      <p><strong>How Trade creates similar effect:</strong></p>
+      <ul>
+        <li>When countries specialize based on comparative advantage and trade, they can CONSUME combinations of goods that lie BEYOND their own PPF</li>
+        <li>India specializes in rice, Japan in watches → both consume more rice AND more watches than they could produce alone</li>
+        <li>Trade eliminates restriction → same kind of economy growth that occurs after technological advancement</li>
+      </ul>
+      <p><strong>Conclusion:</strong> Both trade and technology allow countries to consume beyond their production possibilities. Trade restriction has the same effect as removing access to technology — the economy stagnates. Outward-oriented policies (free trade) = technological advancement in effect.</p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">H-06</span>
+      <span class="q-text">"Economic growth that arises from capital accumulation is not a free lunch." Analyse. [Assign 2 · Q10, Midsem Q4a]</span>
+      <span class="difficulty-badge hard">Hard</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Why it's not free:</strong></p>
+      <p><strong>Reason 1 — Sacrifice of current consumption:</strong> To produce more capital goods (machines, factories), a society must divert resources away from consumer goods. This means less consumption NOW to get more production LATER.</p>
+      <p><strong>Reason 2 — Diminishing Returns to Capital:</strong></p>
+      <ul>
+        <li>1st unit of capital → large increase in output</li>
+        <li>2nd unit → smaller increase</li>
+        <li>3rd unit → even smaller increase</li>
+        <li>As K/L increases, each additional unit of capital adds LESS productivity</li>
+      </ul>
+      <p><strong>Reason 3 — Catch-up effect but not sustained:</strong> Capital accumulation alone cannot sustain long-run growth. Eventually, additional capital barely adds to output. Sustained growth requires <span class="hl">technological progress</span>.</p>
+      <p><strong>Conclusion:</strong> Capital accumulation is not "free" — it requires giving up current consumption (saving more) and faces diminishing returns. The cost is the sacrifice of current well-being. But it IS necessary for growth, just not sufficient by itself.</p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">H-07</span>
+      <span class="q-text">Mr. William deposited $5000 in Bank of America. Reserve requirement = 5% by Federal Reserve. Prepare T-account. Also, if reserve ratio increases from 10% to 20% with initial deposit $1000, analyse impact on money multiplier and money supply.</span>
+      <span class="difficulty-badge hard">Hard</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Part 1 — T-Account (Reserve = 5%):</strong></p>
       <table class="data-table">
-        <thead><tr><th>Transaction</th><th>Component</th><th>Impact on GDP</th></tr></thead>
+        <thead><tr><th>Assets</th><th>Liabilities</th></tr></thead>
         <tbody>
-          <tr><td>(a) Family buys washing machine made in India</td><td>Consumption (C)</td><td>+₹30,000 to 2025 GDP</td></tr>
-          <tr><td>(b) Mr. Mohan buys new house ₹90 lakh</td><td>Investment (I) — Residential</td><td>+₹90 lakh to 2025 GDP</td></tr>
-          <tr><td>(c) Mohanty lives in own house (imputed rent)</td><td>Consumption (C) — Imputed</td><td>+₹1,80,000/year imputed rent counted</td></tr>
-          <tr><td>(d) Govt buys helicopter from HAL</td><td>Government Purchase (G)</td><td>+₹30.5 crore to 2025 GDP</td></tr>
-          <tr><td>(e) LG sells TVs from 2024 inventory</td><td>I decreases (inventory depletion)</td><td>TVs produced in 2024, counted then. 2025 inventory drop = -I. Net GDP effect = 0 for 2025.</td></tr>
+          <tr><td>Reserves = $5000 × 5% = $250</td><td>Deposits = $5000</td></tr>
+          <tr><td>Loans = $5000 − $250 = $4750</td><td></td></tr>
         </tbody>
       </table>
-      <div class="exam-trick">
-        <div class="exam-trick-label">📌 Inventory Rule</div>
-        If goods produced in 2024 but sold in 2025: Counted in 2024 GDP as inventory investment. When sold in 2025, it's C+ but I− → NET zero effect on 2025 GDP.
-      </div>
+      <p>Money Supply = C + D = 4750 + 5000 = <span class="hl">$9,750</span></p>
+      <p><strong>Part 2 — Reserve Ratio increases from 10% to 20%:</strong></p>
+      <table class="data-table">
+        <thead><tr><th>Scenario</th><th>Reserve Ratio</th><th>Money Multiplier</th><th>Total Money Supply</th></tr></thead>
+        <tbody>
+          <tr><td>Before</td><td>10%</td><td>1/0.10 = 10</td><td>$1000 × 10 = $10,000</td></tr>
+          <tr><td>After</td><td>20%</td><td>1/0.20 = 5</td><td>$1000 × 5 = $5,000</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Impact:</strong> ↑ Reserve ratio → ↓ Money Multiplier → ↓ Money Supply by 50%. This is how central banks control money supply — raising reserve requirements reduces money creation.</p>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-card-header" onclick="toggleQ(this)">
+      <span class="q-number">H-08</span>
+      <span class="q-text">"Higher savings leads to a higher standard of living for people in developing economies." Analyse. [Midsem Q4a]</span>
+      <span class="difficulty-badge hard">Hard</span>
+      <span class="q-toggle">▼</span>
+    </div>
+    <div class="q-answer">
+      <p><strong>Why Higher Savings DOES Lead to Higher Living Standard (the argument for):</strong></p>
+      <ul>
+        <li>S = I in a closed economy → More saving → More investment in capital</li>
+        <li>More physical capital → Higher productivity → More output per worker → Higher real wages → Higher standard of living</li>
+        <li>USA vs Korea example: Korea increased savings rate dramatically → rapid capital accumulation → high growth rates</li>
+      </ul>
+      <p><strong>But it's not always true — complications:</strong></p>
+      <ul>
+        <li><span class="hl3">Short-run cost:</span> Higher saving = lower current consumption → immediate reduction in living standard</li>
+        <li><span class="hl3">Diminishing returns:</span> After a point, more capital adds little to productivity. Saving alone can't sustain growth.</li>
+        <li><span class="hl3">Trap:</span> If saved money isn't productively invested (corruption, misallocation), no benefit to living standards.</li>
+        <li><span class="hl3">Brain drain:</span> In developing economies, highly educated workers may emigrate rather than contribute to local productivity.</li>
+      </ul>
+      <p><strong>Conclusion:</strong> Higher savings can lead to higher living standards in the LONG RUN through capital accumulation, but only if savings are productively invested and accompanied by technological progress. Short run involves a sacrifice in consumption.</p>
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- ═══════════════════════════════════════════════════
-     SECTION 6: EXPECTED QUESTIONS
-═══════════════════════════════════════════════════ -->
+<!-- ═══ SECTION 6: EXPECTED QUESTIONS ═══ -->
 <section id="expected">
   <div class="section-head">
     <div class="section-tag">⚡ Section 6</div>
-    <h2>Expected Questions</h2>
-    <p>High-probability questions based on assignment patterns and CO coverage.</p>
+    <h2>Expected Questions for End Sem</h2>
+    <p>High-probability exam questions with point-wise model answers. <span class="hl3">Study these first.</span></p>
   </div>
 
-  <div class="card-grid">
-    <div class="card">
-      <div class="eq-badge very-likely">🔥 Very Likely</div><strong>CO1 — Trade</strong>
-      <p style="margin-top:0.7rem; font-size:0.9rem;">Construct PPF for two countries → Calculate OC → Identify who has AA and CA → State basis of trade. (Numerical format)</p>
-      <div class="tip-box" style="margin-top:0.7rem;">
-        <div class="tip-label">Prep this</div>
-        Practice the India-China rice/cloth type problem. Know how to draw BOTH PPFs on the same graph.
-      </div>
+  <div class="warn-box" style="margin-bottom:2rem;">
+    <div class="warn-label">🎯 Pattern Analysis</div>
+    Based on midsem paper, two assignments, and two quizzes — these topics are GUARANTEED: PPF+CA, CPI calculation, GDP components, Nominal vs Real GDP, Saving-Investment identity, and at least one analytical/theory question.
+  </div>
+
+  <div class="expected-card">
+    <h4>🔥 VERY LIKELY — PPF + Comparative Advantage (6 marks)</h4>
+    <span class="eq-badge very-likely">VERY LIKELY</span>
+    <p><strong>Expected Question:</strong> "Two countries produce two goods. Given labour hours required, total resources = X Lhr each. Determine basis of trade. Construct PPF."</p>
+    <p><strong>Model Answer Points (6 marks):</strong></p>
+    <ol class="steps">
+      <li>Calculate max output of each good for each country (2 PPF endpoints each)</li>
+      <li>Check absolute advantage (compare max outputs directly)</li>
+      <li>Calculate opportunity costs for each good in each country (4 OCs total)</li>
+      <li>Identify comparative advantage (lower OC = CA in that good)</li>
+      <li>Draw both PPFs on one graph with proper labels and scale</li>
+      <li>State conclusion: "Trade is based on Comparative Advantage. Country A specializes in Good X, Country B specializes in Good Y. Both gain from trade."</li>
+    </ol>
+    <div class="exam-trick">
+      <div class="exam-trick-label">📌 Quick Formula</div>
+      OC of Good A (in country 1) = Max output of B / Max output of A. If this is LOWER than country 2's OC of A → Country 1 has CA in A.
     </div>
-    <div class="card">
-      <div class="eq-badge very-likely">🔥 Very Likely</div><strong>CO2 — Full CPI Problem</strong>
-      <p style="margin-top:0.7rem; font-size:0.9rem;">Given a table with 3 goods, prices over 3 years, fixed basket → Compute CPI for all years → Inflation rate between consecutive years.</p>
-      <div class="tip-box" style="margin-top:0.7rem;">
-        <div class="tip-label">Prep this</div>
-        Memorize the 5-step CPI method. The basket quantity NEVER changes — use only base year quantities throughout.
-      </div>
-    </div>
-    <div class="card">
-      <div class="eq-badge very-likely">🔥 Very Likely</div><strong>CO3 — NGDP + RGDP + Deflator</strong>
-      <p style="margin-top:0.7rem; font-size:0.9rem;">Table with 3 goods, 3 years, quantities and prices → Compute Nominal GDP, Real GDP, GDP Deflator, inflation rate for each year.</p>
-      <div class="tip-box" style="margin-top:0.7rem;">
-        <div class="tip-label">Prep this</div>
-        Assignment 2 Q1 is your template. Practice until this is automatic.
-      </div>
-    </div>
-    <div class="card">
-      <div class="eq-badge likely">📌 Likely</div><strong>CO3 — Saving & Investment</strong>
-      <p style="margin-top:0.7rem; font-size:0.9rem;">Given GDP, C, G, budget surplus/deficit → Find T, disposable income, private saving, public saving, national saving, and investment.</p>
-      <div class="tip-box" style="margin-top:0.7rem;">
-        <div class="tip-label">Prep this</div>
-        Assignment 2 Q2 type. Identify T = G + Surplus (or G − Deficit). Then use formulas.
-      </div>
-    </div>
-    <div class="card">
-      <div class="eq-badge likely">📌 Likely</div><strong>CO2 — Interest Rate</strong>
-      <p style="margin-top:0.7rem; font-size:0.9rem;">Given deposit amounts and CPI values → compute nominal rate, inflation rate, real interest rate.</p>
-    </div>
-    <div class="card">
-      <div class="eq-badge likely">📌 Likely</div><strong>Analytical — GDP Limitations</strong>
-      <p style="margin-top:0.7rem; font-size:0.9rem;">"Is GDP a good measure of well-being?" or "Compare GDP per capita across countries to assess living standard."</p>
-    </div>
+  </div>
+
+  <div class="expected-card">
+    <h4>🔥 VERY LIKELY — CPI Calculation + Inflation Rate (8 marks)</h4>
+    <span class="eq-badge very-likely">VERY LIKELY</span>
+    <p><strong>Expected Question:</strong> "Given price and quantity data for 3 products over 3 years. Compute CPI (base year = Year 1) and inflation rates."</p>
+    <p><strong>Model Answer Points:</strong></p>
+    <ol class="steps">
+      <li>Fix the basket (quantities from base year — given explicitly)</li>
+      <li>Calculate basket cost in each year: Cost = Σ(Price × Base Quantity)</li>
+      <li>CPI each year = (Year's Cost / Base Year Cost) × 100</li>
+      <li>Base year CPI = 100 (always state this)</li>
+      <li>Inflation Year 1→2 = [(CPI_yr2 - CPI_yr1)/CPI_yr1] × 100</li>
+      <li>Inflation Year 2→3 = [(CPI_yr3 - CPI_yr2)/CPI_yr2] × 100</li>
+      <li>If inflation is negative → it's deflation (state this)</li>
+    </ol>
+  </div>
+
+  <div class="expected-card">
+    <h4>🔥 VERY LIKELY — NGDP, RGDP, GDP Deflator (8 marks)</h4>
+    <span class="eq-badge very-likely">VERY LIKELY</span>
+    <p><strong>Expected Question:</strong> "Price and quantity data for 2-3 goods over 3 years. Base year given. Compute Nominal GDP, Real GDP, GDP Deflator, and inflation rate."</p>
+    <p><strong>Model Answer Points:</strong></p>
+    <ol class="steps">
+      <li>Nominal GDP each year = Σ(Current Price × Current Quantity)</li>
+      <li>Real GDP each year = Σ(Base Year Price × Current Quantity) — use base year prices throughout</li>
+      <li>GDP Deflator = (Nominal GDP / Real GDP) × 100</li>
+      <li>Note: In base year, NGDP = RGDP, Deflator = 100</li>
+      <li>Inflation = [(Deflator_yr2 - Deflator_yr1)/Deflator_yr1] × 100</li>
+      <li>Interpret: If RGDP grew but NGDP grew faster → inflation occurred. If RGDP = same → all NGDP growth is inflation.</li>
+    </ol>
+  </div>
+
+  <div class="expected-card">
+    <h4>🔥 VERY LIKELY — Saving & Investment (6 marks)</h4>
+    <span class="eq-badge very-likely">VERY LIKELY</span>
+    <p><strong>Expected Question:</strong> "Given GDP, Consumption, Tax Revenue, Govt Purchases (or Budget Surplus/Deficit). Find private saving, public saving, national saving, investment."</p>
+    <p><strong>Model Answer Points:</strong></p>
+    <ol class="steps">
+      <li>If budget surplus/deficit given: find T. (Surplus = T − G > 0 → T = G + Surplus)</li>
+      <li>Private Saving = Y − T − C</li>
+      <li>Public Saving = T − G (positive = surplus, negative = deficit)</li>
+      <li>National Saving = Private + Public = Y − C − G</li>
+      <li>Investment (closed economy) = National Saving</li>
+      <li>Verify: C + I + G = Y</li>
+    </ol>
+  </div>
+
+  <div class="expected-card">
+    <h4>🟡 LIKELY — Analytical Theory Questions (4 marks each)</h4>
+    <span class="eq-badge likely">LIKELY</span>
+    <p>One of these WILL appear in end-sem. Prepare all:</p>
+    <ul>
+      <li><strong>"GDP is a good but imperfect measure of well-being"</strong> → 3 reasons for + 4-5 limitations</li>
+      <li><strong>"CPI is an imperfect measure of cost of living"</strong> → 3 biases: Substitution, New Goods, Quality</li>
+      <li><strong>"Capital accumulation is not a free lunch"</strong> → Sacrifice + Diminishing returns</li>
+      <li><strong>"Trade has similar effect as technology"</strong> → Both allow consumption beyond PPF</li>
+      <li><strong>"Higher savings leads to higher standard of living"</strong> → Long-run YES, short-run cost, diminishing returns</li>
+    </ul>
+  </div>
+
+  <div class="expected-card">
+    <h4>🟡 LIKELY — GDP Components Application (4 marks)</h4>
+    <span class="eq-badge likely">LIKELY</span>
+    <p><strong>Expected Question:</strong> Given 5-6 transactions, identify C/I/G/NX component and analyse impact on GDP.</p>
+    <p><strong>Key Rules to Remember:</strong></p>
+    <ul>
+      <li>New house purchase → I (Investment), NOT Consumption</li>
+      <li>Own house (imputed rent) → C (Consumption) even if not actually rented</li>
+      <li>Foreign tourist spending in India → NX (Exports) → +GDP</li>
+      <li>Government transfer payments (pensions, unemployment) → NOT part of GDP</li>
+      <li>Inventory change → Investment (+ if added, − if sold from inventory)</li>
+      <li>Second-hand goods → NOT counted in current GDP</li>
+    </ul>
+  </div>
+
+  <div class="expected-card">
+    <h4>🟡 LIKELY — Nominal vs Real Interest Rate (4 marks)</h4>
+    <span class="eq-badge likely">LIKELY</span>
+    <p><strong>Expected Question:</strong> "Deposit X, receive Y after 1 year. CPI changes from A to B. Find nominal rate, inflation rate, real interest rate."</p>
+    <p><strong>Model Answer (3 steps):</strong></p>
+    <ol class="steps">
+      <li>NIR = [(Y−X)/X] × 100</li>
+      <li>Inflation = [(CPI_B − CPI_A)/CPI_A] × 100</li>
+      <li>RIR = NIR − Inflation Rate</li>
+    </ol>
+    <p><strong>Interpretation:</strong> If RIR = 0 → no real gain. If RIR > 0 → real purchasing power grew. If RIR < 0 → inflation eroded the deposit's value!</p>
+  </div>
+
+  <div class="expected-card">
+    <h4>🟡 LIKELY — CPI vs GDP Deflator Application (4 marks)</h4>
+    <span class="eq-badge likely">LIKELY</span>
+    <p><strong>Expected Question:</strong> "Given 2-3 price changes, state whether CPI, GDP Deflator, or both are affected."</p>
+    <p><strong>Decision Rule:</strong></p>
+    <table class="data-table">
+      <thead><tr><th>Scenario</th><th>CPI Affected?</th><th>GDP Deflator Affected?</th></tr></thead>
+      <tbody>
+        <tr><td>Good made in India, sold to Indian consumers</td><td>✅ Yes</td><td>✅ Yes</td></tr>
+        <tr><td>Good made in India, NOT a consumer good (capital)</td><td>❌ No</td><td>✅ Yes</td></tr>
+        <tr><td>Good made abroad, sold to Indian consumers (import)</td><td>✅ Yes</td><td>❌ No</td></tr>
+        <tr><td>Good made in India, exported (no domestic consumer)</td><td>❌ No</td><td>✅ Yes</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- ═══════════════════════════════════════════════════
-     SECTION 7: MEMORY TRICKS
-═══════════════════════════════════════════════════ -->
+<!-- ═══ SECTION 7: MEMORY TRICKS ═══ -->
 <section id="tricks">
   <div class="section-head">
     <div class="section-tag">🪄 Section 7</div>
     <h2>Memory Tricks & Shortcuts</h2>
-    <p>Mnemonics, tricks, and shortcuts that stick.</p>
+    <p>Mnemonics, patterns, and shortcuts to remember everything faster.</p>
   </div>
 
   <div class="card-grid">
     <div class="mnemonic-card">
-      <div class="mnemonic-word">C-I-G-NX</div>
-      <p style="font-size:0.85rem; color:var(--text2); margin-bottom:0.5rem;">GDP Components — Say it as "Sig-Nex"</p>
+      <div class="mnemonic-word">C I G N X</div>
+      <p style="font-size:0.85rem; color:var(--text2);">GDP Components — remember in order:</p>
       <div class="mnemonic-expand">
-        <span><span class="letter">C</span> — Consumption (households)</span>
-        <span><span class="letter">I</span> — Investment (firms + housing)</span>
-        <span><span class="letter">G</span> — Government Purchases</span>
-        <span><span class="letter">NX</span> — Net eXports (X − M)</span>
+        <span><span class="letter">C</span> = Consumption (households)</span>
+        <span><span class="letter">I</span> = Investment (firms + housing)</span>
+        <span><span class="letter">G</span> = Government Purchases</span>
+        <span><span class="letter">N</span>X = Net Exports (Exports − Imports)</span>
+      </div>
+      <div class="tip-box" style="margin-top:0.8rem;">
+        <div class="tip-label">💡 Trick</div>
+        "Can India Grow Now eXponentially?" → C I G N X
       </div>
     </div>
 
     <div class="mnemonic-card">
-      <div class="mnemonic-word">5-STEP CPI</div>
-      <p style="font-size:0.85rem; color:var(--text2); margin-bottom:0.5rem;">Remember: "Fix Prices Compute Base Inflate"</p>
+      <div class="mnemonic-word">SNQ BC</div>
+      <p style="font-size:0.85rem; color:var(--text2);">5 Steps to calculate CPI:</p>
       <div class="mnemonic-expand">
-        <span><span class="letter">F</span> — Fix the basket</span>
-        <span><span class="letter">P</span> — Find the Prices</span>
-        <span><span class="letter">C</span> — Compute basket's cost</span>
-        <span><span class="letter">B</span> — Base year designated</span>
-        <span><span class="letter">I</span> — Inflation rate computed</span>
+        <span><span class="letter">S</span>et the basket</span>
+        <span><span class="letter">N</span>ote the prices</span>
+        <span><span class="letter">Q</span>uantify the basket cost</span>
+        <span><span class="letter">B</span>ase year selection</span>
+        <span><span class="letter">C</span>ompute CPI and inflation</span>
       </div>
     </div>
 
     <div class="mnemonic-card">
-      <div class="mnemonic-word">SIN-QUA</div>
-      <p style="font-size:0.85rem; color:var(--text2); margin-bottom:0.5rem;">CPI Problems — "Sine-Quality"</p>
+      <div class="mnemonic-word">PHNT</div>
+      <p style="font-size:0.85rem; color:var(--text2);">4 Determinants of Productivity:</p>
       <div class="mnemonic-expand">
-        <span><span class="letter">S</span> — Substitution bias</span>
-        <span><span class="letter">I</span> — Introduction of new goods</span>
-        <span><span class="letter">N</span> — Nothing (no quality adjustment)</span>
-        <span><span class="letter">= QUA</span>lity changes unmeasured</span>
+        <span><span class="letter">P</span>hysical Capital (machines, tools)</span>
+        <span><span class="letter">H</span>uman Capital (education, skills)</span>
+        <span><span class="letter">N</span>atural Resources (land, minerals)</span>
+        <span><span class="letter">T</span>echnological Knowledge (know-how)</span>
       </div>
     </div>
 
     <div class="mnemonic-card">
-      <div class="mnemonic-word">OC RULE</div>
-      <p style="font-size:0.85rem; color:var(--text2); margin-bottom:0.5rem;">Finding Comparative Advantage</p>
+      <div class="mnemonic-word">SQN</div>
+      <p style="font-size:0.85rem; color:var(--text2);">3 Biases in CPI:</p>
       <div class="mnemonic-expand">
-        <span><span class="letter">Lower OC</span> → Comparative Advantage</span>
-        <span><span class="letter">Specialize</span> in what you do cheapest</span>
-        <span><span class="letter">Export</span> your CA good</span>
-        <span><span class="letter">Import</span> the other country's CA good</span>
+        <span><span class="letter">S</span>ubstitution Bias (fixed basket ignores swaps)</span>
+        <span><span class="letter">Q</span>uality Bias (unmeasured quality changes)</span>
+        <span><span class="letter">N</span>ew Goods Bias (new products not in basket)</span>
       </div>
     </div>
   </div>
 
   <div class="card" style="margin-top:1.5rem;">
-    <h3>⚡ Quick Calculation Tricks</h3>
+    <h3>⚡ Quick Calculation Shortcuts</h3>
     <div class="card-grid">
       <div>
-        <h4>PPF Intercepts in 2 seconds:</h4>
-        <p>Max of Good A = Total Resources ÷ Cost per unit of A<br>
-        <span class="hl">Shortcut:</span> If given "produces 40/hr with 2000 hrs" → 40 × 2000 = 80,000 units max.</p>
+        <h4>OC Calculation Shortcut</h4>
+        <p>OC of Good A = Slope of PPF (for A on x-axis)</p>
+        <p>= Y-intercept / X-intercept = Max B / Max A</p>
+        <p><strong>Trick:</strong> OC of A in terms of B = "how much B do I give up to get 1A?" = (Max B) / (Max A)</p>
       </div>
       <div>
-        <h4>CPI to salary adjustment:</h4>
-        <p>New salary = Old salary × (New CPI ÷ Old CPI)<br>
-        <span class="hl">Shortcut:</span> Find the ratio first (e.g., 270/45 = 6), then multiply.</p>
+        <h4>CPI vs Real Salary</h4>
+        <p>Real Salary = Nominal Salary / (CPI/100)</p>
+        <p>Equivalent value = Old Value × (New CPI / Old CPI)</p>
+        <p><strong>Trick:</strong> CPI ratio tells you how many times prices multiplied. Multiply old salary by same ratio.</p>
       </div>
       <div>
-        <h4>Real vs Nominal GDP quick check:</h4>
-        <p>If prices rose but Real GDP same → inflation with no growth.<br>
-        If Real GDP rose → genuine economic growth.<br>
-        <span class="hl">Deflator = 100 always for base year.</span></p>
+        <h4>Real vs Nominal GDP</h4>
+        <p>Real GDP = Nominal GDP / (Deflator/100)</p>
+        <p>Or: Real GDP = Σ(Base Price × Current Qty)</p>
+        <p><strong>Trick:</strong> Real GDP uses BASE YEAR prices. Think "what would today's production cost in OLD prices?"</p>
       </div>
       <div>
-        <h4>Saving shortcut:</h4>
-        <p>If Surplus given → T = G + Surplus<br>
-        If Deficit given → T = G − Deficit<br>
-        <span class="hl">Investment = National Saving (always, in closed economy)</span></p>
+        <h4>Budget Surplus/Deficit Trick</h4>
+        <p>Budget Surplus given → T = G + Surplus</p>
+        <p>Budget Deficit given → T = G − Deficit</p>
+        <p>Then calculate everything else from T.</p>
       </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:1.2rem;">
+    <h3>🎯 Exam Decision Tree — Which Formula to Use?</h3>
+    <div style="font-size:0.88rem; line-height:2;">
+      <p>See "CPI" or "basket" or "cost of living" → <span class="hl">CPI = (Current Cost/Base Cost) × 100</span></p>
+      <p>See "Nominal GDP" and "Real GDP" together → <span class="hl">GDP Deflator = (NGDP/RGDP) × 100</span></p>
+      <p>See "equivalent salary" or "adjust for inflation" → <span class="hl">New Value = Old × (CPI_new/CPI_old)</span></p>
+      <p>See "deposit" and "interest" and "CPI" → <span class="hl">NIR formula + RIR = NIR − Inflation</span></p>
+      <p>See "opportunity cost" or "who should specialize" → <span class="hl">OC = Max B / Max A</span></p>
+      <p>See "private saving", "public saving", "national saving" → <span class="hl">S = Y − T − C (private), T − G (public)</span></p>
+      <p>See "money multiplier" or "reserve ratio" → <span class="hl">m = 1/R, Money Supply = Deposit × m</span></p>
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- ═══════════════════════════════════════════════════
-     SECTION 8: CONFUSION BREAKER
-═══════════════════════════════════════════════════ -->
+<!-- ═══ SECTION 8: CONFUSION BREAKER ═══ -->
 <section id="confusion">
   <div class="section-head">
     <div class="section-tag">⚠️ Section 8</div>
     <h2>Confusion Breaker</h2>
-    <p>The questions you were afraid to ask. Answered clearly.</p>
+    <p>The most common mistakes — clarified once and for all.</p>
   </div>
 
-  <div class="vs-grid" style="margin-bottom:1.5rem;">
-    <div class="vs-item">
-      <h5>🔵 Absolute Advantage</h5>
-      <p style="font-size:0.85rem;">Compare RAW OUTPUT or RAW INPUT. Who produces more? Who uses fewer hours? Just compare the numbers directly.</p>
-      <p style="font-size:0.82rem; color:var(--text2); margin-top:0.5rem;">Formula: Higher output per unit resource = AA (or fewer resources per unit output)</p>
+  <div class="collapsible open">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <h4>Absolute Advantage vs Comparative Advantage — The MOST Confused Pair</h4>
+      <span class="collapsible-arrow">▼</span>
     </div>
-    <div class="vs-center">VS</div>
-    <div class="vs-item">
-      <h5>🟣 Comparative Advantage</h5>
-      <p style="font-size:0.85rem;">Compare OPPORTUNITY COST. Who gives up less? Requires calculation of OC for EACH good in EACH country.</p>
-      <p style="font-size:0.82rem; color:var(--text2); margin-top:0.5rem;">Formula: OC of A = Max B ÷ Max A. Lower OC = CA in that good.</p>
-    </div>
-  </div>
-
-  <div class="vs-grid" style="margin-bottom:1.5rem;">
-    <div class="vs-item">
-      <h5>🔵 CPI</h5>
-      <p style="font-size:0.85rem;"><strong>Fixed basket</strong> of goods (base year quantities stay same). Measures cost of living for CONSUMERS. Includes <strong>imports</strong>. Used for wage adjustments, salary comparisons.</p>
-    </div>
-    <div class="vs-center">VS</div>
-    <div class="vs-item">
-      <h5>🟣 GDP Deflator</h5>
-      <p style="font-size:0.85rem;"><strong>Changing basket</strong> (uses current production). Measures prices of ALL <strong>domestically produced</strong> goods. Excludes imports. Used to find Real GDP from Nominal.</p>
-    </div>
-  </div>
-
-  <div class="vs-grid" style="margin-bottom:1.5rem;">
-    <div class="vs-item">
-      <h5>🔵 Nominal GDP</h5>
-      <p style="font-size:0.85rem;">Uses <strong>current year prices</strong>. Goes up even if production is flat (just prices rose). Does NOT reflect real growth.</p>
-    </div>
-    <div class="vs-center">VS</div>
-    <div class="vs-item">
-      <h5>🟣 Real GDP</h5>
-      <p style="font-size:0.85rem;">Uses <strong>base year prices</strong>. Shows TRUE change in economic output. If Real GDP rises, economy actually grew.</p>
+    <div class="collapsible-body">
+      <div class="vs-grid">
+        <div class="vs-item">
+          <h5>Absolute Advantage</h5>
+          <ul>
+            <li>Compare outputs directly (more output = AA)</li>
+            <li>OR compare hours directly (fewer hours = AA)</li>
+            <li>A country CAN have AA in BOTH goods</li>
+            <li>Based on productivity comparison</li>
+            <li>NOT the basis of trade (by itself)</li>
+          </ul>
+        </div>
+        <div class="vs-center">VS</div>
+        <div class="vs-item">
+          <h5>Comparative Advantage</h5>
+          <ul>
+            <li>Compare opportunity costs (lower OC = CA)</li>
+            <li>A country CANNOT have CA in both goods</li>
+            <li>Based on what you give up, not how good you are</li>
+            <li>THE basis of trade (always)</li>
+            <li>Even weaker country has CA in ONE good</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="vs-grid">
-    <div class="vs-item">
-      <h5>🔵 Private Saving</h5>
-      <p style="font-size:0.85rem;">= Y − T − C. What households save after paying taxes and consuming. Can be positive or negative (dissaving).</p>
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <h4>CPI vs GDP Deflator — Endless Confusion</h4>
+      <span class="collapsible-arrow">▼</span>
     </div>
-    <div class="vs-center">VS</div>
-    <div class="vs-item">
-      <h5>🟣 Public Saving</h5>
-      <p style="font-size:0.85rem;">= T − G. What government saves from tax revenue after spending. Positive = surplus. Negative = deficit.</p>
+    <div class="collapsible-body">
+      <div class="vs-grid">
+        <div class="vs-item">
+          <h5>CPI</h5>
+          <ul>
+            <li>Fixed basket (base year quantities)</li>
+            <li>Includes IMPORTS (what consumers buy)</li>
+            <li>Does NOT include all domestically produced goods</li>
+            <li>Consumer goods only</li>
+            <li>Overestimates inflation (substitution bias)</li>
+          </ul>
+        </div>
+        <div class="vs-center">VS</div>
+        <div class="vs-item">
+          <h5>GDP Deflator</h5>
+          <ul>
+            <li>Changing basket (current year quantities)</li>
+            <li>Excludes IMPORTS (only domestic production)</li>
+            <li>Includes ALL domestically produced goods</li>
+            <li>Capital goods, consumer goods, govt goods</li>
+            <li>More accurate for overall price level</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exam-trick">
+        <div class="exam-trick-label">📌 Super Simple Rule</div>
+        CPI = "What Indians BUY" (includes imports)<br>
+        GDP Deflator = "What India PRODUCES" (excludes imports)
+      </div>
     </div>
   </div>
 
-  <div class="warn-box" style="margin-top:1.5rem;">
-    <div class="warn-label">⚠️ Biggest Exam Traps</div>
-    <ul style="margin-top:0.3rem;">
-      <li><strong>CPI basket quantity</strong> → ALWAYS use base year quantities, even when calculating other years' basket costs!</li>
-      <li><strong>GDP Deflator of base year</strong> → Always = 100. If you get a different answer, you've made an error.</li>
-      <li><strong>Comparative advantage</strong> → A country CANNOT have CA in BOTH goods. If your answer shows this, recalculate.</li>
-      <li><strong>Government transfers</strong> (pensions, subsidies) → NOT part of G in GDP. Only actual government purchases count.</li>
-      <li><strong>Intermediate goods</strong> → NOT counted in GDP directly (to avoid double counting). Use value-added method.</li>
-      <li><strong>Second-hand sales</strong> → NOT part of GDP. Only NEW production counts.</li>
-      <li><strong>LG sells 2024 inventory in 2025</strong> → Counted in 2024 GDP, not 2025. Net effect on 2025 GDP = 0.</li>
-    </ul>
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <h4>Nominal vs Real GDP — Never Confuse These Again</h4>
+      <span class="collapsible-arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <div class="vs-grid">
+        <div class="vs-item">
+          <h5>Nominal GDP</h5>
+          <ul>
+            <li>Current year prices × Current quantities</li>
+            <li>Changes due to BOTH price changes AND output changes</li>
+            <li>Higher in current year (inflation makes it look bigger)</li>
+            <li>Use for: Computing deflator, current market value</li>
+          </ul>
+        </div>
+        <div class="vs-center">VS</div>
+        <div class="vs-item">
+          <h5>Real GDP</h5>
+          <ul>
+            <li>Base year prices × Current quantities</li>
+            <li>Changes ONLY due to output changes</li>
+            <li>Accurate measure of economic growth</li>
+            <li>Use for: Comparing growth over time</li>
+          </ul>
+        </div>
+      </div>
+      <p><strong>Key insight:</strong> In base year, NGDP = RGDP = Deflator of 100. In later years, if NGDP > RGDP → there was inflation (prices are higher than base year).</p>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <h4>Private Saving vs Public Saving vs National Saving</h4>
+      <span class="collapsible-arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <table class="data-table">
+        <thead><tr><th>Concept</th><th>Formula</th><th>Who Saves</th><th>Positive when</th></tr></thead>
+        <tbody>
+          <tr><td>Private Saving</td><td>Y − T − C</td><td>Households & firms</td><td>Always positive (if T &lt; disposable income)</td></tr>
+          <tr><td>Public Saving</td><td>T − G</td><td>Government</td><td>T > G (budget surplus)</td></tr>
+          <tr><td>National Saving</td><td>Y − C − G = Private + Public</td><td>Whole economy</td><td>National saving > 0</td></tr>
+          <tr><td>Investment</td><td>= National Saving (closed economy)</td><td>Firms</td><td>Always equals national saving</td></tr>
+        </tbody>
+      </table>
+      <div class="warn-box">
+        <div class="warn-label">⚠️ Don't Confuse</div>
+        Public Saving is NOT govt revenue alone — it's T − G. If govt runs a deficit (T &lt; G), public saving is NEGATIVE. This reduces national saving → less investment → lower long-run growth (crowding out).
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <h4>Investment in Economics ≠ Investment in Everyday Life</h4>
+      <span class="collapsible-arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p><span class="hl3">Common Mistake:</span> Students think buying stocks or mutual funds = Investment in GDP.</p>
+      <div class="vs-grid">
+        <div class="vs-item">
+          <h5>Investment IN GDP (I)</h5>
+          <ul>
+            <li>Business spending on capital equipment</li>
+            <li>Construction of new residential housing</li>
+            <li>Changes in business inventories</li>
+            <li>Repair costs of machinery/vehicles</li>
+          </ul>
+        </div>
+        <div class="vs-center">≠</div>
+        <div class="vs-item">
+          <h5>NOT Investment in GDP</h5>
+          <ul>
+            <li>Buying stocks or bonds (financial investment)</li>
+            <li>Buying second-hand equipment</li>
+            <li>Purchase of old house</li>
+            <li>Government transfer payments</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse(this)">
+      <h4>Slope of PPF = Opportunity Cost (Don't Get This Wrong!)</h4>
+      <span class="collapsible-arrow">▼</span>
+    </div>
+    <div class="collapsible-body">
+      <p>PPF: X-axis = Good A, Y-axis = Good B</p>
+      <p>Slope = −(Y-intercept) / (X-intercept) = −(Max B) / (Max A)</p>
+      <p>MAGNITUDE of slope = OC of Good A (x-axis good) in terms of Good B</p>
+      <div class="exam-trick">
+        <div class="exam-trick-label">📌 Key Rule</div>
+        OC of X-axis good = |Slope| = Max Y / Max X<br>
+        OC of Y-axis good = Max X / Max Y (the reciprocal)<br>
+        Country with LESS STEEP PPF has lower OC of x-axis good = comparative advantage in x-axis good
+      </div>
+    </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- ═══════════════════════════════════════════════════
-     SECTION 9: QUICK REVISION
-═══════════════════════════════════════════════════ -->
+<!-- ═══ SECTION 9: QUICK REVISION ═══ -->
 <section id="quickrev">
   <div class="section-head">
     <div class="section-tag">✅ Section 9</div>
     <h2>Quick Revision Notes</h2>
-    <p>Read the night before. Ultra-compact exam summaries.</p>
+    <p>Ultra-compact, exam-ready summaries. Read 30 minutes before your exam.</p>
   </div>
 
   <div class="qr-grid">
     <div class="qr-card">
-      <h5>📦 PPF & Trade</h5>
+      <h5>🌍 Trade & PPF</h5>
       <ul>
-        <li>PPF = straight line (constant OC)</li>
-        <li>OC of A = Max B ÷ Max A</li>
-        <li>Lower OC = Comparative Advantage</li>
-        <li>AA: more output, less resource</li>
-        <li>Both gain from CA-based trade</li>
-        <li>Specialization → consume beyond PPF</li>
+        <li>AA = fewer inputs / more output than others</li>
+        <li>CA = lower opportunity cost than others</li>
+        <li>Trade based on CA, not AA</li>
+        <li>CA in both goods = IMPOSSIBLE</li>
+        <li>PPF slope = OC of x-axis good</li>
+        <li>After trade: consume BEYOND PPF</li>
+        <li>Both countries gain from CA-based trade</li>
       </ul>
     </div>
     <div class="qr-card" style="border-top-color:var(--accent2);">
       <h5>🛒 CPI</h5>
       <ul>
-        <li>5 steps: Fix basket → Prices → Cost → Base → Inflate</li>
-        <li>CPI = (Current Cost ÷ Base Cost) × 100</li>
-        <li>Base year CPI = 100</li>
-        <li>Fixed basket = base year quantities</li>
+        <li>5 steps: Fix basket → Prices → Cost → Base → CPI</li>
+        <li>CPI = (Current Cost / Base Cost) × 100</li>
+        <li>Base year CPI = 100 always</li>
         <li>3 biases: Substitution, New goods, Quality</li>
-        <li>Salary adj = Old × (CPI_new ÷ CPI_old)</li>
+        <li>Inflation = [(CPI2 - CPI1)/CPI1] × 100</li>
+        <li>Salary adj = Old × (CPI_new / CPI_old)</li>
+        <li>CPI includes imports; Deflator doesn't</li>
       </ul>
     </div>
     <div class="qr-card" style="border-top-color:var(--accent3);">
       <h5>🏦 GDP</h5>
       <ul>
         <li>Y = C + I + G + NX</li>
+        <li>Final goods only (no intermediate)</li>
         <li>Nominal = Current prices × Current qty</li>
         <li>Real = Base prices × Current qty</li>
-        <li>Deflator = (Nominal ÷ Real) × 100</li>
+        <li>Deflator = (Nominal / Real) × 100</li>
         <li>Base year: Nominal = Real; Deflator = 100</li>
-        <li>Final goods only (no intermediate)</li>
+        <li>Value Added = Final Price − Input Cost</li>
       </ul>
     </div>
     <div class="qr-card" style="border-top-color:var(--accent4);">
       <h5>💵 Interest Rates</h5>
       <ul>
-        <li>Nominal = (Final−Initial)/Initial × 100</li>
-        <li>Real = Nominal − Inflation</li>
+        <li>NIR = [(Final−Initial)/Initial] × 100</li>
         <li>Inflation = [(CPI2−CPI1)/CPI1] × 100</li>
-        <li>Real rate shows true purchasing power gain</li>
+        <li>RIR = NIR − Inflation Rate</li>
+        <li>RIR = 0 → no real gain</li>
+        <li>RIR < 0 → inflation ate your savings</li>
       </ul>
     </div>
     <div class="qr-card">
@@ -1871,41 +2755,45 @@ strong { color: var(--text); }
         <li>Private Saving = Y − T − C</li>
         <li>Public Saving = T − G</li>
         <li>National Saving = Y − C − G</li>
-        <li>Investment = National Saving (closed)</li>
-        <li>Surplus → T > G → Public saving positive</li>
-        <li>Deficit → T < G → Public saving negative</li>
+        <li>S = I in closed economy</li>
+        <li>Surplus: T > G → positive public saving</li>
+        <li>Deficit: T < G → crowding out</li>
+        <li>Investment incentive → Demand shifts right</li>
+        <li>Saving incentive → Supply shifts right</li>
       </ul>
     </div>
     <div class="qr-card" style="border-top-color:var(--accent2);">
       <h5>📊 GDP Components</h5>
       <ul>
-        <li>C: households buying final goods</li>
-        <li>I: firms, residential housing, inventory</li>
-        <li>G: government purchases (not transfers)</li>
+        <li>C: households, NOT new house</li>
+        <li>I: firms + new housing + inventory</li>
+        <li>G: govt purchases, NOT transfers</li>
         <li>NX = Exports − Imports</li>
-        <li>Foreign spending in India = Export = +GDP</li>
+        <li>Foreign spending in India = +NX = +GDP</li>
         <li>Own house = imputed rent = +C</li>
+        <li>Inventory sold from old stock = C+, I− (net 0)</li>
       </ul>
     </div>
     <div class="qr-card" style="border-top-color:var(--accent3);">
-      <h5>⚠️ GDP Limitations</h5>
+      <h5>🌱 Growth</h5>
       <ul>
-        <li>Ignores inequality distribution</li>
-        <li>Doesn't count leisure time</li>
-        <li>Environmental costs excluded</li>
-        <li>Informal economy excluded</li>
-        <li>Non-market activity not counted</li>
-        <li>Use HDI for fuller picture</li>
+        <li>4 sources: Physical K, Human K, Natural R, Tech</li>
+        <li>Trade = Technology (both expand consumption)</li>
+        <li>Capital → Diminishing returns</li>
+        <li>Long-run growth → Technology needed</li>
+        <li>GDP per capita = better living standard proxy</li>
+        <li>Higher GDP ≠ higher living standard always</li>
       </ul>
     </div>
     <div class="qr-card" style="border-top-color:var(--accent4);">
-      <h5>🌱 Economic Growth</h5>
+      <h5>🏦 Money & Banking</h5>
       <ul>
-        <li>Sources: Physical K, Human K, Natural R, Tech</li>
-        <li>Trade = Technology effect on PPF</li>
-        <li>Capital accumulation: diminishing returns</li>
-        <li>GDP per capita = better living standard proxy</li>
-        <li>High GDP ≠ always high living standard</li>
+        <li>M1 = Currency + Demand Deposits</li>
+        <li>Reserve Ratio = Reserves / Deposits</li>
+        <li>Money Multiplier = 1/R</li>
+        <li>↑ Reserve Ratio → ↓ Money Supply</li>
+        <li>100% reserve → no money creation</li>
+        <li>Fractional reserve → multiplied money supply</li>
       </ul>
     </div>
   </div>
@@ -1916,21 +2804,31 @@ strong { color: var(--text); }
       <div>
         <h4>Before answering any question:</h4>
         <ol class="steps">
-          <li>Identify which CO/topic it belongs to</li>
+          <li>Which CO/chapter does this belong to?</li>
           <li>Is it asking for AA or CA?</li>
-          <li>Is it CPI or GDP deflator?</li>
+          <li>Is it CPI or GDP Deflator?</li>
           <li>Is it Nominal or Real GDP?</li>
-          <li>What formula is needed?</li>
+          <li>Is it open or closed economy?</li>
         </ol>
       </div>
       <div>
         <h4>For graph questions:</h4>
         <ol class="steps">
-          <li>Label both axes clearly with goods/variables</li>
+          <li>Label both axes clearly with good names & units</li>
           <li>Calculate both intercepts first</li>
-          <li>Draw straight line PPF (for constant OC)</li>
+          <li>Draw straight line PPF (constant OC)</li>
           <li>Mark production/consumption points with coordinates</li>
-          <li>State your conclusion in words</li>
+          <li>State your conclusion in words clearly</li>
+        </ol>
+      </div>
+      <div>
+        <h4>For theory questions:</h4>
+        <ol class="steps">
+          <li>State what the question is asking (agree/disagree/analyse)</li>
+          <li>Give 2-3 points FOR the statement</li>
+          <li>Give 2-3 points AGAINST or limitations</li>
+          <li>State a clear conclusion</li>
+          <li>Use examples from your notes!</li>
         </ol>
       </div>
     </div>
@@ -1941,46 +2839,40 @@ strong { color: var(--text); }
 <footer style="background:var(--bg2); border-top:1px solid var(--border); text-align:center; padding:2rem; color:var(--text2); font-size:0.82rem;">
   <p style="font-family:'Syne',sans-serif; font-weight:700; color:var(--accent); margin-bottom:0.3rem; font-size:1rem;">MacroMaster</p>
   <p>HSS2024 · Introduction to Macroeconomics · B.Tech 4th Sem · ITER, SOA University</p>
- <p style="margin: 0.5rem 0;">
-        BUILT BY <strong>JASMINE JAYASMITA</strong>
-    </p>
-
-    <div style="margin-top: 0.8rem; font-size: 0.9rem;">
-        <a href="https://www.linkedin.com/in/jasminejayasmitasoa" target="_blank" style="color:var(--accent); text-decoration:none; margin:0 10px;">LinkedIn</a>
-        <span style="color:var(--border);">|</span>
-        <a href="https://www.instagram.com/jassharchive/" target="_blank" style="color:var(--accent); text-decoration:none; margin:0 10px;">Instagram</a>
-    </div>
+  <p style="margin: 0.5rem 0;">
+    BUILT BY <strong>JASMINE JAYASMITA</strong>
+  </p>
+  <div style="margin-top: 0.8rem; font-size: 0.9rem;">
+    <a href="https://www.linkedin.com/in/jasminejayasmitasoa" target="_blank" style="color:var(--accent); text-decoration:none; margin:0 10px;">LinkedIn</a>
+    <span style="color:var(--border);">|</span>
+    <a href="https://www.instagram.com/jassharchive/" target="_blank" style="color:var(--accent); text-decoration:none; margin:0 10px;">Instagram</a>
+  </div>
   <p style="margin-top:0.3rem; color:#555;">Concept → Graph → Formula → Question. You've got this. 💪</p>
 </footer>
 
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>
-// Progress bar
 window.addEventListener('scroll', () => {
   const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
   const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
   const scrolled = (winScroll / height) * 100;
   document.getElementById('progressBar').style.width = scrolled + '%';
-  
   const scrollBtn = document.getElementById('scrollTop');
   if (winScroll > 300) scrollBtn.classList.add('show');
   else scrollBtn.classList.remove('show');
 });
 
-// Collapsible sections
 function toggleCollapse(header) {
   const parent = header.parentElement;
   parent.classList.toggle('open');
 }
 
-// Q cards
 function toggleQ(header) {
   const card = header.parentElement;
   card.classList.toggle('open');
 }
 
-// Topic tabs
 function showTopic(id) {
   document.querySelectorAll('.topic-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.topic-content').forEach(c => c.classList.remove('active'));
@@ -1988,7 +2880,6 @@ function showTopic(id) {
   event.target.classList.add('active');
 }
 
-// Auto open first collapsible
 document.querySelector('.collapsible').classList.add('open');
 </script>
 </body>
